@@ -19,11 +19,12 @@ public class MainView extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		
-		setVisible(true);
-		
 		JButton Ok = new JButton("OKAAAAAAAAAAAY!");
 		add(Ok);
 		Ok.addActionListener(this);
+		
+
+		setVisible(true);
 	}
 
 	@Override
