@@ -10,5 +10,5 @@ public class Player {
 	private int kills;
 	private int deaths;
 	private int coins;
-	private Skills[] skillList = new Skills[10];
+	private Skill[] skillList = new Skill[10];
 }
