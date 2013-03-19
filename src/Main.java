@@ -8,6 +8,7 @@ public class Main {
 		
 		System.out.println("Xoster bist einen gaylord-man");
 
+		new MainView();
 	}
 
 }
