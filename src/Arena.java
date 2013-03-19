@@ -8,5 +8,6 @@ public class Arena {
 	private String terrain;
 	
 	private Image[] images;
+	private int[][] mask;
 	
 }
