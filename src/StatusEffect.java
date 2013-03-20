@@ -2,7 +2,7 @@
 public class StatusEffect {
 	
 	private int hpEff;
-	private int atkEff;
+	private int dmgEff;
 	private int moveEff;
 	private int armEff;
 	private int atkSpeedEff;
