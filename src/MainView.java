@@ -1,15 +1,15 @@
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class MainView extends JFrame implements ActionListener {
 
@@ -17,33 +17,45 @@ public class MainView extends JFrame implements ActionListener {
 		setSize(1024,768);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new GridLayout());
+		setLayout(new BorderLayout());
 		setResizable(false);
+		
+		JPanel drawPanel = new JPanel();
+		drawPanel.setSize(500,600);
+		add(drawPanel, BorderLayout.NORTH);
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout());
+		buttonPanel.setSize(500, 300);
+		add(buttonPanel, BorderLayout.SOUTH);
+		
 		
 		JButton hurtButton = new JButton("Taking damage");
 		hurtButton.setSize(100,50);
-		add(hurtButton);
+		buttonPanel.add(hurtButton);
 		hurtButton.addActionListener(this);
 		
 		JButton swordButton = new JButton("Sword");
 		swordButton.setSize(100,50);
-		add(swordButton);
+		buttonPanel.add(swordButton);
 		swordButton.addActionListener(this);
 		
 		JButton bowButton = new JButton("Bow");
 		bowButton.setSize(100,50);
-		add(bowButton);
+		buttonPanel.add(bowButton);
 		bowButton.addActionListener(this);
 		
 		JButton fireballButton = new JButton("Fireball");
 		fireballButton.setSize(100,50);
-		add(fireballButton);
+		buttonPanel.add(fireballButton);
 		fireballButton.addActionListener(this);
 		
 		JButton musicButton = new JButton("Music");
 		musicButton.setSize(100,50);
-		add(musicButton);
+		buttonPanel.add(musicButton);
 		musicButton.addActionListener(this);
+		
+		
 		
 
 		setVisible(true);

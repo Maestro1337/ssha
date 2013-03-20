@@ -19,7 +19,7 @@ public class tomas extends JFrame{
 		try{
 			s.setFullScreen(dm, this);
 			try{
-				Thread.sleep(5000);
+				Thread.sleep(10000);
 			}catch(Exception ex){}
 		}finally{
 			s.restoreScreen();
@@ -28,5 +28,7 @@ public class tomas extends JFrame{
 	
 	public void paint(Graphics g){
 		g.drawString("I am awesome!", 325, 300);
+		g.draw3DRect(350, 325, 100, 100, false);
+		g.drawLine(200, 300, 600, 300);
 	}
 }
