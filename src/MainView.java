@@ -54,9 +54,6 @@ public class MainView extends JFrame implements ActionListener {
 		musicButton.setSize(100,50);
 		buttonPanel.add(musicButton);
 		musicButton.addActionListener(this);
-		
-		
-		
 
 		setVisible(true);
 	}
