@@ -47,16 +47,13 @@ public class Menu extends BasicGameState{
 		g.drawRect(50, 75, 365, 120); //x,y,width,height
 		g.drawString(mouse, 50, 200);
 		
-	//	Image img = new Image("res/smpxgcrystallight-268.png w90h90.png");
-//		g.drawImage(image, 190,90);
-		
 		g.drawImage(userImage, imgX,imgY);
 		
 		if(isAttacking)
 			g.drawImage(attackImage, aImgX,aImgY);
-		
-		g.fillOval(190, 250, 100, 100);
-		g.drawString("Play Now", 205, 225);
+
+		Image playImg = new Image("res/playNow.png");
+		g.drawImage(playImg, 135, 225);
 		
 
 		if(!isColliding(eWidth, eHeight))
