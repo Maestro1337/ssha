@@ -45,6 +45,9 @@ public class Player {
 
 	float attackRange = 200;
 	
+	private boolean isRunning = false;
+	private boolean isAttacking = false;
+	
 	public Player(float x, float y){
 		try {
 			userImage = new Image("res/awesomePinkSquare.png");
@@ -190,9 +193,21 @@ public class Player {
 		genDirAtt = dir;
 	}
 	
-	
-	
 	public float getAttackRange(){
 		return attackRange;
 	}
+	
+	public boolean isRunning(){
+		return isRunning;
+	}
+	public boolean isAttacking(){
+		return isAttacking;
+	}
+	public void setRunningState(boolean state){
+		isRunning = state;
+	}
+	public void setAttackingState(boolean state){
+		isAttacking = state;
+	}
+	
 }

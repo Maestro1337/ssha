@@ -59,16 +59,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
-		if(isAttacking)
+		if(player.isAttacking())
 			g.drawImage(player.getAttImage(), player.getAttX(),player.getAttY());
 		
 
 		if(!isColliding(eWidth, eHeight))
 			g.drawImage(enemyImage, enemyX, enemyY);
 	}
-	
-	boolean isRunning = false;
-	boolean isAttacking = false;
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
@@ -103,10 +100,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isMouseButtonDown(0)){
 			attack();
 		}
-		if(isRunning){
+		if(player.isRunning()){
 			isRunning();
 		}
-		if(isAttacking){
+		if(player.isAttacking()){
 			isAttacking();
 		}
 	}
@@ -117,11 +114,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(findNaN.isNaN()){
 //			imgX = mouseXPosMove;
 //			imgY = mouseYPosMove;
-			isRunning = false;
+			player.setRunningState(false);
 		}
 		player.incMoveCounter();
 		if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
-			isRunning = false;
+			player.setRunningState(false);
 	}
 	
 	private void isAttacking(){
@@ -130,7 +127,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		player.incAttCounter();
 		if(player.getAttCounter()*player.getAttSpeed() >= player.getGenDirAtt())
-			isAttacking = false;
+			player.setAttackingState(false);
 	}
 	
 	public boolean isColliding(int width, int height) throws SlickException{
@@ -153,12 +150,12 @@ public class MainView extends BasicGameState implements ActionListener {
 		player.resetMoveCounter();
 		
 		System.out.println("Running " + player.getGenDirMove() + " pixels");
-		isRunning = true;
+		player.setRunningState(true);
 	}
 	
 	public void attack(){
 		
-		if(!isAttacking){
+		if(!player.isAttacking()){
 			mouseXPosAtt = Mouse.getX();
 			mouseYPosAtt = 720 - Mouse.getY();
 			
@@ -177,7 +174,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			player.resetAttCounter();
 			
 			System.out.println("Attacking " + player.getGenDirAtt() + " pixels");
-			isAttacking = true;
+			player.setAttackingState(true);
 		}
 	}
 	
