@@ -1,10 +1,15 @@
 package View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class Menu extends BasicGameState{
+public class Menu extends BasicGameState implements ActionListener{
+	
+	int enemyHP = 100;
 	
 	private String mouse = "No input yet";
 	Image bg;
@@ -22,6 +27,10 @@ public class Menu extends BasicGameState{
 	Image attackImage;
 	float aImgX = 0;
 	float aImgY = 0;
+	
+	boolean isColliding=false;
+	
+	
 	
 	public Menu (int state){
 		
@@ -47,30 +56,49 @@ public class Menu extends BasicGameState{
 		g.drawRect(50, 75, 365, 120); //x,y,width,height
 		g.drawString(mouse, 50, 200);
 		
+		g.drawString("Enemy HP: "+enemyHP,500,500);
+		
 		g.drawImage(userImage, imgX,imgY);
 		
-		if(isAttacking)
+		if(isAttacking&&!isColliding)
 			g.drawImage(attackImage, aImgX,aImgY);
 
-		Image playImg = new Image("res/playNow.png");
-		g.drawImage(playImg, 135, 225);
 		
 
-		if(!isColliding(eWidth, eHeight))
+		Image playImg = new Image("res/playNow.png");
+		
+		g.drawImage(playImg, 135, 225);
+		
+		
+
+		if(isColliding()){
+			aImgY=1000;
+			aImgX=1000;
+			genDirAtt=0;
+			enemyHP -= 10;
+		}
+		if(enemyHP>0){
 			g.drawImage(enemyImage, enemyX, enemyY);
+		}else{
+			enemyX=-1000;
+			enemyY=-1000;
+		}
+			
 	}
 	
 	
 	boolean isRunning = false;
 	boolean isAttacking = false;
 	
-	float mouseXPosMove;//
-	float mouseYPosMove;//
-	double moveSpeed = 1;//
 	
-	float mouseXPosAtt;//
-	float mouseYPosAtt;//
-	float attSpeed = (float)0.5;//
+	float mouseXPosMove;
+	float mouseYPosMove;
+	double moveSpeed = 1;
+
+	
+	float mouseXPosAtt;
+	float mouseYPosAtt;
+	float attSpeed = (float)0.5;
 	
 	int moveCounter=0;//
 	float xDirectionMove;//
@@ -112,6 +140,12 @@ public class Menu extends BasicGameState{
 		}
 		
 		if(input.isMouseButtonDown(0)){
+			if ((135<xPos && 250<xPos) && (225<yPos && 270<yPos)){
+				enemyHP= 100;
+				enemyX = 600;
+				enemyY = 300;	
+			}
+				
 			attack();
 		}
 		if(isRunning){
@@ -120,6 +154,7 @@ public class Menu extends BasicGameState{
 		if(isAttacking){
 			isAttacking();
 		}
+		
 	}
 	
 	private void isRunning(){
@@ -144,11 +179,11 @@ public class Menu extends BasicGameState{
 			isAttacking = false;
 	}
 	
-	public boolean isColliding(int width, int height) throws SlickException{
+	public boolean isColliding() throws SlickException{
 		if((enemyX <= aImgX && aImgX <= enemyX + enemyImage.getWidth()) && (enemyY <= aImgY && aImgY <= enemyY + enemyImage.getHeight()) ){
 			return true;
 		}else
-		return false;
+			return false;
 	}
 	
 	public void move(){
@@ -201,5 +236,11 @@ public class Menu extends BasicGameState{
 	
 	public int getHeight(Image image){
 		return image.getHeight();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
