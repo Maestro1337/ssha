@@ -28,9 +28,11 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image bg;
 	private String mouse = "No input yet";
 	
-	Image userImage;
-	float imgX = 190;
-	float imgY = 90;
+//	Image userImage;
+//	float imgX = 190;
+//	float imgY = 90;
+	
+	Player player;
 	
 	Image enemyImage;
 	float enemyX = 600;
@@ -50,7 +52,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemyImage = new Image("res/awesomePinkSquare.png");
 	//	userImage = new Image("res/awesomePinkSquare.png");
 		attackImage = new Image("res/awesomeGreenSquare.png");
-		Player player = new Player(190, 90);
+		player = new Player(190, 90);
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -65,7 +67,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		g.drawString(mouse, 800, 10);
 		
-		g.drawImage(userImage, imgX,imgY);
+		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
 		if(isAttacking)
 			g.drawImage(attackImage, aImgX,aImgY);
@@ -104,10 +106,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_W)){imgY -= 1;}
-		if(input.isKeyDown(Input.KEY_S)){imgY += 1;}
-		if(input.isKeyDown(Input.KEY_A)){imgX -= 1;}
-		if(input.isKeyDown(Input.KEY_D)){imgX += 1;}
+		if(input.isKeyDown(Input.KEY_W)){player.addY(-1);}
+		if(input.isKeyDown(Input.KEY_S)){player.addY(1);}
+		if(input.isKeyDown(Input.KEY_A)){player.addX(-1);}
+		if(input.isKeyDown(Input.KEY_D)){player.addX(1);}
 		
 		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
 			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
@@ -131,11 +133,11 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	private void isRunning(){
-		imgX += xDirectionMove*moveSpeed;
-		imgY += yDirectionMove*moveSpeed;
+		player.addX((float)(xDirectionMove*moveSpeed));
+		player.addY((float)(yDirectionMove*moveSpeed));
 		if(findNaN.isNaN()){
-			imgX = mouseXPosMove;
-			imgY = mouseYPosMove;
+//			imgX = mouseXPosMove;
+//			imgY = mouseYPosMove;
 			isRunning = false;
 		}
 		moveCounter++;
@@ -162,8 +164,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void move(){
 		mouseXPosMove = Mouse.getX();
 		mouseYPosMove = 720 - Mouse.getY();
-		xDirectionMove = (mouseXPosMove - imgX);
-		yDirectionMove = (mouseYPosMove - imgY);
+		xDirectionMove = (mouseXPosMove - player.getX());
+		yDirectionMove = (mouseYPosMove - player.getY());
 		genDirMove = (float)Math.sqrt(xDirectionMove*xDirectionMove+yDirectionMove*yDirectionMove);
 		findNaN = (double)genDirMove;
 		xDirectionMove = xDirectionMove/genDirMove;
@@ -181,8 +183,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			mouseXPosAtt = Mouse.getX();
 			mouseYPosAtt = 720 - Mouse.getY();
 			
-			aImgX = imgX;
-			aImgY = imgY;
+			aImgX = player.getX();
+			aImgY = player.getY();
 			
 			xDirAtt = (mouseXPosAtt - aImgX);
 			yDirAtt = (mouseYPosAtt - aImgY);

@@ -24,8 +24,8 @@ public class Player {
 	double moveSpeed = 1;
 	
 	int moveCounter=0;
-	float xDirectionMove;
-	float yDirectionMove;
+	float xDirMove;
+	float yDirMove;
 	float genDirMove;
 	Double findNaN;
 	
@@ -47,6 +47,7 @@ public class Player {
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 		
 		imgX = x;
@@ -64,6 +65,13 @@ public class Player {
 	public float getY(){
 		return imgY;
 	}
+	
+	public void addX(float x){
+		imgX += x;
+	}
+	public void addY(float y){
+		imgY += y;
+	}
 	public float getMouseXPosMove(){
 		return mouseXPosMove;
 	}
@@ -76,11 +84,11 @@ public class Player {
 	public int getMoveCounter(){
 		return moveCounter;
 	}
-	public float getXDirectionMove(){
-		return xDirectionMove;
+	public float getXDirMove(){
+		return xDirMove;
 	}
-	public float getYDirectionMove(){
-		return yDirectionMove;
+	public float getYDirMove(){
+		return yDirMove;
 	}
 	public float getgenDirectionMove(){
 		return genDirMove;
