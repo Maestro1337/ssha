@@ -2,6 +2,8 @@
 import java.awt.*;
 import javax.swing.JFrame;
 
+import Model.Screen;
+
 public class tomas extends JFrame{
 	public static void main(String[] args){
 

@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,53 +12,33 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MainView extends JFrame implements ActionListener {
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-	public MainView() {
-		setSize(1024,768);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-		setResizable(false);
-		
-		JPanel drawPanel = new JPanel();
-		drawPanel.setSize(500,600);
-		add(drawPanel, BorderLayout.NORTH);
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout());
-		buttonPanel.setSize(500, 300);
-		add(buttonPanel, BorderLayout.SOUTH);
-		
-		
-		JButton hurtButton = new JButton("Taking damage");
-		hurtButton.setSize(100,50);
-		buttonPanel.add(hurtButton);
-		hurtButton.addActionListener(this);
-		
-		JButton swordButton = new JButton("Sword");
-		swordButton.setSize(100,50);
-		buttonPanel.add(swordButton);
-		swordButton.addActionListener(this);
-		
-		JButton bowButton = new JButton("Bow");
-		bowButton.setSize(100,50);
-		buttonPanel.add(bowButton);
-		bowButton.addActionListener(this);
-		
-		JButton fireballButton = new JButton("Fireball");
-		fireballButton.setSize(100,50);
-		buttonPanel.add(fireballButton);
-		fireballButton.addActionListener(this);
-		
-		JButton musicButton = new JButton("Music");
-		musicButton.setSize(100,50);
-		buttonPanel.add(musicButton);
-		musicButton.addActionListener(this);
+public class MainView extends BasicGameState implements ActionListener {
 
-		setVisible(true);
+	public MainView(int state) {
+		
 	}
-
+	
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+		
+	}
+	
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
+		g.drawString("Bitch please!", 50, 50);
+	}
+	
+	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+		
+	}
+	
+	public int getID(){
+		return 1;
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String fileName = "res/154561__ecfike__hurt-argh-1.wav";

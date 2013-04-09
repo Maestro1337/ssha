@@ -1,3 +1,4 @@
+package Model;
 
 public class Shop {
 	private Item[] itemShop = new Item[10];
