@@ -23,27 +23,27 @@ public class Player {
 	private Skill[] skillList = new Skill[10];
 	
 	//Movement variables
-	float mouseXPosMove;
-	float mouseYPosMove;
-	double moveSpeed = 6;
+	private float mouseXPosMove;
+	private float mouseYPosMove;
+	private double moveSpeed = 6;
 	
-	int moveCounter=0;
-	float xDirMove;
-	float yDirMove;
-	float genDirMove;
-	Double findNaN;
+	private int moveCounter=0;
+	private float xDirMove;
+	private float yDirMove;
+	private float genDirMove;
+	private Double findNaN;
 	
 	//Attack variables
-	float mouseXPosAtt;
-	float mouseYPosAtt;
-	double attSpeed = 7;
+	private float mouseXPosAtt;
+	private float mouseYPosAtt;
+	private double attSpeed = 7;
 	
-	int attCounter=0;
-	float xDirAtt;
-	float yDirAtt;
-	float genDirAtt;
+	private int attCounter=0;
+	private float xDirAtt;
+	private float yDirAtt;
+	private float genDirAtt;
 
-	float attackRange = 200;
+	private float attackRange = 200;
 	
 	private boolean isRunning = false;
 	private boolean isAttacking = false;
