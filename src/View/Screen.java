@@ -1,4 +1,5 @@
-package Model;
+package View;
+
 import java.awt.*;
 
 import javax.swing.JFrame;
