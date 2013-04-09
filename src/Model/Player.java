@@ -9,6 +9,10 @@ public class Player {
 	private float imgX;
 	private float imgY;
 	
+	private Image attackImage;
+	private float attImgX;
+	private float attImgY;
+	
 	private int HP;
 	private String name;
 	private int damage;
@@ -44,6 +48,7 @@ public class Player {
 	public Player(float x, float y){
 		try {
 			userImage = new Image("res/awesomePinkSquare.png");
+			attackImage = new Image("res/awesomeGreenSquare.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,6 +77,37 @@ public class Player {
 	public void addY(float y){
 		imgY += y;
 	}
+	
+	public Image getAttImage(){
+		return attackImage;
+	}
+	public float getAttX(){
+		return attImgX;
+	}
+	public float getAttY(){
+		return attImgY;
+	}
+	
+	
+	
+	public void addAttX(float x){
+		attImgX += x;
+	}
+	public void addAttY(float y){
+		attImgY += y;
+	}
+	public void setAttX(float x){
+		attImgX = x;
+	}
+	public void setAttY(float y){
+		attImgY = y;
+	}
+	
+	public void resetShot(){
+		attImgX = imgX;
+		attImgY = imgY;
+	}
+	
 	public float getMouseXPosMove(){
 		return mouseXPosMove;
 	}
@@ -84,15 +120,33 @@ public class Player {
 	public int getMoveCounter(){
 		return moveCounter;
 	}
+	public void incMoveCounter(){
+		moveCounter++;
+	}
+	public void resetMoveCounter(){
+		moveCounter = 0;
+	}
+	
 	public float getXDirMove(){
 		return xDirMove;
 	}
 	public float getYDirMove(){
 		return yDirMove;
 	}
-	public float getgenDirectionMove(){
+	public float getGenDirMove(){
 		return genDirMove;
 	}
+	public void setXDirMove(float dir){
+		xDirMove = dir;
+	}
+	public void setYDirMove(float dir){
+		yDirMove = dir;
+	}
+	public void setGenDirMove(float dir){
+		genDirMove = dir;
+	}
+	
+	
 	public double getFindNaN(){
 		return findNaN;
 	}
@@ -112,7 +166,7 @@ public class Player {
 	public float getXDirAtt(){
 		return xDirAtt;
 	}
-	public float gettDirAtt(){
+	public float getYDirAtt(){
 		return yDirAtt;
 	}
 	public float getGenDirAtt(){

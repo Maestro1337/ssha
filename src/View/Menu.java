@@ -70,7 +70,7 @@ public class Menu extends BasicGameState{
 	
 	float mouseXPosAtt;//
 	float mouseYPosAtt;//
-	double attSpeed = 0.5;//
+	float attSpeed = (float)0.5;//
 	
 	int moveCounter=0;//
 	float xDirectionMove;//
