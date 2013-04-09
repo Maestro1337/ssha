@@ -25,7 +25,7 @@ public class Player {
 	//Movement variables
 	float mouseXPosMove;
 	float mouseYPosMove;
-	double moveSpeed = 1;
+	double moveSpeed = 6;
 	
 	int moveCounter=0;
 	float xDirMove;
@@ -36,7 +36,7 @@ public class Player {
 	//Attack variables
 	float mouseXPosAtt;
 	float mouseYPosAtt;
-	double attSpeed = 0.5;
+	double attSpeed = 7;
 	
 	int attCounter=0;
 	float xDirAtt;
@@ -163,6 +163,14 @@ public class Player {
 	public int getAttCounter(){
 		return attCounter;
 	}
+	public void incAttCounter(){
+		attCounter++;
+	}
+	public void resetAttCounter(){
+		attCounter = 0;
+	}
+	
+	
 	public float getXDirAtt(){
 		return xDirAtt;
 	}
@@ -172,6 +180,18 @@ public class Player {
 	public float getGenDirAtt(){
 		return genDirAtt;
 	}
+	public void setXDirAtt(float dir){
+		xDirAtt = dir;
+	}
+	public void setYDirAtt(float dir){
+		yDirAtt = dir;
+	}
+	public void setGenDirAtt(float dir){
+		genDirAtt = dir;
+	}
+	
+	
+	
 	public float getAttackRange(){
 		return attackRange;
 	}

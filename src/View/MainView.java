@@ -72,19 +72,11 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
-	double moveSpeed = 6;
 	
 	float mouseXPosAtt;
 	float mouseYPosAtt;
-	double attSpeed = 7;
 	
-//	int moveCounter=0;
 	Double findNaN;
-	
-	int attCounter=0;
-	float xDirAtt;
-	float yDirAtt;
-	float genDirAtt;
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		int xPos = Mouse.getX();
@@ -120,24 +112,24 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	private void isRunning(){
-		player.addX((float)(player.getXDirMove()*moveSpeed));
-		player.addY((float)(player.getYDirMove()*moveSpeed));
+		player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
+		player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 		if(findNaN.isNaN()){
 //			imgX = mouseXPosMove;
 //			imgY = mouseYPosMove;
 			isRunning = false;
 		}
 		player.incMoveCounter();
-		if(player.getMoveCounter()*moveSpeed >= player.getGenDirMove())
+		if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
 			isRunning = false;
 	}
 	
 	private void isAttacking(){
-		player.addAttX((float)(xDirAtt*attSpeed));
-		player.addAttY((float)(yDirAtt*attSpeed));
+		player.addAttX((float)(player.getXDirAtt()*player.getAttSpeed()));
+		player.addAttY((float)(player.getYDirAtt()*player.getAttSpeed()));
 		
-		attCounter++;
-		if(attCounter*attSpeed >= genDirAtt)
+		player.incAttCounter();
+		if(player.getAttCounter()*player.getAttSpeed() >= player.getGenDirAtt())
 			isAttacking = false;
 	}
 	
@@ -165,7 +157,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void attack(){
-		float attackRange = 200;
 		
 		if(!isAttacking){
 			mouseXPosAtt = Mouse.getX();
@@ -173,17 +164,17 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			player.resetShot();
 			
-			xDirAtt = (mouseXPosAtt - player.getAttX());
-			yDirAtt = (mouseYPosAtt - player.getAttY());
-			genDirAtt = (float)Math.sqrt(xDirAtt*xDirAtt+yDirAtt*yDirAtt);
-			xDirAtt = xDirAtt/genDirAtt;
-			yDirAtt = yDirAtt/genDirAtt;
+			player.setXDirAtt((mouseXPosAtt - player.getAttX()));
+			player.setYDirAtt((mouseYPosAtt - player.getAttY()));
+			player.setGenDirAtt((float)Math.sqrt(player.getXDirAtt()*player.getXDirAtt()+player.getYDirAtt()*player.getYDirAtt()));
+			player.setXDirAtt(player.getXDirAtt()/player.getGenDirAtt());
+			player.setYDirAtt(player.getYDirAtt()/player.getGenDirAtt());
 			
-			if(genDirAtt > attackRange){
-				genDirAtt = attackRange;
+			if(player.getGenDirAtt() > player.getAttackRange()){
+				player.setGenDirAtt(player.getAttackRange());
 			}
 			
-			attCounter=0;
+			player.resetAttCounter();
 			
 			System.out.println("Attacking " + player.getGenDirAtt() + " pixels");
 			isAttacking = true;
