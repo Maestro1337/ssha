@@ -64,24 +64,26 @@ public class Menu extends BasicGameState{
 	boolean isRunning = false;
 	boolean isAttacking = false;
 	
-	float mouseXPosMove;
-	float mouseYPosMove;
-	double moveSpeed = 1;
+	float mouseXPosMove;//
+	float mouseYPosMove;//
+	double moveSpeed = 1;//
 	
-	float mouseXPosAtt;
-	float mouseYPosAtt;
-	double attSpeed = 0.5;
+	float mouseXPosAtt;//
+	float mouseYPosAtt;//
+	double attSpeed = 0.5;//
 	
-	int moveCounter=0;
-	float xDirectionMove;
-	float yDirectionMove;
-	float genDirMove;
+	int moveCounter=0;//
+	float xDirectionMove;//
+	float yDirectionMove;//
+	float genDirMove;//
 	Double findNaN;
 	
-	int attCounter=0;
-	float xDirAtt;
-	float yDirAtt;
-	float genDirAtt;
+	int attCounter=0;//
+	float xDirAtt;//
+	float yDirAtt;//
+	float genDirAtt;//
+
+	float attackRange = 200;//
 	
 	
 	
@@ -165,7 +167,6 @@ public class Menu extends BasicGameState{
 	}
 	
 	public void attack(){
-		float attackRange = 200;
 		
 		if(!isAttacking){
 			mouseXPosAtt = Mouse.getX();
