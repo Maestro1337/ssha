@@ -65,7 +65,7 @@ public class Menu extends BasicGameState implements ActionListener{
 
 		
 
-		Image playImg = new Image("res/playNow.png");
+		Image playImg = new Image("res/start.png");
 		
 		g.drawImage(playImg, 135, 225);
 		
@@ -112,9 +112,6 @@ public class Menu extends BasicGameState implements ActionListener{
 	float genDirAtt;//
 
 	float attackRange = 200;//
-	
-	
-	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
