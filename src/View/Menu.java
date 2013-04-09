@@ -109,44 +109,11 @@ public class Menu extends BasicGameState{
 		}
 		
 		if(input.isMouseButtonDown(1)){
-			mouseXPosMove = Mouse.getX();
-			mouseYPosMove = 720 - Mouse.getY();
-			xDirectionMove = (mouseXPosMove - imgX);
-			yDirectionMove = (mouseYPosMove - imgY);
-			genDirMove = (float)Math.sqrt(xDirectionMove*xDirectionMove+yDirectionMove*yDirectionMove);
-			findNaN = (double)genDirMove;
-			xDirectionMove = xDirectionMove/genDirMove;
-			yDirectionMove = yDirectionMove/genDirMove;
-			
-			moveCounter=0;
-			
-			isRunning = true;
+			move();
 		}
 		
 		if(input.isMouseButtonDown(0)){
-			float attackRange = 200;
-				
-			if(!isAttacking){
-				mouseXPosAtt = Mouse.getX();
-				mouseYPosAtt = 720 - Mouse.getY();
-				
-				aImgX = imgX;
-				aImgY = imgY;
-				
-				xDirAtt = (mouseXPosAtt - aImgX);
-				yDirAtt = (mouseYPosAtt - aImgY);
-				genDirAtt = (float)Math.sqrt(xDirAtt*xDirAtt+yDirAtt*yDirAtt);
-				xDirAtt = xDirAtt/genDirAtt;
-				yDirAtt = yDirAtt/genDirAtt;
-				
-				if(genDirAtt > attackRange){
-					genDirAtt = attackRange;
-				}
-				
-				attCounter=0;
-				
-				isAttacking = true;
-			}
+			attack();
 		}
 		if(isRunning){
 			isRunning();
@@ -183,6 +150,47 @@ public class Menu extends BasicGameState{
 			return true;
 		}else
 		return false;
+	}
+	
+	public void move(){
+		mouseXPosMove = Mouse.getX();
+		mouseYPosMove = 720 - Mouse.getY();
+		xDirectionMove = (mouseXPosMove - imgX);
+		yDirectionMove = (mouseYPosMove - imgY);
+		genDirMove = (float)Math.sqrt(xDirectionMove*xDirectionMove+yDirectionMove*yDirectionMove);
+		findNaN = (double)genDirMove;
+		xDirectionMove = xDirectionMove/genDirMove;
+		yDirectionMove = yDirectionMove/genDirMove;
+		
+		moveCounter=0;
+		
+		isRunning = true;
+	}
+	
+	public void attack(){
+		float attackRange = 200;
+		
+		if(!isAttacking){
+			mouseXPosAtt = Mouse.getX();
+			mouseYPosAtt = 720 - Mouse.getY();
+			
+			aImgX = imgX;
+			aImgY = imgY;
+			
+			xDirAtt = (mouseXPosAtt - aImgX);
+			yDirAtt = (mouseYPosAtt - aImgY);
+			genDirAtt = (float)Math.sqrt(xDirAtt*xDirAtt+yDirAtt*yDirAtt);
+			xDirAtt = xDirAtt/genDirAtt;
+			yDirAtt = yDirAtt/genDirAtt;
+			
+			if(genDirAtt > attackRange){
+				genDirAtt = attackRange;
+			}
+			
+			attCounter=0;
+			
+			isAttacking = true;
+		}
 	}
 	
 	public int getID(){
