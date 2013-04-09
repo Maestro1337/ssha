@@ -1,6 +1,14 @@
 package Model;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 public class Player {
+	
+	private Image userImage;
+	private float imgX;
+	private float imgY;
+	
 	private int HP;
 	private String name;
 	private int damage;
@@ -33,7 +41,29 @@ public class Player {
 
 	float attackRange = 200;
 	
+	public Player(float x, float y){
+		try {
+			userImage = new Image("res/awesomePinkSquare.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		imgX = x;
+		imgY = y;
+	}
+	
 	//Getters for the movements
+	
+	public Image getImage(){
+		return userImage;
+	}
+	public float getX(){
+		return imgX;
+	}
+	public float getY(){
+		return imgY;
+	}
 	public float getMouseXPosMove(){
 		return mouseXPosMove;
 	}
