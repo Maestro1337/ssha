@@ -52,7 +52,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.drawImage(bg, 500, 500);
 		g.drawImage(bg, 1000, 500);
 		
-		g.drawString("Are you ready", 50, 50);
+		g.drawString("Are you ready to Super Slash some Hose!?", 50, 50);
 		g.drawRect(50, 75, 365, 120); //x,y,width,height
 		g.drawString(mouse, 50, 200);
 		
