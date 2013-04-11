@@ -3,6 +3,8 @@ package Model;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import Model.Skills.Skill;
+
 public class Player {
 	
 	private Image userImage;
@@ -57,6 +59,7 @@ public class Player {
 			e.printStackTrace();
 			
 		}
+		
 		
 		imgX = x;
 		imgY = y;
