@@ -30,11 +30,14 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	Player player;
 	
+	int enemyHP = 100;
 	Image enemyImage;
 	float enemyX = 600;
 	float enemyY = 300;
 	int eWidth;
 	int eHeight;
+	
+	boolean isColliding=false;
 
 	public MainView(int state) {
 		
@@ -57,14 +60,25 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		g.drawString(mouse, 800, 10);
 		
+		g.drawString("Enemy HP: "+enemyHP,500,500);
+		
 		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
-		if(player.isAttacking())
+		if(player.isAttacking()&&!isColliding)
 			g.drawImage(player.getAttImage(), player.getAttX(),player.getAttY());
 		
 
-		if(!isColliding(eWidth, eHeight))
+		if(isColliding()){
+			player.setAttackingState(false);
+			player.resetShot();
+			enemyHP -= 10;
+		}
+		if(enemyHP>0){
 			g.drawImage(enemyImage, enemyX, enemyY);
+		}else{
+			enemyX=-1000;
+			enemyY=-1000;
+		}
 	}
 	
 	float mouseXPosMove;
@@ -98,6 +112,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		if(input.isMouseButtonDown(0)){
+			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
+				enemyHP= 100;
+				enemyX = 600;
+				enemyY = 300;	
+			}
 			attack();
 		}
 		if(player.isRunning()){
@@ -130,7 +149,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			player.setAttackingState(false);
 	}
 	
-	public boolean isColliding(int width, int height) throws SlickException{
+	public boolean isColliding() throws SlickException{
 		if((enemyX <= player.getAttX() && player.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= player.getAttY() && player.getAttY() <= enemyY + enemyImage.getHeight()) ){
 			return true;
 		}else

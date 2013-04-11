@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Skills.*;
+
 public class Skill {
 
 	private String name;
@@ -9,5 +11,9 @@ public class Skill {
 	private int cost;
 	private int damage;
 	private StatusEffect spellEffect = new StatusEffect();
+	
+	public Skill(){
+		
+	}
 
 }
