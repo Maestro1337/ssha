@@ -30,6 +30,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	private String mouse = "No input yet";
 	
 	Player player;
+	Skill[] playerSkills;
 	
 	int enemyHP = 100;
 	Image enemyImage;
@@ -47,6 +48,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		enemyImage = new Image("res/awesomePinkSquare.png");
 		player = new Player(190, 90);
+		playerSkills = player.getSkills();
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -65,12 +67,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
-		Skill[] playerSkills = player.getSkills();
+		
 		
 		for(int i=0; i<player.getSkills().length; i++){
 			g.drawRect(10 + i*50, 660, 50, 50);
 			if(playerSkills[i] != null){
 				g.fillRect(10 + i*50, 660, 50, 50);
+				g.drawString(""+playerSkills[i].checkCooldown(), 10 + i*50, 600);
 			}
 			
 		}
@@ -186,7 +189,13 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void attack(){
 		
-		if(!player.isAttacking()){
+	//	playerSkills[0].run();
+		
+		
+		if(!player.isAttacking() && playerSkills[0].checkCooldown() == 0){
+			
+			playerSkills[0].activateSkill();
+			
 			mouseXPosAtt = Mouse.getX();
 			mouseYPosAtt = 720 - Mouse.getY();
 			

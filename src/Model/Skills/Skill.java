@@ -2,10 +2,11 @@ package Model.Skills;
 
 import Model.StatusEffect;
 
+import java.sql.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Skill extends TimerTask{
+public class Skill{
 
 	private String name;
 	private int cooldown;
@@ -15,6 +16,8 @@ public class Skill extends TimerTask{
 	private int damage;
 	private StatusEffect spellEffect = new StatusEffect();
 	
+	//Timer timer = new Timer();
+	
 	public Skill(String name, int cd, int range, int aoe, int cost, int damage, StatusEffect SE){
 		this.name = name;
 		cooldown = cd;
@@ -23,21 +26,32 @@ public class Skill extends TimerTask{
 		this.cost = cost;
 		this.damage = damage;
 		spellEffect = SE;
+		
+		
 	}
 	
-	private int times = 0;
+	private int times = cooldown;
+	long startTime = 0;
+	long elapsedTime = 0;
 	 
-	 
-    public void run() {
-        times++;
-        if (times <= 5) {
-            System.out.println("I'm alive...");
-        } else {
-            System.out.println("Timer stops now...");
- 
-            //Stop Timer.
-            this.cancel();
-        }
+	
+    
+    public void activateSkill(){
+    	startTime = System.currentTimeMillis();
+    	elapsedTime = 0;
+
+    }
+    
+    public long checkCooldown(){
+    	elapsedTime = System.currentTimeMillis() - startTime;
+    	if(elapsedTime >= cooldown){
+    		elapsedTime = 0;
+    	}
+    	return elapsedTime;
+    }
+    
+    public int getCDTime(){
+    	return times;
     }
 	
 	public String getName(){
