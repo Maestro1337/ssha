@@ -53,7 +53,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		userImage = new Image("res/awesomePinkSquare.png");
 		attackImage = new Image("res/awesomeGreenSquare.png");
 		try {
-			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/126427__cabeeno-rossley__timer-first-half-loop.wav"));
+			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/bg-music.wav"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -273,7 +273,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		} else if(e.getActionCommand() == "Fireball"){
 			playSound("res/77691__joelaudio__sfx-magic-fireball-001.wav");
 		} else if(e.getActionCommand() == "Music"){
-			playSound("res/126427__cabeeno-rossley__timer-first-half-loop.wav");
+			playSound("res/bg-music.wav");
 		}
 	}
 	
