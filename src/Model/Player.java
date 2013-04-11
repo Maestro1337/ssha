@@ -176,6 +176,10 @@ public class Player {
 		attCounter = 0;
 	}
 	
+	public Skill[] getSkills(){
+		return skillList;
+	}
+	
 	
 	public float getXDirAtt(){
 		return xDirAtt;
