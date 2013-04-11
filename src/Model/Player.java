@@ -59,7 +59,7 @@ public class Player {
 			e.printStackTrace();
 			
 		}
-		skillList[0] = new SkillSlash
+		skillList[0] = new SkillSlash();
 		
 		imgX = x;
 		imgY = y;
