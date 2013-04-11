@@ -52,7 +52,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.drawImage(bg, 500, 500);
 		g.drawImage(bg, 1000, 500);
 		
-		g.drawString("Are you ready", 50, 50);
+		g.drawString("Are you ready to Super Slash some Hose!?", 50, 50);
 		g.drawRect(50, 75, 365, 120); //x,y,width,height
 		g.drawString(mouse, 50, 200);
 		
@@ -65,7 +65,7 @@ public class Menu extends BasicGameState implements ActionListener{
 
 		
 
-		Image playImg = new Image("res/playNow.png");
+		Image playImg = new Image("res/start.png");
 		
 		g.drawImage(playImg, 135, 225);
 		
@@ -112,9 +112,6 @@ public class Menu extends BasicGameState implements ActionListener{
 	float genDirAtt;//
 
 	float attackRange = 200;//
-	
-	
-	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
