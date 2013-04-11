@@ -3,7 +3,7 @@ package Model;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skills.*;
 
 public class Player {
 	
@@ -59,7 +59,7 @@ public class Player {
 			e.printStackTrace();
 			
 		}
-		
+		skillList[0] = new SkillSlash
 		
 		imgX = x;
 		imgY = y;
