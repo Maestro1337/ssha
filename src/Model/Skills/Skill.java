@@ -16,7 +16,9 @@ public class Skill{
 	private int damage;
 	private StatusEffect spellEffect = new StatusEffect();
 	
-	//Timer timer = new Timer();
+
+	private long startTime = 0;
+	private long elapsedTime = 0;
 	
 	public Skill(String name, int cd, int range, int aoe, int cost, int damage, StatusEffect SE){
 		this.name = name;
@@ -30,9 +32,6 @@ public class Skill{
 		
 	}
 	
-	private int times = cooldown;
-	long startTime = 0;
-	long elapsedTime = 0;
 	 
 	
     
@@ -48,10 +47,6 @@ public class Skill{
     		elapsedTime = 0;
     	}
     	return elapsedTime;
-    }
-    
-    public int getCDTime(){
-    	return times;
     }
 	
 	public String getName(){
