@@ -64,6 +64,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
+		g.drawRect(10, 660, 50, 50);
+		
 		if(player.isAttacking()&&!isColliding)
 			g.drawImage(player.getAttImage(), player.getAttX(),player.getAttY());
 		
