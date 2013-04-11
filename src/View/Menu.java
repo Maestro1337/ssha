@@ -2,10 +2,18 @@ package View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Menu extends BasicGameState implements ActionListener{
 	
@@ -30,6 +38,10 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	boolean isColliding=false;
 	
+	/** The wav sound effect */
+	private Audio wavEffect;
+	
+	private boolean startMusic = true;
 	
 	
 	public Menu (int state){
@@ -40,10 +52,20 @@ public class Menu extends BasicGameState implements ActionListener{
 		enemyImage = new Image("res/awesomePinkSquare.png");
 		userImage = new Image("res/awesomePinkSquare.png");
 		attackImage = new Image("res/awesomeGreenSquare.png");
+		try {
+			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/126427__cabeeno-rossley__timer-first-half-loop.wav"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		bg = new Image("res/bg.png");
+		
+		if(startMusic){
+			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
+			startMusic = false;
+		}
 		
 		g.drawImage(bg, 0, 0);
 		g.drawImage(bg, 500, 0);
@@ -76,6 +98,8 @@ public class Menu extends BasicGameState implements ActionListener{
 			aImgX=1000;
 			genDirAtt=0;
 			enemyHP -= 10;
+
+			playSound("res/154561__ecfike__hurt-argh-1.wav");
 		}
 		if(enemyHP>0){
 			g.drawImage(enemyImage, enemyX, enemyY);
@@ -220,6 +244,8 @@ public class Menu extends BasicGameState implements ActionListener{
 			attCounter=0;
 			
 			isAttacking = true;
+			
+			playSound("res/65733__erdie__bow01.wav");
 		}
 	}
 	
@@ -236,8 +262,32 @@ public class Menu extends BasicGameState implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {
+		String fileName = "res/154561__ecfike__hurt-argh-1.wav";
+		if(e.getActionCommand() == "Taking damage"){
+			playSound("res/154561__ecfike__hurt-argh-1.wav");
+		} else if(e.getActionCommand() == "Sword"){
+			playSound("res/77611__joelaudio__sfx-attack-sword-001.wav");
+		} else if(e.getActionCommand() == "Bow"){
+			playSound("res/65733__erdie__bow01.wav");
+		} else if(e.getActionCommand() == "Fireball"){
+			playSound("res/77691__joelaudio__sfx-magic-fireball-001.wav");
+		} else if(e.getActionCommand() == "Music"){
+			playSound("res/126427__cabeeno-rossley__timer-first-half-loop.wav");
+		}
+	}
+	
+	public static synchronized void playSound(String filename) {
+
+		    try
+		    {
+		        Clip clip = AudioSystem.getClip();
+		        clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+		        clip.start();
+		    }
+		    catch (Exception exc)
+		    {
+		        exc.printStackTrace(System.out);
+		    }	
 	}
 }
