@@ -117,12 +117,12 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
-	double moveSpeed = 4;
+	double moveSpeed = 2;
 
 	
 	float mouseXPosAtt;
 	float mouseYPosAtt;
-	float attSpeed = (float)2;
+	float attSpeed = (float)1;
 	
 	int moveCounter=0;//
 	float xDirectionMove;//
