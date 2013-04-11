@@ -22,6 +22,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Model.*;
+import Model.Skills.*;
 
 public class MainView extends BasicGameState implements ActionListener {
 	
@@ -64,7 +65,16 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
-		g.drawRect(10, 660, 50, 50);
+		Skill[] playerSkills = player.getSkills();
+		
+		for(int i=0; i<player.getSkills().length; i++){
+			g.drawRect(10 + i*50, 660, 50, 50);
+			if(playerSkills[i] != null){
+				g.fillRect(10 + i*50, 660, 50, 50);
+			}
+			
+		}
+		
 		
 		if(player.isAttacking()&&!isColliding)
 			g.drawImage(player.getAttImage(), player.getAttX(),player.getAttY());
