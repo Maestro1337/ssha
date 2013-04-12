@@ -1,9 +1,12 @@
 package Model.Skills;
 
+import Model.StatusEffect;
+
 public class SkillSlash extends Skill{
 	
 	public SkillSlash(){
-		super("Slash", 1000, 50, 3, 0, 10, null);
+		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
+		super("Slash", 5000, 400, 0.2, 3, 0, 10, null);
 	}
 
 }

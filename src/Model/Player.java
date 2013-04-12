@@ -11,9 +11,7 @@ public class Player {
 	private float imgX;
 	private float imgY;
 	
-	private Image attackImage;
-	private float attImgX;
-	private float attImgY;
+	
 	
 	private int HP;
 	private String name;
@@ -27,7 +25,7 @@ public class Player {
 	//Movement variables
 	private float mouseXPosMove;
 	private float mouseYPosMove;
-	private double moveSpeed = 0.7;
+	private double moveSpeed = 2;
 	
 	private int moveCounter=0;
 	private float xDirMove;
@@ -35,33 +33,22 @@ public class Player {
 	private float genDirMove;
 	private Double findNaN;
 	
-	//Attack variables
-	private float mouseXPosAtt;
-	private float mouseYPosAtt;
-	private double attSpeed = 0.8;
 	
-	private int attCounter=0;
-	private float xDirAtt;
-	private float yDirAtt;
-	private float genDirAtt;
-
-	private float attackRange = 200;
+	
 	
 	private boolean isRunning = false;
-	private boolean isAttacking = false;
 	
 	public Player(float x, float y){
 		try {
 			userImage = new Image("res/awesomePinkSquare.png");
-			attackImage = new Image("res/awesomeGreenSquare.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
 		}
 		skillList[0] = new SkillSlash();
-		skillList[4] = new SkillSlash();
-		skillList[5] = new SkillSlash();
+		skillList[1] = new SkillSlash();
+		skillList[2] = new SkillSlash();
 		
 		
 		imgX = x;
@@ -87,35 +74,7 @@ public class Player {
 		imgY += y;
 	}
 	
-	public Image getAttImage(){
-		return attackImage;
-	}
-	public float getAttX(){
-		return attImgX;
-	}
-	public float getAttY(){
-		return attImgY;
-	}
 	
-	
-	
-	public void addAttX(float x){
-		attImgX += x;
-	}
-	public void addAttY(float y){
-		attImgY += y;
-	}
-	public void setAttX(float x){
-		attImgX = x;
-	}
-	public void setAttY(float y){
-		attImgY = y;
-	}
-	
-	public void resetShot(){
-		attImgX = imgX;
-		attImgY = imgY;
-	}
 	
 	public float getMouseXPosMove(){
 		return mouseXPosMove;
@@ -160,64 +119,18 @@ public class Player {
 		return findNaN;
 	}
 	//Getters for the attacks
-	public float getMouseXPosAtt(){
-		return mouseXPosAtt;
-	}
-	public float getMouseYPosAtt(){
-		return mouseYPosAtt;
-	}
-	public double getAttSpeed(){
-		return attSpeed;
-	}
-	public int getAttCounter(){
-		return attCounter;
-	}
-	public void incAttCounter(){
-		attCounter++;
-	}
-	public void resetAttCounter(){
-		attCounter = 0;
-	}
+	
 	
 	public Skill[] getSkills(){
 		return skillList;
 	}
-	
-	
-	public float getXDirAtt(){
-		return xDirAtt;
-	}
-	public float getYDirAtt(){
-		return yDirAtt;
-	}
-	public float getGenDirAtt(){
-		return genDirAtt;
-	}
-	public void setXDirAtt(float dir){
-		xDirAtt = dir;
-	}
-	public void setYDirAtt(float dir){
-		yDirAtt = dir;
-	}
-	public void setGenDirAtt(float dir){
-		genDirAtt = dir;
-	}
-	
-	public float getAttackRange(){
-		return attackRange;
-	}
-	
 	public boolean isRunning(){
 		return isRunning;
-	}
-	public boolean isAttacking(){
-		return isAttacking;
 	}
 	public void setRunningState(boolean state){
 		isRunning = state;
 	}
-	public void setAttackingState(boolean state){
-		isAttacking = state;
-	}
+	
+	
 	
 }
