@@ -46,7 +46,7 @@ public class Skill{
     	if(elapsedTime >= cooldown){
     		elapsedTime = 0;
     	}
-    	return elapsedTime;
+    	return cooldown - elapsedTime;
     }
 	
 	public String getName(){

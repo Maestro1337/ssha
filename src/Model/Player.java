@@ -27,7 +27,7 @@ public class Player {
 	//Movement variables
 	private float mouseXPosMove;
 	private float mouseYPosMove;
-	private double moveSpeed = 6;
+	private double moveSpeed = 0.7;
 	
 	private int moveCounter=0;
 	private float xDirMove;
@@ -38,7 +38,7 @@ public class Player {
 	//Attack variables
 	private float mouseXPosAtt;
 	private float mouseYPosAtt;
-	private double attSpeed = 7;
+	private double attSpeed = 0.8;
 	
 	private int attCounter=0;
 	private float xDirAtt;
@@ -60,6 +60,9 @@ public class Player {
 			
 		}
 		skillList[0] = new SkillSlash();
+		skillList[4] = new SkillSlash();
+		skillList[5] = new SkillSlash();
+		
 		
 		imgX = x;
 		imgY = y;

@@ -192,7 +192,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	//	playerSkills[0].run();
 		
 		
-		if(!player.isAttacking() && playerSkills[0].checkCooldown() == 0){
+		if(!player.isAttacking() && playerSkills[0].checkCooldown() == playerSkills[0].getCoolDown()){
 			
 			playerSkills[0].activateSkill();
 			
