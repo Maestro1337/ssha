@@ -20,7 +20,7 @@ public class Player {
 	private int kills;
 	private int deaths;
 	private int coins;
-	private Skill[] skillList = new Skill[10];
+	private Skill[] skillList = new Skill[5];
 	
 	//Movement variables
 	private float mouseXPosMove;
@@ -47,8 +47,10 @@ public class Player {
 			
 		}
 		skillList[0] = new SkillSlash();
-		skillList[1] = new SkillSlash();
-		skillList[2] = new SkillSlash();
+		skillList[1] = new SkillFireball();
+		skillList[2] = new SkillFirestorm();
+		skillList[3] = new SkillSlash();
+		skillList[4] = new SkillSuperSlowTestSkill();
 		
 		
 		imgX = x;

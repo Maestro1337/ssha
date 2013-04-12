@@ -150,7 +150,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		if(input.isKeyDown(Input.KEY_A)){imgX -= 1;}
 		if(input.isKeyDown(Input.KEY_D)){imgX += 1;}
 		
-		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
+		if((140<xPos && xPos<380) && (225<yPos && yPos<325)){
 			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
 				sbg.enterState(1);
 			}

@@ -76,7 +76,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown())
 					g.fillRect(10 + i*50, 660, 50, 50);
 				
-				g.drawString(""+playerSkills[i].checkCooldown(), 10 + i*50, 675);
+				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 			}
 			
 		}
@@ -86,8 +86,10 @@ public class MainView extends BasicGameState implements ActionListener {
 				if(playerSkills[i].isAttacking() && !playerSkills[i].isColliding())
 					g.drawImage(playerSkills[i].getAttImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
 				
-				if(isColliding(playerSkills[i])){
+				if(isColliding(playerSkills[i]) && playerSkills[i].isColliding()){
 					playerSkills[i].setAttackingState(false);
+					System.out.println("Target hit with " + playerSkills[i].getName());
+					playerSkills[i].setCollidingState(false);
 					playerSkills[i].resetShot(player);
 					enemyHP -= playerSkills[i].getDamage();
 				}
@@ -136,6 +138,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_4)){
 			if(playerSkills[3] != null)
 				currentActiveSkill = playerSkills[3];}
+		if(input.isKeyDown(Input.KEY_5)){
+			if(playerSkills[4] != null)
+				currentActiveSkill = playerSkills[4];}
 		
 		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
 			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
@@ -193,9 +198,11 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public boolean isColliding(Skill skill) throws SlickException{
 		if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
+			skill.setCollidingState(true);
 			return true;
-		}else
-		return false;
+		}else{
+			return false;
+		}
 	}
 	
 	public void move(){
