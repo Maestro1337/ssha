@@ -89,8 +89,9 @@ public class MainView extends BasicGameState implements ActionListener {
 				if(isColliding(playerSkills[i]) && playerSkills[i].isColliding()){
 					playerSkills[i].setAttackingState(false);
 					System.out.println("Target hit with " + playerSkills[i].getName());
+					//TODO Fix bug where enemy dies completely if collision appears when standing on him
 					playerSkills[i].setCollidingState(false);
-					playerSkills[i].resetShot(player);
+					playerSkills[i].collidedShot();
 					enemyHP -= playerSkills[i].getDamage();
 				}
 			}
@@ -247,7 +248,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				
 				currentActiveSkill.resetAttCounter();
 				
-				System.out.println("Attacking " + currentActiveSkill.getGenDirAtt() + " pixels");
+				System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
 				currentActiveSkill.setAttackingState(true);
 			}
 		//}

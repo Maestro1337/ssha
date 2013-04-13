@@ -130,6 +130,11 @@ public class Skill{
 		attImgY = player.getY();
 	}
 	
+	public void collidedShot(){
+		attImgX = -1000;
+		attImgY = -1000;
+	}
+	
 	
 	public float getMouseXPosAtt(){
 		return mouseXPosAtt;
