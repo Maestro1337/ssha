@@ -24,6 +24,9 @@ public class Skill{
 	private float attImgX;
 	private float attImgY;
 	
+	private int imgWidth;
+	private int imgHeight;
+	
 	//Attack variables
 	private float mouseXPosAtt;
 	private float mouseYPosAtt;
@@ -54,17 +57,32 @@ public class Skill{
 		attackRange = range;
 		attSpeed = speed;
 		
+		//Backup image if it doesn't get one set by the extended skillClass
 		try {
 			attackImage = new Image("res/awesomeGreenSquare.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setImage(attackImage, 5, 4);
 		
 		
 	}
 	
-	 
+	public void setImage(Image image, int height, int width){
+		if(image != null)
+			attackImage = image;
+		
+		imgHeight = height;
+		imgWidth = width;
+	}
+	
+	public int getImgHeight(){
+		return imgHeight;
+	}
+	public int getImgWidth(){
+		return imgWidth;
+	}
 	
     
     public void activateSkill(){
