@@ -72,11 +72,20 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<player.getSkills().length; i++){
 			g.drawRect(10 + i*50, 660, 50, 50);
+			g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 			if(playerSkills[i] != null){
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown())
-					g.fillRect(10 + i*50, 660, 50, 50);
-				
-				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
+					switch (playerSkills[i].getName()) {
+						
+			            case "Slash":g.drawImage(new Image("res/slash.png"),10 + i*50, 660);
+			                     break;
+			            case "Fireball":g.drawImage(new Image("res/fireball.png"),10 + i*50, 660);
+			                     break;
+			            case "Firestorm":g.drawImage(new Image("res/Firestorm.png"),10 + i*50, 660);
+			                     break;
+			            case "SuperSlowTestSkill":g.drawImage(new Image("res/pbs4.png"),10 + i*50, 660);;
+			                     break;
+		        }
 			}
 			
 		}
