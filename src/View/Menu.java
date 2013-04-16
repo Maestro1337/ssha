@@ -13,6 +13,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
+import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class Menu extends BasicGameState implements ActionListener{
@@ -21,6 +22,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	private String mouse = "No input yet";
 	Image bg;
+	
+	TiledMap map;
 	
 	Image userImage;
 	float imgX = 190;
@@ -57,22 +60,17 @@ public class Menu extends BasicGameState implements ActionListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		map = new TiledMap("res/tileset/bg.tmx");
+		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
-		bg = new Image("res/bg.png");
+		map.render(0, 0);
 		
 		if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
 			startMusic = false;
 		}
-		
-		g.drawImage(bg, 0, 0);
-		g.drawImage(bg, 500, 0);
-		g.drawImage(bg, 1000, 0);
-		g.drawImage(bg, 0, 500);
-		g.drawImage(bg, 500, 500);
-		g.drawImage(bg, 1000, 500);
 		
 		g.drawString("Are you ready to Super Slash some Hose!?", 50, 50);
 		g.drawRect(50, 75, 365, 120); //x,y,width,height
