@@ -97,13 +97,16 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
-				if(playerSkills[i].isAttacking() && !playerSkills[i].isColliding())
+				if(playerSkills[i].isAttacking() && !playerSkills[i].isColliding() && !playerSkills[i].isEndState()){
 					g.drawImage(playerSkills[i].getAttImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
+				}else if(playerSkills[i].isEndState()){
+					g.drawImage(playerSkills[i].getEndStateImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
+					System.out.println("End State");
+				}
 				
 				if(isColliding(playerSkills[i]) && playerSkills[i].isColliding()){
 					playerSkills[i].setAttackingState(false);
 					System.out.println("Target hit with " + playerSkills[i].getName());
-					//TODO Fix bug where enemy dies completely if collision appears when standing on him
 					playerSkills[i].setCollidingState(false);
 					playerSkills[i].collidedShot();
 					enemyHP -= playerSkills[i].getDamage();
@@ -195,26 +198,30 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	private void isAttacking(Skill attackingSkill){
-		for(int i=0; i<playerSkills.length; i++){
-			if(attackingSkill != null){
+			if(attackingSkill != null && !attackingSkill.isEndState()){
 				attackingSkill.addAttX((float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()));
 				attackingSkill.addAttY((float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
 				
 				attackingSkill.incAttCounter();
-				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt())
+				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+					if(attackingSkill.isProjectile()){
+						attackingSkill.setAttackingState(false);
+					}else{
+						attackingSkill.activateEndState();
+					}
+				}
+				
+			}else if(attackingSkill != null && attackingSkill.isEndState()){
+				System.out.println("Arriba");
+				if(attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
+					System.out.println("2xArriba");
+					attackingSkill.setEndState(false);
 					attackingSkill.setAttackingState(false);
+				}
 			}
-		}
 	}
 	
 	public boolean isColliding(Skill skill) throws SlickException{
-		
-	/*	if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
-			skill.setCollidingState(true);
-			return true;
-		}else{
-			return false;
-		}*/
 		if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX){
 			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
 					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
