@@ -137,6 +137,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();
+		if(input.isKeyDown(Input.KEY_Q)){player.addY(-1);}
+		if(input.isKeyDown(Input.KEY_S)){player.addY(1);}
+		if(input.isKeyDown(Input.KEY_A)){player.addX(-1);}
+		if(input.isKeyDown(Input.KEY_D)){player.addX(1);}
 		if(input.isKeyDown(Input.KEY_1)){
 			if(playerSkills[0] != null)
 				currentActiveSkill = playerSkills[0];}
@@ -209,43 +213,12 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public boolean isColliding(Skill skill) throws SlickException{
 		
-	/*	if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
+		if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
 			skill.setCollidingState(true);
 			return true;
 		}else{
 			return false;
-		}*/
-		if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX){
-			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
-					|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
-				System.out.println("Hit");
-				skill.setCollidingState(true);
-				return true;
-			}
-		}else if(skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY){
-			if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-					|| skill.getAttX()+skill.getImgWidth() >= enemyX && skill.getAttX()+skill.getImgWidth() <= enemyX+enemyImage.getWidth()
-					|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
-				skill.setCollidingState(true);
-				return true;
-			}
-		}else if(skill.getAttX() <= enemyX+enemyImage.getWidth() && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
-			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
-					|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
-				skill.setCollidingState(true);
-				return true;
-			}
-		}else if(skill.getAttY() <= enemyY+enemyImage.getHeight() && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
-			if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-					|| skill.getAttX()+skill.getImgWidth() >= enemyX && skill.getAttX()+skill.getImgWidth() <= enemyX+enemyImage.getWidth()
-					|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
-				skill.setCollidingState(true);
-				return true;
-			}
 		}
-		return false;
 	}
 	
 	public void move(){
@@ -300,6 +273,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	public int getID(){
 		return 1;
 	}
+	
+	
 	
 	//Test for sounds
 	@Override
