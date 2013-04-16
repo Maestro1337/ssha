@@ -30,6 +30,9 @@ public class Skill{
 	private int endStateImgWidth;
 	private int endStateImgHeight;
 	
+	private int currentWidth;
+	private int currentHeight;
+	
 	//Attack variables
 	private float mouseXPosAtt;
 	private float mouseYPosAtt;
@@ -86,8 +89,8 @@ public class Skill{
 		if(image != null)
 			attackImage = image;
 		
-		imgHeight = height;
-		imgWidth = width;
+		currentHeight = imgHeight = height;
+		currentWidth = imgWidth = width;
 	}
 	public void setEndStateImage(Image image, int height, int width){
 		if(image != null)
@@ -99,11 +102,11 @@ public class Skill{
 		isProjectile = false;
 	}
 	
-	public int getImgHeight(){
-		return imgHeight;
+	public int getCurrentHeight(){
+		return currentHeight;
 	}
-	public int getImgWidth(){
-		return imgWidth;
+	public int getCurrentWidth(){
+		return currentWidth;
 	}
 	public int getEndStateImgHeight(){
 		return endStateImgHeight;
@@ -246,6 +249,8 @@ public class Skill{
 	public void activateEndState(){
 		endStateStartTime = System.currentTimeMillis();
 		endStateElapsedTime = 0;
+		currentHeight = endStateImgHeight;
+		currentWidth = endStateImgWidth;
 		nonProjectileEndState = true;
 	}
 	public long checkEndStateTimer(){
@@ -258,8 +263,10 @@ public class Skill{
 	public int getEndStateDuration(){
 		return endStateDuration;
 	}
-	public void setEndState(boolean state){
-		nonProjectileEndState = state;
+	public void finishEndState(){
+		currentHeight = imgHeight;
+		currentWidth = imgWidth;
+		nonProjectileEndState = false;
 	}
 	public boolean isEndState(){
 		return nonProjectileEndState;

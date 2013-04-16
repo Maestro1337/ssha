@@ -101,7 +101,6 @@ public class MainView extends BasicGameState implements ActionListener {
 					g.drawImage(playerSkills[i].getAttImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
 				}else if(playerSkills[i].isEndState()){
 					g.drawImage(playerSkills[i].getEndStateImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
-					System.out.println("End State");
 				}
 				
 				if(isColliding(playerSkills[i]) && playerSkills[i].isColliding()){
@@ -208,45 +207,51 @@ public class MainView extends BasicGameState implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
+						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
 				
 			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-				attackingSkill.setEndState(false);
+				attackingSkill.finishEndState();
 				attackingSkill.setAttackingState(false);
+				System.out.println("Finishing end state with " + attackingSkill.getName());
 			}
 	}
 	
 	public boolean isColliding(Skill skill) throws SlickException{
-		if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX){
-			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
-					|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
-				System.out.println("Hit");
-				skill.setCollidingState(true);
-				return true;
+		if(/*skill.isAttacking() && skill.isProjectile()*/true){
+			if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX){
+				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
+						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
+						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
+					System.out.println("Hit");
+					skill.setCollidingState(true);
+					return true;
+				}
+			}else if(skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY){
+				if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
+						|| skill.getAttX()+skill.getCurrentWidth() >= enemyX && skill.getAttX()+skill.getCurrentWidth() <= enemyX+enemyImage.getWidth()
+						|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+					skill.setCollidingState(true);
+					return true;
+				}
+			}else if(skill.getAttX() <= enemyX+enemyImage.getWidth() && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
+						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
+						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
+					skill.setCollidingState(true);
+					return true;
+				}
+			}else if(skill.getAttY() <= enemyY+enemyImage.getHeight() && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
+				if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
+						|| skill.getAttX()+skill.getCurrentWidth() >= enemyX && skill.getAttX()+skill.getCurrentWidth() <= enemyX+enemyImage.getWidth()
+						|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+					skill.setCollidingState(true);
+					return true;
+				}
 			}
-		}else if(skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY){
-			if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-					|| skill.getAttX()+skill.getImgWidth() >= enemyX && skill.getAttX()+skill.getImgWidth() <= enemyX+enemyImage.getWidth()
-					|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
-				skill.setCollidingState(true);
-				return true;
-			}
-		}else if(skill.getAttX() <= enemyX+enemyImage.getWidth() && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
-			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
-					|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
-				skill.setCollidingState(true);
-				return true;
-			}
-		}else if(skill.getAttY() <= enemyY+enemyImage.getHeight() && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
-			if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-					|| skill.getAttX()+skill.getImgWidth() >= enemyX && skill.getAttX()+skill.getImgWidth() <= enemyX+enemyImage.getWidth()
-					|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
-				skill.setCollidingState(true);
-				return true;
-			}
+		}else if(skill.isAttacking() && !skill.isProjectile() && skill.isEndState()){
+			
 		}
 		return false;
 	}
