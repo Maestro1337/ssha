@@ -202,6 +202,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	public boolean isColliding() throws SlickException{
 		if((enemyX <= aImgX && aImgX <= enemyX + enemyImage.getWidth()) && (enemyY <= aImgY && aImgY <= enemyY + enemyImage.getHeight()) ){
+			playSound("res/firestorm.wav");
 			return true;
 		}else
 			return false;
@@ -264,6 +265,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String fileName = "res/154561__ecfike__hurt-argh-1.wav";
+		
 		if(e.getActionCommand() == "Taking damage"){
 			playSound("res/154561__ecfike__hurt-argh-1.wav");
 		} else if(e.getActionCommand() == "Sword"){
@@ -274,6 +276,8 @@ public class Menu extends BasicGameState implements ActionListener{
 			playSound("res/77691__joelaudio__sfx-magic-fireball-001.wav");
 		} else if(e.getActionCommand() == "Music"){
 			playSound("res/bg-music.wav");
+		} else if(e.getActionCommand() == "Firestorm"){
+			playSound("res/firestorm.wav");
 		}
 	}
 	
