@@ -1,5 +1,8 @@
 package View;
 
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -19,6 +22,9 @@ import org.newdawn.slick.util.ResourceLoader;
 public class Menu extends BasicGameState implements ActionListener{
 	
 	int enemyHP = 100;
+	
+	Screen screen;
+	GraphicsDevice vc;
 	
 	private String mouse = "No input yet";
 	Image bg;
@@ -45,7 +51,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	private Audio wavEffect;
 	
 	private boolean startMusic = true;
-	
+	private boolean fullScreen = true;
 	
 	public Menu (int state){
 		
@@ -61,10 +67,11 @@ public class Menu extends BasicGameState implements ActionListener{
 			e.printStackTrace();
 		}
 		map = new TiledMap("res/tileset/bg.tmx");
-		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
+		gc.setFullscreen(fullScreen);
+		
 		map.render(0, 0);
 		
 		if(startMusic){
@@ -72,8 +79,6 @@ public class Menu extends BasicGameState implements ActionListener{
 			startMusic = false;
 		}
 		
-		g.drawString("Are you ready to Super Slash some Hose!?", 50, 50);
-		g.drawRect(50, 75, 365, 120); //x,y,width,height
 		g.drawString(mouse, 50, 200);
 		
 		g.drawString("Enemy HP: "+enemyHP,500,500);
@@ -150,6 +155,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		
 		if((140<xPos && xPos<380) && (225<yPos && yPos<325)){
 			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
+				fullScreen = false;
 				sbg.enterState(1);
 			}
 		}
