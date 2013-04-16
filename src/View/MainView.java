@@ -40,6 +40,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	float enemyY = 300;
 	int eWidth;
 	int eHeight;
+	double rotation=0; 
 	
 
 	public MainView(int state) {
@@ -70,6 +71,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		g.drawString("Enemy HP: "+enemyHP,500,500);
 		//Draw the player
 		g.drawImage(player.getImage(), player.getX(),player.getY());
+	
+		
+		
 		
 		
 		//Draw the actionbar
@@ -125,6 +129,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	float mouseXPosMove;
 	float mouseYPosMove;
 	
+	float prevMouseXPosMove;
+	float prevMouseYPosMove;
+	
+	
 	float mouseXPosAtt;
 	float mouseYPosAtt;
 	
@@ -164,6 +172,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
+			rotate();
 			move();
 		}
 		//If right mousebutton is clicked, attack that point
@@ -173,6 +182,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				enemyX = 600;
 				enemyY = 300;	
 			}
+			rotate();
 			attack();
 		}
 		if(player.isRunning()){
@@ -220,6 +230,13 @@ public class MainView extends BasicGameState implements ActionListener {
 			return false;
 		}
 	}
+	public void rotate(){
+		mouseXPosMove = Mouse.getX();
+		mouseYPosMove = 720 - Mouse.getY();
+		rotation = Math.toDegrees(Math.atan2((mouseYPosMove-player.getY()),(mouseXPosMove-player.getX())));
+		player.getImage().setRotation((float)rotation);
+	}
+
 	
 	public void move(){
 		mouseXPosMove = Mouse.getX();
@@ -273,7 +290,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	public int getID(){
 		return 1;
 	}
-	
 	
 	
 	//Test for sounds
