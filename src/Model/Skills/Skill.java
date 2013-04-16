@@ -23,9 +23,12 @@ public class Skill{
 	private Image attackImage;
 	private float attImgX;
 	private float attImgY;
-	
 	private int imgWidth;
 	private int imgHeight;
+	
+	private Image endStateImage;
+	private int endStateImgWidth;
+	private int endStateImgHeight;
 	
 	//Attack variables
 	private float mouseXPosAtt;
@@ -42,9 +45,15 @@ public class Skill{
 	
 	private boolean isColliding = false;
 	
+	private boolean isProjectile = true;
+	private long endStateStartTime = 0;
+	private long endStateElapsedTime = 0;
+	private int endStateDuration = 1000;
+	
+	private boolean nonProjectileEndState = false;
 
-	private long startTime = 0;
-	private long elapsedTime = 0;
+	private long CDstartTime = 0;
+	private long CDelapsedTime = 0;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE){
 		this.name = name;
@@ -55,7 +64,11 @@ public class Skill{
 		this.damage = damage;
 		spellEffect = SE;
 		attackRange = range;
-		attSpeed = speed;
+		if(speed < 100){
+			attSpeed = speed;
+		}else{
+			isProjectile = false;
+		}
 		
 		//Backup image if it doesn't get one set by the extended skillClass
 		try {
@@ -76,6 +89,15 @@ public class Skill{
 		imgHeight = height;
 		imgWidth = width;
 	}
+	public void setEndStateImage(Image image, int height, int width){
+		if(image != null)
+			endStateImage = image;
+		
+		endStateImgHeight = height;
+		endStateImgWidth = width;
+		
+		isProjectile = false;
+	}
 	
 	public int getImgHeight(){
 		return imgHeight;
@@ -83,22 +105,15 @@ public class Skill{
 	public int getImgWidth(){
 		return imgWidth;
 	}
-	
-    
-    public void activateSkill(){
-    	startTime = System.currentTimeMillis();
-    	elapsedTime = 0;
-
-    }
-    
-    public long checkCooldown(){
-    	elapsedTime = System.currentTimeMillis() - startTime;
-    	if(elapsedTime >= cooldown){
-    		elapsedTime = 0;
-    	}
-    	return (cooldown - elapsedTime)/1000;
-    }
-	
+	public int getEndStateImgHeight(){
+		return endStateImgHeight;
+	}
+	public int getEndStateImgWidth(){
+		return endStateImgWidth;
+	}
+	public Image getEndStateImage(){
+		return endStateImage;
+	}
 	public String getName(){
 		return name;
 	}
@@ -210,5 +225,43 @@ public class Skill{
 	public boolean isColliding(){
 		return isColliding;
 	}
+	
+	public void activateSkill(){
+    	CDstartTime = System.currentTimeMillis();
+    	CDelapsedTime = 0;
 
+    }
+    
+    public long checkCooldown(){
+    	CDelapsedTime = System.currentTimeMillis() - CDstartTime;
+    	if(CDelapsedTime >= cooldown){
+    		CDelapsedTime = 0;
+    	}
+    	return (cooldown - CDelapsedTime)/1000;
+    }
+	
+	public boolean isProjectile(){
+		return isProjectile;
+	}
+	public void activateEndState(){
+		endStateStartTime = System.currentTimeMillis();
+		endStateElapsedTime = 0;
+		nonProjectileEndState = true;
+	}
+	public long checkEndStateTimer(){
+		endStateElapsedTime = System.currentTimeMillis() - endStateStartTime;
+		if(endStateElapsedTime >= endStateDuration){
+			endStateElapsedTime = 0;
+		}
+		return (endStateDuration - endStateElapsedTime);
+	}
+	public int getEndStateDuration(){
+		return endStateDuration;
+	}
+	public void setEndState(boolean state){
+		nonProjectileEndState = state;
+	}
+	public boolean isEndState(){
+		return nonProjectileEndState;
+	}
 }

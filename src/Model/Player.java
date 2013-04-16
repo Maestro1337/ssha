@@ -25,7 +25,7 @@ public class Player {
 	//Movement variables
 	private float mouseXPosMove;
 	private float mouseYPosMove;
-	private double moveSpeed = 0.5;
+	private double moveSpeed = 2;
 	
 	private int moveCounter=0;
 	private float xDirMove;

@@ -20,6 +20,6 @@ public class SkillSlash extends Skill{
 			e.printStackTrace();
 		}
 		
-		super.setImage(attackImage, 5, 4);
+		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 	}
 }
