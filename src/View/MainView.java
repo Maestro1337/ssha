@@ -137,10 +137,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_Q)){player.addY(-1);}
-		if(input.isKeyDown(Input.KEY_S)){player.addY(1);}
-		if(input.isKeyDown(Input.KEY_A)){player.addX(-1);}
-		if(input.isKeyDown(Input.KEY_D)){player.addX(1);}
 		if(input.isKeyDown(Input.KEY_1)){
 			if(playerSkills[0] != null)
 				currentActiveSkill = playerSkills[0];}
