@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -53,30 +54,43 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
-		bg = new Image("res/bg.png");
 		
+		//Background
+		bg = new Image("res/bg.png");
+		//Draw the background
 		g.drawImage(bg, 0, 0);
 		g.drawImage(bg, 500, 0);
 		g.drawImage(bg, 1000, 0);
 		g.drawImage(bg, 0, 500);
 		g.drawImage(bg, 500, 500);
 		g.drawImage(bg, 1000, 500);
-		
+		//Show the coodinates for the mouse
 		g.drawString(mouse, 800, 10);
-		
+		//Show the enemys hp
 		g.drawString("Enemy HP: "+enemyHP,500,500);
-		
+		//Draw the player
 		g.drawImage(player.getImage(), player.getX(),player.getY());
 		
 		
-		
+		//Draw the actionbar
 		for(int i=0; i<player.getSkills().length; i++){
-			g.drawRect(10 + i*50, 660, 50, 50);
+			g.setColor(Color.white);
+			g.fillRect(10 + i*50, 660, 50, 50);
+			g.setColor(Color.black);
+			g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 			if(playerSkills[i] != null){
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown())
-					g.fillRect(10 + i*50, 660, 50, 50);
-				
-				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
+					switch (playerSkills[i].getName()) {
+						
+			            case "Slash":g.drawImage(new Image("res/slash.png"),10 + i*50, 660);
+			                     break;
+			            case "Fireball":g.drawImage(new Image("res/fireball.png"),10 + i*50, 660);
+			                     break;
+			            case "Firestorm":g.drawImage(new Image("res/Firestorm.png"),10 + i*50, 660);
+			                     break;
+			            case "SuperSlowTestSkill":g.drawImage(new Image("res/pbs4.png"),10 + i*50, 660);;
+			                     break;
+		        }
 			}
 			
 		}
@@ -148,11 +162,11 @@ public class MainView extends BasicGameState implements ActionListener {
 				sbg.enterState(1);
 			}
 		}
-		
+		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
 			move();
 		}
-		
+		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
 			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
 				enemyHP= 100;
@@ -255,9 +269,12 @@ public class MainView extends BasicGameState implements ActionListener {
 		//}
 	}
 	
+	//Returns the state of the game
 	public int getID(){
 		return 1;
 	}
+	
+	//Test for sounds
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String fileName = "res/154561__ecfike__hurt-argh-1.wav";
@@ -274,6 +291,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 	}
 	
+	//Handling the soundfiles
 	public static synchronized void playSound(String filename) {
 
 		    try
