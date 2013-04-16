@@ -41,9 +41,18 @@ public class Menu extends BasicGameState implements ActionListener{
 	int eWidth;
 	int eHeight;
 	
+	Image barImg;
+	Image hpBackImg;
+	Image hpForeImg;
+	
 	Image attackImage;
 	float aImgX = 0;
 	float aImgY = 0;
+
+	int hpX = 500;
+	int hpY = 500;
+	int fillX = 514;
+	int fillY = 507;
 	
 	boolean isColliding=false;
 	
@@ -61,6 +70,11 @@ public class Menu extends BasicGameState implements ActionListener{
 		enemyImage = new Image("res/awesomePinkSquare.png");
 		userImage = new Image("res/awesomePinkSquare.png");
 		attackImage = new Image("res/awesomeGreenSquare.png");
+		
+		barImg = new Image("res/bar_hp.png");
+		hpBackImg = new Image("res/gray_hp.png");
+		hpForeImg = new Image("res/red_hp.png");
+		
 		try {
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/bg-music.wav"));
 		} catch (IOException e) {
@@ -70,7 +84,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
-		gc.setFullscreen(fullScreen);
+		gc.setFullscreen(false);
 		
 		map.render(0, 0);
 		
@@ -81,7 +95,8 @@ public class Menu extends BasicGameState implements ActionListener{
 		
 		g.drawString(mouse, 50, 200);
 		
-		g.drawString("Enemy HP: "+enemyHP,500,500);
+		
+		g.drawString("Enemy HP: "+enemyHP,500,600);
 		
 		g.drawImage(userImage, imgX,imgY);
 		
@@ -106,6 +121,14 @@ public class Menu extends BasicGameState implements ActionListener{
 		}
 		if(enemyHP>0){
 			g.drawImage(enemyImage, enemyX, enemyY);
+			
+			g.drawImage(barImg, hpX, hpY);
+			g.setColor(Color.darkGray);
+			g.fillRect(fillX, fillY, 100, 16);
+			g.setColor(Color.red);
+			g.fillRect(fillX, fillY, enemyHP, 16);
+			g.setColor(Color.black);
+			
 		}else{
 			enemyX=-1000;
 			enemyY=-1000;
