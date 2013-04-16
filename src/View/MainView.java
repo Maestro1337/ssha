@@ -120,7 +120,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(enemyHP>0){
 			g.drawImage(enemyImage, enemyX, enemyY);
 		}else{
-			enemyX=-1000;
+			enemyX=1000;
 			enemyY=-1000;
 		}
 	}
@@ -211,13 +211,9 @@ public class MainView extends BasicGameState implements ActionListener {
 					}
 				}
 				
-			}else if(attackingSkill != null && attackingSkill.isEndState()){
-				System.out.println("Arriba");
-				if(attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-					System.out.println("2xArriba");
-					attackingSkill.setEndState(false);
-					attackingSkill.setAttackingState(false);
-				}
+			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
+				attackingSkill.setEndState(false);
+				attackingSkill.setAttackingState(false);
 			}
 	}
 	
