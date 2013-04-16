@@ -213,12 +213,43 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public boolean isColliding(Skill skill) throws SlickException{
 		
-		if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
+	/*	if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
 			skill.setCollidingState(true);
 			return true;
 		}else{
 			return false;
+		}*/
+		if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX){
+			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
+					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
+					|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
+				System.out.println("Hit");
+				skill.setCollidingState(true);
+				return true;
+			}
+		}else if(skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY){
+			if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
+					|| skill.getAttX()+skill.getImgWidth() >= enemyX && skill.getAttX()+skill.getImgWidth() <= enemyX+enemyImage.getWidth()
+					|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
+				skill.setCollidingState(true);
+				return true;
+			}
+		}else if(skill.getAttX() <= enemyX+enemyImage.getWidth() && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
+			if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
+					|| skill.getAttY()+skill.getImgHeight() >= enemyY && skill.getAttY()+skill.getImgHeight() <= enemyY+enemyImage.getHeight()
+					|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
+				skill.setCollidingState(true);
+				return true;
+			}
+		}else if(skill.getAttY() <= enemyY+enemyImage.getHeight() && skill.getAttY()+skill.getImgHeight() >= enemyY+enemyImage.getHeight()){
+			if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
+					|| skill.getAttX()+skill.getImgWidth() >= enemyX && skill.getAttX()+skill.getImgWidth() <= enemyX+enemyImage.getWidth()
+					|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getImgWidth() >= enemyX+enemyImage.getWidth()){
+				skill.setCollidingState(true);
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	public void move(){
