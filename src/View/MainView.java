@@ -208,6 +208,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public boolean isColliding(Skill skill) throws SlickException{
+		
 		if((enemyX <= skill.getAttX() && skill.getAttX() <= enemyX + enemyImage.getWidth()) && (enemyY <= skill.getAttY() && skill.getAttY() <= enemyY + enemyImage.getHeight()) ){
 			skill.setCollidingState(true);
 			return true;
