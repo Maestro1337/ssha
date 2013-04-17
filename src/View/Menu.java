@@ -5,9 +5,11 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -32,8 +34,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	TiledMap map;
 	
 	Image userImage;
-	float imgX = 190;
-	float imgY = 90;
+	float imgX;
+	float imgY;
 	
 	Image enemyImage;
 	float enemyX = 600;
@@ -61,15 +63,26 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	private boolean startMusic = true;
 	private boolean fullScreen = true;
+	private boolean paused;
+	
+	Image user, move1, move2;
+	float shiftX = imgX + 460;
+	float shiftY = imgX + 160;
+	
 	
 	public Menu (int state){
 		
 	}
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+		
 		enemyImage = new Image("res/awesomePinkSquare.png");
-		userImage = new Image("res/awesomePinkSquare.png");
+		userImage = new Image("res/stand.png");
 		attackImage = new Image("res/awesomeGreenSquare.png");
+		
+		user = new Image("res/stand.png");
+		move1 = new Image("res/walk1.png");
+		move2 = new Image("res/walk2.png");
 		
 		barImg = new Image("res/bar_hp.png");
 		hpBackImg = new Image("res/gray_hp.png");
@@ -86,7 +99,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		gc.setFullscreen(false);
 		
-		map.render(0, 0);
+		map.render(-800, -800);
+		user.draw(imgX,imgY);
 		
 		if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
@@ -95,21 +109,20 @@ public class Menu extends BasicGameState implements ActionListener{
 		
 		g.drawString(mouse, 50, 200);
 		
-		
 		g.drawString("Enemy HP: "+enemyHP,500,600);
 		
-		g.drawImage(userImage, imgX,imgY);
+		//g.drawImage(userImage, imgX,imgY);
 		
 		if(isAttacking&&!isColliding)
 			g.drawImage(attackImage, aImgX,aImgY);
 
+		//g.drawImage(userImage, shiftX,shiftY);
 		
+		userImage.draw(imgX,imgY);
 
 		Image playImg = new Image("res/start.png");
 		
 		g.drawImage(playImg, 135, 225);
-		
-		
 
 		if(isColliding()){
 			aImgY=1000;
@@ -170,7 +183,18 @@ public class Menu extends BasicGameState implements ActionListener{
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		Input input = gc.getInput();
+		Input input = gc.getInput();  
+		// Escape key quits the game
+        if(input.isKeyDown(Input.KEY_ESCAPE)) gc.exit();
+
+        // P key will pause/unpause the game but still allow Escape key to quit
+        if(input.isKeyDown(Input.KEY_P)) {
+            if(paused == false) paused = true;
+            else paused = false;
+        }
+        
+        // Jump over the other key presses
+        if(paused == true) return;
 		if(input.isKeyDown(Input.KEY_W)){imgY -= 1;}
 		if(input.isKeyDown(Input.KEY_S)){imgY += 1;}
 		if(input.isKeyDown(Input.KEY_A)){imgX -= 1;}
@@ -198,10 +222,21 @@ public class Menu extends BasicGameState implements ActionListener{
 		}
 		if(isRunning){
 			isRunning();
+			if(userImage == user || userImage == move2)
+				userImage = move1;
+			else if(userImage == user || userImage == move1)
+				userImage = move2;
+		} else {
+			userImage = user;
 		}
 		if(isAttacking){
 			isAttacking();
 		}
+		 // Tell the player the game is paused
+        if(paused == true) {
+
+        }
+		
 		
 	}
 	

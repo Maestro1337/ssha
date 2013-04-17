@@ -8,6 +8,8 @@ import Model.Skills.*;
 public class Player {
 	
 	private Image userImage;
+	private Image firstStepImage;
+	private Image secondStepImage;
 	private float imgX;
 	private float imgY;
 	
@@ -40,7 +42,9 @@ public class Player {
 	
 	public Player(float x, float y){
 		try {
-			userImage = new Image("res/awesomePinkSquare.png");
+			userImage = new Image("res/stand.png");
+			firstStepImage = new Image("res/walk1.png");
+			secondStepImage = new Image("res/walk2.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,6 +65,12 @@ public class Player {
 	
 	public Image getImage(){
 		return userImage;
+	}
+	public Image getFirstStepImage(){
+		return firstStepImage;
+	}
+	public Image getSecondStepImage(){
+		return secondStepImage;
 	}
 	public float getX(){
 		return imgX;

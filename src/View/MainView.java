@@ -41,6 +41,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	int eWidth;
 	int eHeight;
 	double rotation=0; 
+	Image userImage;
+	Image user;
+	Image move1;
+	Image move2;
 	
 
 	public MainView(int state) {
@@ -52,6 +56,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		player = new Player(190, 90);
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
+		userImage = player.getImage();
+		
+		user = new Image("res/stand.png");
+		move1 = new Image("res/walk1.png");
+		move2 = new Image("res/walk2.png");
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -70,7 +79,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the enemys hp
 		g.drawString("Enemy HP: "+enemyHP,500,500);
 		//Draw the player
-		g.drawImage(player.getImage(), player.getX(),player.getY());
+		g.drawImage(userImage, player.getX(),player.getY());
 	
 		
 		
@@ -197,6 +206,12 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		if(player.isRunning()){
 			isRunning();
+			if(userImage == player.getImage() || userImage == player.getSecondStepImage())
+				userImage = player.getFirstStepImage();
+			else if(userImage == player.getImage() || userImage == player.getFirstStepImage())
+				userImage = player.getSecondStepImage();
+		} else {
+			userImage = player.getImage();
 		}
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null && playerSkills[i].isAttacking()){
