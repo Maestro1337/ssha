@@ -26,6 +26,6 @@ public class SkillFirestorm extends Skill{
 		}
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
-		super.setEndStateImage(endStateImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setEndStateImage(endStateImage, endStateImage.getHeight(), endStateImage.getWidth());
 	}
 }

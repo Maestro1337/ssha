@@ -108,11 +108,19 @@ public class MainView extends BasicGameState implements ActionListener {
 				}
 				
 				if(isColliding(playerSkills[i]) && playerSkills[i].isColliding()){
-					playerSkills[i].setAttackingState(false);
-					System.out.println("Target hit with " + playerSkills[i].getName());
-					playerSkills[i].setCollidingState(false);
-					playerSkills[i].collidedShot();
-					enemyHP -= playerSkills[i].getDamage();
+					if(!playerSkills[i].isEndState()){
+						playerSkills[i].setAttackingState(false);
+						System.out.println("Target hit with " + playerSkills[i].getName());
+						playerSkills[i].setCollidingState(false);
+						playerSkills[i].collidedShot();
+						enemyHP -= playerSkills[i].getDamage();
+					}else{
+						if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
+							System.out.println("Target hit with " + playerSkills[i].getName());
+							enemyHP -= playerSkills[i].getDamage();
+							playerSkills[i].resetESColTimer();
+						}
+					}
 				}
 			}
 		}
@@ -228,6 +236,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
 				attackingSkill.finishEndState();
 				attackingSkill.setAttackingState(false);
+				attackingSkill.resetESColTimer();
 				System.out.println("Finishing end state with " + attackingSkill.getName());
 			}
 	}
@@ -238,7 +247,6 @@ public class MainView extends BasicGameState implements ActionListener {
 				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
 						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
 						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
-					System.out.println("Hit");
 					skill.setCollidingState(true);
 					return true;
 				}
@@ -263,7 +271,11 @@ public class MainView extends BasicGameState implements ActionListener {
 					skill.setCollidingState(true);
 					return true;
 				}
-			}
+			}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+				return true;
+			}*/
+			
+		//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
 		}else if(skill.isAttacking() && !skill.isProjectile() && skill.isEndState()){
 			
 		}

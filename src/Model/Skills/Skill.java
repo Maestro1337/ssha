@@ -52,11 +52,17 @@ public class Skill{
 	private long endStateStartTime = 0;
 	private long endStateElapsedTime = 0;
 	private int endStateDuration = 1000;
+	private boolean isEndState = false;
 	
-	private boolean nonProjectileEndState = false;
+	private int ESColInterval = 350;
+	private long ESColStartTime = 0;
+	private long ESColElapsedTime = 0;
 
 	private long CDstartTime = 0;
 	private long CDelapsedTime = 0;
+	
+	private boolean isPiercing = false;
+	private int piercingDamage;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE){
 		this.name = name;
@@ -100,6 +106,8 @@ public class Skill{
 		endStateImgWidth = width;
 		
 		isProjectile = false;
+		isPiercing = true;
+		piercingDamage = damage;
 	}
 	
 	public int getCurrentHeight(){
@@ -251,7 +259,9 @@ public class Skill{
 		endStateElapsedTime = 0;
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-		nonProjectileEndState = true;
+		attImgX -= endStateImgWidth/2;
+		attImgY -= endStateImgHeight/2;
+		isEndState = true;
 	}
 	public long checkEndStateTimer(){
 		endStateElapsedTime = System.currentTimeMillis() - endStateStartTime;
@@ -266,9 +276,32 @@ public class Skill{
 	public void finishEndState(){
 		currentHeight = imgHeight;
 		currentWidth = imgWidth;
-		nonProjectileEndState = false;
+		isEndState = false;
+		isColliding = false;
 	}
 	public boolean isEndState(){
-		return nonProjectileEndState;
+		return isEndState;
+	}
+	
+	public void resetESColTimer(){
+		ESColStartTime = System.currentTimeMillis();
+		ESColElapsedTime = 0;
+	}
+	public long checkESColTimer(){
+		ESColElapsedTime = System.currentTimeMillis() - ESColStartTime;
+		if(ESColElapsedTime >= ESColInterval){
+			ESColElapsedTime = ESColInterval;
+		}
+		return ESColElapsedTime;
+	}
+	public int getESColInterval(){
+		return ESColInterval;
+	}
+	
+	public boolean isPiercing(){
+		return isPiercing;
+	}
+	public int getPiercingDamage(){
+		return piercingDamage;
 	}
 }
