@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -30,7 +31,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	Image playButton;
 	Image testButton;
 	Image exitButton;
-	
+	Image titleText;
 	
 	public Menu (int state){
 		
@@ -42,6 +43,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		playButton = new Image("res/playButton.png");
 		testButton = new Image("res/testButton.png");
 		exitButton = new Image("res/exitButton.png");
+		titleText = new Image("res/title.png");
 		
 		try {
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/bg-music.wav"));
@@ -52,17 +54,16 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		gc.setFullscreen(false);
+		g.setColor(Color.black);
+		g.drawImage(backgroundImage, 0, 0);
 
 		if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
 			startMusic = false;
 		}
-
-		g.setColor(Color.white);
-		
 		g.drawString(mouse, 500, 20);
 		
-		g.drawImage(backgroundImage, 0, 0);
+		g.drawImage(titleText, 380, 100);
 		g.drawImage(playButton, 500, 300);
 		g.drawImage(testButton, 500, 400);
 		g.drawImage(exitButton, 500, 500);
