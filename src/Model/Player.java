@@ -29,11 +29,14 @@ public class Player {
 	private float mouseYPosMove;
 	private double moveSpeed = 2;
 	
+	double rotation=0;
+	
 	private int moveCounter=0;
 	private float xDirMove;
 	private float yDirMove;
 	private float genDirMove;
 	private Double findNaN;
+	
 	
 	
 	
@@ -142,7 +145,9 @@ public class Player {
 	public void setRunningState(boolean state){
 		isRunning = state;
 	}
-	
+	public double getRotation(){
+		return rotation;
+	}
 	
 	
 }

@@ -46,7 +46,7 @@ public class Skill{
 	private float attackRange;
 	private boolean isAttacking = false;
 	
-	private boolean isColliding = false;
+	//private boolean isColliding = false;
 	
 	private boolean isProjectile = true;
 	private long endStateStartTime = 0;
@@ -230,12 +230,12 @@ public class Skill{
 		isAttacking = state;
 	}
 	
-	public void setCollidingState(boolean state){
+	/*public void setCollidingState(boolean state){
 		isColliding = state;
 	}
 	public boolean isColliding(){
 		return isColliding;
-	}
+	}*/
 	
 	public void activateSkill(){
     	CDstartTime = System.currentTimeMillis();
@@ -277,7 +277,7 @@ public class Skill{
 		currentHeight = imgHeight;
 		currentWidth = imgWidth;
 		isEndState = false;
-		isColliding = false;
+	//	isColliding = false;
 	}
 	public boolean isEndState(){
 		return isEndState;

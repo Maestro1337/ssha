@@ -25,26 +25,39 @@ import org.newdawn.slick.state.StateBasedGame;
 import Model.*;
 import Model.Skills.*;
 
+import Control.*;
+
 public class MainView extends BasicGameState implements ActionListener {
 	
 	Image bg;
 	private String mouse = "No input yet";
 	
+	private PlayerController Control;
 	Player player;
 	Skill[] playerSkills;
-	Skill currentActiveSkill;
 	
-	int enemyHP = 100;
+	
 	Image enemyImage;
-	float enemyX = 600;
-	float enemyY = 300;
+	
 	int eWidth;
 	int eHeight;
-	double rotation=0; 
+	
+	
 	Image userImage;
 	Image user;
 	Image move1;
 	Image move2;
+	
+	
+	float mouseXPosMove;
+	float mouseYPosMove;
+	
+	float prevMouseXPosMove;
+	float prevMouseYPosMove;
+	
+	
+	float mouseXPosAtt;
+	float mouseYPosAtt;
 	
 
 	public MainView(int state) {
@@ -53,14 +66,18 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		enemyImage = new Image("res/awesomePinkSquare.png");
-		player = new Player(190, 90);
-		playerSkills = player.getSkills();
-		currentActiveSkill = playerSkills[0];
-		userImage = player.getImage();
+		
+		
 		
 		user = new Image("res/stand.png");
 		move1 = new Image("res/walk1.png");
 		move2 = new Image("res/walk2.png");
+		
+		Control = new PlayerController();
+		player = Control.getPlayer();
+		playerSkills = Control.getPlayerSkills();
+		
+		userImage = player.getImage();
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -77,7 +94,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the coodinates for the mouse
 		g.drawString(mouse, 800, 10);
 		//Show the enemys hp
-		g.drawString("Enemy HP: "+enemyHP,500,500);
+		g.drawString("Enemy HP: "+Control.getEnemyHP(),500,500);
 		//Draw the player
 		g.drawImage(userImage, player.getX(),player.getY());
 	
@@ -110,23 +127,23 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
-				if(playerSkills[i].isAttacking() && !playerSkills[i].isColliding() && !playerSkills[i].isEndState()){
+				if(playerSkills[i].isAttacking()/* && !playerSkills[i].isColliding() */&& !playerSkills[i].isEndState()){
 					g.drawImage(playerSkills[i].getAttImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
 				}else if(playerSkills[i].isEndState()){
 					g.drawImage(playerSkills[i].getEndStateImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
 				}
 				
-				if(isColliding(playerSkills[i]) && playerSkills[i].isColliding()){
+				if(Control.isColliding(playerSkills[i])/* && playerSkills[i].isColliding()*/){
 					if(!playerSkills[i].isEndState()){
 						playerSkills[i].setAttackingState(false);
 						System.out.println("Target hit with " + playerSkills[i].getName());
-						playerSkills[i].setCollidingState(false);
+					//	playerSkills[i].setCollidingState(false);
 						playerSkills[i].collidedShot();
-						enemyHP -= playerSkills[i].getDamage();
+						Control.damageEnemyHP(playerSkills[i].getDamage());
 					}else{
 						if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
 							System.out.println("Target hit with " + playerSkills[i].getName());
-							enemyHP -= playerSkills[i].getDamage();
+							Control.damageEnemyHP(playerSkills[i].getDamage());
 							playerSkills[i].resetESColTimer();
 						}
 					}
@@ -137,25 +154,15 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 
 		
-		if(enemyHP>0){
-			g.drawImage(enemyImage, enemyX, enemyY);
+		if(Control.getEnemyHP()>0){
+			g.drawImage(enemyImage, Control.getEnemyX(), Control.getEnemyY());
 		}else{
-			enemyX=1000;
-			enemyY=-1000;
+		//	enemyX=1000;
+		//	enemyY=-1000;
 		}
 	}
 	
-	float mouseXPosMove;
-	float mouseYPosMove;
 	
-	float prevMouseXPosMove;
-	float prevMouseYPosMove;
-	
-	
-	float mouseXPosAtt;
-	float mouseYPosAtt;
-	
-	Double findNaN;
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		int xPos = Mouse.getX();
@@ -168,21 +175,24 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_S)){player.addY(1);}
 		if(input.isKeyDown(Input.KEY_A)){player.addX(-1);}
 		if(input.isKeyDown(Input.KEY_D)){player.addX(1);}
+		
 		if(input.isKeyDown(Input.KEY_1)){
 			if(playerSkills[0] != null)
-				currentActiveSkill = playerSkills[0];}
+				Control.setCurrentActiveSkill(0);
+			}
 		if(input.isKeyDown(Input.KEY_2)){
 			if(playerSkills[1] != null)
-				currentActiveSkill = playerSkills[1];}
+				Control.setCurrentActiveSkill(1);}
 		if(input.isKeyDown(Input.KEY_3)){
 			if(playerSkills[2] != null)
-				currentActiveSkill = playerSkills[2];}
+				Control.setCurrentActiveSkill(2);}
 		if(input.isKeyDown(Input.KEY_4)){
 			if(playerSkills[3] != null)
-				currentActiveSkill = playerSkills[3];}
+				Control.setCurrentActiveSkill(3);}
 		if(input.isKeyDown(Input.KEY_5)){
 			if(playerSkills[4] != null)
-				currentActiveSkill = playerSkills[4];}
+				Control.setCurrentActiveSkill(4);}
+		
 		
 		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
 			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
@@ -191,21 +201,21 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
-			rotate();
-			move();
+			Control.rotate();
+			Control.move();
 		}
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
 			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
-				enemyHP= 100;
-				enemyX = 600;
-				enemyY = 300;	
+				Control.setEnemyHP(100);
+				Control.setEnemyX(600);
+				Control.setEnemyY(300);	
 			}
-			rotate();
-			attack();
+			Control.rotate();
+			Control.attack();
 		}
 		if(player.isRunning()){
-			isRunning();
+			Control.isRunning();
 			if(userImage == player.getImage() || userImage == player.getSecondStepImage())
 				userImage = player.getFirstStepImage();
 			else if(userImage == player.getImage() || userImage == player.getFirstStepImage())
@@ -215,143 +225,15 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null && playerSkills[i].isAttacking()){
-				isAttacking(playerSkills[i]);
+				Control.isAttacking(playerSkills[i]);
 			}
 		}
 	}
 	
-	private void isRunning(){
-		player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
-		player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
-		if(findNaN.isNaN()){
-//			imgX = mouseXPosMove;
-//			imgY = mouseYPosMove;
-			player.setRunningState(false);
-		}
-		player.incMoveCounter();
-		if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
-			player.setRunningState(false);
-	}
 	
-	private void isAttacking(Skill attackingSkill){
-			if(attackingSkill != null && !attackingSkill.isEndState()){
-				attackingSkill.addAttX((float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()));
-				attackingSkill.addAttY((float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
-				
-				attackingSkill.incAttCounter();
-				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
-					if(attackingSkill.isProjectile()){
-						attackingSkill.setAttackingState(false);
-					}else{
-						attackingSkill.activateEndState();
-						System.out.println("Commencing end state with " + attackingSkill.getName());
-					}
-				}
-				
-			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-				attackingSkill.finishEndState();
-				attackingSkill.setAttackingState(false);
-				attackingSkill.resetESColTimer();
-				System.out.println("Finishing end state with " + attackingSkill.getName());
-			}
-	}
-	
-	public boolean isColliding(Skill skill) throws SlickException{
-		if(/*skill.isAttacking() && skill.isProjectile()*/true){
-			if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX){
-				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
-						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
-					skill.setCollidingState(true);
-					return true;
-				}
-			}else if(skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY){
-				if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-						|| skill.getAttX()+skill.getCurrentWidth() >= enemyX && skill.getAttX()+skill.getCurrentWidth() <= enemyX+enemyImage.getWidth()
-						|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-					skill.setCollidingState(true);
-					return true;
-				}
-			}else if(skill.getAttX() <= enemyX+enemyImage.getWidth() && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
-						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
-					skill.setCollidingState(true);
-					return true;
-				}
-			}else if(skill.getAttY() <= enemyY+enemyImage.getHeight() && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
-				if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-						|| skill.getAttX()+skill.getCurrentWidth() >= enemyX && skill.getAttX()+skill.getCurrentWidth() <= enemyX+enemyImage.getWidth()
-						|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-					skill.setCollidingState(true);
-					return true;
-				}
-			}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-				return true;
-			}*/
-			
-		//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
-		}else if(skill.isAttacking() && !skill.isProjectile() && skill.isEndState()){
-			
-		}
-		return false;
-	}
-	public void rotate(){
-		mouseXPosMove = Mouse.getX();
-		mouseYPosMove = 720 - Mouse.getY();
-		rotation = Math.toDegrees(Math.atan2((mouseYPosMove-player.getY()),(mouseXPosMove-player.getX())));
-		player.getImage().setRotation((float)rotation);
-	}
 
 	
-	public void move(){
-		mouseXPosMove = Mouse.getX();
-		mouseYPosMove = 720 - Mouse.getY();
-		player.setXDirMove((mouseXPosMove - player.getX()));
-		player.setYDirMove((mouseYPosMove - player.getY()));
-		player.setGenDirMove((float)Math.sqrt(player.getXDirMove()*player.getXDirMove()+player.getYDirMove()*player.getYDirMove()));
-		findNaN = (double)player.getGenDirMove();
-		player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-		player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
 		
-		player.resetMoveCounter();
-		
-		System.out.println("Running " + player.getGenDirMove() + " pixels");
-		player.setRunningState(true);
-	}
-	
-	public void attack(){
-		
-	//	playerSkills[0].run();
-		
-		//for(int i=0; i<playerSkills.length; i++){
-			if(currentActiveSkill != null && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
-				
-				currentActiveSkill.activateSkill();
-				
-				mouseXPosAtt = Mouse.getX();
-				mouseYPosAtt = 720 - Mouse.getY();
-				
-				currentActiveSkill.resetShot(player);
-				
-				currentActiveSkill.setXDirAtt((mouseXPosAtt - currentActiveSkill.getAttX()));
-				currentActiveSkill.setYDirAtt((mouseYPosAtt - currentActiveSkill.getAttY()));
-				currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
-				currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
-				currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
-				
-				if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-					currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
-				}
-				
-				currentActiveSkill.resetAttCounter();
-				
-				System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
-				currentActiveSkill.setAttackingState(true);
-			}
-		//}
-	}
-	
 	//Returns the state of the game
 	public int getID(){
 		return 1;
