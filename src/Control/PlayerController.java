@@ -1,13 +1,8 @@
 package Control;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +10,7 @@ import java.awt.event.ActionListener;
 import Model.*;
 import Model.Skills.*;
 
-public class PlayerController extends BasicGameState implements ActionListener {
+public class PlayerController implements ActionListener {
 	
 	Player player;
 	Skill[] playerSkills;
@@ -23,9 +18,6 @@ public class PlayerController extends BasicGameState implements ActionListener {
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
-	
-	float prevMouseXPosMove;
-	float prevMouseYPosMove;
 	
 	float mouseXPosAtt;
 	float mouseYPosAtt;
@@ -216,9 +208,27 @@ public class PlayerController extends BasicGameState implements ActionListener {
 		mouseXPosMove = Mouse.getX();
 		mouseYPosMove = 720 - Mouse.getY();
 		double rotation = Math.toDegrees(Math.atan2((mouseYPosMove-player.getY()),(mouseXPosMove-player.getX())));
-		player.getImage().setRotation((float)rotation);
+		player.getImage().setRotation(90 + (float)rotation);
 	}
 
+	public void checkCollision() throws SlickException{
+		for(int i=0; i<playerSkills.length; i++){
+			if(isColliding(playerSkills[i])){
+				if(!playerSkills[i].isEndState()){
+					playerSkills[i].setAttackingState(false);
+					System.out.println("Target hit with " + playerSkills[i].getName());
+					playerSkills[i].collidedShot();
+					damageEnemyHP(playerSkills[i].getDamage());
+				}else{
+					if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
+						System.out.println("Target hit with " + playerSkills[i].getName());
+						damageEnemyHP(playerSkills[i].getDamage());
+						playerSkills[i].resetESColTimer();
+					}
+				}
+			}
+		}
+	}
 
 
 	@Override
@@ -227,33 +237,6 @@ public class PlayerController extends BasicGameState implements ActionListener {
 		
 	}
 
-	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1)
-			throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
-			throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
-			throws SlickException {
-		
-		
-		
-		
-	}
-
-	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

@@ -132,24 +132,9 @@ public class MainView extends BasicGameState implements ActionListener {
 				}else if(playerSkills[i].isEndState()){
 					g.drawImage(playerSkills[i].getEndStateImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
 				}
-				
-				if(Control.isColliding(playerSkills[i])/* && playerSkills[i].isColliding()*/){
-					if(!playerSkills[i].isEndState()){
-						playerSkills[i].setAttackingState(false);
-						System.out.println("Target hit with " + playerSkills[i].getName());
-					//	playerSkills[i].setCollidingState(false);
-						playerSkills[i].collidedShot();
-						Control.damageEnemyHP(playerSkills[i].getDamage());
-					}else{
-						if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
-							System.out.println("Target hit with " + playerSkills[i].getName());
-							Control.damageEnemyHP(playerSkills[i].getDamage());
-							playerSkills[i].resetESColTimer();
-						}
-					}
-				}
 			}
 		}
+		
 		
 		
 
@@ -157,8 +142,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(Control.getEnemyHP()>0){
 			g.drawImage(enemyImage, Control.getEnemyX(), Control.getEnemyY());
 		}else{
-		//	enemyX=1000;
-		//	enemyY=-1000;
+			Control.setEnemyX((int)Control.getEnemyX()+50);
+			Control.setEnemyY((int)Control.getEnemyY()+50);
+			Control.setEnemyHP(100);
 		}
 	}
 	
@@ -167,6 +153,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
+		
+		Control.checkCollision();
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
