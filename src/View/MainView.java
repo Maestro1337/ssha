@@ -51,6 +51,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image slash;
 	Image fireball;
 	Image firestorm;
+	Image iceneedle;
 	Image pedobear;
 	
 	float mouseXPosMove;
@@ -74,6 +75,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		slash = new Image("res/slash.png");
 		fireball = new Image("res/fireball.png");
 		firestorm = new Image("res/Firestorm.png");
+		iceneedle = new Image("res/iceneedle.png");
 		pedobear = new Image("res/pbs4.png");
 		
 		user = new Image("res/stand.png");
@@ -117,6 +119,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 			if(playerSkills[i] != null){
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
+					System.out.println(playerSkills[i].getName());
 					switch (playerSkills[i].getName()) {
 						
 			            case "Slash":g.drawImage(slash,10 + i*50, 660);
@@ -124,6 +127,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			            case "Fireball":g.drawImage(fireball,10 + i*50, 660);
 			                     break;
 			            case "Firestorm":g.drawImage(firestorm,10 + i*50, 660);
+			                     break;
+			            case "IceNeedle":g.drawImage(iceneedle,10 + i*50, 660);
 			                     break;
 			            case "SuperSlowTestSkill":g.drawImage(pedobear,10 + i*50, 660);
 			                     break;
@@ -177,6 +182,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				slash = new Image("res/slash_active.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/Firestorm.png");
+				iceneedle = new Image("res/iceneedle.png");
 				pedobear = new Image("res/pbs4.png");
 			}
 		}
@@ -186,6 +192,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball_active.png");
 				firestorm = new Image("res/Firestorm.png");
+				iceneedle = new Image("res/iceneedle.png");
 				pedobear = new Image("res/pbs4.png");
 			}
 		}
@@ -195,15 +202,17 @@ public class MainView extends BasicGameState implements ActionListener {
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/firestorm_active.png");
+				iceneedle = new Image("res/iceneedle.png");
 				pedobear = new Image("res/pbs4.png");
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
 			if(playerSkills[3] != null){
 				Control.setCurrentActiveSkill(3);
-				slash = new Image("res/slash_active.png");
+				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/Firestorm.png");
+				iceneedle = new Image("res/iceneedle_active.png");
 				pedobear = new Image("res/pbs4.png");
 			}
 		}
@@ -213,6 +222,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/Firestorm.png");
+				iceneedle = new Image("res/iceneedle.png");
 				pedobear = new Image("res/pbs4_active.png");
 			}
 		}

@@ -56,7 +56,7 @@ public class Player {
 		skillList[0] = new SkillSlash();
 		skillList[1] = new SkillFireball();
 		skillList[2] = new SkillFirestorm();
-		skillList[3] = new SkillSlash();
+		skillList[3] = new SkillIceNeedle();
 		skillList[4] = new SkillSuperSlowTestSkill();
 		
 		
