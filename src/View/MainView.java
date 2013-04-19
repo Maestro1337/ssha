@@ -35,6 +35,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	private PlayerController Control;
 	Player player;
 	Skill[] playerSkills;
+	Skill activeSkill;
 	
 	
 	Image enemyImage;
@@ -47,7 +48,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image user;
 	Image move1;
 	Image move2;
-	
+	Image slash;
+	Image fireball;
+	Image firestorm;
+	Image pedobear;
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
@@ -67,7 +71,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		enemyImage = new Image("res/awesomePinkSquare.png");
 		
-		
+		slash = new Image("res/slash.png");
+		fireball = new Image("res/fireball.png");
+		firestorm = new Image("res/Firestorm.png");
+		pedobear = new Image("res/pbs4.png");
 		
 		user = new Image("res/stand.png");
 		move1 = new Image("res/walk1.png");
@@ -109,20 +116,20 @@ public class MainView extends BasicGameState implements ActionListener {
 			g.setColor(Color.black);
 			g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 			if(playerSkills[i] != null){
-				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown())
+				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
 					switch (playerSkills[i].getName()) {
 						
-			            case "Slash":g.drawImage(new Image("res/slash.png"),10 + i*50, 660);
+			            case "Slash":g.drawImage(slash,10 + i*50, 660);
 			                     break;
-			            case "Fireball":g.drawImage(new Image("res/fireball.png"),10 + i*50, 660);
+			            case "Fireball":g.drawImage(fireball,10 + i*50, 660);
 			                     break;
-			            case "Firestorm":g.drawImage(new Image("res/Firestorm.png"),10 + i*50, 660);
+			            case "Firestorm":g.drawImage(firestorm,10 + i*50, 660);
 			                     break;
-			            case "SuperSlowTestSkill":g.drawImage(new Image("res/pbs4.png"),10 + i*50, 660);;
+			            case "SuperSlowTestSkill":g.drawImage(pedobear,10 + i*50, 660);
 			                     break;
-		        }
+			        }
+				}
 			}
-			
 		}
 		
 		for(int i=0; i<playerSkills.length; i++){
@@ -165,21 +172,50 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_D)){player.addX(1);}
 		
 		if(input.isKeyDown(Input.KEY_1)){
-			if(playerSkills[0] != null)
+			if(playerSkills[0] != null){
 				Control.setCurrentActiveSkill(0);
+				slash = new Image("res/slash_active.png");
+				fireball = new Image("res/fireball.png");
+				firestorm = new Image("res/Firestorm.png");
+				pedobear = new Image("res/pbs4.png");
 			}
+		}
 		if(input.isKeyDown(Input.KEY_2)){
-			if(playerSkills[1] != null)
-				Control.setCurrentActiveSkill(1);}
+			if(playerSkills[1] != null){
+				Control.setCurrentActiveSkill(1);
+				slash = new Image("res/slash.png");
+				fireball = new Image("res/fireball_active.png");
+				firestorm = new Image("res/Firestorm.png");
+				pedobear = new Image("res/pbs4.png");
+			}
+		}
 		if(input.isKeyDown(Input.KEY_3)){
-			if(playerSkills[2] != null)
-				Control.setCurrentActiveSkill(2);}
+			if(playerSkills[2] != null){
+				Control.setCurrentActiveSkill(2);
+				slash = new Image("res/slash.png");
+				fireball = new Image("res/fireball.png");
+				firestorm = new Image("res/firestorm_active.png");
+				pedobear = new Image("res/pbs4.png");
+			}
+		}
 		if(input.isKeyDown(Input.KEY_4)){
-			if(playerSkills[3] != null)
-				Control.setCurrentActiveSkill(3);}
+			if(playerSkills[3] != null){
+				Control.setCurrentActiveSkill(3);
+				slash = new Image("res/slash_active.png");
+				fireball = new Image("res/fireball.png");
+				firestorm = new Image("res/Firestorm.png");
+				pedobear = new Image("res/pbs4.png");
+			}
+		}
 		if(input.isKeyDown(Input.KEY_5)){
-			if(playerSkills[4] != null)
-				Control.setCurrentActiveSkill(4);}
+			if(playerSkills[4] != null){
+				Control.setCurrentActiveSkill(4);
+				slash = new Image("res/slash.png");
+				fireball = new Image("res/fireball.png");
+				firestorm = new Image("res/Firestorm.png");
+				pedobear = new Image("res/pbs4_active.png");
+			}
+		}
 		
 		
 		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
