@@ -40,8 +40,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		backgroundImage = new Image("res/background-Rip-Off.png");
-		playButton = new Image("res/playButton.png");
-		testButton = new Image("res/testButton.png");
+		playButton = new Image("res/playButtons.png");
+		testButton = new Image("res/testButtons.png");
 		exitButton = new Image("res/exitButton.png");
 		titleText = new Image("res/title.png");
 		
@@ -81,18 +81,27 @@ public class Menu extends BasicGameState implements ActionListener{
         if(input.isKeyDown(Input.KEY_ESCAPE)) gc.exit();
         
 		
-		if((500<xPos && xPos<750) && (300<yPos && yPos<397)){
-			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
+		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
+			playButton = new Image("res/playButton_hover.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				playButton = new Image("res/playButton_pressed.png");
 				sbg.enterState(1);
 			}
-		} else if((500<xPos && xPos<750) && (400<yPos && yPos<497)){
-			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
+		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
+
+			testButton = new Image("res/testButton_hover.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				testButton = new Image("res/testButton_pressed.png");
 				sbg.enterState(2);
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
-			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
+			exitButton = new Image("res/exitButton.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				System.exit(0);
 			}
+		}else{
+			playButton = new Image("res/playButtons.png");
+			testButton = new Image("res/testButtons.png");
 		}
 	}
 	
