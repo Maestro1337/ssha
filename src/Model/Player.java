@@ -17,7 +17,6 @@ public class Player {
 	
 	private int HP;
 	private String name;
-	private int damage;
 	private int armor;
 	private int kills;
 	private int deaths;
@@ -43,7 +42,8 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(float x, float y){
+	public Player(String name, float x, float y){
+		this.name = name;
 		try {
 			userImage = new Image("res/stand.png");
 			firstStepImage = new Image("res/walk1.png");
@@ -171,6 +171,9 @@ public class Player {
 	public void resetHP(){
 		HP = 100;
 		System.out.println("HEALTH RESTORED");
+	}
+	public String getName(){
+		return name;
 	}
 	
 	

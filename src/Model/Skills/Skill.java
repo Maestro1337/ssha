@@ -270,6 +270,11 @@ public class Skill{
 		attImgY -= endStateImgHeight/2;
 		isEndState = true;
 	}
+	public void activatePreEndState(){
+		//Setting direction to 0 so it will count as reaching it's goal to begin End State
+		setXDirAtt(0);
+		setYDirAtt(0);
+	}
 	public long checkEndStateTimer(){
 		endStateElapsedTime = System.currentTimeMillis() - endStateStartTime;
 		if(endStateElapsedTime >= endStateDuration){
@@ -305,8 +310,8 @@ public class Skill{
 	public int getPiercingDamage(){
 		return piercingDamage;
 	}
-	
 	public boolean isProjectile(){
 		return isProjectile;
 	}
+	
 }

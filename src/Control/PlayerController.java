@@ -50,9 +50,9 @@ public class PlayerController implements ActionListener {
 		enemyY = y;
 	}*/
 
-	public PlayerController(int x, int y){
+	public PlayerController(String name, int x, int y){
 		
-		player = new Player(x, y);
+		player = new Player(name, x, y);
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
 		
@@ -232,11 +232,16 @@ public class PlayerController implements ActionListener {
 		for(int i=0; i<playerSkills.length; i++){
 			if(isColliding(playerSkills[i], player)){
 				if(!playerSkills[i].isEndState()){
-					playerSkills[i].setAttackingState(false);
-					System.out.println("Target hit with " + playerSkills[i].getName());
-					playerSkills[i].collidedShot();
-	//				damageEnemyHP(playerSkills[i].getDamage());
-					player.dealDamage(playerSkills[i].getDamage());
+					System.out.println("ARRIBA");
+					if(!playerSkills[i].hasEndState()){
+						playerSkills[i].setAttackingState(false);
+						System.out.println("Target hit with " + playerSkills[i].getName());
+						playerSkills[i].collidedShot();
+		//				damageEnemyHP(playerSkills[i].getDamage());
+						player.dealDamage(playerSkills[i].getDamage());
+					}else{
+						playerSkills[i].activatePreEndState();
+					}
 				}else{
 	//				if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
 //					if(ESIT != null && ESIT.checkESColTimer() == ESIT.getESColInterval()){

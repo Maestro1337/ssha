@@ -82,8 +82,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		move1 = new Image("res/walk1.png");
 		move2 = new Image("res/walk2.png");
 		
-		Control = new PlayerController(190, 90);
-		enemyControl = new PlayerController(600,300);
+		Control = new PlayerController("Player", 190, 90);
+		enemyControl = new PlayerController("Enemy", 600,300);
 
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
@@ -93,6 +93,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 		player = Control.getPlayer();
 		playerSkills = Control.getPlayerSkills();
+		
+		player.resetHP();
 		
 		userImage = player.getImage();
 	}
@@ -111,7 +113,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the coodinates for the mouse
 		g.drawString(mouse, 800, 10);
 		//Show the enemys hp
-		g.drawString("Enemy HP: "+enemy.getHP(),500,500);
+		g.drawString(enemy.getName() + " HP: "+enemy.getHP(),500,500);
+		g.drawString(player.getName() + " HP: "+player.getHP(),500,515);
 		//Draw the player
 		g.drawImage(userImage, player.getX(),player.getY());
 	
