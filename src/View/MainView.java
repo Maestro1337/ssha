@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import java.util.Random;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -38,6 +40,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Skill activeSkill;
 	
 	Image enemyImage;
+	Skill[] enemySkills;
 	
 /*	int eWidth;
 	int eHeight;*/
@@ -87,6 +90,7 @@ public class MainView extends BasicGameState implements ActionListener {
 
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
+		enemySkills = enemyControl.getPlayerSkills();
 		enemyImage = enemy.getImage();
 		enemy.resetHP();
 			
@@ -164,6 +168,17 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		if(enemy.getHP()>0){
 			g.drawImage(enemyImage, enemy.getX(), enemy.getY());
+			
+			//Copy for enemy attack render
+			for(int i=0; i<enemySkills.length; i++){
+				if(enemySkills[i] != null){
+					if(enemySkills[i].isAttacking()/* && !playerSkills[i].isColliding() */&& !enemySkills[i].isEndState()){
+						g.drawImage(enemySkills[i].getAttImage(), enemySkills[i].getAttX(),enemySkills[i].getAttY());
+					}else if(enemySkills[i].isEndState()){
+						g.drawImage(enemySkills[i].getEndStateImage(), enemySkills[i].getAttX(),enemySkills[i].getAttY());
+					}
+				}
+			}
 		}
 	}
 	
@@ -173,7 +188,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
 		
+		Control.checkCollision(enemySkills);
 		enemyControl.checkCollision(playerSkills);
+		
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
@@ -186,6 +203,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_1)){
 			if(playerSkills[0] != null){
 				Control.setCurrentActiveSkill(0);
+				enemyControl.setCurrentActiveSkill(0);
 				slash = new Image("res/slash_active.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/Firestorm.png");
@@ -196,6 +214,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_2)){
 			if(playerSkills[1] != null){
 				Control.setCurrentActiveSkill(1);
+				enemyControl.setCurrentActiveSkill(1);
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball_active.png");
 				firestorm = new Image("res/Firestorm.png");
@@ -206,6 +225,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_3)){
 			if(playerSkills[2] != null){
 				Control.setCurrentActiveSkill(2);
+				enemyControl.setCurrentActiveSkill(2);
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/firestorm_active.png");
@@ -216,6 +236,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_4)){
 			if(playerSkills[3] != null){
 				Control.setCurrentActiveSkill(3);
+				enemyControl.setCurrentActiveSkill(3);
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/Firestorm.png");
@@ -226,6 +247,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_5)){
 			if(playerSkills[4] != null){
 				Control.setCurrentActiveSkill(4);
+				enemyControl.setCurrentActiveSkill(4);
 				slash = new Image("res/slash.png");
 				fireball = new Image("res/fireball.png");
 				firestorm = new Image("res/Firestorm.png");
@@ -234,16 +256,18 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		
 		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
 			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
 				sbg.enterState(1);
 			}
 		}
+		
+		Random generator = new Random();
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
-			Control.rotate();
-			Control.move();
+	//		Control.rotate();
+			Control.move(Mouse.getX(), 720 - Mouse.getY());
+			enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
 		}
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
@@ -251,8 +275,9 @@ public class MainView extends BasicGameState implements ActionListener {
 //				Control.setEnemyHP(100);
 				enemy.resetHP();
 			}
-			Control.rotate();
-			Control.attack();
+	//		Control.rotate();
+			Control.attack(Mouse.getX(), 720 - Mouse.getY());
+			enemyControl.attack((int)player.getX(), (int)player.getY());
 		}
 		if(player.isRunning()){
 			Control.isRunning();
@@ -263,9 +288,32 @@ public class MainView extends BasicGameState implements ActionListener {
 		} else {
 			userImage = player.getImage();
 		}
+		
+		//Copy for enemy running
+		if(enemy.isRunning()){
+			enemyControl.isRunning();
+			if(enemyImage == enemy.getImage() || enemyImage == enemy.getSecondStepImage())
+				enemyImage = enemy.getFirstStepImage();
+			else if(enemyImage == enemy.getImage() || enemyImage == enemy.getFirstStepImage())
+				enemyImage = enemy.getSecondStepImage();
+		} else {
+			enemyImage = enemy.getImage();
+		}
+		
+		
+		
+		
+		
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null && playerSkills[i].isAttacking()){
 				Control.isAttacking(playerSkills[i]);
+			}
+		}
+		
+		//Copy for enemy attacking
+		for(int i=0; i<enemySkills.length; i++){
+			if(enemySkills[i] != null && enemySkills[i].isAttacking()){
+				enemyControl.isAttacking(enemySkills[i]);
 			}
 		}
 	}

@@ -168,11 +168,12 @@ public class PlayerController implements ActionListener {
 
 	
 	
-	public void move(){
+	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
-		player.setMouseXPosMove(Mouse.getX());
-		player.setMouseYPosMove(720 - Mouse.getY());
+		rotate(x, y);
+		player.setMouseXPosMove(x);
+		player.setMouseYPosMove(y);
 		player.setXDirMove((player.getMouseXPosMove() - player.getX()));
 		player.setYDirMove((player.getMouseYPosMove() - player.getY()));
 		player.setGenDirMove((float)Math.sqrt(player.getXDirMove()*player.getXDirMove()+player.getYDirMove()*player.getYDirMove()));
@@ -186,15 +187,16 @@ public class PlayerController implements ActionListener {
 		player.setRunningState(true);
 	}
 	
-	public void attack(){
+	public void attack(int x, int y){
+		rotate(x, y);
 		if(currentActiveSkill != null && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
 			currentActiveSkill.activateSkill();
 			
 		//	mouseXPosAtt = Mouse.getX();
-			currentActiveSkill.setMouseXPos(Mouse.getX());
+			currentActiveSkill.setMouseXPos(x);
 		//	mouseYPosAtt = 720 - Mouse.getY();
-			currentActiveSkill.setMouseYPos(720 - Mouse.getY());
+			currentActiveSkill.setMouseYPos(y);
 			
 			
 			currentActiveSkill.resetShot(player);
@@ -218,11 +220,11 @@ public class PlayerController implements ActionListener {
 		}
 	}
 
-	public void rotate(){
+	public void rotate(int x, int y){
 //		mouseXPosMove = Mouse.getX();
 //		mouseYPosMove = 720 - Mouse.getY();
-		player.setMouseXPosMove(Mouse.getX());
-		player.setMouseYPosMove(720 - Mouse.getY());
+		player.setMouseXPosMove(x);
+		player.setMouseYPosMove(y);
 		double rotation = Math.toDegrees(Math.atan2((player.getMouseYPosMove()-player.getY()),(player.getMouseXPosMove()-player.getX())));
 //		player.getImage().setRotation(90 + (float)rotation);
 		player.setRotation(90 + (float)rotation);
@@ -232,7 +234,6 @@ public class PlayerController implements ActionListener {
 		for(int i=0; i<playerSkills.length; i++){
 			if(isColliding(playerSkills[i], player)){
 				if(!playerSkills[i].isEndState()){
-					System.out.println("ARRIBA");
 					if(!playerSkills[i].hasEndState()){
 						playerSkills[i].setAttackingState(false);
 						System.out.println("Target hit with " + playerSkills[i].getName());
