@@ -12,12 +12,13 @@ import Model.Skills.*;
 
 public class PlayerController implements ActionListener {
 	
-	Player player, enemy;
+	Player player;
+	//Player enemy;
 	Skill[] playerSkills;
 	Skill currentActiveSkill;
 	
 	//TODO set ESIT to either player or skill in some way
-	EndStateIntervalTimer ESIT;
+//	EndStateIntervalTimer ESIT;
 	
 	Double findNaN;
 	
@@ -49,13 +50,13 @@ public class PlayerController implements ActionListener {
 		enemyY = y;
 	}*/
 
-	public PlayerController(){
+	public PlayerController(int x, int y){
 		
-		player = new Player(190, 90);
+		player = new Player(x, y);
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
 		
-		enemy = new Player(600,300);
+	//	enemy = new Player(600,300);
 	/*	
 		try {
 			enemyImage = new Image("res/awesomePinkSquare.png");
@@ -69,9 +70,9 @@ public class PlayerController implements ActionListener {
 	public Player getPlayer(){
 		return player;
 	}
-	public Player getEnemy(){
+	/*public Player getEnemy(){
 		return enemy;
-	}
+	}*/
 	
 	public Skill[] getPlayerSkills(){
 		return player.getSkills();
@@ -110,14 +111,14 @@ public class PlayerController implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
-						ESIT = new EndStateIntervalTimer(attackingSkill.getESColInterval(), player, attackingSkill);
+				//		ESIT = new EndStateIntervalTimer(attackingSkill.getESColInterval(), player, attackingSkill);
 						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
 				
 			}else if(attackingSkill != null && !attackingSkill.isEndState() &&!attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();
-				ESIT = new EndStateIntervalTimer(attackingSkill.getESColInterval(), player, attackingSkill);
+	//			ESIT = new EndStateIntervalTimer(attackingSkill.getESColInterval(), player, attackingSkill);
 				System.out.println("Commencing end state with " + attackingSkill.getName());
 			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
 			
@@ -227,23 +228,27 @@ public class PlayerController implements ActionListener {
 		player.setRotation(90 + (float)rotation);
 	}
 
-	public void checkCollision() throws SlickException{
+	public void checkCollision(Skill[] playerSkills) throws SlickException{
 		for(int i=0; i<playerSkills.length; i++){
-			if(isColliding(playerSkills[i], enemy)){
+			if(isColliding(playerSkills[i], player)){
 				if(!playerSkills[i].isEndState()){
 					playerSkills[i].setAttackingState(false);
 					System.out.println("Target hit with " + playerSkills[i].getName());
 					playerSkills[i].collidedShot();
 	//				damageEnemyHP(playerSkills[i].getDamage());
-					enemy.dealDamage(playerSkills[i].getDamage());
+					player.dealDamage(playerSkills[i].getDamage());
 				}else{
 	//				if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
-					if(ESIT != null && ESIT.checkESColTimer() == ESIT.getESColInterval()){
+//					if(ESIT != null && ESIT.checkESColTimer() == ESIT.getESColInterval()){
+					if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
 						System.out.println("Target hit with " + playerSkills[i].getName());
 	//					damageEnemyHP(playerSkills[i].getDamage());
-						enemy.dealDamage(playerSkills[i].getDamage());
+						player.dealDamage(playerSkills[i].getDamage());
 	//					playerSkills[i].resetESColTimer();
-						ESIT.resetESColTimer();
+//						ESIT.resetESColTimer();
+						playerSkills[i].getESIT().resetESColTimer();
+					}else if(playerSkills[i].getESIT() == null){
+						playerSkills[i].activateESIT(player);
 					}
 				}
 			}

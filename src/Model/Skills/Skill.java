@@ -1,5 +1,6 @@
 package Model.Skills;
 
+import Control.EndStateIntervalTimer;
 import Model.Player;
 import Model.StatusEffect;
 
@@ -54,6 +55,8 @@ public class Skill{
 	private int endStateDuration;
 	private boolean isEndState = false;
 	private int ESColInterval;
+	
+	EndStateIntervalTimer ESIT;
 	
 	private boolean isProjectile = true;
 
@@ -288,6 +291,12 @@ public class Skill{
 	}
 	public int getESColInterval(){
 		return ESColInterval;
+	}
+	public void activateESIT(Player player){
+		ESIT = new EndStateIntervalTimer(getESColInterval(), player, this);
+	}
+	public EndStateIntervalTimer getESIT(){
+		return ESIT;
 	}
 	
 	public boolean isPiercing(){

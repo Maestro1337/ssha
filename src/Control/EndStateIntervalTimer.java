@@ -24,7 +24,7 @@ public class EndStateIntervalTimer {
 	}
 	public long checkESColTimer(){
 		ESColElapsedTime = System.currentTimeMillis() - ESColStartTime;
-		if(ESColElapsedTime >= ESColInterval){
+		if(ESColElapsedTime > ESColInterval){
 			ESColElapsedTime = ESColInterval;
 		}
 		return ESColElapsedTime;

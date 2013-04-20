@@ -32,11 +32,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image bg;
 	private String mouse = "No input yet";
 	
-	private PlayerController Control;
+	private PlayerController Control, enemyControl;
 	Player player,enemy;
 	Skill[] playerSkills;
 	Skill activeSkill;
-	
 	
 	Image enemyImage;
 	
@@ -83,10 +82,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		move1 = new Image("res/walk1.png");
 		move2 = new Image("res/walk2.png");
 		
-		Control = new PlayerController();
-		
+		Control = new PlayerController(190, 90);
+		enemyControl = new PlayerController(600,300);
 
-		enemy = Control.getEnemy();
+//		enemy = Control.getEnemy();
+		enemy = enemyControl.getPlayer();
 		enemyImage = new Image("res/awesomePinkSquare.png");
 		enemy.resetHP();
 			
@@ -170,7 +170,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
 		
-		Control.checkCollision();
+		enemyControl.checkCollision(playerSkills);
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
