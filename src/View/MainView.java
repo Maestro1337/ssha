@@ -87,7 +87,7 @@ public class MainView extends BasicGameState implements ActionListener {
 
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
-		enemyImage = new Image("res/awesomePinkSquare.png");
+		enemyImage = enemy.getImage();
 		enemy.resetHP();
 			
 			

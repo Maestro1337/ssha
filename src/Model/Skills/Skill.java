@@ -76,7 +76,7 @@ public class Skill{
 		spellEffect = SE;
 		attackRange = range;
 		if(speed < 100){
-			attSpeed = 3*speed;
+			attSpeed = speed;
 		}else{
 			isProjectile = false;
 		}
@@ -274,6 +274,8 @@ public class Skill{
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
 		setXDirAtt(0);
 		setYDirAtt(0);
+		
+		attCounter = 1000;
 	}
 	public long checkEndStateTimer(){
 		endStateElapsedTime = System.currentTimeMillis() - endStateStartTime;
