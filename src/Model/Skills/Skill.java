@@ -275,7 +275,7 @@ public class Skill{
 		setXDirAtt(0);
 		setYDirAtt(0);
 		
-		attCounter = 1000;
+		setGenDirAtt(0);
 	}
 	public long checkEndStateTimer(){
 		endStateElapsedTime = System.currentTimeMillis() - endStateStartTime;
