@@ -33,15 +33,15 @@ public class MainView extends BasicGameState implements ActionListener {
 	private String mouse = "No input yet";
 	
 	private PlayerController Control;
-	Player player;
+	Player player,enemy;
 	Skill[] playerSkills;
 	Skill activeSkill;
 	
 	
 	Image enemyImage;
 	
-	int eWidth;
-	int eHeight;
+/*	int eWidth;
+	int eHeight;*/
 	
 	
 	Image userImage;
@@ -70,7 +70,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
-		enemyImage = new Image("res/awesomePinkSquare.png");
+		
+	
 		
 		slash = new Image("res/slash.png");
 		fireball = new Image("res/fireball.png");
@@ -83,6 +84,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		move2 = new Image("res/walk2.png");
 		
 		Control = new PlayerController();
+		
+
+		enemy = Control.getEnemy();
+		enemyImage = new Image("res/awesomePinkSquare.png");
+		enemy.resetHP();
+			
+			
 		player = Control.getPlayer();
 		playerSkills = Control.getPlayerSkills();
 		
@@ -103,7 +111,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the coodinates for the mouse
 		g.drawString(mouse, 800, 10);
 		//Show the enemys hp
-		g.drawString("Enemy HP: "+Control.getEnemyHP(),500,500);
+		g.drawString("Enemy HP: "+enemy.getHP(),500,500);
 		//Draw the player
 		g.drawImage(userImage, player.getX(),player.getY());
 	
@@ -151,12 +159,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 
 		
-		if(Control.getEnemyHP()>0){
-			g.drawImage(enemyImage, Control.getEnemyX(), Control.getEnemyY());
-		}else{
-			Control.setEnemyX((int)Control.getEnemyX()+50);
-			Control.setEnemyY((int)Control.getEnemyY()+50);
-			Control.setEnemyHP(100);
+		if(enemy.getHP()>0){
+			g.drawImage(enemyImage, enemy.getX(), enemy.getY());
 		}
 	}
 	
@@ -241,9 +245,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
 			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
-				Control.setEnemyHP(100);
-				Control.setEnemyX(600);
-				Control.setEnemyY(300);	
+//				Control.setEnemyHP(100);
+				enemy.resetHP();
 			}
 			Control.rotate();
 			Control.attack();

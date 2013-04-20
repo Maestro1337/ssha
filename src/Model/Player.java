@@ -89,7 +89,12 @@ public class Player {
 		imgY += y;
 	}
 	
-	
+	public void setMouseXPosMove(float x){
+		mouseXPosMove = x;
+	}
+	public void setMouseYPosMove(float y){
+		mouseYPosMove = y;
+	}
 	
 	public float getMouseXPosMove(){
 		return mouseXPosMove;
@@ -153,6 +158,19 @@ public class Player {
 		userImage.setRotation(angle);
 		firstStepImage.setRotation(angle);
 		secondStepImage.setRotation(angle);
+	}
+	
+	//Getters and setters for stats
+	public int getHP(){
+		return HP;
+	}
+	public void dealDamage(int damage){
+		HP -= damage;
+		System.out.println("DAMAGE DEALT!");
+	}
+	public void resetHP(){
+		HP = 100;
+		System.out.println("HEALTH RESTORED");
 	}
 	
 	

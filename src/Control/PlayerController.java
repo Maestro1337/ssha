@@ -12,23 +12,17 @@ import Model.Skills.*;
 
 public class PlayerController implements ActionListener {
 	
-	Player player;
+	Player player, enemy;
 	Skill[] playerSkills;
 	Skill currentActiveSkill;
 	
 	//TODO set ESIT to either player or skill in some way
 	EndStateIntervalTimer ESIT;
 	
-	float mouseXPosMove;
-	float mouseYPosMove;
-	
-	float mouseXPosAtt;
-	float mouseYPosAtt;
-	
 	Double findNaN;
 	
 	//Temporary for collisionControl
-	int enemyHP = 100;
+/*	int enemyHP = 100;
 	float enemyX = 600;
 	float enemyY = 300;
 	Image enemyImage;
@@ -53,7 +47,7 @@ public class PlayerController implements ActionListener {
 	}
 	public void setEnemyY(int y){
 		enemyY = y;
-	}
+	}*/
 
 	public PlayerController(){
 		
@@ -61,17 +55,22 @@ public class PlayerController implements ActionListener {
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
 		
+		enemy = new Player(600,300);
+	/*	
 		try {
 			enemyImage = new Image("res/awesomePinkSquare.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
 	public Player getPlayer(){
 		return player;
+	}
+	public Player getEnemy(){
+		return enemy;
 	}
 	
 	public Skill[] getPlayerSkills(){
@@ -129,30 +128,30 @@ public class PlayerController implements ActionListener {
 			}
 	}
 	
-	public boolean isColliding(Skill skill) throws SlickException{
+	public boolean isColliding(Skill skill, Player player) throws SlickException{
 		if(!skill.isPiercing()){
-			if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX){
-				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
-						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
+			if(skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()){
+				if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
+						|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
+						|| skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
 					return true;
 				}
-			}else if(skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY){
-				if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-						|| skill.getAttX()+skill.getCurrentWidth() >= enemyX && skill.getAttX()+skill.getCurrentWidth() <= enemyX+enemyImage.getWidth()
-						|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+			}else if(skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()){
+				if(skill.getAttX() >= player.getX() && skill.getAttX() <= player.getX()+player.getImage().getWidth() 
+						|| skill.getAttX()+skill.getCurrentWidth() >= player.getX() && skill.getAttX()+skill.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
+						|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
 					return true;
 				}
-			}else if(skill.getAttX() <= enemyX+enemyImage.getWidth() && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-				if(skill.getAttY() >= enemyY && skill.getAttY() <= enemyY+enemyImage.getHeight() 
-						|| skill.getAttY()+skill.getCurrentHeight() >= enemyY && skill.getAttY()+skill.getCurrentHeight() <= enemyY+enemyImage.getHeight()
-						|| skill.getAttY() <= enemyY && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
+			}else if(skill.getAttX() <= player.getX()+player.getImage().getWidth()  && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+				if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
+						|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
+						|| skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
 					return true;
 				}
-			}else if(skill.getAttY() <= enemyY+enemyImage.getHeight() && skill.getAttY()+skill.getCurrentHeight() >= enemyY+enemyImage.getHeight()){
-				if(skill.getAttX() >= enemyX && skill.getAttX() <= enemyX+enemyImage.getWidth() 
-						|| skill.getAttX()+skill.getCurrentWidth() >= enemyX && skill.getAttX()+skill.getCurrentWidth() <= enemyX+enemyImage.getWidth()
-						|| skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+			}else if(skill.getAttY() <= player.getY()+player.getImage().getHeight()  && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+				if(skill.getAttX() >= player.getX() && skill.getAttX() <= player.getX()+player.getImage().getWidth() 
+						|| skill.getAttX()+skill.getCurrentWidth() >= player.getX() && skill.getAttX()+skill.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
+						|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
 					return true;
 				}
 			}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
@@ -169,10 +168,12 @@ public class PlayerController implements ActionListener {
 	
 	
 	public void move(){
-		mouseXPosMove = Mouse.getX();
-		mouseYPosMove = 720 - Mouse.getY();
-		player.setXDirMove((mouseXPosMove - player.getX()));
-		player.setYDirMove((mouseYPosMove - player.getY()));
+	//	mouseXPosMove = Mouse.getX();
+	//	mouseYPosMove = 720 - Mouse.getY();
+		player.setMouseXPosMove(Mouse.getX());
+		player.setMouseYPosMove(720 - Mouse.getY());
+		player.setXDirMove((player.getMouseXPosMove() - player.getX()));
+		player.setYDirMove((player.getMouseYPosMove() - player.getY()));
 		player.setGenDirMove((float)Math.sqrt(player.getXDirMove()*player.getXDirMove()+player.getYDirMove()*player.getYDirMove()));
 		findNaN = (double)player.getGenDirMove();
 		player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
@@ -189,17 +190,17 @@ public class PlayerController implements ActionListener {
 			
 			currentActiveSkill.activateSkill();
 			
-			mouseXPosAtt = Mouse.getX();
+		//	mouseXPosAtt = Mouse.getX();
 			currentActiveSkill.setMouseXPos(Mouse.getX());
-			mouseYPosAtt = 720 - Mouse.getY();
+		//	mouseYPosAtt = 720 - Mouse.getY();
 			currentActiveSkill.setMouseYPos(720 - Mouse.getY());
 			
 			
 			currentActiveSkill.resetShot(player);
 			if(currentActiveSkill.isProjectile()){
 			
-				currentActiveSkill.setXDirAtt((mouseXPosAtt - currentActiveSkill.getAttX()));
-				currentActiveSkill.setYDirAtt((mouseYPosAtt - currentActiveSkill.getAttY()));
+				currentActiveSkill.setXDirAtt((currentActiveSkill.getMouseXPosAtt() - currentActiveSkill.getAttX()));
+				currentActiveSkill.setYDirAtt((currentActiveSkill.getMouseYPosAtt() - currentActiveSkill.getAttY()));
 				currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
 				currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
 				currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
@@ -217,26 +218,30 @@ public class PlayerController implements ActionListener {
 	}
 
 	public void rotate(){
-		mouseXPosMove = Mouse.getX();
-		mouseYPosMove = 720 - Mouse.getY();
-		double rotation = Math.toDegrees(Math.atan2((mouseYPosMove-player.getY()),(mouseXPosMove-player.getX())));
+//		mouseXPosMove = Mouse.getX();
+//		mouseYPosMove = 720 - Mouse.getY();
+		player.setMouseXPosMove(Mouse.getX());
+		player.setMouseYPosMove(720 - Mouse.getY());
+		double rotation = Math.toDegrees(Math.atan2((player.getMouseYPosMove()-player.getY()),(player.getMouseXPosMove()-player.getX())));
 //		player.getImage().setRotation(90 + (float)rotation);
 		player.setRotation(90 + (float)rotation);
 	}
 
 	public void checkCollision() throws SlickException{
 		for(int i=0; i<playerSkills.length; i++){
-			if(isColliding(playerSkills[i])){
+			if(isColliding(playerSkills[i], enemy)){
 				if(!playerSkills[i].isEndState()){
 					playerSkills[i].setAttackingState(false);
 					System.out.println("Target hit with " + playerSkills[i].getName());
 					playerSkills[i].collidedShot();
-					damageEnemyHP(playerSkills[i].getDamage());
+	//				damageEnemyHP(playerSkills[i].getDamage());
+					enemy.dealDamage(playerSkills[i].getDamage());
 				}else{
 	//				if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
 					if(ESIT != null && ESIT.checkESColTimer() == ESIT.getESColInterval()){
 						System.out.println("Target hit with " + playerSkills[i].getName());
-						damageEnemyHP(playerSkills[i].getDamage());
+	//					damageEnemyHP(playerSkills[i].getDamage());
+						enemy.dealDamage(playerSkills[i].getDamage());
 	//					playerSkills[i].resetESColTimer();
 						ESIT.resetESColTimer();
 					}

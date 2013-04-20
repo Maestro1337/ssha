@@ -241,13 +241,6 @@ public class Skill{
 		isAttacking = state;
 	}
 	
-	/*public void setCollidingState(boolean state){
-		isColliding = state;
-	}
-	public boolean isColliding(){
-		return isColliding;
-	}*/
-	
 	public void activateSkill(){
     	CDstartTime = System.currentTimeMillis();
     	CDelapsedTime = 0;
