@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.*;
+import Model.Obstacles.Obstacles;
 import Model.Skills.*;
 
 public class PlayerController implements ActionListener {
@@ -129,40 +130,38 @@ public class PlayerController implements ActionListener {
 			}
 	}
 	
-	public boolean isColliding(Skill skill, Player player) throws SlickException{
-		if(!skill.isPiercing()){
-			if(skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()){
-				if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
-						|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
-						|| skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
-					return true;
-				}
-			}else if(skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()){
-				if(skill.getAttX() >= player.getX() && skill.getAttX() <= player.getX()+player.getImage().getWidth() 
-						|| skill.getAttX()+skill.getCurrentWidth() >= player.getX() && skill.getAttX()+skill.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
-						|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
-					return true;
-				}
-			}else if(skill.getAttX() <= player.getX()+player.getImage().getWidth()  && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
-				if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
-						|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
-						|| skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
-					return true;
-				}
-			}else if(skill.getAttY() <= player.getY()+player.getImage().getHeight()  && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
-				if(skill.getAttX() >= player.getX() && skill.getAttX() <= player.getX()+player.getImage().getWidth() 
-						|| skill.getAttX()+skill.getCurrentWidth() >= player.getX() && skill.getAttX()+skill.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
-						|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
-					return true;
-				}
-			}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+	public boolean isColliding(Skill skill) throws SlickException{
+
+		if(skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()){
+			if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
+					|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
+					|| skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
 				return true;
-			}*/
-			
-		//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
-		}else{
-			
-		}
+			}
+		}else if(skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()){
+			if(skill.getAttX() >= player.getX() && skill.getAttX() <= player.getX()+player.getImage().getWidth() 
+					|| skill.getAttX()+skill.getCurrentWidth() >= player.getX() && skill.getAttX()+skill.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
+					|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+				return true;
+			}
+		}else if(skill.getAttX() <= player.getX()+player.getImage().getWidth()  && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+			if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
+					|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
+					|| skill.getAttY() <= player.getY() && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+				return true;
+			}
+		}else if(skill.getAttY() <= player.getY()+player.getImage().getHeight()  && skill.getAttY()+skill.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+			if(skill.getAttX() >= player.getX() && skill.getAttX() <= player.getX()+player.getImage().getWidth() 
+					|| skill.getAttX()+skill.getCurrentWidth() >= player.getX() && skill.getAttX()+skill.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
+					|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+				return true;
+			}
+		}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+			return true;
+		}*/
+		
+	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
+		
 		return false;
 	}
 
@@ -232,7 +231,7 @@ public class PlayerController implements ActionListener {
 
 	public void checkCollision(Skill[] playerSkills) throws SlickException{
 		for(int i=0; i<playerSkills.length; i++){
-			if(isColliding(playerSkills[i], player)){
+			if(isColliding(playerSkills[i])){
 				if(!playerSkills[i].isEndState()){
 					if(!playerSkills[i].hasEndState()){
 						playerSkills[i].setAttackingState(false);
@@ -259,6 +258,53 @@ public class PlayerController implements ActionListener {
 				}
 			}
 		}
+	}
+	
+	public void checkCollision(Obstacles[] obstacles) throws SlickException{
+		for(int i=0; i<obstacles.length; i++){
+			if(isColliding(obstacles[i])){
+
+				System.out.println("Target hit with " + obstacles[i].getType());
+//				damageEnemyHP(playerSkills[i].getDamage());
+				player.dealDamage(obstacles[i].getDamage());
+
+			}
+		}
+	}
+	
+	public boolean isColliding(Obstacles obstacle) throws SlickException{
+
+		if(obstacle.getX() <= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()){
+			if(obstacle.getY() >= player.getY() && obstacle.getY() <= player.getY()+player.getImage().getHeight() 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
+					|| obstacle.getY() <= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+				return true;
+			}
+		}else if(obstacle.getY() <= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()){
+			if(obstacle.getX() >= player.getX() && obstacle.getX() <= player.getX()+player.getImage().getWidth() 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
+					|| obstacle.getX() <= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+				return true;
+			}
+		}else if(obstacle.getX() <= player.getX()+player.getImage().getWidth()  && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+			if(obstacle.getY() >= player.getY() && obstacle.getY() <= player.getY()+player.getImage().getHeight() 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
+					|| obstacle.getY() <= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+				return true;
+			}
+		}else if(obstacle.getY() <= player.getY()+player.getImage().getHeight()  && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+			if(obstacle.getX() >= player.getX() && obstacle.getX() <= player.getX()+player.getImage().getWidth() 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
+					|| obstacle.getX() <= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+				return true;
+			}
+		}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
+			return true;
+		}*/
+		
+	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
+		
+		return false;
 	}
 
 

@@ -25,6 +25,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Model.*;
+import Model.Obstacles.ObstaclePillar;
+import Model.Obstacles.Obstacles;
 import Model.Skills.*;
 
 import Control.*;
@@ -41,6 +43,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	Image enemyImage;
 	Skill[] enemySkills;
+	
+	Obstacles[] obstacles = new Obstacles[10];
 	
 /*	int eWidth;
 	int eHeight;*/
@@ -101,6 +105,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		player.resetHP();
 		
 		userImage = player.getImage();
+		
+		obstacles[0] = new ObstaclePillar(100, 200);
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -159,6 +165,12 @@ public class MainView extends BasicGameState implements ActionListener {
 				}else if(playerSkills[i].isEndState()){
 					g.drawImage(playerSkills[i].getEndStateImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
 				}
+			}
+		}
+		
+		for(int i=0; i<obstacles.length; i++){
+			if(obstacles[i] != null){
+				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
 			}
 		}
 		
