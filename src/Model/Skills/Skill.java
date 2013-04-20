@@ -48,15 +48,14 @@ public class Skill{
 	
 	//private boolean isColliding = false;
 	
-	private boolean isProjectile = true;
+	private boolean hasEndState = false;
 	private long endStateStartTime = 0;
 	private long endStateElapsedTime = 0;
-	private int endStateDuration = 1000;
+	private int endStateDuration;
 	private boolean isEndState = false;
+	private int ESColInterval;
 	
-	private int ESColInterval = 350;
-	private long ESColStartTime = 0;
-	private long ESColElapsedTime = 0;
+	private boolean isProjectile = true;
 
 	private long CDstartTime = 0;
 	private long CDelapsedTime = 0;
@@ -74,7 +73,7 @@ public class Skill{
 		spellEffect = SE;
 		attackRange = range;
 		if(speed < 100){
-			attSpeed = speed;
+			attSpeed = 3*speed;
 		}else{
 			isProjectile = false;
 		}
@@ -98,16 +97,18 @@ public class Skill{
 		currentHeight = imgHeight = height;
 		currentWidth = imgWidth = width;
 	}
-	public void setEndStateImage(Image image, int height, int width){
+	public void setEndState(Image image, int height, int width, int duration, int interval){
 		if(image != null)
 			endStateImage = image;
 		
 		endStateImgHeight = height;
 		endStateImgWidth = width;
 		
-		isProjectile = false;
-		isPiercing = true;
-		piercingDamage = damage;
+		hasEndState = true;
+		endStateDuration = duration;
+		ESColInterval = interval;
+		
+	//	this.isProjectile = isProjectile;
 	}
 	
 	public int getCurrentHeight(){
@@ -170,8 +171,13 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		attImgX = player.getX();
-		attImgY = player.getY();
+		if(isProjectile){
+			attImgX = player.getX();
+			attImgY = player.getY();
+		}else{
+			attImgX = mouseXPosAtt;
+			attImgY = mouseYPosAtt;
+		}
 	}
 	
 	public void collidedShot(){
@@ -179,7 +185,12 @@ public class Skill{
 		attImgY = -1000;
 	}
 	
-	
+	public void setMouseXPos(int x){
+		mouseXPosAtt = x;
+	}
+	public void setMouseYPos(int y){
+		mouseYPosAtt = y;
+	}
 	public float getMouseXPosAtt(){
 		return mouseXPosAtt;
 	}
@@ -251,8 +262,8 @@ public class Skill{
     	return (cooldown - CDelapsedTime)/1000;
     }
 	
-	public boolean isProjectile(){
-		return isProjectile;
+	public boolean hasEndState(){
+		return hasEndState;
 	}
 	public void activateEndState(){
 		endStateStartTime = System.currentTimeMillis();
@@ -282,18 +293,6 @@ public class Skill{
 	public boolean isEndState(){
 		return isEndState;
 	}
-	
-	public void resetESColTimer(){
-		ESColStartTime = System.currentTimeMillis();
-		ESColElapsedTime = 0;
-	}
-	public long checkESColTimer(){
-		ESColElapsedTime = System.currentTimeMillis() - ESColStartTime;
-		if(ESColElapsedTime >= ESColInterval){
-			ESColElapsedTime = ESColInterval;
-		}
-		return ESColElapsedTime;
-	}
 	public int getESColInterval(){
 		return ESColInterval;
 	}
@@ -303,5 +302,9 @@ public class Skill{
 	}
 	public int getPiercingDamage(){
 		return piercingDamage;
+	}
+	
+	public boolean isProjectile(){
+		return isProjectile;
 	}
 }

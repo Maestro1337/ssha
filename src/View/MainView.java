@@ -119,7 +119,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 			if(playerSkills[i] != null){
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
-					System.out.println(playerSkills[i].getName());
+				//	System.out.println(playerSkills[i].getName());
 					switch (playerSkills[i].getName()) {
 						
 			            case "Slash":g.drawImage(slash,10 + i*50, 660);

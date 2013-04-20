@@ -149,5 +149,11 @@ public class Player {
 		return rotation;
 	}
 	
+	public void setRotation(float angle){
+		userImage.setRotation(angle);
+		firstStepImage.setRotation(angle);
+		secondStepImage.setRotation(angle);
+	}
+	
 	
 }

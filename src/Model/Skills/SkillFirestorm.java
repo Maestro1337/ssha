@@ -7,7 +7,7 @@ public class SkillFirestorm extends Skill{
 
 	public SkillFirestorm(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 5000, 350, 1, 8, 0, 25, null);
+		super("Firestorm", 5000, 350, 100, 8, 0, 5, null);
 		
 		Image attackImage = null;
 		try {
@@ -26,6 +26,6 @@ public class SkillFirestorm extends Skill{
 		}
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
-		super.setEndStateImage(endStateImage, endStateImage.getHeight(), endStateImage.getWidth());
+		super.setEndState(endStateImage, endStateImage.getHeight(), endStateImage.getWidth(), 3000, 350);
 	}
 }
