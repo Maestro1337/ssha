@@ -44,7 +44,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image enemyImage;
 	Skill[] enemySkills;
 	
-	Obstacles[] obstacles = new Obstacles[10];
+	Obstacles[] obstacles = new Obstacles[100];
 	
 /*	int eWidth;
 	int eHeight;*/
@@ -89,10 +89,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		move1 = new Image("res/walk1.png");
 		move2 = new Image("res/walk2.png");
 		
-		obstacles[0] = new ObstaclePillar(100, 200);
+		Random obsGenerator = new Random();
+		for(int i=0; i<obsGenerator.nextInt(50); i++){
+			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+		}
 		
-		Control = new PlayerController("Player", 190, 90, obstacles);
-		enemyControl = new PlayerController("Enemy", 600,300, obstacles);
+		Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles);
+		enemyControl = new PlayerController("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles);
 
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
@@ -132,7 +135,11 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 		
 		
-		
+		for(int i=0; i<obstacles.length; i++){
+			if(obstacles[i] != null){
+				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
+			}
+		}
 		
 		//Draw the actionbar
 		for(int i=0; i<player.getSkills().length; i++){
@@ -170,11 +177,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null){
-				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
-			}
-		}
+		
 		
 		
 		

@@ -89,14 +89,12 @@ public class PlayerController implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
-				//		ESIT = new EndStateIntervalTimer(attackingSkill.getESColInterval(), player, attackingSkill);
 						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
 				
-			}else if(attackingSkill != null && !attackingSkill.isEndState() &&!attackingSkill.isProjectile()){
+			}else if(attackingSkill != null && !attackingSkill.isEndState() && !attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();
-	//			ESIT = new EndStateIntervalTimer(attackingSkill.getESColInterval(), player, attackingSkill);
 				System.out.println("Commencing end state with " + attackingSkill.getName());
 			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
 			
@@ -169,26 +167,26 @@ public class PlayerController implements ActionListener {
 			
 			currentActiveSkill.activateSkill();
 			
-		//	mouseXPosAtt = Mouse.getX();
 			currentActiveSkill.setMouseXPos(x);
-		//	mouseYPosAtt = 720 - Mouse.getY();
 			currentActiveSkill.setMouseYPos(y);
 			
 			
 			currentActiveSkill.resetShot(player);
-			if(currentActiveSkill.isProjectile()){
 			
-				currentActiveSkill.setXDirAtt((currentActiveSkill.getMouseXPosAtt() - currentActiveSkill.getAttX()));
-				currentActiveSkill.setYDirAtt((currentActiveSkill.getMouseYPosAtt() - currentActiveSkill.getAttY()));
-				currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
-				currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
-				currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
-				
-				if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-					currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
-				}
-				
-				currentActiveSkill.resetAttCounter();
+			currentActiveSkill.setXDirAtt((currentActiveSkill.getMouseXPosAtt() - currentActiveSkill.getAttX()));
+			currentActiveSkill.setYDirAtt((currentActiveSkill.getMouseYPosAtt() - currentActiveSkill.getAttY()));
+			currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
+			currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
+			currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
+			
+			if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
+				currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+			}
+			
+			currentActiveSkill.resetAttCounter();
+			
+			if(!currentActiveSkill.isProjectile()){
+				currentActiveSkill.setNonProjectileShot();
 			}
 			
 			System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");

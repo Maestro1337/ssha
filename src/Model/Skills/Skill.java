@@ -174,13 +174,12 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		if(isProjectile){
-			attImgX = player.getX();
-			attImgY = player.getY();
-		}else{
-			attImgX = mouseXPosAtt;
-			attImgY = mouseYPosAtt;
-		}
+		attImgX = player.getX();
+		attImgY = player.getY();
+	}
+	public void setNonProjectileShot(){
+		addAttX((float)(getXDirAtt()*getGenDirAtt()));
+		addAttY((float)(getYDirAtt()*getGenDirAtt()));
 	}
 	
 	public void collidedShot(){
