@@ -4,6 +4,7 @@ package Control;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+import View.ClassSelectionView;
 import View.MainView;
 import View.Menu;
 import View.TestView;
@@ -14,6 +15,7 @@ public class GameEngine extends StateBasedGame {
 	private static final int menu = 0;
 	private static final int play = 1;
 	private static final int test = 2;
+	private static final int selection = 3;
 	
 	
 	public GameEngine(String name){
@@ -21,12 +23,14 @@ public class GameEngine extends StateBasedGame {
 		this.addState(new Menu(menu));
 		this.addState(new MainView(play));
 		this.addState(new TestView(test));
+		this.addState(new ClassSelectionView(selection));
 	}
 	
 	public void initStatesList(GameContainer gc) throws SlickException{
 		this.getState(menu).init(gc, this);
 		this.getState(play).init(gc, this);
 		this.getState(test).init(gc, this);
+		this.getState(selection).init(gc, this);
 		this.enterState(menu);
 	}
 	

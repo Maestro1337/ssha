@@ -58,16 +58,6 @@ public class Menu extends BasicGameState implements ActionListener{
 		gc.setFullscreen(false);
 		g.setColor(Color.black);
 		g.drawImage(backgroundImage, 0, 0);
-		
-		//Background
-	/*	bg = new Image("res/bg.png");
-		//Draw the background
-		g.drawImage(bg, 0, 0);
-		g.drawImage(bg, 500, 0);
-		g.drawImage(bg, 1000, 0);
-		g.drawImage(bg, 0, 500);
-		g.drawImage(bg, 500, 500);
-		g.drawImage(bg, 1000, 500);*/
 
 		if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
@@ -97,7 +87,7 @@ public class Menu extends BasicGameState implements ActionListener{
 			playButton = new Image("res/playButton_hover.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				playButton = new Image("res/playButton_pressed.png");
-				sbg.enterState(1);
+				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 

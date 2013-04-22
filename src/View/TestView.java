@@ -20,18 +20,14 @@ import org.newdawn.slick.util.ResourceLoader;
 public class TestView extends BasicGameState implements ActionListener{
 	
 	int enemyHP = 100;
-	
-	Screen screen;
-	GraphicsDevice vc;
-	
 	private String mouse = "No input yet";
 	Image bg;
 	
 	TiledMap map;
 	
 	Image userImage;
-	float imgX;
-	float imgY;
+	float imgX = 400;
+	float imgY = 250;
 	
 	Image enemyImage;
 	float enemyX = 600;
@@ -81,17 +77,19 @@ public class TestView extends BasicGameState implements ActionListener{
 		hpBackImg = new Image("res/gray_hp.png");
 		hpForeImg = new Image("res/red_hp.png");
 		
-		map = new TiledMap("res/tileset/bg.tmx");
+		map = new TiledMap("res/tileset/testbackground.tmx");
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		gc.setFullscreen(false);
 		
-		map.render(-800, -800);
+		map.render(0, 0);
 		
 		user.draw(imgX,imgY);
 		
-		g.drawString(mouse, 50, 200);
+		g.setColor(Color.white);
+
+		g.drawString(mouse, 200, 500);
 		
 		g.drawString("Enemy HP: "+enemyHP,500,600);
 		
@@ -103,10 +101,6 @@ public class TestView extends BasicGameState implements ActionListener{
 		//g.drawImage(userImage, shiftX,shiftY);
 		
 		userImage.draw(imgX,imgY);
-
-		Image playImg = new Image("res/start.png");
-		
-		g.drawImage(playImg, 135, 225);
 
 		if(isColliding()){
 			aImgY=1000;
@@ -184,13 +178,6 @@ public class TestView extends BasicGameState implements ActionListener{
 		if(input.isKeyDown(Input.KEY_A)){imgX -= 1;}
 		if(input.isKeyDown(Input.KEY_D)){imgX += 1;}
 		
-		if((140<xPos && xPos<380) && (225<yPos && yPos<325)){
-			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
-				fullScreen = false;
-				sbg.enterState(1);
-			}
-		}
-		
 		if(input.isMouseButtonDown(1)){
 			move();
 		}
@@ -217,8 +204,17 @@ public class TestView extends BasicGameState implements ActionListener{
 			isAttacking();
 		}
 		 // Tell the player the game is paused
-        if(paused == true) {
-
+        if(imgX>760) {
+        	imgX = 760;
+        }
+        if(imgY>440){
+        	imgY = 440;
+        }
+        if(imgX<0){
+        	imgX = 0;
+        }
+        if(imgY<0){
+        	imgY = 0;
         }
 		
 		
