@@ -14,12 +14,14 @@ public class Obstacles {
 	private Image image;
 	private int currentHeight;
 	private int currentWidth;
+	private boolean solid;
 	
-	public Obstacles(String type, int damage, int x, int y){
+	public Obstacles(String type, int damage, int x, int y, boolean solid){
 		this.type = type;
 		this.damage = damage;
 		this.x = x;
 		this.y = y;
+		this.solid = solid;
 	}
 	
 	public void setImage(Image image, int height, int width){
@@ -51,5 +53,8 @@ public class Obstacles {
 	}
 	public int getCurrentWidth(){
 		return currentWidth;
+	}
+	public boolean isSolid(){
+		return solid;
 	}
 }

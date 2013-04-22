@@ -7,7 +7,7 @@ public class ObstaclePillar extends Obstacles{
 	
 	public ObstaclePillar(int x, int y){
 		//String type, int damage, int x, int y
-		super("Pillar", 0, x, y);
+		super("Pillar", 0, x, y, true);
 		
 		Image image = null;
 		try {

@@ -18,44 +18,17 @@ public class PlayerController implements ActionListener {
 	Skill[] playerSkills;
 	Skill currentActiveSkill;
 	
-	//TODO set ESIT to either player or skill in some way
-//	EndStateIntervalTimer ESIT;
-	
-	Double findNaN;
-	
-	//Temporary for collisionControl
-/*	int enemyHP = 100;
-	float enemyX = 600;
-	float enemyY = 300;
-	Image enemyImage;
-	
-	public int getEnemyHP(){
-		return enemyHP;
-	}
-	public float getEnemyX(){
-		return enemyX;
-	}
-	public float getEnemyY(){
-		return enemyY;
-	}
-	public void damageEnemyHP(int damage){
-		enemyHP -= damage;
-	}
-	public void setEnemyHP(int hp){
-		enemyHP = hp;
-	}
-	public void setEnemyX(int x){
-		enemyX = x;
-	}
-	public void setEnemyY(int y){
-		enemyY = y;
-	}*/
+	Obstacles[] obstacles;
 
-	public PlayerController(String name, int x, int y){
+	Double findNaN;
+
+	public PlayerController(String name, int x, int y, Obstacles[] obstacles){
 		
 		player = new Player(name, x, y);
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
+		
+		this.obstacles = obstacles;
 		
 	//	enemy = new Player(600,300);
 	/*	
@@ -86,17 +59,21 @@ public class PlayerController implements ActionListener {
 		currentActiveSkill = playerSkills[index];
 	}
 	
-	public void isRunning(){
-		player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
-		player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
-		if(findNaN.isNaN()){
-//			imgX = mouseXPosMove;
-//			imgY = mouseYPosMove;
+	public void isRunning() throws SlickException{
+		if(!checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()))){
+			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
+			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
+			if(findNaN.isNaN()){
+	//			imgX = mouseXPosMove;
+	//			imgY = mouseYPosMove;
+				player.setRunningState(false);
+			}
+			player.incMoveCounter();
+			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
+				player.setRunningState(false);
+		}else{
 			player.setRunningState(false);
 		}
-		player.incMoveCounter();
-		if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
-			player.setRunningState(false);
 	}
 	
 	public void isAttacking(Skill attackingSkill){
@@ -260,42 +237,49 @@ public class PlayerController implements ActionListener {
 		}
 	}
 	
-	public void checkCollision(Obstacles[] obstacles) throws SlickException{
+	public boolean checkObstacleCollision(float x, float y) throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
-			if(isColliding(obstacles[i])){
+			if(obstacles[i] != null && isColliding(obstacles[i], x, y)){
+				
+				if(obstacles[i].isSolid()){
+				//	player.setGenDirMove(100);
+				//	player.setXDirMove(player.getXDirMove()*-1);
+				//	player.setYDirMove(player.getYDirMove()*-1);
+				}
 
-				System.out.println("Target hit with " + obstacles[i].getType());
-//				damageEnemyHP(playerSkills[i].getDamage());
+				System.out.println("Target ran into " + obstacles[i].getType());
 				player.dealDamage(obstacles[i].getDamage());
+				return true;
 
 			}
 		}
+		return false;
 	}
 	
-	public boolean isColliding(Obstacles obstacle) throws SlickException{
+	public boolean isColliding(Obstacles obstacle, float x, float y) throws SlickException{
 
-		if(obstacle.getX() <= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()){
-			if(obstacle.getY() >= player.getY() && obstacle.getY() <= player.getY()+player.getImage().getHeight() 
-					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
-					|| obstacle.getY() <= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+		if(obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x){
+			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+y+player.getImage().getHeight() 
+					|| obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
 				return true;
 			}
-		}else if(obstacle.getY() <= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()){
-			if(obstacle.getX() >= player.getX() && obstacle.getX() <= player.getX()+player.getImage().getWidth() 
-					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
-					|| obstacle.getX() <= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+		}else if(obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y){
+			if(obstacle.getX() >= player.getX()+x && obstacle.getX() <= player.getX()+x+player.getImage().getWidth() 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+x+player.getImage().getWidth() 
+					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
 				return true;
 			}
-		}else if(obstacle.getX() <= player.getX()+player.getImage().getWidth()  && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
-			if(obstacle.getY() >= player.getY() && obstacle.getY() <= player.getY()+player.getImage().getHeight() 
-					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
-					|| obstacle.getY() <= player.getY() && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
+		}else if(obstacle.getX() <= player.getX()+x+player.getImage().getWidth()  && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
+			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+y+player.getImage().getHeight() 
+					|| obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
 				return true;
 			}
-		}else if(obstacle.getY() <= player.getY()+player.getImage().getHeight()  && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+player.getImage().getHeight() ){
-			if(obstacle.getX() >= player.getX() && obstacle.getX() <= player.getX()+player.getImage().getWidth() 
-					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+player.getImage().getWidth() 
-					|| obstacle.getX() <= player.getX() && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
+		}else if(obstacle.getY() <= player.getY()+y+player.getImage().getHeight()  && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
+			if(obstacle.getX() >= player.getX()+x && obstacle.getX() <= player.getX()+x+player.getImage().getWidth() 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+x+player.getImage().getWidth() 
+					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
 				return true;
 			}
 		}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){

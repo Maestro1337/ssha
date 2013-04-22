@@ -89,8 +89,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		move1 = new Image("res/walk1.png");
 		move2 = new Image("res/walk2.png");
 		
-		Control = new PlayerController("Player", 190, 90);
-		enemyControl = new PlayerController("Enemy", 600,300);
+		obstacles[0] = new ObstaclePillar(100, 200);
+		
+		Control = new PlayerController("Player", 190, 90, obstacles);
+		enemyControl = new PlayerController("Enemy", 600,300, obstacles);
 
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
@@ -106,7 +108,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		userImage = player.getImage();
 		
-		obstacles[0] = new ObstaclePillar(100, 200);
+		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -277,7 +279,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		Random generator = new Random();
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
-	//		Control.rotate();
 			Control.move(Mouse.getX(), 720 - Mouse.getY());
 			enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
 		}
@@ -287,7 +288,6 @@ public class MainView extends BasicGameState implements ActionListener {
 //				Control.setEnemyHP(100);
 				enemy.resetHP();
 			}
-	//		Control.rotate();
 			Control.attack(Mouse.getX(), 720 - Mouse.getY());
 			enemyControl.attack((int)player.getX(), (int)player.getY());
 		}
