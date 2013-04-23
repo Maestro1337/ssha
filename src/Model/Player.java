@@ -44,21 +44,6 @@ public class Player {
 	
 	public Player(String name, float x, float y){
 		this.name = name;
-		try {
-			userImage = new Image("res/stand.png");
-			firstStepImage = new Image("res/walk1.png");
-			secondStepImage = new Image("res/walk2.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
-		skillList[0] = new SkillSlash();
-		skillList[1] = new SkillFireball();
-		skillList[2] = new SkillFirestorm();
-		skillList[3] = new SkillIceNeedle();
-		skillList[4] = new SkillSuperSlowTestSkill();
-		
 		
 		imgX = x;
 		imgY = y;
@@ -175,6 +160,18 @@ public class Player {
 	public String getName(){
 		return name;
 	}
-	
-	
+	public void setImage(Image image){
+		if(image != null)
+			userImage = image;
+	}
+
+	public void setSkillList(Skill[] chosenSkills) {
+		if(chosenSkills != null){
+			skillList[0] = chosenSkills[0];
+			skillList[1] = chosenSkills[1];
+			skillList[2] = chosenSkills[2];
+			skillList[3] = chosenSkills[3];
+			skillList[4] = chosenSkills[4];
+		}
+	}
 }

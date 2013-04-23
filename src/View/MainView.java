@@ -93,24 +93,21 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
+		enemyControl = new PlayerController("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 		
-		Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles);
-		enemyControl = new PlayerController("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles);
-
+		
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
 		enemySkills = enemyControl.getPlayerSkills();
 		enemyImage = enemy.getImage();
 		enemy.resetHP();
-			
-			
+		
 		player = Control.getPlayer();
 		playerSkills = Control.getPlayerSkills();
 		
 		player.resetHP();
 		
 		userImage = player.getImage();
-		
 		
 	}
 	

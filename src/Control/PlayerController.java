@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.*;
+import Model.Classes.ClassHunter;
+import Model.Classes.ClassWarrior;
+import Model.Classes.ClassWizard;
 import Model.Obstacles.Obstacle;
 import Model.Skills.*;
 
@@ -22,9 +25,20 @@ public class PlayerController implements ActionListener {
 
 	Double findNaN;
 
-	public PlayerController(String name, int x, int y, Obstacle[] obstacles){
+	public PlayerController(String name, int x, int y, Obstacle[] obstacles, String classType){
 		
-		player = new Player(name, x, y);
+		switch(classType){
+			case "Warrior":
+				player = new ClassWarrior(name, x, y);
+				break;
+			case "Wizard":
+				player = new ClassWizard(name, x, y);
+				break;
+			case "Hunter":
+				player = new ClassHunter(name, x, y);
+				break;
+		}
+		
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
 		
