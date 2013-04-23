@@ -11,6 +11,7 @@ import org.newdawn.slick.state.*;
 import Control.GlobalClassSelector;
 import Control.PlayerController;
 import Model.Player;
+import Model.Classes.*;
 import Model.Obstacles.Obstacle;
 import Model.Obstacles.ObstaclePillar;
 
@@ -75,7 +76,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			selectButton = new Image("res/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				selectButton = new Image("res/playButton_pressed.png");
-				GlobalClassSelector.getController().activatePlayer("Player", player);
+				GlobalClassSelector.getController().activatePlayer(player);
 				sbg.enterState(1);
 			}
 		}else{
@@ -88,7 +89,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"Your skills with weapons in close combat makes you a powerful \n" +
 						"force on the battlefield and a durable opponent for all who dares \n" +
 						"cross your way.";
-				classType = "Warrior";
+				player = new ClassWarrior("Player", 120, 100);
 		//		Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 			}
 		}
@@ -98,7 +99,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				classDescription = "Hunters are stealthy, wealthy and wise to the ways of \n" +
 						"their opponents. Able to take down tyrants without blinking an eye \n" +
 						"or breaking a bowstring, you'll range far and wide with this class.";
-				classType = "Hunter";
+		//		classType = "Hunter";
 		//		Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
 			}
 		}
@@ -108,7 +109,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				classDescription = "Mages are the quintessential magic user. They attack from \n" +
 						"a distance, able to cause great harm or restrict a targets actions using \n" +
 						"their supreme knowledge of the elements.";
-				classType = "Wizard";
+		//		classType = "Wizard";
 		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
 			}
 		}

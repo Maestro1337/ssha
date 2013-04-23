@@ -18,10 +18,10 @@ public class GlobalClassSelector {
 
 	// make constructor private so no one except the getParty() can call it
 	private GlobalClassSelector() {
-		
+		player = new ClassWarrior("Tester", 120, 100);
 	}
 	
-	public void activatePlayer(Player player, String type){
+	public void activatePlayer(Player player){
 		this.player = player;
 	}
 	
