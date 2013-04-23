@@ -160,9 +160,15 @@ public class Player {
 	public String getName(){
 		return name;
 	}
-	public void setImage(Image image){
+	public void setImages(Image image, Image first, Image second){
 		if(image != null)
 			userImage = image;
+		
+		if(first != null)
+			firstStepImage = first;
+		
+		if(second != null)
+			secondStepImage = second;
 	}
 
 	public void setSkillList(Skill[] chosenSkills) {

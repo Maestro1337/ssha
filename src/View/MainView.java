@@ -94,7 +94,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
 		enemyControl = new PlayerController("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
-		
+		Control = new PlayerController("Player", 120, 100, obstacles, "Warrior");
 		
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();

@@ -34,7 +34,7 @@ public class ClassWizard extends Player {
 		chosenSkills[3] = new SkillIceNeedle();
 		chosenSkills[4] = new SkillSuperSlowTestSkill();
 
-		super.setImage(playerImage);
+		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);
 	}
 
