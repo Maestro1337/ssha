@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 
 import Model.StatusEffect;
 
-public class Obstacles {
+public class Obstacle {
 	private String type;
 	private int damage;
 	private int areaOfEffect;
@@ -16,7 +16,7 @@ public class Obstacles {
 	private int currentWidth;
 	private boolean solid;
 	
-	public Obstacles(String type, int damage, int x, int y, boolean solid){
+	public Obstacle(String type, int damage, int x, int y, boolean solid){
 		this.type = type;
 		this.damage = damage;
 		this.x = x;

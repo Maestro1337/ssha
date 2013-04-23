@@ -3,7 +3,7 @@ package Model.Obstacles;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class ObstaclePillar extends Obstacles{
+public class ObstaclePillar extends Obstacle{
 	
 	public ObstaclePillar(int x, int y){
 		//String type, int damage, int x, int y

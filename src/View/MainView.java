@@ -26,7 +26,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import Model.*;
 import Model.Obstacles.ObstaclePillar;
-import Model.Obstacles.Obstacles;
+import Model.Obstacles.Obstacle;
 import Model.Skills.*;
 
 import Control.*;
@@ -44,7 +44,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image enemyImage;
 	Skill[] enemySkills;
 	
-	Obstacles[] obstacles = new Obstacles[100];
+	Obstacle[] obstacles = new Obstacle[100];
 	
 /*	int eWidth;
 	int eHeight;*/

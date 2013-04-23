@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.*;
-import Model.Obstacles.Obstacles;
+import Model.Obstacles.Obstacle;
 import Model.Skills.*;
 
 public class PlayerController implements ActionListener {
@@ -18,11 +18,11 @@ public class PlayerController implements ActionListener {
 	Skill[] playerSkills;
 	Skill currentActiveSkill;
 	
-	Obstacles[] obstacles;
+	Obstacle[] obstacles;
 
 	Double findNaN;
 
-	public PlayerController(String name, int x, int y, Obstacles[] obstacles){
+	public PlayerController(String name, int x, int y, Obstacle[] obstacles){
 		
 		player = new Player(name, x, y);
 		playerSkills = player.getSkills();
@@ -254,7 +254,7 @@ public class PlayerController implements ActionListener {
 		return false;
 	}
 	
-	public boolean isColliding(Obstacles obstacle, float x, float y) throws SlickException{
+	public boolean isColliding(Obstacle obstacle, float x, float y) throws SlickException{
 
 		if(obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x){
 			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
