@@ -40,6 +40,11 @@ public class TestView extends BasicGameState implements ActionListener{
 	Image hpForeImg;
 	
 	Image attackImage;
+	Image firstSlash;
+	Image secondSlash;
+	Image thirdSlash;
+	Image fourthSlash;
+	
 	float aImgX = 0;
 	float aImgY = 0;
 
@@ -67,7 +72,20 @@ public class TestView extends BasicGameState implements ActionListener{
 		
 		enemyImage = new Image("res/awesomePinkSquare.png");
 		userImage = new Image("res/stand.png");
-		attackImage = new Image("res/awesomeGreenSquare.png");
+		
+		firstSlash = new Image("res/slash1.png");
+		firstSlash.setName("slash1");
+		
+		secondSlash= new Image("res/slash2.png");
+		secondSlash.setName("slash2");
+		
+		thirdSlash= new Image("res/slash3.png");
+		thirdSlash.setName("slash3");
+		
+		fourthSlash= new Image("res/slash4.png");
+		fourthSlash.setName("slash4");
+		
+		attackImage = firstSlash;
 		
 		user = new Image("res/stand.png");
 		move1 = new Image("res/walk1.png");
@@ -268,6 +286,22 @@ public class TestView extends BasicGameState implements ActionListener{
 	public void attack(){
 		
 		if(!isAttacking){
+			switch (attackImage.getName()) {
+		
+            case "slash1":attackImage = secondSlash;
+                     break;
+            case "slash2":attackImage = thirdSlash;
+                     break;
+            case "slash3":attackImage = fourthSlash;
+                     break;
+            case "slash4":attackImage = firstSlash;
+                     break;
+        }
+			if(userImage == user || userImage == move2)
+				userImage = move1;
+			else if(userImage == user || userImage == move1)
+				userImage = move2;
+			
 			mouseXPosAtt = Mouse.getX();
 			mouseYPosAtt = 720 - Mouse.getY();
 			

@@ -16,7 +16,6 @@ public class SkillSlash extends Skill{
 		try {
 			attackImage = new Image("res/awesomeGreenSquare.png");
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
