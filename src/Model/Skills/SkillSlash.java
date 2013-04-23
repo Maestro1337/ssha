@@ -20,5 +20,18 @@ public class SkillSlash extends Skill{
 		}
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		
+		Image[] animation = new Image[4];
+		try {
+			animation[0] = new Image("res/slash1.png");
+			animation[1] = new Image("res/slash2.png");
+			animation[2] = new Image("res/slash3.png");
+			animation[3] = new Image("res/slash4.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		
+		super.setAnimationImages(animation);
+		
 	}
 }

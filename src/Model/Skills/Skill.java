@@ -1,5 +1,6 @@
 package Model.Skills;
 
+import Control.AnimationTimer;
 import Control.EndStateIntervalTimer;
 import Model.Player;
 import Model.StatusEffect;
@@ -47,8 +48,6 @@ public class Skill{
 	private float attackRange;
 	private boolean isAttacking = false;
 	
-	//private boolean isColliding = false;
-	
 	private boolean hasEndState = false;
 	private long endStateStartTime = 0;
 	private long endStateElapsedTime = 0;
@@ -57,6 +56,9 @@ public class Skill{
 	private int ESColInterval;
 	
 	EndStateIntervalTimer ESIT;
+	
+	AnimationTimer animation;
+//	Image[] animationImages;
 	
 	private boolean isProjectile = true;
 
@@ -76,7 +78,7 @@ public class Skill{
 		spellEffect = SE;
 		attackRange = range;
 		if(speed < 100){
-			attSpeed = speed;
+			attSpeed = 3*speed;
 		}else{
 			isProjectile = false;
 		}
@@ -100,6 +102,9 @@ public class Skill{
 		currentHeight = imgHeight = height;
 		currentWidth = imgWidth = width;
 	}
+	public void setAnimationImages(Image[] images){
+		animation = new AnimationTimer(200, images, this);
+	}
 	public void setEndState(Image image, int height, int width, int duration, int interval){
 		if(image != null)
 			endStateImage = image;
@@ -113,6 +118,7 @@ public class Skill{
 		
 	//	this.isProjectile = isProjectile;
 	}
+	
 	
 	public int getCurrentHeight(){
 		return currentHeight;
@@ -236,6 +242,9 @@ public class Skill{
 	
 	
 	public boolean isAttacking(){
+		if(isAttacking){
+			
+		}
 		return isAttacking;
 	}
 	
@@ -246,7 +255,10 @@ public class Skill{
 	public void activateSkill(){
     	CDstartTime = System.currentTimeMillis();
     	CDelapsedTime = 0;
-
+    	
+    	if(animation != null){
+    		animation.resetCounterAndTimer();
+    	}
     }
     
     public long checkCooldown(){
@@ -303,6 +315,10 @@ public class Skill{
 	}
 	public EndStateIntervalTimer getESIT(){
 		return ESIT;
+	}
+	
+	public AnimationTimer getAnimationTimer(){
+		return animation;
 	}
 	
 	public boolean isPiercing(){

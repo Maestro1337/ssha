@@ -92,6 +92,14 @@ public class PlayerController implements ActionListener {
 						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
+				if(attackingSkill.getAnimationTimer() != null){
+					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+				
+					if(animationImage != null)
+						attackingSkill.setImage(animationImage, animationImage.getHeight(), animationImage.getWidth());
+				}
+				
+				
 				
 			}else if(attackingSkill != null && !attackingSkill.isEndState() && !attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();
