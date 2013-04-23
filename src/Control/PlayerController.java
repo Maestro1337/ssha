@@ -16,10 +16,10 @@ import Model.Skills.*;
 
 public class PlayerController implements ActionListener {
 	
-	Player player = GlobalClassSelector.getController().getPlayer();
+	Player player;
 	//Player enemy;
-	Skill[] playerSkills = GlobalClassSelector.getController().getPlayer().getSkills();
-	Skill currentActiveSkill = GlobalClassSelector.getController().getPlayer().getSkills()[0];
+	Skill[] playerSkills;
+	Skill currentActiveSkill;
 	
 	Obstacle[] obstacles;
 
@@ -27,7 +27,7 @@ public class PlayerController implements ActionListener {
 
 	public PlayerController(Player player, Obstacle[] obstacles){
 		
-	//	this.player = player;
+		this.player = player;
 		
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];
