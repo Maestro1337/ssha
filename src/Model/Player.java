@@ -26,7 +26,7 @@ public class Player {
 	//Movement variables
 	private float mouseXPosMove;
 	private float mouseYPosMove;
-	private double moveSpeed = 0.3;
+	private double moveSpeed = 1;
 	
 	double rotation=0;
 	
@@ -47,6 +47,14 @@ public class Player {
 		
 		imgX = x;
 		imgY = y;
+	}
+	
+	public void changePlayerClass(Player player){
+		userImage = player.getImage();
+		firstStepImage = player.getFirstStepImage();
+		secondStepImage = player.getSecondStepImage();
+		
+		skillList = player.getSkills();
 	}
 	
 	//Getters for the movements
