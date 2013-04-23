@@ -67,11 +67,11 @@ public class PlayerController implements ActionListener {
 		if(!checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()))){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
-			if(findNaN.isNaN()){
+	//		if(findNaN.isNaN()){
 	//			imgX = mouseXPosMove;
 	//			imgY = mouseYPosMove;
-				player.setRunningState(false);
-			}
+	//			player.setRunningState(false);
+	//		}
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
@@ -100,6 +100,22 @@ public class PlayerController implements ActionListener {
 			}else if(attackingSkill != null && !attackingSkill.isEndState() && !attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();
 				
+			/*	if(attackingSkill.getAnimationTimer() != null){
+					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+				
+					if(animationImage != null)
+						attackingSkill.setEndStateImage(animationImage);
+				}*/
+				
+				System.out.println("Commencing end state with " + attackingSkill.getName());
+			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
+				attackingSkill.finishEndState();
+				attackingSkill.setAttackingState(false);
+//				attackingSkill.resetESColTimer();
+				System.out.println("Finishing end state with " + attackingSkill.getName());
+				
+				
+			}else if(attackingSkill != null && attackingSkill.isEndState()){
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
 				
@@ -107,13 +123,6 @@ public class PlayerController implements ActionListener {
 						attackingSkill.setEndStateImage(animationImage);
 				}
 				
-				System.out.println("Commencing end state with " + attackingSkill.getName());
-			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-			
-				attackingSkill.finishEndState();
-				attackingSkill.setAttackingState(false);
-//				attackingSkill.resetESColTimer();
-				System.out.println("Finishing end state with " + attackingSkill.getName());
 			}
 	}
 	

@@ -123,7 +123,7 @@ public class Skill{
 			endStateDuration = duration;
 			ESColInterval = interval;
 			
-			animation = new AnimationTimer(500, images, this);
+			animation = new AnimationTimer(duration/(images.length+1), images, this);
 		}
 	}
 	
@@ -284,9 +284,9 @@ public class Skill{
 		attImgY -= endStateImgHeight/2;
 		isEndState = true;
 		
-		if(animation != null){
-    		animation.resetCounterAndTimer();
-    	}
+	//	if(animation != null){
+    	animation.resetCounterAndTimer();
+    //	}
 	}
 	public void activatePreEndState(){
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
@@ -308,8 +308,8 @@ public class Skill{
 	public void finishEndState(){
 		currentHeight = imgHeight;
 		currentWidth = imgWidth;
+		
 		isEndState = false;
-	//	isColliding = false;
 	}
 	public boolean isEndState(){
 		return isEndState;

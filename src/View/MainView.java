@@ -35,6 +35,21 @@ import Control.*;
 
 public class MainView extends BasicGameState implements ActionListener {
 	
+/*	private static MainView myMainView = null;
+	
+	public static MainView getMainView() {
+		if (myMainView == null) {
+		   myMainView = new MainView();
+		   // prepare myParty here or use setter() methods or a parameterized constructor
+		   }
+		   return myMainView;
+		}
+	
+	private MainView(){
+		
+	}*/
+	
+	
 	Image bg;
 	private String mouse = "No input yet";
 	
@@ -95,25 +110,28 @@ public class MainView extends BasicGameState implements ActionListener {
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
 		enemyControl = new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
-		Control = new PlayerController(new ClassWarrior("Tester", 120, 100), obstacles);
+		
 
-//		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
 		enemySkills = enemyControl.getPlayerSkills();
 		enemyImage = enemy.getImage();
 		enemy.resetHP();
 		
+		initPlayer();
+		
+	}
+	
+	public void initPlayer(){
+		Control = new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles);
 		player = Control.getPlayer();
 		playerSkills = Control.getPlayerSkills();
 		
 		player.resetHP();
 		
 		userImage = player.getImage();
-		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
-		
 		map.render(0,0);
 		
 		//Show the coodinates for the mouse
@@ -167,11 +185,6 @@ public class MainView extends BasicGameState implements ActionListener {
 				}
 			}
 		}
-		
-		
-		
-		
-		
 
 		
 		if(enemy.getHP()>0){
@@ -195,6 +208,9 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
+		if(GlobalClassSelector.getController().checkPlayerAddition()){
+			player.changePlayerClass(GlobalClassSelector.getController().getPlayer());
+		}
 		
 		Control.checkCollision(enemySkills);
 		enemyControl.checkCollision(playerSkills);

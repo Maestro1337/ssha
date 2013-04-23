@@ -7,6 +7,7 @@ public class GlobalClassSelector {
 
 	private static GlobalClassSelector myControl = null;
 	private Player player = null;
+	private boolean changedPlayer = false;
 
 	public static GlobalClassSelector getController() {
 	if (myControl == null) {
@@ -21,8 +22,17 @@ public class GlobalClassSelector {
 		player = new ClassWarrior("Tester", 120, 100);
 	}
 	
-	public void activatePlayer(Player player){
+	public void addPlayer(Player player){
 		this.player = player;
+		changedPlayer = true;
+	}
+	
+	public boolean checkPlayerAddition(){
+		if(changedPlayer){
+			changedPlayer = false;
+			return true;
+		}
+		return false;
 	}
 	
 	public Player getPlayer(){

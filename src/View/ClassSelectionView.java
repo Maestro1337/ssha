@@ -76,7 +76,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			selectButton = new Image("res/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				selectButton = new Image("res/playButton_pressed.png");
-				GlobalClassSelector.getController().activatePlayer(player);
+				GlobalClassSelector.getController().addPlayer(player);
 				sbg.enterState(1);
 			}
 		}else{
