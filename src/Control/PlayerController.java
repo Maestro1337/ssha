@@ -25,19 +25,9 @@ public class PlayerController implements ActionListener {
 
 	Double findNaN;
 
-	public PlayerController(String name, int x, int y, Obstacle[] obstacles, String classType){
+	public PlayerController(Player player, Obstacle[] obstacles, String classType){
 		
-		switch(classType){
-			case "Warrior":
-				player = new ClassWarrior(name, x, y);
-				break;
-			case "Wizard":
-				player = new ClassWizard(name, x, y);
-				break;
-			case "Hunter":
-				player = new ClassHunter(name, x, y);
-				break;
-		}
+		this.player = player;
 		
 		playerSkills = player.getSkills();
 		currentActiveSkill = playerSkills[0];

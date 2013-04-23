@@ -17,7 +17,6 @@ public class GameEngine extends StateBasedGame {
 	private static final int test = 2;
 	private static final int selection = 3;
 	
-	
 	public GameEngine(String name){
 		super(name);
 		this.addState(new Menu(menu));

@@ -8,7 +8,9 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+import Control.GlobalClassSelector;
 import Control.PlayerController;
+import Model.Player;
 import Model.Obstacles.Obstacle;
 import Model.Obstacles.ObstaclePillar;
 
@@ -16,7 +18,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 	private String mouse = "No input yet";
 	
-	PlayerController Control;
+	Player player = null;
+//	private String classType = null;
 
 	Image backgroundImage;
 	Image selectButton;
@@ -26,6 +29,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 	String title = "";
 
 	Obstacle[] obstacles = new Obstacle[100];
+	
 	
 	public ClassSelectionView (int state){
 
@@ -37,6 +41,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		selectButton = new Image("res/playButtons.png");
 		classImage = new Image("res/classes.png");
 		title = "Choose your class!";
+		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -59,17 +64,18 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		Random obsGenerator = new Random();
+		/*Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
-		}
+		}*/
 		Input input = gc.getInput();
-		Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
+	//	Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 		
 		if((500<xPos && xPos<750) && (550<yPos && yPos<604)){
 			selectButton = new Image("res/playButton_hover.png");
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				selectButton = new Image("res/playButton_pressed.png");
+				GlobalClassSelector.getController().activatePlayer("Player", player);
 				sbg.enterState(1);
 			}
 		}else{
@@ -82,7 +88,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"Your skills with weapons in close combat makes you a powerful \n" +
 						"force on the battlefield and a durable opponent for all who dares \n" +
 						"cross your way.";
-				Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
+				classType = "Warrior";
+		//		Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 			}
 		}
 		if((518<xPos && xPos<719) && (106<yPos && yPos<425)){
@@ -91,7 +98,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				classDescription = "Hunters are stealthy, wealthy and wise to the ways of \n" +
 						"their opponents. Able to take down tyrants without blinking an eye \n" +
 						"or breaking a bowstring, you'll range far and wide with this class.";
-				Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
+				classType = "Hunter";
+		//		Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
 			}
 		}
 		if((720<xPos && xPos<938) && (106<yPos && yPos<425)){
@@ -100,7 +108,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				classDescription = "Mages are the quintessential magic user. They attack from \n" +
 						"a distance, able to cause great harm or restrict a targets actions using \n" +
 						"their supreme knowledge of the elements.";
-				Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
+				classType = "Wizard";
+		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
 			}
 		}
 	}
