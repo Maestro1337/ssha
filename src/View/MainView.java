@@ -23,6 +23,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 
 import Model.*;
 import Model.Obstacles.ObstaclePillar;
@@ -40,6 +41,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	Player player,enemy;
 	Skill[] playerSkills;
 	Skill activeSkill;
+	
+	TiledMap map;
 	
 	Image enemyImage;
 	Skill[] enemySkills;
@@ -77,7 +80,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-	
+		map = new TiledMap("res/tileset/bg.tmx");
 		
 		slash = new Image("res/slash.png");
 		fireball = new Image("res/fireball.png");
@@ -85,16 +88,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		iceneedle = new Image("res/iceneedle.png");
 		pedobear = new Image("res/pbs4.png");
 		
-		user = new Image("res/stand.png");
-		move1 = new Image("res/walk1.png");
-		move2 = new Image("res/walk2.png");
-		
 		Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
 		enemyControl = new PlayerController("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 		Control = new PlayerController("Player", 120, 100, obstacles, "Warrior");
+
 		
 //		enemy = Control.getEnemy();
 		enemy = enemyControl.getPlayer();
@@ -113,15 +113,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		
-		//Background
-		bg = new Image("res/bg.png");
-		//Draw the background
-		g.drawImage(bg, 0, 0);
-		g.drawImage(bg, 500, 0);
-		g.drawImage(bg, 1000, 0);
-		g.drawImage(bg, 0, 500);
-		g.drawImage(bg, 500, 500);
-		g.drawImage(bg, 1000, 500);
+		map.render(0,0);
+		
 		//Show the coodinates for the mouse
 		g.drawString(mouse, 800, 10);
 		//Show the enemys hp
