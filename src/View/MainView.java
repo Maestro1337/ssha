@@ -187,7 +187,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 
 		
-		if(enemy.getHP()>0){
+	//	if(enemy.getHP()>0){
 			g.drawImage(enemyImage, enemy.getX(), enemy.getY());
 			
 			//Copy for enemy attack render
@@ -200,7 +200,7 @@ public class MainView extends BasicGameState implements ActionListener {
 					}
 				}
 			}
-		}
+		//}
 	}
 	
 	
@@ -208,9 +208,9 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
-		if(GlobalClassSelector.getController().checkPlayerAddition()){
+	/*	if(GlobalClassSelector.getController().checkPlayerAddition()){
 			player.changePlayerClass(GlobalClassSelector.getController().getPlayer());
-		}
+		}*/
 		
 		Control.checkCollision(enemySkills);
 		enemyControl.checkCollision(playerSkills);
@@ -296,7 +296,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isMouseButtonDown(0)){
 			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
 //				Control.setEnemyHP(100);
-				enemy.resetHP();
+				enemyControl.ressurectPlayer();
+				Control.ressurectPlayer();
 			}
 			Control.attack(Mouse.getX(), 720 - Mouse.getY());
 			enemyControl.attack((int)player.getX(), (int)player.getY());

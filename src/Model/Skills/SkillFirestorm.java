@@ -13,7 +13,7 @@ public class SkillFirestorm extends Skill{
 		Image[] animation = new Image[1];
 		try {
 			attackImage = new Image("res/awesomeMiniRedSquare.png");
-			animation[0] = new Image("res/awesomeRedSquare.png");
+			animation[0] = new Image("res/Firestorm.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

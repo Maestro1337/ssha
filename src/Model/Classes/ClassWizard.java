@@ -19,7 +19,7 @@ public class ClassWizard extends Player {
 	static Skill[] chosenSkills;
 
 	public ClassWizard(String name, float x, float y) {
-		super(name, x, y);
+		super(name, x, y, 90);
 		try {
 			playerImage = new Image("res/mage_stand.png");
 			firstStep = new Image("res/mage_walk1.png");

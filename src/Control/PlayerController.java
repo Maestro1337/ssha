@@ -56,6 +56,24 @@ public class PlayerController implements ActionListener {
 		return player.getSkills();
 	}
 	
+	public void killPlayer(){
+		player.setAliveState(false);
+		player.setX(1000);
+		player.setY(-1000);
+		player.setRunningState(false);
+		for(int i=0; i<playerSkills.length; i++){
+			playerSkills[i].setAttX(-1000);
+			playerSkills[i].setAttY(-1000);
+		}
+	}
+	
+	public void ressurectPlayer(){
+		player.setAliveState(true);
+		player.resetHP();
+		player.setX(player.getStartX());
+		player.setY(player.getStartY());
+	}
+	
 	public Skill getCurrentActiveSkill(){
 		return currentActiveSkill;
 	}
@@ -64,7 +82,7 @@ public class PlayerController implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
-		if(!checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()))){
+		if(player.isAlive() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()))){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 	//		if(findNaN.isNaN()){
@@ -81,49 +99,50 @@ public class PlayerController implements ActionListener {
 	}
 	
 	public void isAttacking(Skill attackingSkill){
-			if(attackingSkill != null && !attackingSkill.isEndState() && attackingSkill.isProjectile()){
-				//determines which x and y the skill will have in the next render session
-				attackingSkill.addAttX((float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()));
-				attackingSkill.addAttY((float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
-				
-				attackingSkill.incAttCounter();
-				
-				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
-					if(!attackingSkill.hasEndState()){
-						attackingSkill.setAttackingState(false);
-					}else{
-						attackingSkill.activateEndState();
-						System.out.println("Commencing end state with " + attackingSkill.getName());
+		if(attackingSkill != null && player.isAlive())
+				if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
+					//determines which x and y the skill will have in the next render session
+					attackingSkill.addAttX((float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()));
+					attackingSkill.addAttY((float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
+					
+					attackingSkill.incAttCounter();
+					
+					if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+						if(!attackingSkill.hasEndState()){
+							attackingSkill.setAttackingState(false);
+						}else{
+							attackingSkill.activateEndState();
+							System.out.println("Commencing end state with " + attackingSkill.getName());
+						}
 					}
+					
+				}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
+					attackingSkill.activateEndState();
+					
+				/*	if(attackingSkill.getAnimationTimer() != null){
+						Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+					
+						if(animationImage != null)
+							attackingSkill.setEndStateImage(animationImage);
+					}*/
+					
+					System.out.println("Commencing end state with " + attackingSkill.getName());
+				}else if(attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
+					attackingSkill.finishEndState();
+					attackingSkill.setAttackingState(false);
+	//				attackingSkill.resetESColTimer();
+					System.out.println("Finishing end state with " + attackingSkill.getName());
+					
+					
+				}else if(attackingSkill.isEndState()){
+					if(attackingSkill.getAnimationTimer() != null){
+						Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+					
+						if(animationImage != null)
+							attackingSkill.setEndStateImage(animationImage);
+					}
+					
 				}
-				
-			}else if(attackingSkill != null && !attackingSkill.isEndState() && !attackingSkill.isProjectile()){
-				attackingSkill.activateEndState();
-				
-			/*	if(attackingSkill.getAnimationTimer() != null){
-					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-				
-					if(animationImage != null)
-						attackingSkill.setEndStateImage(animationImage);
-				}*/
-				
-				System.out.println("Commencing end state with " + attackingSkill.getName());
-			}else if(attackingSkill != null && attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-				attackingSkill.finishEndState();
-				attackingSkill.setAttackingState(false);
-//				attackingSkill.resetESColTimer();
-				System.out.println("Finishing end state with " + attackingSkill.getName());
-				
-				
-			}else if(attackingSkill != null && attackingSkill.isEndState()){
-				if(attackingSkill.getAnimationTimer() != null){
-					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-				
-					if(animationImage != null)
-						attackingSkill.setEndStateImage(animationImage);
-				}
-				
-			}
 	}
 	
 	public boolean isColliding(Skill skill) throws SlickException{
@@ -184,7 +203,7 @@ public class PlayerController implements ActionListener {
 	
 	public void attack(int x, int y){
 		rotate(x, y);
-		if(currentActiveSkill != null && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+		if(currentActiveSkill != null && player.isAlive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
 			currentActiveSkill.activateSkill();
 			
@@ -226,33 +245,32 @@ public class PlayerController implements ActionListener {
 	}
 
 	public void checkCollision(Skill[] playerSkills) throws SlickException{
-		for(int i=0; i<playerSkills.length; i++){
-			if(isColliding(playerSkills[i])){
-				if(!playerSkills[i].isEndState()){
-					if(!playerSkills[i].hasEndState()){
-						playerSkills[i].setAttackingState(false);
-						System.out.println("Target hit with " + playerSkills[i].getName());
-						playerSkills[i].collidedShot();
-		//				damageEnemyHP(playerSkills[i].getDamage());
-						player.dealDamage(playerSkills[i].getDamage());
+		if(player.isAlive()){
+			for(int i=0; i<playerSkills.length; i++){
+				if(isColliding(playerSkills[i])){
+					if(!playerSkills[i].isEndState()){
+						if(!playerSkills[i].hasEndState()){
+							playerSkills[i].setAttackingState(false);
+							System.out.println("Target hit with " + playerSkills[i].getName());
+							playerSkills[i].collidedShot();
+							player.dealDamage(playerSkills[i].getDamage());
+						}else{
+							playerSkills[i].activatePreEndState();
+						}
 					}else{
-						playerSkills[i].activatePreEndState();
-					}
-				}else{
-	//				if(playerSkills[i].checkESColTimer() == playerSkills[i].getESColInterval()){
-//					if(ESIT != null && ESIT.checkESColTimer() == ESIT.getESColInterval()){
-					if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
-						System.out.println("Target hit with " + playerSkills[i].getName());
-	//					damageEnemyHP(playerSkills[i].getDamage());
-						player.dealDamage(playerSkills[i].getDamage());
-	//					playerSkills[i].resetESColTimer();
-//						ESIT.resetESColTimer();
-						playerSkills[i].getESIT().resetESColTimer();
-					}else if(playerSkills[i].getESIT() == null){
-						playerSkills[i].activateESIT(player);
+						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
+							System.out.println("Target hit with " + playerSkills[i].getName());
+							player.dealDamage(playerSkills[i].getDamage());
+							playerSkills[i].getESIT().resetESColTimer();
+						}else if(playerSkills[i].getESIT() == null){
+							playerSkills[i].activateESIT(player);
+						}
 					}
 				}
 			}
+		}
+		if(player.getHP() <= 0){
+			killPlayer();
 		}
 	}
 	

@@ -12,10 +12,13 @@ public class Player {
 	private Image secondStepImage;
 	private float imgX;
 	private float imgY;
+	private float startingPosX;
+	private float startingPosY;
 	
-	
+	private boolean isAlive = true;
 	
 	private int HP;
+	private int maxHP;
 	private String name;
 	private int armor;
 	private int kills;
@@ -42,11 +45,13 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, float x, float y){
+	public Player(String name, float x, float y, int maxHP){
 		this.name = name;
 		
-		imgX = x;
-		imgY = y;
+		imgX = startingPosX = x;
+		imgY = startingPosY = y;
+		
+		HP = this.maxHP = maxHP;
 	}
 	
 	public void changePlayerClass(Player player){
@@ -55,6 +60,13 @@ public class Player {
 		secondStepImage = player.getSecondStepImage();
 		
 		skillList = player.getSkills();
+	}
+	
+	public boolean isAlive(){
+		return isAlive;
+	}
+	public void setAliveState(boolean state){
+		isAlive = state;
 	}
 	
 	//Getters for the movements
@@ -74,12 +86,24 @@ public class Player {
 	public float getY(){
 		return imgY;
 	}
+	public float getStartX(){
+		return startingPosX;
+	}
+	public float getStartY(){
+		return startingPosY;
+	}
 	
 	public void addX(float x){
 		imgX += x;
 	}
 	public void addY(float y){
 		imgY += y;
+	}
+	public void setX(float x){
+		imgX = x;
+	}
+	public void setY(float y){
+		imgY = y;
 	}
 	
 	public void setMouseXPosMove(float x){
@@ -157,12 +181,16 @@ public class Player {
 	public int getHP(){
 		return HP;
 	}
+	public int getMaxHP(){
+		return maxHP;
+	}
 	public void dealDamage(int damage){
 		HP -= damage;
 		System.out.println("DAMAGE DEALT!");
 	}
 	public void resetHP(){
-		HP = 100;
+		HP = maxHP;
+		isAlive = true;
 		System.out.println("HEALTH RESTORED");
 	}
 	public String getName(){

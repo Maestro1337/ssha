@@ -123,7 +123,7 @@ public class Skill{
 			endStateDuration = duration;
 			ESColInterval = interval;
 			
-			animation = new AnimationTimer(duration/(images.length+1), images, this);
+			animation = new AnimationTimer(duration/(images.length), images, this);
 		}
 	}
 	
@@ -280,8 +280,8 @@ public class Skill{
 		endStateElapsedTime = 0;
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-		attImgX -= endStateImgWidth/2;
-		attImgY -= endStateImgHeight/2;
+		attImgX -= endStateImgWidth/2 - 20;
+		attImgY -= endStateImgHeight/2 - 20;
 		isEndState = true;
 		
 	//	if(animation != null){
