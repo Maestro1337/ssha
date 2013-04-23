@@ -1,5 +1,6 @@
 package Model.Skills;
 
+import Control.AnimationTimer;
 import Control.EndStateIntervalTimer;
 import Model.Player;
 import Model.StatusEffect;
@@ -47,8 +48,6 @@ public class Skill{
 	private float attackRange;
 	private boolean isAttacking = false;
 	
-	//private boolean isColliding = false;
-	
 	private boolean hasEndState = false;
 	private long endStateStartTime = 0;
 	private long endStateElapsedTime = 0;
@@ -57,6 +56,9 @@ public class Skill{
 	private int ESColInterval;
 	
 	EndStateIntervalTimer ESIT;
+	
+	AnimationTimer animation;
+//	Image[] animationImages;
 	
 	private boolean isProjectile = true;
 
@@ -76,7 +78,7 @@ public class Skill{
 		spellEffect = SE;
 		attackRange = range;
 		if(speed < 100){
-			attSpeed = speed;
+			attSpeed = 3*speed;
 		}else{
 			isProjectile = false;
 		}
@@ -100,19 +102,31 @@ public class Skill{
 		currentHeight = imgHeight = height;
 		currentWidth = imgWidth = width;
 	}
-	public void setEndState(Image image, int height, int width, int duration, int interval){
+	public void setAnimationImages(Image[] images){
+		animation = new AnimationTimer(200, images, this);
+	}
+	public void setEndStateImage(Image image){
 		if(image != null)
 			endStateImage = image;
 		
-		endStateImgHeight = height;
-		endStateImgWidth = width;
-		
-		hasEndState = true;
-		endStateDuration = duration;
-		ESColInterval = interval;
-		
-	//	this.isProjectile = isProjectile;
+		endStateImgHeight = image.getHeight();
+		endStateImgWidth = image.getWidth();
 	}
+	public void setEndState(Image[] images, int duration, int interval){
+		if(images[0] != null){
+			endStateImage = images[0];
+		
+			endStateImgHeight = images[0].getHeight();
+			endStateImgWidth = images[0].getWidth();
+			
+			hasEndState = true;
+			endStateDuration = duration;
+			ESColInterval = interval;
+			
+			animation = new AnimationTimer(500, images, this);
+		}
+	}
+	
 	
 	public int getCurrentHeight(){
 		return currentHeight;
@@ -174,8 +188,8 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		attImgX = player.getX();
-		attImgY = player.getY();
+		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2;
+		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2;
 	}
 	public void setNonProjectileShot(){
 		addAttX((float)(getXDirAtt()*getGenDirAtt()));
@@ -236,6 +250,9 @@ public class Skill{
 	
 	
 	public boolean isAttacking(){
+		if(isAttacking){
+			
+		}
 		return isAttacking;
 	}
 	
@@ -246,7 +263,6 @@ public class Skill{
 	public void activateSkill(){
     	CDstartTime = System.currentTimeMillis();
     	CDelapsedTime = 0;
-
     }
     
     public long checkCooldown(){
@@ -256,7 +272,6 @@ public class Skill{
     	}
     	return (cooldown - CDelapsedTime)/1000;
     }
-	
 	public boolean hasEndState(){
 		return hasEndState;
 	}
@@ -268,6 +283,10 @@ public class Skill{
 		attImgX -= endStateImgWidth/2;
 		attImgY -= endStateImgHeight/2;
 		isEndState = true;
+		
+		if(animation != null){
+    		animation.resetCounterAndTimer();
+    	}
 	}
 	public void activatePreEndState(){
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
@@ -303,6 +322,10 @@ public class Skill{
 	}
 	public EndStateIntervalTimer getESIT(){
 		return ESIT;
+	}
+	
+	public AnimationTimer getAnimationTimer(){
+		return animation;
 	}
 	
 	public boolean isPiercing(){

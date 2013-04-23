@@ -10,22 +10,15 @@ public class SkillFirestorm extends Skill{
 		super("Firestorm", 5000, 350, 100, 8, 0, 5, null);
 		
 		Image attackImage = null;
+		Image[] animation = new Image[1];
 		try {
 			attackImage = new Image("res/awesomeMiniRedSquare.png");
+			animation[0] = new Image("res/awesomeRedSquare.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Image endStateImage = null;
-		try {
-			endStateImage = new Image("res/awesomeRedSquare.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
-		super.setEndState(endStateImage, endStateImage.getHeight(), endStateImage.getWidth(), 3000, 350);
+		super.setEndState(animation, 3000, 350);
 	}
 }
