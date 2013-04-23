@@ -25,7 +25,7 @@ public class PlayerController implements ActionListener {
 
 	Double findNaN;
 
-	public PlayerController(Player player, Obstacle[] obstacles, String classType){
+	public PlayerController(Player player, Obstacle[] obstacles){
 		
 		this.player = player;
 		

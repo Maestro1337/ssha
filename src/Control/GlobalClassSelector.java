@@ -25,7 +25,7 @@ public class GlobalClassSelector {
 		this.player = player;
 	}
 	
-	public String getPlayer(){
+	public Player getPlayer(){
 		return player;
 	}
 
