@@ -105,18 +105,26 @@ public class Skill{
 	public void setAnimationImages(Image[] images){
 		animation = new AnimationTimer(200, images, this);
 	}
-	public void setEndState(Image image, int height, int width, int duration, int interval){
+	public void setEndStateImage(Image image){
 		if(image != null)
 			endStateImage = image;
 		
-		endStateImgHeight = height;
-		endStateImgWidth = width;
+		endStateImgHeight = image.getHeight();
+		endStateImgWidth = image.getWidth();
+	}
+	public void setEndState(Image[] images, int duration, int interval){
+		if(images[0] != null){
+			endStateImage = images[0];
 		
-		hasEndState = true;
-		endStateDuration = duration;
-		ESColInterval = interval;
-		
-	//	this.isProjectile = isProjectile;
+			endStateImgHeight = images[0].getHeight();
+			endStateImgWidth = images[0].getWidth();
+			
+			hasEndState = true;
+			endStateDuration = duration;
+			ESColInterval = interval;
+			
+			animation = new AnimationTimer(500, images, this);
+		}
 	}
 	
 	
@@ -180,8 +188,8 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		attImgX = player.getX();
-		attImgY = player.getY();
+		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2;
+		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2;
 	}
 	public void setNonProjectileShot(){
 		addAttX((float)(getXDirAtt()*getGenDirAtt()));
@@ -255,10 +263,6 @@ public class Skill{
 	public void activateSkill(){
     	CDstartTime = System.currentTimeMillis();
     	CDelapsedTime = 0;
-    	
-    	if(animation != null){
-    		animation.resetCounterAndTimer();
-    	}
     }
     
     public long checkCooldown(){
@@ -268,7 +272,6 @@ public class Skill{
     	}
     	return (cooldown - CDelapsedTime)/1000;
     }
-	
 	public boolean hasEndState(){
 		return hasEndState;
 	}
@@ -280,6 +283,10 @@ public class Skill{
 		attImgX -= endStateImgWidth/2;
 		attImgY -= endStateImgHeight/2;
 		isEndState = true;
+		
+		if(animation != null){
+    		animation.resetCounterAndTimer();
+    	}
 	}
 	public void activatePreEndState(){
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
