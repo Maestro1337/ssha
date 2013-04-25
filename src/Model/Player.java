@@ -45,13 +45,14 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, float x, float y, int maxHP){
+	public Player(String name, float x, float y, int maxHP, double speed){
 		this.name = name;
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
 		
 		HP = this.maxHP = maxHP;
+		moveSpeed = speed;
 	}
 	
 	public void changePlayerClass(Player player){
