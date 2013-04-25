@@ -191,8 +191,8 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2;
-		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2;
+		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2-currentWidth/2;
+		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
 	}
 	public void setNonProjectileShot(){
 		addAttX((float)(getXDirAtt()*getGenDirAtt()));
@@ -302,8 +302,8 @@ public class Skill{
 		endStateElapsedTime = 0;
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-		attImgX -= endStateImgWidth/2 - 20;
-		attImgY -= endStateImgHeight/2 - 20;
+	//	attImgX -= endStateImgWidth/2;
+	//	attImgY -= endStateImgHeight/2;
 		isEndState = true;
 		
 	//	if(animation != null){
