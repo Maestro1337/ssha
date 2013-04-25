@@ -107,7 +107,7 @@ public class PlayerController implements ActionListener {
 					
 					attackingSkill.incAttCounter();
 					
-					if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+					if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getAttackingDistance()){
 						if(!attackingSkill.hasEndState()){
 							attackingSkill.setAttackingState(false);
 						}else{
@@ -220,7 +220,7 @@ public class PlayerController implements ActionListener {
 			currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
 			
 			if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-				currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+				currentActiveSkill.setAttackingDistance(currentActiveSkill.getAttackRange());
 			}
 			
 			currentActiveSkill.resetAttCounter();
@@ -229,7 +229,7 @@ public class PlayerController implements ActionListener {
 				currentActiveSkill.setNonProjectileShot();
 			}
 			
-			System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
+			System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getAttackingDistance() + " pixels");
 			currentActiveSkill.setAttackingState(true);
 		}
 	}

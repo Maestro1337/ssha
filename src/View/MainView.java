@@ -108,11 +108,16 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		
 		
-		initPlayer();
+		initRound();
 		
 	}
 	
-	public void initPlayer(){
+	public void initRound(){
+		Random obsGenerator = new Random();
+		for(int i=0; i<obsGenerator.nextInt(50); i++){
+			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+		}
+		
 		Control = new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles);
 	//	player = Control.getPlayer();
 		player = GlobalClassSelector.getController().getPlayer();
@@ -121,10 +126,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		player.resetHP();
 		
 		userImage = player.getImage();
-		Random obsGenerator = new Random();
-		for(int i=0; i<obsGenerator.nextInt(50); i++){
-			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
-		}
+		
+//		if(Control.checkObstacleCollision(x, y));
 		
 		enemyControl = new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
 		
@@ -140,7 +143,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	         throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      initPlayer();
+	      initRound();
 
 	   }
 	
@@ -293,12 +296,6 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		if((190<xPos && xPos<290) && (250<yPos && yPos<350)){
-			if(input.isMouseButtonDown(0)){ // 0 = leftclick, 1 = rightclick
-				sbg.enterState(1);
-			}
-		}
-		
 		Random generator = new Random();
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
@@ -308,7 +305,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
 			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
-//				Control.setEnemyHP(100);
 				enemyControl.ressurectPlayer();
 				Control.ressurectPlayer();
 			}
@@ -352,7 +348,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				enemyControl.isAttacking(enemySkills[i]);
 			}
 		}
-		if (enemy.getHP()<=0){
+		if (!enemy.isAlive()){
 		//	enemy
 			sbg.enterState(4);
 		}

@@ -44,6 +44,8 @@ public class Skill{
 	private float xDirAtt;
 	private float yDirAtt;
 	private float genDirAtt;
+	
+	private float attackingDistance;
 
 	private float attackRange;
 	private boolean isAttacking = false;
@@ -192,8 +194,8 @@ public class Skill{
 		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2;
 	}
 	public void setNonProjectileShot(){
-		addAttX((float)(getXDirAtt()*getGenDirAtt()));
-		addAttY((float)(getYDirAtt()*getGenDirAtt()));
+		addAttX((float)(getXDirAtt()*getAttackingDistance()));
+		addAttY((float)(getYDirAtt()*getAttackingDistance()));
 	}
 	
 	public void collidedShot(){
@@ -242,6 +244,13 @@ public class Skill{
 	}
 	public void setGenDirAtt(float dir){
 		genDirAtt = dir;
+	}
+	
+	public float getAttackingDistance(){
+		return attackingDistance;
+	}
+	public void setAttackingDistance(float distance){
+		attackingDistance = distance;
 	}
 	
 	public float getAttackRange(){
