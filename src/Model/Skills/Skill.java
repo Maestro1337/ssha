@@ -278,6 +278,9 @@ public class Skill{
 	
 	public void setAttackingState(boolean state){
 		isAttacking = state;
+		if(state == false){
+			collidedShot();
+		}
 	}
 	
 	public void activateSkill(){
