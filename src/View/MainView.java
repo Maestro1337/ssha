@@ -132,10 +132,12 @@ public class MainView extends BasicGameState implements ActionListener {
 		map.render(0,0);
 		
 		//Show the coodinates for the mouse
-		g.drawString(mouse, 800, 10);
-		//Show the enemys hp
-		g.drawString(enemy.getName() + " HP: "+enemy.getHP(),500,500);
-		g.drawString(player.getName() + " HP: "+player.getHP(),500,515);
+		g.drawString(mouse, 900, 10);
+		//Show the stats
+		
+		
+		g.drawString(player.getName() + "\nHP: "+player.getHP() + "\nArmor: " + (int)(player.getArmor()*100) + "%\n",900,25);
+		g.drawString(enemy.getName() + "\nHP: "+enemy.getHP() + "\nArmor: " + (int)(enemy.getArmor()*100) + "%\n",1050,25);
 		//Draw the player
 		g.drawImage(userImage, player.getX(),player.getY());
 	

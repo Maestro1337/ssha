@@ -7,7 +7,7 @@ public class SkillFirestorm extends Skill{
 
 	public SkillFirestorm(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 5000, 350, 100, 8, 0, 5, null);
+		super("Firestorm", 5000, 350, 100, 8, 0, 50, null);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[1];
