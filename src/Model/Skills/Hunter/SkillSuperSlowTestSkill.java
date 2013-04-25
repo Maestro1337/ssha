@@ -1,31 +1,30 @@
-package Model.Skills;
+package Model.Skills.Hunter;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class SkillFirestorm extends Skill{
+import Model.Skills.Skill;
 
-	public SkillFirestorm(){
+public class SkillSuperSlowTestSkill extends Skill{
+	
+	public SkillSuperSlowTestSkill(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 5000, 350, 100, 8, 0, 50, null);
+		super("SuperSlowTestSkill", 1000, 800, 1.5, 3, 0, 300, null);
 		
 		Image attackImage = null;
-		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[2];
-		
 		try {
-			attackImage = new Image("res/awesomeMiniRedSquare.png");
+			attackImage = new Image("res/awesomeGreenSquare.png");
 			
-			animation[0] = new Image("res/Firestorm.png");
-			
-			skillBar[0] = new Image("res/Firestorm.png");
-			skillBar[1] = new Image("res/Firestorm_active.png");
+			skillBar[0] = new Image("res/pbs4.png");
+			skillBar[1] = new Image("res/pbs4_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
-		super.setEndState(animation, 3000, 350);
 		super.setSkillBarImages(skillBar);
 	}
+
 }

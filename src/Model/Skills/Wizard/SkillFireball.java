@@ -1,7 +1,9 @@
-package Model.Skills;
+package Model.Skills.Wizard;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import Model.Skills.Skill;
 
 public class SkillFireball extends Skill{
 	
