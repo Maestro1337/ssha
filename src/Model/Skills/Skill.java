@@ -44,6 +44,9 @@ public class Skill{
 	private float xDirAtt;
 	private float yDirAtt;
 	private float genDirAtt;
+	
+	private boolean isChosen = false;
+	private Image[] skillBarImages;
 
 	private float attackRange;
 	private boolean isAttacking = false;
@@ -254,6 +257,25 @@ public class Skill{
 			
 		}
 		return isAttacking;
+	}
+	
+	//returns true if player has this skill as current active skill
+	public boolean isChosen(){
+		return isChosen;
+	}
+	public void setChosenState(boolean state){
+		isChosen = state;
+	}
+	public void setSkillBarImages(Image[] images){
+		skillBarImages = images;
+	}
+	//returns skillbarpicture depending on if it is the active skill or not
+	public Image getSkillBarImage(){
+		if(!isChosen){
+			return skillBarImages[0];
+		}else{
+			return skillBarImages[1];
+		}
 	}
 	
 	public void setAttackingState(boolean state){

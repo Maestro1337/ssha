@@ -35,21 +35,6 @@ import Control.*;
 
 public class MainView extends BasicGameState implements ActionListener {
 	
-/*	private static MainView myMainView = null;
-	
-	public static MainView getMainView() {
-		if (myMainView == null) {
-		   myMainView = new MainView();
-		   // prepare myParty here or use setter() methods or a parameterized constructor
-		   }
-		   return myMainView;
-		}
-	
-	private MainView(){
-		
-	}*/
-	
-	
 	Image bg;
 	private String mouse = "No input yet";
 	
@@ -75,11 +60,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image user;
 	Image move1;
 	Image move2;
-	Image slash;
-	Image fireball;
-	Image firestorm;
-	Image iceneedle;
-	Image pedobear;
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
@@ -99,11 +79,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		map = new TiledMap("res/tileset/bg.tmx");
 		
-		slash = new Image("res/slash.png");
+	/*	slash = new Image("res/slash.png");
 		fireball = new Image("res/fireball.png");
 		firestorm = new Image("res/Firestorm.png");
 		iceneedle = new Image("res/iceneedle.png");
-		pedobear = new Image("res/pbs4.png");
+		pedobear = new Image("res/pbs4.png");*/
 		
 		
 		
@@ -175,7 +155,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			if(playerSkills[i] != null){
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
 				//	System.out.println(playerSkills[i].getName());
-					switch (playerSkills[i].getName()) {
+			/*		switch (playerSkills[i].getName()) {
 						
 			            case "Slash":g.drawImage(slash,10 + i*50, 660);
 			                     break;
@@ -187,7 +167,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			                     break;
 			            case "SuperSlowTestSkill":g.drawImage(pedobear,10 + i*50, 660);
 			                     break;
-			        }
+			        }*/
+					g.drawImage(playerSkills[i].getSkillBarImage(),10 + i*50, 660);
 				}
 			}
 		}
@@ -244,55 +225,30 @@ public class MainView extends BasicGameState implements ActionListener {
 			if(playerSkills[0] != null){
 				Control.setCurrentActiveSkill(0);
 				enemyControl.setCurrentActiveSkill(0);
-				slash = new Image("res/slash_active.png");
-				fireball = new Image("res/fireball.png");
-				firestorm = new Image("res/Firestorm.png");
-				iceneedle = new Image("res/iceneedle.png");
-				pedobear = new Image("res/pbs4.png");
 			}
 		}
 		if(input.isKeyDown(Input.KEY_2)){
 			if(playerSkills[1] != null){
 				Control.setCurrentActiveSkill(1);
 				enemyControl.setCurrentActiveSkill(1);
-				slash = new Image("res/slash.png");
-				fireball = new Image("res/fireball_active.png");
-				firestorm = new Image("res/Firestorm.png");
-				iceneedle = new Image("res/iceneedle.png");
-				pedobear = new Image("res/pbs4.png");
 			}
 		}
 		if(input.isKeyDown(Input.KEY_3)){
 			if(playerSkills[2] != null){
 				Control.setCurrentActiveSkill(2);
 				enemyControl.setCurrentActiveSkill(2);
-				slash = new Image("res/slash.png");
-				fireball = new Image("res/fireball.png");
-				firestorm = new Image("res/firestorm_active.png");
-				iceneedle = new Image("res/iceneedle.png");
-				pedobear = new Image("res/pbs4.png");
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
 			if(playerSkills[3] != null){
 				Control.setCurrentActiveSkill(3);
 				enemyControl.setCurrentActiveSkill(3);
-				slash = new Image("res/slash.png");
-				fireball = new Image("res/fireball.png");
-				firestorm = new Image("res/Firestorm.png");
-				iceneedle = new Image("res/iceneedle_active.png");
-				pedobear = new Image("res/pbs4.png");
 			}
 		}
 		if(input.isKeyDown(Input.KEY_5)){
 			if(playerSkills[4] != null){
 				Control.setCurrentActiveSkill(4);
 				enemyControl.setCurrentActiveSkill(4);
-				slash = new Image("res/slash.png");
-				fireball = new Image("res/fireball.png");
-				firestorm = new Image("res/Firestorm.png");
-				iceneedle = new Image("res/iceneedle.png");
-				pedobear = new Image("res/pbs4_active.png");
 			}
 		}
 		

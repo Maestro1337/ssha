@@ -78,7 +78,15 @@ public class PlayerController implements ActionListener {
 		return currentActiveSkill;
 	}
 	public void setCurrentActiveSkill(int index){
-		currentActiveSkill = playerSkills[index];
+		
+		for(int i=0; i<playerSkills.length; i++){
+			if(i == index){
+				currentActiveSkill = playerSkills[i];
+				playerSkills[i].setChosenState(true);
+			}else{
+				playerSkills[i].setChosenState(false);
+			}
+		}
 	}
 	
 	public void isRunning() throws SlickException{
