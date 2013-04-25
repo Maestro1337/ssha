@@ -175,8 +175,6 @@ public class Skill{
 		return attImgY;
 	}
 	
-	
-	
 	public void addAttX(float x){
 		attImgX += x;
 	}

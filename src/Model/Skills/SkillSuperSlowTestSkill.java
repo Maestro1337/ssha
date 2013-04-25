@@ -7,7 +7,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 	
 	public SkillSuperSlowTestSkill(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("SuperSlowTestSkill", 1000, 800, 0.3, 3, 0, -30, null);
+		super("SuperSlowTestSkill", 1000, 800, 1.5, 3, 0, 300, null);
 		
 		Image attackImage = null;
 		Image[] skillBar = new Image[2];

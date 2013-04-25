@@ -103,8 +103,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		player = GlobalClassSelector.getController().getPlayer();
 		playerSkills = Control.getPlayerSkills();
 		
-		player.resetHP();
-		
+		Control.ressurectPlayer();
+
 		userImage = player.getImage();
 		
 //		if(Control.checkObstacleCollision(x, y));
@@ -115,7 +115,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemy = enemyControl.getPlayer();
 		enemySkills = enemyControl.getPlayerSkills();
 		enemyImage = enemy.getImage();
-		enemy.resetHP();
+		enemyControl.ressurectPlayer();
 	}
 	
 	@Override
