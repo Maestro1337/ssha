@@ -123,13 +123,23 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void initPlayer(){
 		Control = new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles);
-		player = Control.getPlayer();
+	//	player = Control.getPlayer();
+		player = GlobalClassSelector.getController().getPlayer();
 		playerSkills = Control.getPlayerSkills();
 		
 		player.resetHP();
 		
 		userImage = player.getImage();
 	}
+	
+	@Override
+	   public void enter(GameContainer container, StateBasedGame game)
+	         throws SlickException {
+	      // TODO Auto-generated method stub
+	      super.enter(container, game);
+	      initPlayer();
+
+	   }
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		map.render(0,0);

@@ -1,6 +1,7 @@
 package Control;
 
 import Model.Player;
+import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
 
 public class GlobalClassSelector {
@@ -12,14 +13,14 @@ public class GlobalClassSelector {
 	public static GlobalClassSelector getController() {
 	if (myControl == null) {
 	   myControl = new GlobalClassSelector();
-	   // prepare myParty here or use setter() methods or a parameterized constructor
+	   // prepare myController here or use setter() methods or a parameterized constructor
 	   }
 	   return myControl;
 	}
 
-	// make constructor private so no one except the getParty() can call it
+	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
-		player = new ClassWarrior("Tester", 120, 100);
+		player = new ClassHunter("Tester", 120, 100);
 	}
 	
 	public void addPlayer(Player player){

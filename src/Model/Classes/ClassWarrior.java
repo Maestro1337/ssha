@@ -1,6 +1,5 @@
 package Model.Classes;
 
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
