@@ -171,8 +171,9 @@ public class MainView extends BasicGameState implements ActionListener {
 			g.setColor(Color.white);
 			g.fillRect(10 + i*50, 660, 50, 50);
 			g.setColor(Color.black);
-			g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
+			
 			if(playerSkills[i] != null){
+				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
 				//	System.out.println(playerSkills[i].getName());
 					switch (playerSkills[i].getName()) {

@@ -40,6 +40,33 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(playButton, 500, 300);
 		// TODO Auto-generated method stub
 		
+		g.setColor(Color.white);
+
+		g.drawString("1", 70, 200);
+		g.drawRect(50, 225, 50, 50);
+		g.drawString("2", 125, 200);
+		g.drawRect(105, 225, 50, 50);
+		g.drawString("3", 185, 200);
+		g.drawRect(160, 225, 50, 50);
+		g.drawString("4", 235, 200);
+		g.drawRect(215, 225, 50, 50);
+		g.drawString("5", 295, 200);
+		g.drawRect(270, 225, 50, 50);
+		
+		
+		g.drawString("Off", 50, 375);
+		g.drawRect(50, 400, 50, 50);
+		g.drawRect(150, 400, 50, 50);
+		g.drawRect(250, 400, 50, 50);
+		g.drawString("Def", 150, 375);
+		g.drawRect(50, 475, 50, 50);
+		g.drawRect(150, 475, 50, 50);
+		g.drawRect(250, 475, 50, 50);
+		g.drawString("Mob", 250, 375);
+		g.drawRect(50, 550, 50, 50);
+		g.drawRect(150, 550, 50, 50);
+		g.drawRect(250, 550, 50, 50);
+		
 	}
 
 	@Override

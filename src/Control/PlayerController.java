@@ -247,7 +247,7 @@ public class PlayerController implements ActionListener {
 	public void checkCollision(Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
-				if(isColliding(playerSkills[i])){
+				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					if(!playerSkills[i].isEndState()){
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
