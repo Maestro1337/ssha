@@ -104,6 +104,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		firestorm = new Image("res/Firestorm.png");
 		iceneedle = new Image("res/iceneedle.png");
 		pedobear = new Image("res/pbs4.png");
+		 
 		
 		
 		
@@ -299,11 +300,11 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		Random generator = new Random();
+		//Random generator = new Random();
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
 			Control.move(Mouse.getX(), 720 - Mouse.getY());
-			enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
+			//enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
 		}
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
@@ -356,9 +357,29 @@ public class MainView extends BasicGameState implements ActionListener {
 		//	enemy
 			sbg.enterState(4);
 		}
+		AI();
 	}
 	
+	long time = 0;
 	
+	public void AI(){
+		Random generator = new Random();
+		long delay=500;
+		float dx = enemy.getX()-player.getX();
+		float dy = enemy.getY()-player.getY();
+		while (System.currentTimeMillis()>time+delay){
+			if ((dx*dx)+(dy*dy)>=10000){
+				enemyControl.move((int)player.getX(),(int) player.getY());
+			}else if (dx<0){
+				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(719) + 1);
+			}
+			else{
+				enemyControl.move(generator.nextInt(1280-(int)player.getX())+(int)player.getX(), generator.nextInt(719) + 1);
+			}
+			time=System.currentTimeMillis();
+		}
+		
+	}
 	
 		
 	//Returns the state of the game
