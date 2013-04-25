@@ -1,13 +1,15 @@
-package Model.Skills;
+package Model.Skills.Wizard;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import Model.Skills.Skill;
 
 public class SkillFireball extends Skill{
 	
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 0, 15, null);
+		super("Fireball", 11000, 400, 0.4, 3, 0, 150, null);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

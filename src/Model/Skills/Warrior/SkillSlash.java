@@ -1,7 +1,8 @@
-package Model.Skills;
+package Model.Skills.Warrior;
 
 
 import Model.StatusEffect;
+import Model.Skills.Skill;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

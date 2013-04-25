@@ -5,11 +5,11 @@ import org.newdawn.slick.SlickException;
 
 import Model.Player;
 import Model.Skills.Skill;
-import Model.Skills.SkillFireball;
-import Model.Skills.SkillFirestorm;
-import Model.Skills.SkillIceNeedle;
-import Model.Skills.SkillSlash;
-import Model.Skills.SkillSuperSlowTestSkill;
+import Model.Skills.Hunter.SkillSuperSlowTestSkill;
+import Model.Skills.Warrior.SkillSlash;
+import Model.Skills.Wizard.SkillFireball;
+import Model.Skills.Wizard.SkillFirestorm;
+import Model.Skills.Wizard.SkillIceNeedle;
 
 public class ClassHunter extends Player {
 
@@ -19,7 +19,7 @@ public class ClassHunter extends Player {
 	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassHunter(String name, float x, float y) {
-		super(name, x, y, 100, 2);
+		super(name, x, y, 1000, 2, 0.4);
 		try {
 			playerImage = new Image("res/hunter_stand.png");
 			firstStep = new Image("res/hunter_walk1.png");

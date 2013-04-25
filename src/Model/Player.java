@@ -20,8 +20,8 @@ public class Player {
 	private int HP;
 	private int maxHP;
 	private String name;
-	private int armor;
-	private int kills;
+	private double armor=0;
+	private int kills=0;
 	private int deaths;
 	private int coins;
 	private Skill[] skillList = new Skill[5];
@@ -45,7 +45,7 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, float x, float y, int maxHP, double speed){
+	public Player(String name, float x, float y, int maxHP, double speed, double armor){
 		this.name = name;
 		
 		imgX = startingPosX = x;
@@ -53,6 +53,7 @@ public class Player {
 		
 		HP = this.maxHP = maxHP;
 		moveSpeed = speed;
+		this.armor = armor;
 	}
 	
 	public void changePlayerClass(Player player){
@@ -186,7 +187,11 @@ public class Player {
 		return maxHP;
 	}
 	public void dealDamage(int damage){
-		HP -= damage;
+		//Remove some damage given depending on armor
+		damage *= (1-armor);
+		if(damage >= 0){
+			HP -= damage;
+		}
 		System.out.println("DAMAGE DEALT!");
 	}
 	public void resetHP(){
@@ -197,6 +202,21 @@ public class Player {
 	public String getName(){
 		return name;
 	}
+	public double getArmor(){
+		return armor;
+	}
+	public void addArmor(double armor){
+		this.armor += armor;
+	}
+	public int getKills(){
+		return kills;
+	}
+	public void incKills(){
+		kills++;
+	}
+	
+	
+	
 	public void setImages(Image image, Image first, Image second){
 		if(image != null)
 			userImage = image;

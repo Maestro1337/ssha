@@ -1,21 +1,25 @@
-package Model.Skills;
+package Model.Skills.Wizard;
+
+
+import Model.StatusEffect;
+import Model.Skills.Skill;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class SkillSuperSlowTestSkill extends Skill{
+public class SkillIceNeedle extends Skill{
 	
-	public SkillSuperSlowTestSkill(){
+	public SkillIceNeedle(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("SuperSlowTestSkill", 1000, 800, 1.5, 3, 0, 300, null);
+		super("IceNeedle", 2000, 200, 0.5, 3, 0, 250, null);
 		
 		Image attackImage = null;
 		Image[] skillBar = new Image[2];
 		try {
-			attackImage = new Image("res/awesomeGreenSquare.png");
+			attackImage = new Image("res/awesomeBlueSquare.png");
 			
-			skillBar[0] = new Image("res/pbs4.png");
-			skillBar[1] = new Image("res/pbs4_active.png");
+			skillBar[0] = new Image("res/iceneedle.png");
+			skillBar[1] = new Image("res/iceneedle_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -24,5 +28,4 @@ public class SkillSuperSlowTestSkill extends Skill{
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 		super.setSkillBarImages(skillBar);
 	}
-
 }
