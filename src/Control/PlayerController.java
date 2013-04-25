@@ -8,10 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.*;
-import Model.Classes.ClassHunter;
-import Model.Classes.ClassWarrior;
-import Model.Classes.ClassWizard;
-import Model.Obstacles.Obstacle;
+import Model.Classes.*;
+import Model.Obstacles.*;
 import Model.Skills.*;
 
 public class PlayerController implements ActionListener {
@@ -34,23 +32,11 @@ public class PlayerController implements ActionListener {
 		
 		this.obstacles = obstacles;
 		
-	//	enemy = new Player(600,300);
-	/*	
-		try {
-			enemyImage = new Image("res/awesomePinkSquare.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
 	}
 	
 	public Player getPlayer(){
 		return player;
 	}
-	/*public Player getEnemy(){
-		return enemy;
-	}*/
 	
 	public Skill[] getPlayerSkills(){
 		return player.getSkills();
@@ -78,7 +64,15 @@ public class PlayerController implements ActionListener {
 		return currentActiveSkill;
 	}
 	public void setCurrentActiveSkill(int index){
-		currentActiveSkill = playerSkills[index];
+		
+		for(int i=0; i<playerSkills.length; i++){
+			if(i == index){
+				currentActiveSkill = playerSkills[i];
+				playerSkills[i].setChosenState(true);
+			}else{
+				playerSkills[i].setChosenState(false);
+			}
+		}
 	}
 	
 	public void isRunning() throws SlickException{
@@ -98,6 +92,7 @@ public class PlayerController implements ActionListener {
 		}
 	}
 	
+	//Determines action depending on what state the skill is in
 	public void isAttacking(Skill attackingSkill){
 		if(attackingSkill != null && player.isAlive())
 				if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
@@ -117,15 +112,7 @@ public class PlayerController implements ActionListener {
 					}
 					
 				}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
-					attackingSkill.activateEndState();
-					
-				/*	if(attackingSkill.getAnimationTimer() != null){
-						Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-					
-						if(animationImage != null)
-							attackingSkill.setEndStateImage(animationImage);
-					}*/
-					
+					attackingSkill.activateEndState();					
 					System.out.println("Commencing end state with " + attackingSkill.getName());
 				}else if(attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
 					attackingSkill.finishEndState();
@@ -202,6 +189,8 @@ public class PlayerController implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
+		x -= currentActiveSkill.getCurrentWidth()/2;
+		y -= currentActiveSkill.getCurrentHeight()/2;
 		rotate(x, y);
 		if(currentActiveSkill != null && player.isAlive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			

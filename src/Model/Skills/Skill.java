@@ -44,6 +44,9 @@ public class Skill{
 	private float xDirAtt;
 	private float yDirAtt;
 	private float genDirAtt;
+	
+	private boolean isChosen = false;
+	private Image[] skillBarImages;
 
 	private float attackRange;
 	private boolean isAttacking = false;
@@ -172,8 +175,6 @@ public class Skill{
 		return attImgY;
 	}
 	
-	
-	
 	public void addAttX(float x){
 		attImgX += x;
 	}
@@ -188,8 +189,8 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2;
-		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2;
+		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2-currentWidth/2;
+		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
 	}
 	public void setNonProjectileShot(){
 		addAttX((float)(getXDirAtt()*getGenDirAtt()));
@@ -256,6 +257,25 @@ public class Skill{
 		return isAttacking;
 	}
 	
+	//returns true if player has this skill as current active skill
+	public boolean isChosen(){
+		return isChosen;
+	}
+	public void setChosenState(boolean state){
+		isChosen = state;
+	}
+	public void setSkillBarImages(Image[] images){
+		skillBarImages = images;
+	}
+	//returns skillbarpicture depending on if it is the active skill or not
+	public Image getSkillBarImage(){
+		if(!isChosen){
+			return skillBarImages[0];
+		}else{
+			return skillBarImages[1];
+		}
+	}
+	
 	public void setAttackingState(boolean state){
 		isAttacking = state;
 	}
@@ -280,8 +300,8 @@ public class Skill{
 		endStateElapsedTime = 0;
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-		attImgX -= endStateImgWidth/2 - 20;
-		attImgY -= endStateImgHeight/2 - 20;
+	//	attImgX -= endStateImgWidth/2;
+	//	attImgY -= endStateImgHeight/2;
 		isEndState = true;
 		
 	//	if(animation != null){

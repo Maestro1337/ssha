@@ -19,7 +19,7 @@ public class ClassWarrior extends Player {
 	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassWarrior(String name, float x, float y) {
-		super(name, x, y, 150);
+		super(name, x, y, 150, 1.2);
 		try {
 			playerImage = new Image("res/warrior_stand.png");
 			firstStep = new Image("res/warrior_walk1.png");
@@ -29,10 +29,10 @@ public class ClassWarrior extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillFireball();
-		chosenSkills[2] = new SkillFirestorm();
-		chosenSkills[3] = new SkillIceNeedle();
-		chosenSkills[4] = new SkillSuperSlowTestSkill();
+		chosenSkills[1] = new SkillSlash();
+		chosenSkills[2] = new SkillSlash();
+		chosenSkills[3] = new SkillSlash();
+		chosenSkills[4] = new SkillSlash();
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);

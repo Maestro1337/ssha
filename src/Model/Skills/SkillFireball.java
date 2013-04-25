@@ -11,9 +11,11 @@ public class SkillFireball extends Skill{
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
+		Image[] skillBar = new Image[2];
 		
 		try {
 			attackImage = new Image("res/explode1.png");
+			
 			animation[0] = new Image("res/explode1.png");
 			animation[1] = new Image("res/explode2.png");
 			animation[2] = new Image("res/explode3.png");
@@ -21,6 +23,9 @@ public class SkillFireball extends Skill{
 			animation[4] = new Image("res/explode5.png");
 			animation[5] = new Image("res/explode6.png");
 			animation[6] = new Image("res/explode7.png");
+			
+			skillBar[0] = new Image("res/fireball.png");
+			skillBar[1] = new Image("res/fireball_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,6 +35,7 @@ public class SkillFireball extends Skill{
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 		super.setEndState(animation, 200, 400);
+		super.setSkillBarImages(skillBar);
 	}
 
 }

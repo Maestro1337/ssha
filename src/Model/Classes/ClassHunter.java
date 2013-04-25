@@ -19,7 +19,7 @@ public class ClassHunter extends Player {
 	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassHunter(String name, float x, float y) {
-		super(name, x, y, 100);
+		super(name, x, y, 100, 2);
 		try {
 			playerImage = new Image("res/hunter_stand.png");
 			firstStep = new Image("res/hunter_walk1.png");
@@ -28,10 +28,10 @@ public class ClassHunter extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillFireball();
-		chosenSkills[2] = new SkillFirestorm();
-		chosenSkills[3] = new SkillIceNeedle();
+		chosenSkills[0] = new SkillSuperSlowTestSkill();
+		chosenSkills[1] = new SkillSuperSlowTestSkill();
+		chosenSkills[2] = new SkillSuperSlowTestSkill();
+		chosenSkills[3] = new SkillSuperSlowTestSkill();
 		chosenSkills[4] = new SkillSuperSlowTestSkill();
 
 		super.setImages(playerImage, firstStep, secondStep);

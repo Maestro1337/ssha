@@ -19,7 +19,7 @@ public class ClassWizard extends Player {
 	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassWizard(String name, float x, float y) {
-		super(name, x, y, 90);
+		super(name, x, y, 90, 0.8);
 		try {
 			playerImage = new Image("res/mage_stand.png");
 			firstStep = new Image("res/mage_walk1.png");
@@ -28,11 +28,11 @@ public class ClassWizard extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillFireball();
-		chosenSkills[2] = new SkillFirestorm();
-		chosenSkills[3] = new SkillIceNeedle();
-		chosenSkills[4] = new SkillSuperSlowTestSkill();
+		chosenSkills[0] = new SkillFireball();
+		chosenSkills[1] = new SkillFirestorm();
+		chosenSkills[2] = new SkillIceNeedle();
+		chosenSkills[3] = new SkillFireball();
+		chosenSkills[4] = new SkillFirestorm();
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);
