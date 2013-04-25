@@ -29,10 +29,10 @@ public class ClassWarrior extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillFireball();
-		chosenSkills[2] = new SkillFirestorm();
-		chosenSkills[3] = new SkillIceNeedle();
-		chosenSkills[4] = new SkillSuperSlowTestSkill();
+		chosenSkills[1] = new SkillSlash();
+		chosenSkills[2] = new SkillSlash();
+		chosenSkills[3] = new SkillSlash();
+		chosenSkills[4] = new SkillSlash();
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);

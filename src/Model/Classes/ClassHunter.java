@@ -28,10 +28,10 @@ public class ClassHunter extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillFireball();
-		chosenSkills[2] = new SkillFirestorm();
-		chosenSkills[3] = new SkillIceNeedle();
+		chosenSkills[0] = new SkillSuperSlowTestSkill();
+		chosenSkills[1] = new SkillSuperSlowTestSkill();
+		chosenSkills[2] = new SkillSuperSlowTestSkill();
+		chosenSkills[3] = new SkillSuperSlowTestSkill();
 		chosenSkills[4] = new SkillSuperSlowTestSkill();
 
 		super.setImages(playerImage, firstStep, secondStep);
