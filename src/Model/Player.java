@@ -21,7 +21,7 @@ public class Player {
 	private int maxHP;
 	private String name;
 	private double armor=0;
-	private int kills;
+	private int kills=0;
 	private int deaths;
 	private int coins;
 	private Skill[] skillList = new Skill[5];
@@ -208,7 +208,12 @@ public class Player {
 	public void addArmor(double armor){
 		this.armor += armor;
 	}
-	
+	public int getKills(){
+		return kills;
+	}
+	public void incKills(){
+		kills++;
+	}
 	
 	
 	
