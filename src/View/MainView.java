@@ -136,8 +136,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the stats
 		
 		
-		g.drawString(player.getName() + "\nHP: "+player.getHP() + "\nArmor: " + (int)(player.getArmor()*100) + "%\n",900,25);
-		g.drawString(enemy.getName() + "\nHP: "+enemy.getHP() + "\nArmor: " + (int)(enemy.getArmor()*100) + "%\n",1050,25);
+		g.drawString(player.getName() + "\nHP: "+player.getHP() + "\nArmor: " + (int)(player.getArmor()*100) + "%\nKills: " + player.getKills(),900,25);
+		g.drawString(enemy.getName() + "\nHP: "+enemy.getHP() + "\nArmor: " + (int)(enemy.getArmor()*100) + "%\nKills: " + enemy.getKills(),1050,25);
 		//Draw the player
 		g.drawImage(userImage, player.getX(),player.getY());
 	
@@ -309,6 +309,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		if (!enemy.isAlive()){
 		//	enemy
+			Control.getPlayer().incKills();
 			sbg.enterState(4);
 		}
 		AI();
