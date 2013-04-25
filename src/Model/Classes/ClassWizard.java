@@ -16,7 +16,7 @@ public class ClassWizard extends Player {
 	Image playerImage;
 	Image firstStep;
 	Image secondStep;
-	static Skill[] chosenSkills;
+	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassWizard(String name, float x, float y) {
 		super(name, x, y, 90);
