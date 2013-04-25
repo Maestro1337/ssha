@@ -105,17 +105,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		iceneedle = new Image("res/iceneedle.png");
 		pedobear = new Image("res/pbs4.png");
 		
-		Random obsGenerator = new Random();
-		for(int i=0; i<obsGenerator.nextInt(50); i++){
-			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
-		}
-		enemyControl = new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
 		
-
-		enemy = enemyControl.getPlayer();
-		enemySkills = enemyControl.getPlayerSkills();
-		enemyImage = enemy.getImage();
-		enemy.resetHP();
+		
 		
 		initPlayer();
 		
@@ -130,6 +121,18 @@ public class MainView extends BasicGameState implements ActionListener {
 		player.resetHP();
 		
 		userImage = player.getImage();
+		Random obsGenerator = new Random();
+		for(int i=0; i<obsGenerator.nextInt(50); i++){
+			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+		}
+		
+		enemyControl = new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
+		
+
+		enemy = enemyControl.getPlayer();
+		enemySkills = enemyControl.getPlayerSkills();
+		enemyImage = enemy.getImage();
+		enemy.resetHP();
 	}
 	
 	@Override
@@ -348,6 +351,10 @@ public class MainView extends BasicGameState implements ActionListener {
 			if(enemySkills[i] != null && enemySkills[i].isAttacking()){
 				enemyControl.isAttacking(enemySkills[i]);
 			}
+		}
+		if (enemy.getHP()<=0){
+		//	enemy
+			sbg.enterState(4);
 		}
 	}
 	
