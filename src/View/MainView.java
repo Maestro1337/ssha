@@ -313,6 +313,21 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		AI();
 	}
+	public boolean willCollide(){
+		float collitionx;
+		float collitiony;
+		boolean value=false;
+		
+		for (int i=1;i<Control.getCurrentActiveSkill().getRange();i++){
+			collitionx=player.getX()+(i*Control.getCurrentActiveSkill().getAttX());
+			collitiony=player.getY()+(i*Control.getCurrentActiveSkill().getAttY());	
+			if(collitionx>enemy.getX()&&collitionx<enemy.getX()+enemy.getImage().getWidth()&&collitiony>enemy.getY()&&collitiony<enemy.getY()+enemy.getImage().getHeight()){
+				value = true;
+			 break;
+			}
+		}
+		return value;
+	}
 	
 	long time = 0;
 	
@@ -323,7 +338,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		double dy = enemy.getY()-player.getY();
 		double distance = Math.sqrt((dx*dx)+(dy*dy));
 		while (System.currentTimeMillis()>time+delay){
-			if (distance>=100){
+			if(Control.getCurrentActiveSkill().isAttacking()&&willCollide()){
+				enemyControl.move(0,0);
+				//TODO correct movecoordinate
+				}
+				
+			
+			else if (distance>=100){
 				enemyControl.move((int)player.getX(),(int) player.getY());
 			}else if (dx<0){
 				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(719) + 1);
