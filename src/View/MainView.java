@@ -359,7 +359,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	
-
 	
 		
 	//Returns the state of the game
