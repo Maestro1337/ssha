@@ -36,6 +36,7 @@ public class ServerView extends JFrame {
 		setResizable(false);
 		setLayout(null);
 		
+		// Create Activity-textarea
 		activityField = new JTextArea();
 		activityPanel = new JScrollPane(activityField, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		activityLabel = new JLabel("Activity:");
@@ -44,6 +45,7 @@ public class ServerView extends JFrame {
 		clientsLabel = new JLabel("Connected clients:");
 		startServer = new JButton("Start server");
 		
+		// Create Activity-label
 		activityPanel.setLocation(5, activityFieldY);
 		activityPanel.setSize(wWidth-10, wHeight-activityFieldY-27);
 		activityField.setEditable(false);
@@ -52,6 +54,7 @@ public class ServerView extends JFrame {
 		activityLabel.setSize(60, 15);
 		add(activityLabel);
 		
+		// Create ConnectedClients-textarea
 		clientsPanel.setLocation(5, connectedClientsY);
 		clientsPanel.setSize(wWidth-10, wHeight-connectedClientsY-(int)activityPanel.getSize().getHeight()-55);
 		connectedClients.setEditable(false);
@@ -60,6 +63,7 @@ public class ServerView extends JFrame {
 		clientsLabel.setSize(117, 15);
 		add(clientsLabel);
 		
+		// Create ConnectedClients-label
 		startServer.setLocation(5, 5);
 		startServer.setSize(wWidth-10, wHeight-(int)activityPanel.getSize().getHeight()-(int)clientsPanel.getSize().getHeight()-85);
 		startServer.setFont(new Font("Italic", Font.BOLD, 30));

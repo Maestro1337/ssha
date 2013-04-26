@@ -16,6 +16,7 @@ public class MultiSocketServer implements Runnable {
 	private int playerX;
 	private int playerY;
 	private String statString;
+	private boolean isDead = false;
 	
 	public MultiSocketServer(Socket s, int i) {
 		this.connection = s;
@@ -48,10 +49,10 @@ public class MultiSocketServer implements Runnable {
 			
 			while(true) {
 				//Read from client
-				while( (character = isr.read()) != 13) {
+				while( (character = isr.read()) != 13 && character >= 0) {
 					process.append((char)character);
 				}
-				//System.out.println(process);
+				System.out.println(process);
 				
 				//Convert StringBuffer to String
 				this.statString = "" + process.toString();
@@ -84,7 +85,8 @@ public class MultiSocketServer implements Runnable {
 			}
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			//System.out.println(e);
+			isDead = true;
 		}
 	}
 	
@@ -119,6 +121,10 @@ public class MultiSocketServer implements Runnable {
 			connection.close();
 		}
 		catch(IOException e) {}
+	}
+	
+	public boolean isDead() {
+		return isDead;
 	}
 
 }

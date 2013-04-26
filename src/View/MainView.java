@@ -228,31 +228,31 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isKeyDown(Input.KEY_1)){
 			if(playerSkills[0] != null){
 				Control.setCurrentActiveSkill(0);
-				enemyControl.setCurrentActiveSkill(0);
+				//enemyControl.setCurrentActiveSkill(0);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_2)){
 			if(playerSkills[1] != null){
 				Control.setCurrentActiveSkill(1);
-				enemyControl.setCurrentActiveSkill(1);
+				//enemyControl.setCurrentActiveSkill(1);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_3)){
 			if(playerSkills[2] != null){
 				Control.setCurrentActiveSkill(2);
-				enemyControl.setCurrentActiveSkill(2);
+				//enemyControl.setCurrentActiveSkill(2);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
 			if(playerSkills[3] != null){
 				Control.setCurrentActiveSkill(3);
-				enemyControl.setCurrentActiveSkill(3);
+				//enemyControl.setCurrentActiveSkill(3);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_5)){
 			if(playerSkills[4] != null){
 				Control.setCurrentActiveSkill(4);
-				enemyControl.setCurrentActiveSkill(4);
+				//enemyControl.setCurrentActiveSkill(4);
 			}
 		}
 		
@@ -269,7 +269,6 @@ public class MainView extends BasicGameState implements ActionListener {
 				Control.ressurectPlayer();
 			}
 			Control.attack(Mouse.getX(), 720 - Mouse.getY());
-			enemyControl.attack((int)player.getX(), (int)player.getY());
 		}
 		if(player.isRunning()){
 			Control.isRunning();
@@ -315,16 +314,38 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		AI();
 	}
+	public boolean willCollide(){
+		float collitionx;
+		float collitiony;
+		boolean value=false;
+		
+		for (int i=1;i<Control.getCurrentActiveSkill().getRange();i++){
+			collitionx=player.getX()+(i*Control.getCurrentActiveSkill().getAttX());
+			collitiony=player.getY()+(i*Control.getCurrentActiveSkill().getAttY());	
+			if(collitionx>enemy.getX()&&collitionx<enemy.getX()+enemy.getImage().getWidth()&&collitiony>enemy.getY()&&collitiony<enemy.getY()+enemy.getImage().getHeight()){
+				value = true;
+			 break;
+			}
+		}
+		return value;
+	}
 	
 	long time = 0;
 	
 	public void AI(){
 		Random generator = new Random();
 		long delay=500;
-		float dx = enemy.getX()-player.getX();
-		float dy = enemy.getY()-player.getY();
+		double dx = enemy.getX()-player.getX();
+		double dy = enemy.getY()-player.getY();
+		double distance = Math.sqrt((dx*dx)+(dy*dy));
 		while (System.currentTimeMillis()>time+delay){
-			if ((dx*dx)+(dy*dy)>=10000){
+			if(Control.getCurrentActiveSkill().isAttacking()&&willCollide()){
+				enemyControl.move(0,0);
+				//TODO correct movecoordinate
+				}
+				
+			
+			else if (distance>=100){
 				enemyControl.move((int)player.getX(),(int) player.getY());
 			}else if (dx<0){
 				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(719) + 1);
@@ -333,6 +354,13 @@ public class MainView extends BasicGameState implements ActionListener {
 				enemyControl.move(generator.nextInt(1280-(int)player.getX())+(int)player.getX(), generator.nextInt(719) + 1);
 			}
 			time=System.currentTimeMillis();
+		}
+		for(int i=0;i<enemyControl.getPlayerSkills().length;i++){
+			enemyControl.setCurrentActiveSkill(i);
+			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
+							enemyControl.getCurrentActiveSkill().checkCooldown()==enemyControl.getCurrentActiveSkill().getCoolDown()){
+				enemyControl.attack((int)player.getX(), (int)player.getY());
+			}
 		}
 		
 	}

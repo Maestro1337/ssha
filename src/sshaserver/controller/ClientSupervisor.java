@@ -49,11 +49,32 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	public void run() {
 		
 		while(true) {
-			try {
+			for(int i = 0; i < 4; i++) {
+				System.out.println(theSockets[0]);
 				if(theSockets[0] != null) {
-					//System.out.println(theSockets[0].getPlayerName());
+					System.out.println("The socket is dead:" + theSockets[0].isDead());
 				}
-				Thread.sleep(500);
+				if(theThreads[i] != null) {
+					/*
+					//System.out.println(theThreads[i].getState());
+					if(theThreads[i].getState() == Thread.State.TERMINATED) {
+						theSockets[i] = null;
+						theThreads[i] = null;
+						System.out.println("Avslutad inkorrekt");
+					}
+					*/
+					
+					if(theSockets[i].isDead()) {
+						theSockets[i] = null;
+						theThreads[i] = null;
+					}
+					
+				}
+					
+					
+			}
+			try {
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -73,12 +94,6 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		//System.out.println("Thread has started: " + sft.isAlive());
 		//System.out.println("Thread is: " + sft.getState());
 		
-		for(int i = 0; i < 4; i++) {
-			if(theThreads[i] != null) {
-				System.out.println(theThreads[i].getState());
-			}
-		}
-		
 		if(!SV.isRunning()) {
 			if(sft.getState() == Thread.State.NEW) {
 				sft.start();
@@ -95,6 +110,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		}
 
 		SV.changeButtonText();
+		
 	}
 
 }
