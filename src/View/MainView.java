@@ -93,7 +93,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	}
 	
-	public void initRound(){
+	public void initRound() throws SlickException{
 		Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
@@ -108,7 +108,7 @@ public class MainView extends BasicGameState implements ActionListener {
 
 		userImage = player.getImage();
 		
-//		if(Control.checkObstacleCollision(x, y));
+		Control.checkSpawnCollision();
 
 		enemyControl = new PlayerController(new ClassWizard("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
 		
@@ -117,6 +117,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemySkills = enemyControl.getPlayerSkills();
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
+		
+		enemyControl.checkSpawnCollision();
+		
 	}
 	
 	@Override

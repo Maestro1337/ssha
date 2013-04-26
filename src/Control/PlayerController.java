@@ -316,6 +316,20 @@ public class PlayerController implements ActionListener {
 		
 		return false;
 	}
+	
+	public void checkSpawnCollision() throws SlickException{
+		for(int i=0; i<obstacles.length; i++){
+			if(obstacles[i] != null){
+				float x = 0;
+				float y= 0;
+				while(isColliding(obstacles[i], x, y)){
+					player.addX(1);
+				}
+			}
+			
+		}
+			
+	}
 
 
 	@Override
