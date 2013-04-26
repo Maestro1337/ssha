@@ -110,7 +110,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		Control.checkSpawnCollision();
 
-		enemyControl = new PlayerController(new ClassWizard("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
+		enemyControl = new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
 		
 
 		enemy = enemyControl.getPlayer();

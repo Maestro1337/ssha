@@ -14,6 +14,29 @@ import org.newdawn.slick.state.StateBasedGame;
 public class ShoppingView extends BasicGameState {
 	
 	Image playButton;
+	Image absorbSkill;
+	Image adrenalineSkill;
+	Image arrowFlurrySkill;
+	Image barrelRollSkill;
+	Image blizzardSkill;
+	Image cripplingShotSkill;
+	Image dodgeSkill;
+	Image flameWaveSkill;
+	Image flamingArrowSkill;
+	Image guidedArrowSkill;
+	Image healingArrowSkill;
+	Image iceBlockSkill;
+	Image ironCloakSkill;
+	Image leapAttackSkill;
+	Image passiveMovementSkill;
+	Image shieldStanceSkill;
+	Image sprintSkill;
+	Image stealthSkill;
+	Image teleportSkill;
+	Image throwingAxeSkill;
+	Image unstableMagicSkill;
+	Image wandAttackSkill;
+	Image warStompSkill;
 	
 
 
@@ -29,8 +52,29 @@ public class ShoppingView extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		
 		playButton = new Image("res/playButtons.png");
-		
-		// TODO Auto-generated method stub
+		absorbSkill = new Image("res/skillIcons/Absorb2.jpg");
+		adrenalineSkill = new Image("res/skillIcons/Adrenalin.jpg");
+		arrowFlurrySkill = new Image("res/skillIcons/ArrowFlurry.jpg");
+		barrelRollSkill = new Image("res/skillIcons/BarrelRoll.jpg");
+		blizzardSkill = new Image("res/skillIcons/Blizzard.jpg");
+		cripplingShotSkill = new Image("res/skillIcons/CripplingShot2.jpg");
+		dodgeSkill = new Image("res/skillIcons/Dodge.png");
+		flameWaveSkill = new Image("res/skillIcons/FlameWave.jpg");
+		flamingArrowSkill = new Image("res/skillIcons/FlamingArrow.jpg");
+		guidedArrowSkill = new Image("res/skillIcons/GuidedArrow.jpg");
+		healingArrowSkill = new Image("res/skillIcons/HealingArrows.jpg");
+		iceBlockSkill = new Image("res/skillIcons/IceBlock.jpg");
+		ironCloakSkill = new Image("res/skillIcons/IronCloak.jpg");
+		leapAttackSkill = new Image("res/skillIcons/LeapAttack.jpg");
+		passiveMovementSkill = new Image("res/skillIcons/PassiveMovement.jpg");
+		shieldStanceSkill = new Image("res/skillIcons/ShieldStance.jpg");
+		sprintSkill = new Image("res/skillIcons/Sprint.jpg");
+		stealthSkill = new Image("res/skillIcons/Stealth.jpg");
+		teleportSkill = new Image("res/skillIcons/Teleport.jpg");
+		throwingAxeSkill = new Image("res/skillIcons/TrowingAxe.jpg");
+		unstableMagicSkill = new Image("res/skillIcons/UnstableMagic.jpg");
+		wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
+		warStompSkill = new Image("res/skillIcons/WarStomp.png");
 		
 	}
 
@@ -43,15 +87,15 @@ public class ShoppingView extends BasicGameState {
 		g.setColor(Color.white);
 
 		g.drawString("1", 70, 200);
-		g.drawRect(50, 225, 50, 50);
-		g.drawString("2", 125, 200);
-		g.drawRect(105, 225, 50, 50);
-		g.drawString("3", 185, 200);
-		g.drawRect(160, 225, 50, 50);
-		g.drawString("4", 235, 200);
-		g.drawRect(215, 225, 50, 50);
-		g.drawString("5", 295, 200);
-		g.drawRect(270, 225, 50, 50);
+		g.drawImage(absorbSkill, 50, 225);
+		g.drawString("2", 140, 200);
+		g.drawImage(adrenalineSkill, 119, 225);
+		g.drawString("3", 215, 200);
+		g.drawImage(arrowFlurrySkill, 188, 225);
+		g.drawString("4", 280, 200);
+		g.drawImage(barrelRollSkill, 257, 225);
+		g.drawString("5", 350, 200);
+		g.drawImage(blizzardSkill, 326, 225);
 		
 		
 		g.drawString("Off", 50, 375);
