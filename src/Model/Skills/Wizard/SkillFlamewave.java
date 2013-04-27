@@ -5,11 +5,11 @@ import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
 
-public class SkillFireball extends Skill{
-	
-	public SkillFireball(){
+public class SkillFlamewave extends Skill{
+
+	public SkillFlamewave() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Flamewave", 11000, 400, 0.4, 3, 0, 150, null);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

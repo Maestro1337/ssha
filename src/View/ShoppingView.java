@@ -20,15 +20,34 @@ public class ShoppingView extends BasicGameState {
 	Image playButton;
 	//Wizard skillicons
 	Image fireBallSkill;
+	String fireballDesc;
+	
 	Image fireStormSkill;
+	String firestormDesc;
+	
 	Image absorbSkill; 
+	String absorbDesc;
+	
 	Image blizzardSkill;
+	String blizzardDesc;
+	
 	Image flameWaveSkill;
+	String flamewaveDesc;
+	
 	Image iceBlockSkill;
+	String iceblockDesc;
+	
 	Image teleportSkill;
+	String teleportDesc;
+	
 	Image ironCloakSkill;
+	String ironcloakDesc;
+	
 	Image unstableMagicSkill;
+	String unstableMagicDesc;
+	
 	Image wandAttackSkill;
+	String wandattackDesc;
 	//Hunter skillicons
 	Image arrowFlurrySkill;
 	Image barrelRollSkill;
@@ -61,15 +80,25 @@ public class ShoppingView extends BasicGameState {
 		playButton = new Image("res/playButtons.png");
 		//Init wizard skillicons
 		fireBallSkill = new Image("res/fireball.png");
+		fireballDesc = "Fireball";
 		fireStormSkill = new Image("res/Firestorm.png");
+		firestormDesc = "Firestorm";
 		absorbSkill = new Image("res/skillIcons/Absorb2.jpg");
+		absorbDesc = "Absorb";
 		blizzardSkill = new Image("res/skillIcons/Blizzard.jpg");
+		blizzardDesc = "Blizzard";
 		flameWaveSkill = new Image("res/skillIcons/FlameWave.jpg");
+		flamewaveDesc = "Flamewave";
 		iceBlockSkill = new Image("res/skillIcons/IceBlock.jpg");
+		iceblockDesc = "Ice Block";
 		ironCloakSkill = new Image("res/skillIcons/IronCloak.jpg");
+		ironcloakDesc = "Iron Cloak";
 		teleportSkill = new Image("res/skillIcons/Teleport.jpg");
+		teleportDesc = "Teleport";
 		unstableMagicSkill = new Image("res/skillIcons/UnstableMagic.jpg");
+		unstableMagicDesc = "Unstable Magic";
 		wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
+		wandattackDesc = "Wand attack";
 		//Init hunter skillicons
 		arrowFlurrySkill = new Image("res/skillIcons/ArrowFlurry.jpg");
 		barrelRollSkill = new Image("res/skillIcons/BarrelRoll.jpg");
@@ -126,14 +155,31 @@ public class ShoppingView extends BasicGameState {
 		switch(GlobalClassSelector.getController().getPlayer().getType()){
 			case "Wizard": 
 				g.drawImage(fireBallSkill,500, 200);
+				g.drawString(firestormDesc, 500, 180);
+				
 				g.drawImage(fireStormSkill,600, 200);
+				g.drawString(firestormDesc, 600, 180);
+				
 				g.drawImage(flameWaveSkill,700, 200);
+				g.drawString(flamewaveDesc, 700, 180);
+				
 				g.drawImage(ironCloakSkill,500, 275);
+				g.drawString(ironcloakDesc, 500, 255);
+				
 				g.drawImage(absorbSkill,600, 275);
+				g.drawString(absorbDesc, 600, 255);
+				
 				g.drawImage(iceBlockSkill,700, 275);
+				g.drawString(iceblockDesc, 700, 255);
+				
 				g.drawImage(unstableMagicSkill,500, 350);
+				g.drawString(unstableMagicDesc, 500, 330);
+				
 				g.drawImage(blizzardSkill,600, 350);
+				g.drawString(blizzardDesc, 600, 330);
+				
 				g.drawImage(teleportSkill,700, 350);
+				g.drawString(teleportDesc, 700, 330);
 			break;
 			case "Hunter":
 				g.drawImage(flamingArrowSkill,500, 200);
@@ -167,7 +213,6 @@ public class ShoppingView extends BasicGameState {
 		int yPos = 720 - Mouse.getY();
 		
 		Input input = gc.getInput();
-		
 
 		if((500<xPos && xPos<750) && (650<yPos && yPos<704)){
 			playButton = new Image("res/playButton_hover.png");
