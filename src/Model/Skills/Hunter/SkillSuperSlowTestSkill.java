@@ -19,7 +19,6 @@ public class SkillSuperSlowTestSkill extends Skill{
 			skillBar[0] = new Image("res/pbs4.png");
 			skillBar[1] = new Image("res/pbs4_active.png");
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

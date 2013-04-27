@@ -20,6 +20,7 @@ public class Player {
 	private int HP;
 	private int maxHP;
 	private String name;
+	private String classType;
 	private double armor=0;
 	private int kills=0;
 	private int deaths;
@@ -45,8 +46,9 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, float x, float y, int maxHP, double speed, double armor){
+	public Player(String name, String type, float x, float y, int maxHP, double speed, double armor){
 		this.name = name;
+		this.classType = type;
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
@@ -62,6 +64,10 @@ public class Player {
 		secondStepImage = player.getSecondStepImage();
 		
 		skillList = player.getSkills();
+	}
+	
+	public String getType(){
+		return classType;
 	}
 	
 	public boolean isAlive(){

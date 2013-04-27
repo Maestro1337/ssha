@@ -19,13 +19,12 @@ public class ClassWizard extends Player {
 	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassWizard(String name, float x, float y) {
-		super(name, x, y, 900, 0.8, 0.2);
+		super(name, "Wizard", x, y, 900, 0.8, 0.2);
 		try {
 			playerImage = new Image("res/mage_stand.png");
 			firstStep = new Image("res/mage_walk1.png");
 			secondStep = new Image("res/mage_walk2.png");
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillFireball();

@@ -19,7 +19,7 @@ public class ClassHunter extends Player {
 	static Skill[] chosenSkills = new Skill[5];
 
 	public ClassHunter(String name, float x, float y) {
-		super(name, x, y, 1000, 2, 0.4);
+		super(name, "Hunter", x, y, 1000, 2, 0.4);
 		try {
 			playerImage = new Image("res/hunter_stand.png");
 			firstStep = new Image("res/hunter_walk1.png");

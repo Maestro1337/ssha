@@ -38,6 +38,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image bg;
 	private String mouse = "No input yet";
 	
+	String test;
+	
 	private PlayerController Control; 
 	private PlayerController enemyControl;
 	Player player;
@@ -219,6 +221,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		Control.checkCollision(enemySkills);
 		enemyControl.checkCollision(playerSkills);
 		
+	
+		
+		System.out.println(GlobalClassSelector.getController().getPlayer().getSkills());
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		

@@ -39,6 +39,4 @@ public class GlobalClassSelector {
 	public Player getPlayer(){
 		return player;
 	}
-
-	
 }
