@@ -1,4 +1,4 @@
-package Control;
+package Control.Timers;
 
 import org.newdawn.slick.Image;
 

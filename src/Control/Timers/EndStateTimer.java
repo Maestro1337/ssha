@@ -1,9 +1,9 @@
-package Control;
+package Control.Timers;
 
 import Model.Skills.*;
 import Model.*;
 
-public class EndStateIntervalTimer {
+public class EndStateTimer {
 
 	private int ESColInterval;
 	private long ESColStartTime = 0;
@@ -11,7 +11,7 @@ public class EndStateIntervalTimer {
 	private Skill skill;
 	private Player player;
 	
-	public EndStateIntervalTimer(int interval, Player player, Skill skill){
+	public EndStateTimer(int interval, Player player, Skill skill){
 		ESColInterval = interval;
 		this.player = player;
 		this.skill = skill;

@@ -1,7 +1,7 @@
 package Model.Skills;
 
-import Control.AnimationTimer;
-import Control.EndStateIntervalTimer;
+import Control.Timers.AnimationTimer;
+import Control.Timers.EndStateTimer;
 import Model.Player;
 import Model.StatusEffect;
 
@@ -58,7 +58,7 @@ public class Skill{
 	private boolean isEndState = false;
 	private int ESColInterval;
 	
-	EndStateIntervalTimer ESIT;
+	EndStateTimer ESIT;
 	
 	AnimationTimer animation;
 //	Image[] animationImages;
@@ -341,9 +341,9 @@ public class Skill{
 		return ESColInterval;
 	}
 	public void activateESIT(Player player){
-		ESIT = new EndStateIntervalTimer(getESColInterval(), player, this);
+		ESIT = new EndStateTimer(getESColInterval(), player, this);
 	}
-	public EndStateIntervalTimer getESIT(){
+	public EndStateTimer getESIT(){
 		return ESIT;
 	}
 	
