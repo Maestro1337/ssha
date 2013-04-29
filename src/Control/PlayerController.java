@@ -183,7 +183,7 @@ public class PlayerController implements ActionListener {
 		
 		player.resetMoveCounter();
 		
-		System.out.println("Running " + player.getGenDirMove() + " pixels");
+	//	System.out.println("Running " + player.getGenDirMove() + " pixels");
 		player.setRunningState(true);
 	}
 	
@@ -278,7 +278,7 @@ public class PlayerController implements ActionListener {
 				//	player.setYDirMove(player.getYDirMove()*-1);
 				}
 
-				System.out.println("Target ran into " + obstacles[i].getType());
+//				System.out.println("Target ran into " + obstacles[i].getType());
 				player.dealDamage(obstacles[i].getDamage());
 				return true;
 

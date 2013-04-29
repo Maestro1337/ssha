@@ -8,6 +8,8 @@ public class StatusEffect {
 	
 	private Player player;
 	private Skill skill;
+	private String name;
+	
 	private int dmgEff;
 	private int moveXEff;
 	private int moveYEff;
@@ -18,14 +20,14 @@ public class StatusEffect {
 	private int maxCounts;
 	private int interval;
 	
-	
 	private boolean commitedChange = false;
 	
 	private SkillCheckingTimer ESIT;
 	
-	public StatusEffect(Player player, Skill skill, int damage, int moveX, int moveY, int arm, int attackSpeed, int range, int counts, int interval){
+	public StatusEffect(Player player, Skill skill, String name,int damage, int moveX, int moveY, int arm, int attackSpeed, int range, int counts, int interval){
 		this.player = player;
 		this.skill = skill;
+		this.name = name;
 		
 		dmgEff = damage;
 		moveXEff = moveX;
@@ -46,6 +48,9 @@ public class StatusEffect {
 	public Skill getSkill(){
 		return skill;
 	}
+	public String getName(){
+		return name;
+	}
 	public int getDmgEff(){
 		return dmgEff;
 	}
@@ -64,6 +69,7 @@ public class StatusEffect {
 	public int getRangeEff(){
 		return rangeEff;
 	}
+	
 	public void resetStatusEffect(){
 		counts = maxCounts;
 		ESIT.resetESColTimer();
@@ -75,8 +81,9 @@ public class StatusEffect {
 			if(ESIT.checkESColTimer() == ESIT.getESColInterval()){
 				counts--;
 				ESIT.resetESColTimer();
+				commitStatusEffect();
 			}
-			commitStatusEffect();
+			
 			return true;
 		}else{
 			returnStatsToNormal();
@@ -85,7 +92,7 @@ public class StatusEffect {
 	}
 	
 	private void commitStatusEffect(){
-		
+		System.out.println("Commit status effect");
 		if(dmgEff>0){
 			player.dealDamage(dmgEff);
 		}
@@ -104,9 +111,10 @@ public class StatusEffect {
 		}
 		
 		commitedChange = true;
-	}
+	} 
 	
 	private void returnStatsToNormal(){
+		System.out.println("Return status effect");
 		if(commitedChange){
 			if(armEff>0){
 				player.addArmor(-armEff);
@@ -121,7 +129,7 @@ public class StatusEffect {
 	}
 	
 	public StatusEffect cloneTo(Player newPlayer){
-		StatusEffect newSE = new StatusEffect(newPlayer, skill, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval);
+		StatusEffect newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval);
 		return newSE;
 	}
 	
