@@ -9,7 +9,7 @@ public class SkillIroncloak extends Skill {
 
 	public SkillIroncloak() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Iron cloak", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Iron cloak", 11000, 400, 0.4, 3, 0, 150);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillPassiveDodge extends Skill {
 	public SkillPassiveDodge(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Passive Dodge", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Passive Dodge", 11000, 400, 0.4, 3, 0, 150);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

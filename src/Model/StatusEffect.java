@@ -120,6 +120,11 @@ public class StatusEffect {
 		}
 	}
 	
+	public StatusEffect cloneTo(Player newPlayer){
+		StatusEffect newSE = new StatusEffect(newPlayer, skill, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval);
+		return newSE;
+	}
+	
 	
 	
 }
