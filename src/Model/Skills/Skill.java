@@ -1,7 +1,7 @@
 package Model.Skills;
 
 import Control.Timers.AnimationTimer;
-import Control.Timers.EndStateTimer;
+import Control.Timers.SkillCheckingTimer;
 import Model.Player;
 import Model.StatusEffect;
 
@@ -20,7 +20,7 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
-	private StatusEffect spellEffect = new StatusEffect();
+	private StatusEffect spellEffect;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -58,7 +58,7 @@ public class Skill{
 	private boolean isEndState = false;
 	private int ESColInterval;
 	
-	EndStateTimer ESIT;
+	SkillCheckingTimer ESIT;
 	
 	AnimationTimer animation;
 //	Image[] animationImages;
@@ -193,8 +193,8 @@ public class Skill{
 		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
 	}
 	public void setNonProjectileShot(){
-		addAttX((float)(getXDirAtt()*getGenDirAtt()));
-		addAttY((float)(getYDirAtt()*getGenDirAtt()));
+		addAttX((float)(getXDirAtt()*getGenDirAtt())-endStateImgWidth/2);
+		addAttY((float)(getYDirAtt()*getGenDirAtt())-endStateImgHeight/2);
 	}
 	
 	public void collidedShot(){
@@ -341,9 +341,9 @@ public class Skill{
 		return ESColInterval;
 	}
 	public void activateESIT(Player player){
-		ESIT = new EndStateTimer(getESColInterval(), player, this);
+		ESIT = new SkillCheckingTimer(getESColInterval(), player, this);
 	}
-	public EndStateTimer getESIT(){
+	public SkillCheckingTimer getESIT(){
 		return ESIT;
 	}
 	

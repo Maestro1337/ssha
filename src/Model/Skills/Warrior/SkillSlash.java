@@ -25,6 +25,7 @@ public class SkillSlash extends Skill{
 			animation[2] = new Image("res/slash3.png");
 			animation[3] = new Image("res/slash4.png");
 			
+			
 			skillBar[0] = new Image("res/slash.png");
 			skillBar[1] = new Image("res/slash_active.png");
 		} catch (SlickException e) {
