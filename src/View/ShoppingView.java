@@ -13,58 +13,59 @@ import org.newdawn.slick.state.StateBasedGame;
 import Control.GlobalClassSelector;
 import Control.PlayerController;
 import Model.Player;
+import Model.Skills.Skill;
+import Model.Skills.Hunter.SkillArrowFlurry;
+import Model.Skills.Hunter.SkillBarrelRoll;
+import Model.Skills.Hunter.SkillCripplingShot;
+import Model.Skills.Hunter.SkillFlamingArrow;
+import Model.Skills.Hunter.SkillGuidedArrow;
+import Model.Skills.Hunter.SkillLifestealingArrows;
+import Model.Skills.Hunter.SkillPassiveDodge;
+import Model.Skills.Hunter.SkillSprint;
+import Model.Skills.Hunter.SkillStealth;
+import Model.Skills.Warrior.SkillAdrenaline;
+import Model.Skills.Warrior.SkillFirstAid;
+import Model.Skills.Warrior.SkillGrapplingHook;
+import Model.Skills.Warrior.SkillImprovedArmor;
+import Model.Skills.Warrior.SkillIncreasedMovement;
+import Model.Skills.Warrior.SkillLeapAttack;
+import Model.Skills.Warrior.SkillShieldStance;
+import Model.Skills.Warrior.SkillThrowingAxe;
+import Model.Skills.Warrior.SkillWarstomp;
+import Model.Skills.Wizard.SkillAbsorb;
+import Model.Skills.Wizard.SkillBlizzard;
+import Model.Skills.Wizard.SkillFireball;
+import Model.Skills.Wizard.SkillFirestorm;
+import Model.Skills.Wizard.SkillFlamewave;
+import Model.Skills.Wizard.SkillIceblock;
+import Model.Skills.Wizard.SkillIroncloak;
+import Model.Skills.Wizard.SkillTeleport;
+import Model.Skills.Wizard.SkillUnstablemagic;
 
 
 public class ShoppingView extends BasicGameState {
 	
+	Skill[] offSkills = new Skill[3];
+	Skill[] defSkills = new Skill[3];
+	Skill[] mobSkills = new Skill[3];
+	Skill[] chosenSkills = new Skill[5];
+	
 	Image playButton;
 	//Wizard skillicons
-	Image fireBallSkill;
-	String fireballDesc;
+	Image firstOffSkill;
+	Image secondOffSkill;
+	Image thirdOffSkill; 
 	
-	Image fireStormSkill;
-	String firestormDesc;
+	Image firstDefSkill;
+	Image secondDefSkill;
+	Image thirdDefSkill;
 	
-	Image absorbSkill; 
-	String absorbDesc;
-	
-	Image blizzardSkill;
-	String blizzardDesc;
-	
-	Image flameWaveSkill;
-	String flamewaveDesc;
-	
-	Image iceBlockSkill;
-	String iceblockDesc;
-	
-	Image teleportSkill;
-	String teleportDesc;
-	
-	Image ironCloakSkill;
-	String ironcloakDesc;
-	
-	Image unstableMagicSkill;
-	String unstableMagicDesc;
+	Image firstMobSkill;
+	Image secondMobSkill;
+	Image thirdMobSkill;
 	
 	Image wandAttackSkill;
 	String wandattackDesc;
-	//Hunter skillicons
-	Image arrowFlurrySkill;
-	Image barrelRollSkill;
-	Image cripplingShotSkill;
-	Image dodgeSkill;
-	Image flamingArrowSkill;
-	Image guidedArrowSkill;
-	Image healingArrowSkill;
-	Image sprintSkill;
-	Image stealthSkill;
-	//Warrior skillicons
-	Image adrenalineSkill;
-	Image leapAttackSkill;
-	Image passiveMovementSkill;
-	Image shieldStanceSkill;
-	Image throwingAxeSkill;
-	Image warStompSkill;
 
 	public ShoppingView (int state){
 		
@@ -77,48 +78,77 @@ public class ShoppingView extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		
+		
+		
+		switch(GlobalClassSelector.getController().getPlayer().getType()){
+			case "Wizard":
+				//Init wizard offensive, defensive and mobility skillists
+				offSkills[0] = new SkillFireball();
+				offSkills[1] = new SkillFirestorm();
+				offSkills[2] = new SkillFlamewave();
+				
+				defSkills[0] = new SkillIroncloak();
+				defSkills[1] = new SkillAbsorb();
+				defSkills[2] = new SkillIceblock();
+				
+				mobSkills[0] = new SkillUnstablemagic();
+				mobSkills[1] = new SkillBlizzard();
+				mobSkills[2] = new SkillTeleport();
+			break;
+			case "Hunter":
+				//Init Hunter offensive, defensive and mobility skillists
+				offSkills[0] = new SkillFlamingArrow();
+				offSkills[1] = new SkillGuidedArrow();
+				offSkills[2] = new SkillArrowFlurry();
+				
+				defSkills[0] = new SkillPassiveDodge();
+				defSkills[1] = new SkillLifestealingArrows();
+				defSkills[2] = new SkillStealth();
+				
+				mobSkills[0] = new SkillSprint();
+				mobSkills[1] = new SkillCripplingShot();
+				mobSkills[2] = new SkillBarrelRoll();
+			break;
+			case "Warrior":
+				//Init warrior offensive, defensive and mobility skillists
+				offSkills[0] = new SkillThrowingAxe();
+				offSkills[1] = new SkillWarstomp();
+				offSkills[2] = new SkillAdrenaline();
+				
+				defSkills[0] = new SkillImprovedArmor();
+				defSkills[1] = new SkillShieldStance();
+				defSkills[2] = new SkillFirstAid();
+				
+				mobSkills[0] = new SkillIncreasedMovement();
+				mobSkills[1] = new SkillGrapplingHook();
+				mobSkills[2] = new SkillLeapAttack();
+			break;
+		}
 		playButton = new Image("res/playButtons.png");
 		//Init wizard skillicons
-		fireBallSkill = new Image("res/fireball.png");
-		fireballDesc = "Fireball";
-		fireStormSkill = new Image("res/Firestorm.png");
-		firestormDesc = "Firestorm";
-		absorbSkill = new Image("res/skillIcons/Absorb2.jpg");
-		absorbDesc = "Absorb";
-		blizzardSkill = new Image("res/skillIcons/Blizzard.jpg");
-		blizzardDesc = "Blizzard";
-		flameWaveSkill = new Image("res/skillIcons/FlameWave.jpg");
-		flamewaveDesc = "Flamewave";
-		iceBlockSkill = new Image("res/skillIcons/IceBlock.jpg");
-		iceblockDesc = "Ice Block";
-		ironCloakSkill = new Image("res/skillIcons/IronCloak.jpg");
-		ironcloakDesc = "Iron Cloak";
-		teleportSkill = new Image("res/skillIcons/Teleport.jpg");
-		teleportDesc = "Teleport";
-		unstableMagicSkill = new Image("res/skillIcons/UnstableMagic.jpg");
-		unstableMagicDesc = "Unstable Magic";
+		//Offensive
+		firstOffSkill = offSkills[0].getSkillBarImage();
+		secondOffSkill = offSkills[1].getSkillBarImage();
+		thirdOffSkill = offSkills[2].getSkillBarImage();
+		//Defensive
+		firstDefSkill = defSkills[0].getSkillBarImage();
+		secondDefSkill = defSkills[1].getSkillBarImage();
+		thirdDefSkill = defSkills[2].getSkillBarImage();
+		//Mobility
+		firstMobSkill = mobSkills[0].getSkillBarImage();
+		secondMobSkill = mobSkills[1].getSkillBarImage();
+		thirdMobSkill = mobSkills[2].getSkillBarImage();
+		//Basic
 		wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
 		wandattackDesc = "Wand attack";
-		//Init hunter skillicons
-		arrowFlurrySkill = new Image("res/skillIcons/ArrowFlurry.jpg");
-		barrelRollSkill = new Image("res/skillIcons/BarrelRoll.jpg");
-		cripplingShotSkill = new Image("res/skillIcons/CripplingShot2.jpg");
-		dodgeSkill = new Image("res/skillIcons/Dodge.png");
-		flamingArrowSkill = new Image("res/skillIcons/FlamingArrow.jpg");
-		guidedArrowSkill = new Image("res/skillIcons/GuidedArrow.jpg");
-		healingArrowSkill = new Image("res/skillIcons/HealingArrows.jpg");
-		sprintSkill = new Image("res/skillIcons/Sprint.jpg");
-		stealthSkill = new Image("res/skillIcons/Stealth.jpg");
-		//Init warrior skillicons
-		adrenalineSkill = new Image("res/skillIcons/Adrenalin.jpg");
-		leapAttackSkill = new Image("res/skillIcons/LeapAttack.jpg");
-		passiveMovementSkill = new Image("res/skillIcons/PassiveMovement.jpg");
-		shieldStanceSkill = new Image("res/skillIcons/ShieldStance.jpg");
-		throwingAxeSkill = new Image("res/skillIcons/TrowingAxe.jpg");
-		warStompSkill = new Image("res/skillIcons/WarStomp.png");
-		
 	}
+	public void enter(GameContainer container, StateBasedGame game)
+	         throws SlickException {
+	      // TODO Auto-generated method stub
+	      super.enter(container, game);
+	      chosenSkills = GlobalClassSelector.getController().getPlayer().getSkillList();
 
+	   }
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		g.setColor(Color.black);
@@ -128,82 +158,37 @@ public class ShoppingView extends BasicGameState {
 		g.setColor(Color.white);
 
 		g.drawString("1", 70, 200);
-		g.drawImage(absorbSkill, 50, 225);
+		g.drawImage(chosenSkills[0].getSkillBarImage(), 50, 225);
 		g.drawString("2", 140, 200);
-		g.drawImage(adrenalineSkill, 119, 225);
+		g.drawImage(chosenSkills[1].getSkillBarImage(), 119, 225);
 		g.drawString("3", 215, 200);
-		g.drawImage(arrowFlurrySkill, 188, 225);
-		g.drawString("4", 280, 200);
-		g.drawImage(barrelRollSkill, 257, 225);
+		g.drawImage(chosenSkills[2].getSkillBarImage(), 188, 225);
+		g.drawString("4", 280, 202);
+		g.drawImage(chosenSkills[3].getSkillBarImage(), 257, 225);
 		g.drawString("5", 350, 200);
-		g.drawImage(blizzardSkill, 326, 225);
+		g.drawImage(chosenSkills[4].getSkillBarImage(), 326, 225);
 		
 		
 		g.drawString("Off", 50, 375);
-		g.drawRect(50, 400, 50, 50);
-		g.drawRect(150, 400, 50, 50);
-		g.drawRect(250, 400, 50, 50);
 		g.drawString("Def", 150, 375);
-		g.drawRect(50, 475, 50, 50);
-		g.drawRect(150, 475, 50, 50);
-		g.drawRect(250, 475, 50, 50);
 		g.drawString("Mob", 250, 375);
-		g.drawRect(50, 550, 50, 50);
-		g.drawRect(150, 550, 50, 50);
-		g.drawRect(250, 550, 50, 50);
 		
-		switch(GlobalClassSelector.getController().getPlayer().getType()){
-			case "Wizard": 
-				g.drawImage(fireBallSkill,500, 200);
-				g.drawString(firestormDesc, 500, 180);
-				
-				g.drawImage(fireStormSkill,600, 200);
-				g.drawString(firestormDesc, 600, 180);
-				
-				g.drawImage(flameWaveSkill,700, 200);
-				g.drawString(flamewaveDesc, 700, 180);
-				
-				g.drawImage(ironCloakSkill,500, 275);
-				g.drawString(ironcloakDesc, 500, 255);
-				
-				g.drawImage(absorbSkill,600, 275);
-				g.drawString(absorbDesc, 600, 255);
-				
-				g.drawImage(iceBlockSkill,700, 275);
-				g.drawString(iceblockDesc, 700, 255);
-				
-				g.drawImage(unstableMagicSkill,500, 350);
-				g.drawString(unstableMagicDesc, 500, 330);
-				
-				g.drawImage(blizzardSkill,600, 350);
-				g.drawString(blizzardDesc, 600, 330);
-				
-				g.drawImage(teleportSkill,700, 350);
-				g.drawString(teleportDesc, 700, 330);
-			break;
-			case "Hunter":
-				g.drawImage(flamingArrowSkill,500, 200);
-				g.drawImage(guidedArrowSkill,600, 200);
-				g.drawImage(arrowFlurrySkill,700, 200);
-				g.drawImage(dodgeSkill,500, 275);
-				g.drawImage(healingArrowSkill,600, 275);
-				g.drawImage(stealthSkill,700, 275);
-				g.drawImage(sprintSkill,500, 350);
-				g.drawImage(cripplingShotSkill,600, 350);
-				g.drawImage(barrelRollSkill,700, 350);
-			break;
-			case "Warrior":
-				g.drawImage(throwingAxeSkill,500, 200);
-				g.drawImage(warStompSkill,600, 200);
-				g.drawImage(adrenalineSkill,700, 200);
-				g.drawRect(500, 275, 64, 64); //Improved armor icon is missing
-				g.drawRect(600, 275, 64, 64); //First aid icon is missing
-				g.drawImage(shieldStanceSkill,700, 275);
-				g.drawImage(passiveMovementSkill,500, 350);
-				g.drawRect(600, 350, 64, 64); //Grappling hook icon is missing
-				g.drawImage(leapAttackSkill,700, 350);
-			break;
-		}
+		
+		//Offensive skills
+		g.drawImage(firstOffSkill, 50, 400);
+		g.drawImage(secondOffSkill, 50, 475);
+		g.drawImage(thirdOffSkill, 50, 550);
+			
+		//Defensive skills
+		g.drawImage(firstDefSkill, 150, 400);
+		g.drawImage(secondDefSkill, 150, 475);
+		g.drawImage(thirdDefSkill, 150, 550);
+			
+		//Mobility skills
+		g.drawImage(firstMobSkill, 250, 400);
+		g.drawImage(secondMobSkill, 250, 475);
+		g.drawImage(thirdMobSkill, 250, 550);
+
 	}
 
 	@Override

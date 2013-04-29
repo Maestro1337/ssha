@@ -1,15 +1,14 @@
-package Model.Skills.Wizard;
+package Model.Skills.Hunter;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
 
-public class SkillFlamewave extends Skill{
-
-	public SkillFlamewave() {
+public class SkillGuidedArrow extends Skill {
+	public SkillGuidedArrow(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flamewave", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Guided Arrow", 11000, 400, 0.4, 3, 0, 150, null);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
@@ -26,7 +25,7 @@ public class SkillFlamewave extends Skill{
 			animation[5] = new Image("res/explode6.png");
 			animation[6] = new Image("res/explode7.png");
 			
-			skillBar[0] = new Image("res/skillIcons/FlameWave.jpg");
+			skillBar[0] = new Image("res/skillIcons/GuidedArrow.jpg");
 			skillBar[1] = new Image("res/fireball_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block

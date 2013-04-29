@@ -1,14 +1,14 @@
-package Model.Skills.Wizard;
+package Model.Skills.Warrior;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
 
-public class SkillBlizzard extends Skill {
-	public SkillBlizzard(){
+public class SkillImprovedArmor extends Skill {
+	public SkillImprovedArmor(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Blizzard", 11000, 400, 0.4, 3, 0, 150, null);
+				super("Improved armor", 11000, 400, 0.4, 3, 0, 150, null);
 				
 				Image attackImage = null;
 				Image[] animation = new Image[7];
@@ -25,7 +25,7 @@ public class SkillBlizzard extends Skill {
 					animation[5] = new Image("res/explode6.png");
 					animation[6] = new Image("res/explode7.png");
 					
-					skillBar[0] = new Image("res/skillIcons/Blizzard.jpg");
+					skillBar[0] = new Image("res/skillIcons/Absorb2.jpg");
 					skillBar[1] = new Image("res/fireball_active.png");
 				} catch (SlickException e) {
 					// TODO Auto-generated catch block

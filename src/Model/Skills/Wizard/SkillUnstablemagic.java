@@ -26,7 +26,7 @@ public class SkillUnstablemagic extends Skill {
 			animation[5] = new Image("res/explode6.png");
 			animation[6] = new Image("res/explode7.png");
 			
-			skillBar[0] = new Image("res/fireball.png");
+			skillBar[0] = new Image("res/skillIcons/UnstableMagic.jpg");
 			skillBar[1] = new Image("res/fireball_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block

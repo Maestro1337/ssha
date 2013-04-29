@@ -243,4 +243,7 @@ public class Player {
 			skillList[4] = chosenSkills[4];
 		}
 	}
+	public Skill[] getSkillList(){
+		return skillList;
+	}
 }
