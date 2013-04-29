@@ -248,6 +248,9 @@ public class Skill{
 	public float getAttackRange(){
 		return attackRange;
 	}
+	public void addAttackRange(int range){
+		attackRange += range;
+	}
 	
 	
 	public boolean isAttacking(){

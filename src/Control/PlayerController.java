@@ -31,7 +31,6 @@ public class PlayerController implements ActionListener {
 		currentActiveSkill = playerSkills[0];
 		
 		this.obstacles = obstacles;
-		
 	}
 	
 	public Player getPlayer(){
