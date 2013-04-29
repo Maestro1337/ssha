@@ -20,7 +20,7 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
-	private StatusEffect spellEffect;
+	private StatusEffect spellEffect = null;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -71,14 +71,13 @@ public class Skill{
 	private boolean isPiercing = false;
 	private int piercingDamage;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage){
 		this.name = name;
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
 		this.cost = cost;
 		this.damage = damage;
-		spellEffect = SE;
 		attackRange = range;
 		if(speed < 100){
 			attSpeed = 3*speed;
@@ -128,6 +127,9 @@ public class Skill{
 			
 			animation = new AnimationTimer(duration/(images.length), images, this);
 		}
+	}
+	public void setStatusEffect(StatusEffect SE){
+		spellEffect = SE;
 	}
 	
 	
@@ -248,6 +250,9 @@ public class Skill{
 	public float getAttackRange(){
 		return attackRange;
 	}
+	public void addAttackRange(int range){
+		attackRange += range;
+	}
 	
 	
 	public boolean isAttacking(){
@@ -360,5 +365,11 @@ public class Skill{
 	public boolean isProjectile(){
 		return isProjectile;
 	}
+	
+	//Methods for StatusEffect Control
+	public StatusEffect getStatusEffect(){
+		return spellEffect;
+	}
+	
 	
 }

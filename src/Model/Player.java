@@ -1,5 +1,8 @@
 package Model;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -26,6 +29,8 @@ public class Player {
 	private int deaths;
 	private int coins;
 	private Skill[] skillList = new Skill[5];
+	
+	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
 	
 	//Movement variables
 	private float mouseXPosMove;
@@ -56,6 +61,7 @@ public class Player {
 		HP = this.maxHP = maxHP;
 		moveSpeed = speed;
 		this.armor = armor;
+		statusEffectList = new ArrayList<StatusEffect>();
 	}
 	
 	public void changePlayerClass(Player player){
@@ -245,5 +251,14 @@ public class Player {
 	}
 	public Skill[] getSkillList(){
 		return skillList;
+	}
+	public ArrayList<StatusEffect> getStatusEffects(){
+		return statusEffectList;
+	}
+	public void addStatusEffect(StatusEffect SE){
+		statusEffectList.add(SE);
+	}
+	public void removeStatusEffect(StatusEffect SE){
+		statusEffectList.remove(SE);
 	}
 }

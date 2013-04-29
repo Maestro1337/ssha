@@ -31,7 +31,6 @@ public class PlayerController implements ActionListener {
 		currentActiveSkill = playerSkills[0];
 		
 		this.obstacles = obstacles;
-		
 	}
 	
 	public Player getPlayer(){
@@ -237,6 +236,12 @@ public class PlayerController implements ActionListener {
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
+					
+					//Checks if collided skill has a statusEffect and adds it to the player it hit
+					if(playerSkills[i].getStatusEffect() != null){
+						player.addStatusEffect(playerSkills[i].getStatusEffect().cloneTo(player));
+					}
+					
 					if(!playerSkills[i].isEndState()){
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
@@ -325,10 +330,21 @@ public class PlayerController implements ActionListener {
 				while(isColliding(obstacles[i], x, y)){
 					player.addX(1);
 				}
-			}
-			
+			}	
 		}
+	}
+	
+	public void checkStatusEffects(){
+		
+		//Goes through all the current StatusEffects player has
+		for(int i=0; i<player.getStatusEffects().size(); i++){
+			StatusEffect currentStatusEffect = player.getStatusEffects().get(i);
 			
+			//Checks and makes the effect if timer has not run out. If it has it will return false and remove the statusEffect from player
+			if(!currentStatusEffect.checkStatusEffect()){
+				player.removeStatusEffect(currentStatusEffect);
+			}
+		}
 	}
 
 
