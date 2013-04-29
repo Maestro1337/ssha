@@ -333,8 +333,16 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		return value;
 	}
+	public boolean aiTimer (long delay){
+		return true;
+	}
+		
+	
 	
 	long time = 0;
+	int dodgedirX;
+	int dodgedirY;
+	
 	
 	public void AI(){
 		Random generator = new Random();
@@ -343,9 +351,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		double dy = enemy.getY()-player.getY();
 		double distance = Math.sqrt((dx*dx)+(dy*dy));
 		while (System.currentTimeMillis()>time+delay){
-			if(Control.getCurrentActiveSkill().isAttacking()&&willCollide()){
-				enemyControl.move(0,0);
-				//TODO correct movecoordinate
+			if(Control.getCurrentActiveSkill().isAttacking()&&Control.getCurrentActiveSkill().getRange()>distance){
+				enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
 				}
 				
 			
