@@ -245,7 +245,7 @@ public class ShoppingView extends BasicGameState {
 		if((100<xPos && xPos<164) && (400<yPos && yPos<464)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstOffSkill;
-				skillText = "Skill description:" + "damn it all!";
+				skillText = "Skill description:\n" + " " ;
 			}
 		}else if((100<xPos && xPos<164) && (475<yPos && yPos<539)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
