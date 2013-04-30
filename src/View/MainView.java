@@ -221,6 +221,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		Control.checkCollision(enemySkills);
 		enemyControl.checkCollision(playerSkills);
 		
+		Control.checkStatusEffects();
+		enemyControl.checkStatusEffects();
+		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();

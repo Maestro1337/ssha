@@ -204,7 +204,7 @@ public class Player {
 		if(damage >= 0){
 			HP -= damage;
 		}
-		System.out.println("DAMAGE DEALT!");
+	//	System.out.println("DAMAGE DEALT!");
 	}
 	public void resetHP(){
 		HP = maxHP;
@@ -255,8 +255,17 @@ public class Player {
 	public ArrayList<StatusEffect> getStatusEffects(){
 		return statusEffectList;
 	}
+	
+	//Ful lösning där vid varje koll kollar om personen har den status effekten på sig.
 	public void addStatusEffect(StatusEffect SE){
-		statusEffectList.add(SE);
+		boolean existsInList = false;
+		for(int i=0; i<statusEffectList.size(); i++){
+			if(statusEffectList.get(i).getName() == SE.getName()){
+				existsInList = true;
+			}
+		}
+		if(!existsInList)
+			statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
 		statusEffectList.remove(SE);
