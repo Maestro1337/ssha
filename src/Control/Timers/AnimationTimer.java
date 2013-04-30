@@ -35,7 +35,7 @@ public class AnimationTimer {
 		if(elapsedTime > interval){
 			resetTimer();
 			counter++;
-			System.out.println("Counter: " + counter + " Length: " + images.length);
+	//		System.out.println("Counter: " + counter + " Length: " + images.length);
 		}
 		if(counter >= images.length){
 			skill.finishEndState();

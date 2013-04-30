@@ -238,7 +238,7 @@ public class PlayerController implements ActionListener {
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
-					if(playerSkills[i].getStatusEffect() != null){
+					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName())){
 						player.addStatusEffect(playerSkills[i].getStatusEffect().cloneTo(player));
 					}
 					

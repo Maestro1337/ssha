@@ -48,7 +48,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		titleText = new Image("res/title2.png");
 		
 		try {
-			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/bg-music.wav"));
+			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/bg-music.wav"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

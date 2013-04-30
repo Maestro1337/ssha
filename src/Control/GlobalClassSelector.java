@@ -3,6 +3,7 @@ package Control;
 import Model.Player;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
+import Model.Classes.ClassWizard;
 
 public class GlobalClassSelector {
 
@@ -20,7 +21,7 @@ public class GlobalClassSelector {
 
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
-		player = new ClassHunter("Tester", 120, 100);
+		player = new ClassWizard("Tester", 120, 100);
 	}
 	
 	public void addPlayer(Player player){

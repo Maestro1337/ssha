@@ -258,14 +258,16 @@ public class Player {
 	
 	//Ful lösning där vid varje koll kollar om personen har den status effekten på sig.
 	public void addStatusEffect(StatusEffect SE){
-		boolean existsInList = false;
+	/*	boolean existsInList = false;
 		for(int i=0; i<statusEffectList.size(); i++){
 			if(statusEffectList.get(i).getName() == SE.getName()){
 				existsInList = true;
 			}
 		}
 		if(!existsInList)
-			statusEffectList.add(SE);
+			statusEffectList.add(SE);*/
+		
+		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
 		statusEffectList.remove(SE);
