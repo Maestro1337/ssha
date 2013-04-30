@@ -7,8 +7,11 @@ import Model.StatusEffect;
 import Model.Skills.Skill;
 import Model.StatusEffects.*;
 
+
 public class SkillFireball extends Skill{
 	
+String description;
+
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 		super("Fireball", 11000, 400, 0.4, 3, 0, 150);
@@ -37,10 +40,17 @@ public class SkillFireball extends Skill{
 			e.printStackTrace();
 		}
 		
-		
+		description = "A fireball that burns the enemy until oblivion.\n" +
+				"Level 1: 15 damage\n" +
+				"Level 2: 25 damage\n" +
+				"Level 3: 35 damage\n" +
+				"Level 4: 45 damage";
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
+	}
+	public String getDescription(){
+		return description;
 	}
 }

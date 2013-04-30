@@ -5,14 +5,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class TestController implements KeyListener, ActionListener {
+public class TestController implements Runnable, KeyListener, ActionListener {
 
-	TestView tv;
-	TestPlayer tp;
+	private TestView tv;
+	private TestPlayer tp;
+	private String mode;
+	private SocketClient sc;
 	
-	public TestController(TestView tv, TestPlayer tp) {
+	public TestController(TestView tv, TestPlayer tp, SocketClient sc) {
 		this.tv = tv;
 		this.tp = tp;
+		this.sc = sc;
 		
 		tv.addListeners(this);
 	}
@@ -24,11 +27,21 @@ public class TestController implements KeyListener, ActionListener {
 		
 		if(action.equals("connect")) {
 			tp.setConnected(!tp.isConnected());
+			tv.setConnectedLabel(tp.isConnected());
+			if(tv.getConnectedBtnText().equals("Connect")) {
+				tv.setConnectedBtnText("Disconnect");
+				
+				tp.setConnected(true);
+				sc.findConnection(); // kanske fixa denna istallet sa att SC kollar om tp ar connected bara... sa behovs ingen sc har
+			} else {
+				tv.setConnectedBtnText("Connect");
+				tp.setConnected(false);
+				sc.closeConnection();
+			}
 			
-			//connectedLabel.setText("Connected: " + connected);
 		}
 		if(action.equals("lobby") || action.equals("arena") || action.equals("shop")) {
-			//modeLabel.setText("Mode: " + action);
+			tv.setModeLabel(action);
 		}
 	}
 
@@ -40,29 +53,66 @@ public class TestController implements KeyListener, ActionListener {
 		int theKey = e.getKeyCode();
 		
 		if(theKey == KeyEvent.VK_LEFT && tp.getX() > 0) {
-			//x -= 1;
+			tp.setX(tp.getX()-1);
 		}
 		if(theKey == KeyEvent.VK_RIGHT && tp.getX() < 9999) {
-			//x += 1;
+			tp.setX(tp.getX()+1);
 		}
 		if(theKey == KeyEvent.VK_UP && tp.getY() > 0) {
-			//y -= 1;
+			tp.setY(tp.getY()-1);
 		}
 		if(theKey == KeyEvent.VK_DOWN && tp.getY() < 9999) {
-			//y += 1;
+			tp.setY(tp.getY()+1);
 		}
 		if(theKey == KeyEvent.VK_A && tp.getAngle() > 0 ) {
-			//angle -= 1;
+			tp.setAngle(tp.getAngle()-1);
 		}
 		if(theKey == KeyEvent.VK_S && tp.getAngle() < 360) {
-			//angle += 1;
+			tp.setAngle(tp.getAngle()+1);
 		}
-		
-		//coordinatesLabel.setText("X,Y: " + x + "," + y);
-		//angleLabel.setText("Angle: " + angle);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {}
+
+
+	@Override
+	public void run() {
+		//testConnection();
+		
+		while(true) {
+			tv.setXyLabel(tp.getX(), tp.getY());
+			tv.setAngleLabel(tp.getAngle());
+			
+			//System.out.println("TestView: " + tv);
+			//System.out.println("TestPlayer : " + tp);
+			//System.out.println("SocketClient : " + sc);
+			//System.out.println("TestController");
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//Alla setters till vyn ska goras har.
+		//Controller kommer alltid koras, men inte alltid anvandas av anvandaren.
+		//Alltsa socketclient hamtar data och uppdaterar testplayer
+		//testcontroller hamtar sen data darifran och skickar till testview
+	}
+	
+	public void testConnection() {
+		tp.setConnected(true);
+		sc.findConnection();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tp.setConnected(false);
+		sc.closeConnection();
+	}
 
 }

@@ -31,29 +31,40 @@ public class SocketClient implements Runnable {
 		
 		instr = new StringBuffer();
 		
-		findConnection();
+		//findConnection();
 	}
 	
 	@Override
 	public void run() {
-		if(connected) {
-			if(tp.getMode().equals("lobby")) {
+		
+		while(true) {
+			
+			//System.out.println(tp.isConnected());
+			//System.out.println(connected);
+			//System.out.println("SocketClient");
+			
+			if(connected) {
 				
+				if(tp.getMode().equals("lobby")) {
+					
+					
+				} else if(tp.getMode().equals("arena")) {
+					
+					
+				} else if(tp.getMode().equals("shop")) {
+					
+					
+				}
 				
-			} else if(tp.getMode().equals("arena")) {
-				
-				
-			} else if(tp.getMode().equals("shop")) {
-				
+				//Process nollstalls inte?
+				process = process + "Sebbe " + 10 + " " + 11 + (char)13;
+				sendData(process); //Server far inte heller nagot
+				recieveData(); //Den fastnar har for att server inte skickar nagonting!
 				
 			}
 			
-			process = process + "Sebbe" + 10 + 11 + (char)13;
-			sendData(process);
-			recieveData();
-			
 			try {
-				Thread.sleep(10);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,6 +73,10 @@ public class SocketClient implements Runnable {
 	}
 	
 	public void findConnection() {
+		while(!tp.isConnected()) {
+			//System.out.println("LOL");
+		}
+		
 		System.out.println("SocketClient initialized");
 		
 		try {
@@ -72,17 +87,24 @@ public class SocketClient implements Runnable {
 			osw = new OutputStreamWriter(bos, "US-ASCII");
 			bis = new BufferedInputStream(connection.getInputStream());
 			isr = new InputStreamReader(bis, "US-ASCII");
+			
+			connected = true;
+			System.out.println("Connected: " + connected);
 		}
 		catch(IOException ioe) {
-			System.out.println("LOL");
+			connected = false;
+			tp.setConnected(false);
+			System.out.println("No contact with server");
 		}
-		connected = true;
 	}
 	
-	public void sendData(String process) {
+	public synchronized void sendData(String process) {
+		//System.out.println("Skickar detta: " + process);
+		
 		try {
 			osw.write(process);
 			osw.flush();
+			System.out.println("FUNKA?");
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -91,10 +113,14 @@ public class SocketClient implements Runnable {
 		
 	}
 	
-	public void recieveData() {
-		int c;
+	public synchronized void recieveData() {
+		int c = 0;
 		
 		try {
+			System.out.println("1");
+			//System.out.println(isr);
+			//System.out.println(isr.read());
+			System.out.println("2");
 			while((c = isr.read()) != 13) {
 				instr.append((char)c);
 			}
@@ -106,18 +132,27 @@ public class SocketClient implements Runnable {
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			//System.out.println(connection.isClosed());
 			e.printStackTrace();
 		}
 		
 	}
 	
 	public void closeConnection() {
-		try {
-			connection.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(connection != null) {
+			try {
+				connection.close();
+				connected = false;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+	}
+	
+	public boolean isConnected() {
+		return connected;
 	}
 	
 	public String genStatString() {

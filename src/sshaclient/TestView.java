@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class TestView extends JFrame {
 
-	private int wWidth = 460;
+	private int wWidth = 550;
 	private int wHeight = 140;
 	
 	private JButton connectBtn;
@@ -29,6 +29,7 @@ public class TestView extends JFrame {
 	private JLabel angleLabel;
 	private JLabel modeLabel;
 	private JLabel connectedLabel;
+	private JLabel miscLabel;
 	
 	public TestView() {
 		setSize(wWidth,wHeight);
@@ -45,21 +46,21 @@ public class TestView extends JFrame {
 		add(connectBtn);
 		
 		lobbyBtn = new JButton("Lobby");
-		lobbyBtn.setLocation(145, 5);
+		lobbyBtn.setLocation(195, 5);
 		lobbyBtn.setSize(100, 25);
 		lobbyBtn.setFocusable(false);
 		lobbyBtn.setActionCommand("lobby");
 		add(lobbyBtn);
 		
 		arenaBtn = new JButton("Arena");
-		arenaBtn.setLocation(250, 5);
+		arenaBtn.setLocation(300, 5);
 		arenaBtn.setSize(100, 25);
 		arenaBtn.setFocusable(false);
 		arenaBtn.setActionCommand("arena");
 		add(arenaBtn);
 		
 		shopBtn = new JButton("Shop");
-		shopBtn.setLocation(355, 5);
+		shopBtn.setLocation(405, 5);
 		shopBtn.setSize(100, 25);
 		shopBtn.setFocusable(false);
 		shopBtn.setActionCommand("shop");
@@ -90,6 +91,11 @@ public class TestView extends JFrame {
 		angleLabel.setSize(130, 15);
 		add(angleLabel);
 		
+		miscLabel = new JLabel("Misc: 13 , 37");
+		miscLabel.setLocation(440, 80);
+		miscLabel.setSize(110, 15);
+		add(miscLabel);
+		
 		setVisible(true);
 	}
 	
@@ -114,11 +120,19 @@ public class TestView extends JFrame {
 		modeLabel.setText("Mode: " + mode);
 	}
 	
-	public void xyLabel(int x, int y) {
+	public void setXyLabel(int x, int y) {
 		coordinatesLabel.setText("X,Y: " + x + "," + y);
 	}
 	
 	public void setAngleLabel(int angle) {
 		angleLabel.setText("Angle: " + angle);
+	}
+	
+	public String getConnectedBtnText() {
+		return connectBtn.getText();
+	}
+	
+	public void setConnectedBtnText(String txt) {
+		connectBtn.setText(txt);
 	}
 }
