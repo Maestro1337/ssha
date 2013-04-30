@@ -31,11 +31,12 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	
 	
 	
-	public void addSocket(Socket connection) {
+	public synchronized void addSocket(Socket connection) {
 		System.out.println("lolOLOLOLOlolol1ol1o1!!!1111one");
 		theSockets[count] = new MultiSocketServer(connection, count);
 		theThreads[count] = new Thread(theSockets[count]);
 		theThreads[count].start();
+		
 		
 		while(theSockets[count].getPlayerName() == null) {
 			System.out.println("Searching");
@@ -43,17 +44,27 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		SV.addToActivityField(theSockets[count].getPlayerName() + " is now connected");
 		SV.addClient(theSockets[count].getPlayerName());
 		count += 1;
+		
+		//System.out.println(theSockets[count-1].getPlayerName());
 	}
 
 	@Override
 	public void run() {
 		
 		while(true) {
+			
+			//System.out.println("Socket 1: " + theSockets[0]);
+			//System.out.println("Socket 2: " + theSockets[1]);
+			//System.out.println("Socket 3: " + theSockets[2]);
+			//System.out.println("Socket 4: " + theSockets[3]);
+			
 			for(int i = 0; i < 4; i++) {
+				/*
 				System.out.println(theSockets[0]);
 				if(theSockets[0] != null) {
 					System.out.println("The socket is dead:" + theSockets[0].isDead());
 				}
+				*/
 				if(theThreads[i] != null) {
 					/*
 					//System.out.println(theThreads[i].getState());
@@ -65,6 +76,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 					*/
 					
 					if(theSockets[i].isDead()) {
+						theSockets[i].closeConnection();
 						theSockets[i] = null;
 						theThreads[i] = null;
 					}
@@ -74,7 +86,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 					
 			}
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

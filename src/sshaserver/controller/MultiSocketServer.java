@@ -37,6 +37,7 @@ public class MultiSocketServer implements Runnable {
 			
 			int character;
 			StringBuffer process = new StringBuffer();
+			System.out.println("Process fore: " + process.toString());
 			
 			while( (character = isr.read()) != 13) {
 				process.append((char)character);
@@ -47,29 +48,37 @@ public class MultiSocketServer implements Runnable {
 			
 			System.out.println("Player " + playerName + " is connected.");
 			
+			
+			System.out.println("Character: " + character);
+			System.out.println("Process efter: " + process.toString());
+
+			osw.write("Connected" + (char)13);
+			osw.flush();
+			
 			while(true) {
+				System.out.println("FUNKAR DET?");
 				//Read from client
 				while( (character = isr.read()) != 13 && character >= 0) {
 					process.append((char)character);
 				}
 				System.out.println(process);
-				
 				//Convert StringBuffer to String
 				this.statString = "" + process.toString();
 				//System.out.println(statString.indexOf(32));
 				
 				//Just test this method
-				getPlayerStats();
+				//getPlayerStats();
 				
 				//Generate the code to return to the Client
-				returnCode = process.toString() + (char)13;
+				//returnCode = process.toString() + (char)13;
+				returnCode = "Test" + (char)13;
 				
 				//Clear the StringBuffer
 				character = 0;
 				process.delete(0,process.length());
 			
 				try {
-					Thread.sleep(500);
+					Thread.sleep(1000);
 				}
 				catch(Exception e) {}
 			
@@ -79,6 +88,7 @@ public class MultiSocketServer implements Runnable {
 				//returnCode = "test" + (char)13;
 				
 				//Send information to the Client
+				System.out.println("ReturnCode: " + returnCode);
 				osw.write(returnCode);
 				osw.flush();
 			
@@ -105,9 +115,11 @@ public class MultiSocketServer implements Runnable {
 		
 		while(tempStats.length() > 1) {
 			stats[counter] = Integer.parseInt(tempStats.substring(tempStats.indexOf(32)+1, tempStats.indexOf(32, tempStats.indexOf(32)+1)));
+			System.out.println("LOL fastnar"); // Det ar har den fastnar ^
 			tempStats = tempStats.substring(tempStats.indexOf(32, tempStats.indexOf(32)+1), tempStats.length()-1);
 			counter += 1;
 		}
+		
 		
 		return stats;
 	}
