@@ -30,7 +30,7 @@ public class GameEngine extends StateBasedGame {
 		this.getState(test).init(gc, this);
 		this.getState(selection).init(gc, this);
 		this.getState(shop).init(gc, this);
-		this.enterState(shop);
+		this.enterState(menu);
 	}
 	
 	public static void main(String[] args) {

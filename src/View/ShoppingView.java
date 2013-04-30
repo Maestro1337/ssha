@@ -245,17 +245,17 @@ public class ShoppingView extends BasicGameState {
 		if((100<xPos && xPos<164) && (400<yPos && yPos<464)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstOffSkill;
-				skillText = "Skill description:\n" + " " ;
+				skillText = "Skill description:\n" + offSkills[0].getDescription();
 			}
 		}else if((100<xPos && xPos<164) && (475<yPos && yPos<539)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondOffSkill;
-				skillText = "Second offensive skill!";
+				skillText = "Skill description:\n" + offSkills[1].getDescription();
 			}
 		}else if((100<xPos && xPos<164) && (550<yPos && yPos<614)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdOffSkill;
-				skillText = "Third offensive skill!";
+				skillText = "Skill description:\n" + offSkills[2].getDescription();
 			}
 		}
 		
@@ -264,17 +264,17 @@ public class ShoppingView extends BasicGameState {
 		else if((200<xPos && xPos<264) && (400<yPos && yPos<464)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstDefSkill;
-				skillText = "First defensive skill!";
+				skillText = "Skill description:\n" + defSkills[0].getDescription();
 			}
 		}else if((200<xPos && xPos<264) && (475<yPos && yPos<539)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondDefSkill;
-				skillText = "Second defensive skill!";
+				skillText = "Skill description:\n" + defSkills[1].getDescription();
 			}
 		}else if((200<xPos && xPos<264) && (550<yPos && yPos<614)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdDefSkill;
-				skillText = "Third defensive skill!";
+				skillText = "Skill description:\n" + defSkills[2].getDescription();
 			}
 		}
 		
@@ -283,17 +283,17 @@ public class ShoppingView extends BasicGameState {
 		else if((300<xPos && xPos<364) && (400<yPos && yPos<464)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstMobSkill;
-				skillText = "First mobility skill!";
+				skillText = "Skill description:\n" + mobSkills[0].getDescription();
 			}
 		}else if((300<xPos && xPos<364) && (475<yPos && yPos<539)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondMobSkill;
-				skillText = "Second mobility skill!";
+				skillText = "Skill description:\n" + mobSkills[1].getDescription();
 			}
 		}else if((300<xPos && xPos<364) && (550<yPos && yPos<614)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdMobSkill;
-				skillText = "Third mobility skill!";
+				skillText = "Skill description:\n" + mobSkills[2].getDescription();
 			}
 		}
 	}

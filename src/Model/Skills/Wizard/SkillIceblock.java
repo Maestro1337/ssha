@@ -8,12 +8,12 @@ import Model.Skills.Skill;
 public class SkillIceblock extends Skill {
 
 	public SkillIceblock() {
-		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Ice block", 11000, 400, 0.4, 3, 0, 150,"The wizard \n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage", false);
+		//String name, int cd, int range, double speed, int aoe, int cost, int damage, String skillDescription
+		super("Ice block", 11000, 20, 0, 20, 0, 0,"Encapsule yourself inside \nan iceblock to escape from \nharms way.\n" +
+				"\nLevel 1: 1 second\n" +
+				"Level 2: 2 second\n" +
+				"Level 3: 3 second\n" +
+				"Level 4: 4 second", false);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
