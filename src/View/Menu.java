@@ -41,11 +41,11 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-		backgroundImage = new Image("res/background-Rip-Off.png");
+		backgroundImage = new Image("res/bg.png");
 		playButton = new Image("res/playButtons.png");
 		testButton = new Image("res/testButtons.png");
 		exitButton = new Image("res/exitButton.png");
-		titleText = new Image("res/title.png");
+		titleText = new Image("res/title2.png");
 		
 		try {
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/bg-music.wav"));
