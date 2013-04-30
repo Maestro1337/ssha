@@ -1,7 +1,7 @@
 package Model.Skills;
 
 import Control.Timers.AnimationTimer;
-import Control.Timers.EndStateTimer;
+import Control.Timers.SkillCheckingTimer;
 import Model.Player;
 import Model.StatusEffect;
 
@@ -20,7 +20,7 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
-	private StatusEffect spellEffect = new StatusEffect();
+	private StatusEffect spellEffect = null;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -58,7 +58,7 @@ public class Skill{
 	private boolean isEndState = false;
 	private int ESColInterval;
 	
-	EndStateTimer ESIT;
+	SkillCheckingTimer ESIT;
 	
 	AnimationTimer animation;
 //	Image[] animationImages;
@@ -71,14 +71,13 @@ public class Skill{
 	private boolean isPiercing = false;
 	private int piercingDamage;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage){
 		this.name = name;
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
 		this.cost = cost;
 		this.damage = damage;
-		spellEffect = SE;
 		attackRange = range;
 		if(speed < 100){
 			attSpeed = 3*speed;
@@ -128,6 +127,9 @@ public class Skill{
 			
 			animation = new AnimationTimer(duration/(images.length), images, this);
 		}
+	}
+	public void setStatusEffect(StatusEffect SE){
+		spellEffect = SE;
 	}
 	
 	
@@ -193,8 +195,8 @@ public class Skill{
 		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
 	}
 	public void setNonProjectileShot(){
-		addAttX((float)(getXDirAtt()*getGenDirAtt()));
-		addAttY((float)(getYDirAtt()*getGenDirAtt()));
+		addAttX((float)(getXDirAtt()*getGenDirAtt())-endStateImgWidth/2);
+		addAttY((float)(getYDirAtt()*getGenDirAtt())-endStateImgHeight/2);
 	}
 	
 	public void collidedShot(){
@@ -247,6 +249,9 @@ public class Skill{
 	
 	public float getAttackRange(){
 		return attackRange;
+	}
+	public void addAttackRange(int range){
+		attackRange += range;
 	}
 	
 	
@@ -341,9 +346,9 @@ public class Skill{
 		return ESColInterval;
 	}
 	public void activateESIT(Player player){
-		ESIT = new EndStateTimer(getESColInterval(), player, this);
+		ESIT = new SkillCheckingTimer(getESColInterval(), player, this);
 	}
-	public EndStateTimer getESIT(){
+	public SkillCheckingTimer getESIT(){
 		return ESIT;
 	}
 	
@@ -360,5 +365,11 @@ public class Skill{
 	public boolean isProjectile(){
 		return isProjectile;
 	}
+	
+	//Methods for StatusEffect Control
+	public StatusEffect getStatusEffect(){
+		return spellEffect;
+	}
+	
 	
 }

@@ -3,7 +3,7 @@ package Control.Timers;
 import Model.Skills.*;
 import Model.*;
 
-public class EndStateTimer {
+public class SkillCheckingTimer {
 
 	private int ESColInterval;
 	private long ESColStartTime = 0;
@@ -11,10 +11,12 @@ public class EndStateTimer {
 	private Skill skill;
 	private Player player;
 	
-	public EndStateTimer(int interval, Player player, Skill skill){
+	public SkillCheckingTimer(int interval, Player player, Skill skill){
 		ESColInterval = interval;
 		this.player = player;
 		this.skill = skill;
+		
+		resetESColTimer();
 	}
 	
 	

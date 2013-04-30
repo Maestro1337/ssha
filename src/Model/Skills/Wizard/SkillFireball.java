@@ -3,7 +3,9 @@ package Model.Skills.Wizard;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import Model.StatusEffect;
 import Model.Skills.Skill;
+import Model.StatusEffects.*;
 
 
 public class SkillFireball extends Skill{
@@ -12,11 +14,13 @@ String description;
 
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Fireball", 11000, 400, 0.4, 3, 0, 150);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[2];
+		
+		super.setStatusEffect(new StatusEffectBurning(null, this));
 		
 		try {
 			attackImage = new Image("res/explode1.png");

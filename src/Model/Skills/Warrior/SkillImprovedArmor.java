@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillImprovedArmor extends Skill {
 	public SkillImprovedArmor(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Improved armor", 11000, 400, 0.4, 3, 0, 150, null);
+				super("Improved armor", 11000, 400, 0.4, 3, 0, 150);
 				
 				Image attackImage = null;
 				Image[] animation = new Image[7];

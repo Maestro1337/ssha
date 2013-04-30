@@ -9,7 +9,7 @@ public class SkillUnstablemagic extends Skill {
 
 	public SkillUnstablemagic() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Unstable magic", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Unstable magic", 11000, 400, 0.4, 3, 0, 150);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

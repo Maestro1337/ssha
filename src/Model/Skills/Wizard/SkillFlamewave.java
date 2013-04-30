@@ -9,7 +9,7 @@ public class SkillFlamewave extends Skill{
 
 	public SkillFlamewave() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flamewave", 11000, 400, 0.4, 3, 0, 150, null);
+		super("Flamewave", 11000, 400, 0.4, 3, 0, 150);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
