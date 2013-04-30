@@ -99,8 +99,8 @@ public class StatusEffect {
 		}
 		if(moveXEff != 0 || moveYEff != 0){
 			System.out.println("ARRIBA");
-			player.addX(moveXEff);
-			player.addY(moveYEff);
+			player.setX(moveXEff);
+			player.setY(moveYEff);
 		}
 		if(armEff>0 && !commitedChange){
 			player.addArmor(armEff);
@@ -138,7 +138,13 @@ public class StatusEffect {
 				break;
 			}
 		}
-		StatusEffect newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval);
+		StatusEffect newSE;
+		//checks if it is supposed to move the player
+		if(moveXEff != 0 || moveYEff != 0){
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, (int)(skill.getAttX()), (int)(skill.getAttY()), armEff, atkSpeedEff, rangeEff, maxCounts, interval);
+		}else{
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval);
+		}
 		return newSE;
 	}
 	

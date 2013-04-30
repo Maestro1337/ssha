@@ -230,12 +230,9 @@ public class PlayerController implements ActionListener {
 	}
 
 	public void rotate(int x, int y){
-//		mouseXPosMove = Mouse.getX();
-//		mouseYPosMove = 720 - Mouse.getY();
 		player.setMouseXPosMove(x);
 		player.setMouseYPosMove(y);
 		double rotation = Math.toDegrees(Math.atan2((player.getMouseYPosMove()-player.getY()),(player.getMouseXPosMove()-player.getX())));
-//		player.getImage().setRotation(90 + (float)rotation);
 		player.setRotation(90 + (float)rotation);
 	}
 
@@ -245,7 +242,9 @@ public class PlayerController implements ActionListener {
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
-					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName()) && !playerSkills[i].getAffectSelf()){
+					//And if it can affect others
+					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName()) 
+							&& !playerSkills[i].getAffectSelf()){
 						player.addStatusEffect(playerSkills[i].getStatusEffect().cloneTo(player));
 					}
 					
@@ -320,9 +319,7 @@ public class PlayerController implements ActionListener {
 					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
 				return true;
 			}
-		}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-			return true;
-		}*/
+		}
 		
 	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
 		
