@@ -9,7 +9,11 @@ public class SkillWandattack extends Skill {
 
 	public SkillWandattack() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Wand attack", 11000, 400, 0.4, 3, 0, 150);
+		super("Wand attack", 11000, 400, 0.4, 3, 0, 150,"The wizard \n" +
+				"Level 1: 15 damage\n" +
+				"Level 2: 25 damage\n" +
+				"Level 3: 35 damage\n" +
+				"Level 4: 45 damage");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

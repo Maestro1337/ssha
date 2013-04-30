@@ -14,7 +14,7 @@ String description;
 
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 0, 150, "A fireball that burns the enemy until oblivion.\n" +
+		super("Fireball", 11000, 400, 0.4, 3, 0, 150,"A fireball that burns the enemy to oblivion.\n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -43,13 +43,17 @@ String description;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 	
+=======
+		
+		
+>>>>>>> branch 'master' of https://github.com/Maestro1337/ssha.git
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
-	public String getDescription(){
-		return description;
-	}
+
+	
 }
