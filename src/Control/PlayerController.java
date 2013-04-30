@@ -188,37 +188,44 @@ public class PlayerController implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
+		//Setting x and y to be in middle of mouse click
 		x -= currentActiveSkill.getCurrentWidth()/2;
 		y -= currentActiveSkill.getCurrentHeight()/2;
 		rotate(x, y);
 		if(currentActiveSkill != null && player.isAlive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
-			currentActiveSkill.activateSkill();
-			
-			currentActiveSkill.setMouseXPos(x);
-			currentActiveSkill.setMouseYPos(y);
-			
-			
-			currentActiveSkill.resetShot(player);
-			
-			currentActiveSkill.setXDirAtt((currentActiveSkill.getMouseXPosAtt() - currentActiveSkill.getAttX()));
-			currentActiveSkill.setYDirAtt((currentActiveSkill.getMouseYPosAtt() - currentActiveSkill.getAttY()));
-			currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
-			currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
-			currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
-			
-			if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-				currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+				currentActiveSkill.activateSkill();
+				
+				currentActiveSkill.setMouseXPos(x);
+				currentActiveSkill.setMouseYPos(y);
+				
+				
+				currentActiveSkill.resetShot(player);
+				
+				currentActiveSkill.setXDirAtt((currentActiveSkill.getMouseXPosAtt() - currentActiveSkill.getAttX()));
+				currentActiveSkill.setYDirAtt((currentActiveSkill.getMouseYPosAtt() - currentActiveSkill.getAttY()));
+				currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
+				currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
+				currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
+				
+				if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
+					currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+				}
+				
+				currentActiveSkill.resetAttCounter();
+				
+				if(!currentActiveSkill.isProjectile()){
+					currentActiveSkill.setNonProjectileShot();
+				}
+				
+				System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
+				currentActiveSkill.setAttackingState(true);
+				
+			if(currentActiveSkill.getAffectSelf()){
+				if(currentActiveSkill.getStatusEffect() != null && !currentActiveSkill.getStatusEffect().hasBeenGivenTo(player.getName())){
+					player.addStatusEffect(currentActiveSkill.getStatusEffect().cloneTo(player));
+				}
 			}
-			
-			currentActiveSkill.resetAttCounter();
-			
-			if(!currentActiveSkill.isProjectile()){
-				currentActiveSkill.setNonProjectileShot();
-			}
-			
-			System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
-			currentActiveSkill.setAttackingState(true);
 		}
 	}
 
@@ -238,7 +245,7 @@ public class PlayerController implements ActionListener {
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
-					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName())){
+					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName()) && !playerSkills[i].getAffectSelf()){
 						player.addStatusEffect(playerSkills[i].getStatusEffect().cloneTo(player));
 					}
 					

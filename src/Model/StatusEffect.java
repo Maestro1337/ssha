@@ -94,11 +94,11 @@ public class StatusEffect {
 	}
 	
 	private void commitStatusEffect(){
-		System.out.println("Commit status effect" + playersGivenTo[0]);
 		if(dmgEff>0){
 			player.dealDamage(dmgEff);
 		}
 		if(moveXEff != 0 || moveYEff != 0){
+			System.out.println("ARRIBA");
 			player.addX(moveXEff);
 			player.addY(moveYEff);
 		}

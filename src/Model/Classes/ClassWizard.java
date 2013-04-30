@@ -14,6 +14,7 @@ import Model.Skills.Wizard.SkillFlamewave;
 import Model.Skills.Wizard.SkillIceNeedle;
 import Model.Skills.Wizard.SkillIceblock;
 import Model.Skills.Wizard.SkillIroncloak;
+import Model.Skills.Wizard.*;
 
 public class ClassWizard extends Player {
 
@@ -38,7 +39,7 @@ public class ClassWizard extends Player {
 		chosenSkills[1] = new SkillFirestorm();
 		chosenSkills[2] = new SkillIceNeedle();
 		chosenSkills[3] = new SkillFireball();
-		chosenSkills[4] = new SkillFirestorm();
+		chosenSkills[4] = new SkillTeleport();
 		
 		offensiveSkills[0] = new SkillFireball();
 		offensiveSkills[1] = new SkillFirestorm();

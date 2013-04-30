@@ -4,20 +4,19 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.*;
 
 public class SkillTeleport extends Skill {
 
 	public SkillTeleport() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Teleport", 11000, 400, 0.4, 3, 0, 150,"The wizard \n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+		super("Teleport", 1000, 500, 100, 3, 0, 0, "TAFLEPoRT!", true);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[2];
+		
+		super.setStatusEffect(new StatusEffectTeleport(null, this, 0, 0));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
@@ -31,7 +30,7 @@ public class SkillTeleport extends Skill {
 			animation[6] = new Image("res/animations/explode7.png");
 			
 			skillBar[0] = new Image("res/skillIcons/Teleport.jpg");
-			skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+			skillBar[1] = new Image("res/skillIcons/Teleport.jpg");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

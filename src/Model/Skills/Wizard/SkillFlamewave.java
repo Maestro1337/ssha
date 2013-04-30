@@ -13,7 +13,7 @@ public class SkillFlamewave extends Skill{
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+				"Level 4: 45 damage", false);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
