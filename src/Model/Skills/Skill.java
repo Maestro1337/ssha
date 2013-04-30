@@ -20,6 +20,8 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
+	private String describe;
+	
 	private StatusEffect spellEffect = null;
 	
 	private Image attackImage;
@@ -71,7 +73,7 @@ public class Skill{
 	private boolean isPiercing = false;
 	private int piercingDamage;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe){
 		this.name = name;
 		cooldown = cd;
 		this.range = range;
@@ -84,6 +86,9 @@ public class Skill{
 		}else{
 			isProjectile = false;
 		}
+		
+		
+		this.describe = describe;
 		
 		//Backup image if it doesn't get one set by the extended skillClass
 		try {
@@ -165,6 +170,9 @@ public class Skill{
 	}
 	public int getDamage(){
 		return damage;
+	}
+	public String getDescription(){
+		return describe;
 	}
 	
 	public Image getAttImage(){
