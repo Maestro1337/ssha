@@ -346,6 +346,9 @@ public class Skill{
 		currentWidth = imgWidth;
 		
 		isEndState = false;
+		
+		if(spellEffect != null)
+			spellEffect.resetCloning();
 	}
 	public boolean isEndState(){
 		return isEndState;

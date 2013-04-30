@@ -21,6 +21,7 @@ public class StatusEffect {
 	private int interval;
 	
 	private boolean commitedChange = false;
+	private String[] playersGivenTo;
 	
 	private SkillCheckingTimer ESIT;
 	
@@ -38,6 +39,7 @@ public class StatusEffect {
 		this.counts = maxCounts = counts;
 		this.interval = interval;
 		
+		playersGivenTo = new String[3];
 		ESIT = new SkillCheckingTimer(interval, player, skill);
 		
 	}
@@ -92,7 +94,7 @@ public class StatusEffect {
 	}
 	
 	private void commitStatusEffect(){
-		System.out.println("Commit status effect");
+		System.out.println("Commit status effect" + playersGivenTo[0]);
 		if(dmgEff>0){
 			player.dealDamage(dmgEff);
 		}
@@ -129,8 +131,28 @@ public class StatusEffect {
 	}
 	
 	public StatusEffect cloneTo(Player newPlayer){
+		//Finding the next free space in list to add player to
+		for(int i=0; i<playersGivenTo.length; i++){
+			if(playersGivenTo[i] == null){
+				playersGivenTo[i] = newPlayer.getName();
+				break;
+			}
+		}
 		StatusEffect newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval);
 		return newSE;
+	}
+	
+	public boolean hasBeenGivenTo(String name){
+		for(int i=0; i<playersGivenTo.length; i++){
+			if(playersGivenTo[i] == name){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void resetCloning(){
+		playersGivenTo = new String[3];
 	}
 	
 	
