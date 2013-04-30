@@ -43,12 +43,6 @@ String description;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-	
-=======
-		
-		
->>>>>>> branch 'master' of https://github.com/Maestro1337/ssha.git
 		
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 		super.setEndState(animation, 200, 400);
