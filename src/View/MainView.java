@@ -389,17 +389,17 @@ public class MainView extends BasicGameState implements ActionListener {
 	//Test for sounds
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String fileName = "res/154561__ecfike__hurt-argh-1.wav";
+		String fileName = "res/sounds/takingDamage.wav";
 		if(e.getActionCommand() == "Taking damage"){
-			playSound("res/154561__ecfike__hurt-argh-1.wav");
+			playSound("res/sounds/takingDamage.wav");
 		} else if(e.getActionCommand() == "Sword"){
-			playSound("res/77611__joelaudio__sfx-attack-sword-001.wav");
+			playSound("res/sounds/swordAttack.wav");
 		} else if(e.getActionCommand() == "Bow"){
-			playSound("res/65733__erdie__bow01.wav");
+			playSound("res/sounds/bowShot.wav");
 		} else if(e.getActionCommand() == "Fireball"){
-			playSound("res/77691__joelaudio__sfx-magic-fireball-001.wav");
+			playSound("res/sounds/fireballCast.wav");
 		} else if(e.getActionCommand() == "Music"){
-			playSound("res/126427__cabeeno-rossley__timer-first-half-loop.wav");
+			playSound("res/sounds/tickerSound.wav");
 		}
 	}
 	

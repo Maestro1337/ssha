@@ -91,9 +91,9 @@ public class ShoppingView extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		
-		square = new Image("res/ruta.png");
-		skillsText = new Image("res/skillsText.png");
-		shopText = new Image("res/shopText.png");
+		square = new Image("res/miscImages/ruta.png");
+		skillsText = new Image("res/miscImages/skillsText.png");
+		shopText = new Image("res/miscImages/shopText.png");
 		skillText = "Bitch please!";
 		
 		
@@ -141,7 +141,7 @@ public class ShoppingView extends BasicGameState {
 				mobSkills[2] = new SkillLeapAttack();
 			break;
 		}
-		playButton = new Image("res/playButtons.png");
+		playButton = new Image("res/buttons/playButtons.png");
 		//Init wizard skillicons
 		//Offensive
 		firstOffSkill = offSkills[0].getSkillBarImage();
@@ -231,13 +231,13 @@ public class ShoppingView extends BasicGameState {
 		Input input = gc.getInput();
 
 		if((950<xPos && xPos<1200) && (600<yPos && yPos<654)){
-			playButton = new Image("res/playButton_hover.png");
+			playButton = new Image("res/buttons/playButton_hover.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				playButton = new Image("res/playButton_pressed.png");
+				playButton = new Image("res/buttons/playButton_pressed.png");
 				sbg.enterState(1);
 			}
 		}else{
-			playButton = new Image("res/playButtons.png");
+			playButton = new Image("res/buttons/playButtons.png");
 		}
 		
 		//Handling clicking on offensive skills

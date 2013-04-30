@@ -21,9 +21,9 @@ public class ClassWarrior extends Player {
 	public ClassWarrior(String name, float x, float y) {
 		super(name, "Warrior", x, y, 200, 1.2, 0.7);
 		try {
-			playerImage = new Image("res/warrior_stand.png");
-			firstStep = new Image("res/warrior_walk1.png");
-			secondStep = new Image("res/warrior_walk2.png");
+			playerImage = new Image("res/animations/warrior_stand.png");
+			firstStep = new Image("res/animations/warrior_walk1.png");
+			secondStep = new Image("res/animations/warrior_walk2.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

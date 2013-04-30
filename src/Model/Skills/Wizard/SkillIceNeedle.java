@@ -20,10 +20,10 @@ public class SkillIceNeedle extends Skill{
 		Image attackImage = null;
 		Image[] skillBar = new Image[2];
 		try {
-			attackImage = new Image("res/awesomeBlueSquare.png");
+			attackImage = new Image("res/miscImages/awesomeBlueSquare.png");
 			
-			skillBar[0] = new Image("res/iceneedle.png");
-			skillBar[1] = new Image("res/iceneedle_active.png");
+			skillBar[0] = new Image("res/skillIcons/iceneedle.png");
+			skillBar[1] = new Image("res/skillIcons/iceneedle_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

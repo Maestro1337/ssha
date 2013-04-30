@@ -41,14 +41,14 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-		backgroundImage = new Image("res/bg.png");
-		playButton = new Image("res/playButtons.png");
-		testButton = new Image("res/testButtons.png");
-		exitButton = new Image("res/exitButton.png");
-		titleText = new Image("res/title2.png");
+		backgroundImage = new Image("res/miscImages/bg.png");
+		playButton = new Image("res/buttons/playButtons.png");
+		testButton = new Image("res/buttons/testButtons.png");
+		exitButton = new Image("res/buttons/exitButton.png");
+		titleText = new Image("res/miscImages/title.png");
 		
 		try {
-			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/bg-music.wav"));
+			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/bg-music.wav"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,26 +84,26 @@ public class Menu extends BasicGameState implements ActionListener{
         
 		
 		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
-			playButton = new Image("res/playButton_hover.png");
+			playButton = new Image("res/buttons/playButton_hover.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				playButton = new Image("res/playButton_pressed.png");
+				playButton = new Image("res/buttons/playButton_pressed.png");
 				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 
-			testButton = new Image("res/testButton_hover.png");
+			testButton = new Image("res/buttons/testButton_hover.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				testButton = new Image("res/testButton_pressed.png");
+				testButton = new Image("res/buttons/testButton_pressed.png");
 				sbg.enterState(2);
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
-			exitButton = new Image("res/exitButton.png");
+			exitButton = new Image("res/buttons/exitButton.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				System.exit(0);
 			}
 		}else{
-			playButton = new Image("res/playButtons.png");
-			testButton = new Image("res/testButtons.png");
+			playButton = new Image("res/buttons/playButtons.png");
+			testButton = new Image("res/buttons/testButtons.png");
 		}
 	}
 	

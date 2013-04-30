@@ -22,16 +22,16 @@ public class SkillSlash extends Skill{
 		Image[] skillBar = new Image[2];
 		
 		try {
-			attackImage = new Image("res/awesomeGreenSquare.png");
+			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
 			
-			animation[0] = new Image("res/slash1.png");
-			animation[1] = new Image("res/slash2.png");
-			animation[2] = new Image("res/slash3.png");
-			animation[3] = new Image("res/slash4.png");
+			animation[0] = new Image("res/animations/slash1.png");
+			animation[1] = new Image("res/animations/slash2.png");
+			animation[2] = new Image("res/animations/slash3.png");
+			animation[3] = new Image("res/animations/slash4.png");
 			
 			
-			skillBar[0] = new Image("res/slash.png");
-			skillBar[1] = new Image("res/slash_active.png");
+			skillBar[0] = new Image("res/skillIcons/slash.png");
+			skillBar[1] = new Image("res/skillIcons/slash_active.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

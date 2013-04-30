@@ -28,9 +28,9 @@ public class ClassWizard extends Player {
 	public ClassWizard(String name, float x, float y) {
 		super(name, "Wizard", x, y, 900, 0.8, 0.2);
 		try {
-			playerImage = new Image("res/mage_stand.png");
-			firstStep = new Image("res/mage_walk1.png");
-			secondStep = new Image("res/mage_walk2.png");
+			playerImage = new Image("res/animations/mage_stand.png");
+			firstStep = new Image("res/animations/mage_walk1.png");
+			secondStep = new Image("res/animations/mage_walk2.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

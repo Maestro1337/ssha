@@ -38,9 +38,9 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 
-		backgroundImage = new Image("res/sakura001.png");
-		selectButton = new Image("res/playButtons.png");
-		classImage = new Image("res/classes.png");
+		backgroundImage = new Image("res/miscImages/sakura001.png");
+		selectButton = new Image("res/buttons/playButtons.png");
+		classImage = new Image("res/classImages/classes.png");
 		title = "Choose your class!";
 		
 	}
@@ -73,18 +73,18 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 	//	Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 		
 		if((500<xPos && xPos<750) && (550<yPos && yPos<604)){
-			selectButton = new Image("res/playButton_hover.png");
+			selectButton = new Image("res/buttons/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				selectButton = new Image("res/playButton_pressed.png");
+				selectButton = new Image("res/buttons/playButton_pressed.png");
 				GlobalClassSelector.getController().addPlayer(player);
 				sbg.enterState(1);
 			}
 		}else{
-			selectButton = new Image("res/playButtons.png");
+			selectButton = new Image("res/buttons/playButtons.png");
 		}
 		if((340<xPos && xPos<517) && (106<yPos && yPos<425)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				classImage = new Image("res/warriorSelected.png");
+				classImage = new Image("res/classImages/warriorSelected.png");
 				classDescription = "The heart of a warrior is filled with courage and strength. \n" +
 						"Your skills with weapons in close combat makes you a powerful \n" +
 						"force on the battlefield and a durable opponent for all who dares \n" +
@@ -95,7 +95,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		}
 		if((518<xPos && xPos<719) && (106<yPos && yPos<425)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				classImage = new Image("res/hunterSelected.png");
+				classImage = new Image("res/classImages/hunterSelected.png");
 				classDescription = "Hunters are stealthy, wealthy and wise to the ways of \n" +
 						"their opponents. Able to take down tyrants without blinking an eye \n" +
 						"or breaking a bowstring, you'll range far and wide with this class.";
@@ -106,7 +106,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		}
 		if((720<xPos && xPos<938) && (106<yPos && yPos<425)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				classImage = new Image("res/mageSelected.png");
+				classImage = new Image("res/classImages/mageSelected.png");
 				classDescription = "Mages are the quintessential magic user. They attack from \n" +
 						"a distance, able to cause great harm or restrict a targets actions using \n" +
 						"their supreme knowledge of the elements.";

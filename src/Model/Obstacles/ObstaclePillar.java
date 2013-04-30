@@ -11,7 +11,7 @@ public class ObstaclePillar extends Obstacle{
 		
 		Image image = null;
 		try {
-			image = new Image("res/Tree.png");
+			image = new Image("res/miscImages/Tree.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

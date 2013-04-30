@@ -20,12 +20,12 @@ public class SkillFirestorm extends Skill{
 		Image[] skillBar = new Image[2];
 		
 		try {
-			attackImage = new Image("res/awesomeMiniRedSquare.png");
+			attackImage = new Image("res/miscImages/awesomeMiniRedSquare.png");
 			
-			animation[0] = new Image("res/Firestorm.png");
+			animation[0] = new Image("res/skillIcons/Firestorm.png");
 			
-			skillBar[0] = new Image("res/Firestorm.png");
-			skillBar[1] = new Image("res/Firestorm_active.png");
+			skillBar[0] = new Image("res/skillIcons/Firestorm.png");
+			skillBar[1] = new Image("res/skillIcons/Firestorm_active.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -70,30 +70,30 @@ public class TestView extends BasicGameState implements ActionListener{
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-		enemyImage = new Image("res/awesomePinkSquare.png");
-		userImage = new Image("res/stand.png");
+		enemyImage = new Image("res/miscImages/awesomePinkSquare.png");
+		userImage = new Image("res/animations/hunter_stand.png");
 		
-		firstSlash = new Image("res/slash1.png");
+		firstSlash = new Image("res/animations/slash1.png");
 		firstSlash.setName("slash1");
 		
-		secondSlash= new Image("res/slash2.png");
+		secondSlash= new Image("res/animations/slash2.png");
 		secondSlash.setName("slash2");
 		
-		thirdSlash= new Image("res/slash3.png");
+		thirdSlash= new Image("res/animations/slash3.png");
 		thirdSlash.setName("slash3");
 		
-		fourthSlash= new Image("res/slash4.png");
+		fourthSlash= new Image("res/animations/slash4.png");
 		fourthSlash.setName("slash4");
 		
 		attackImage = firstSlash;
 		
-		user = new Image("res/stand.png");
-		move1 = new Image("res/walk1.png");
-		move2 = new Image("res/walk2.png");
+		user = new Image("res/animations/hunter_stand.png");
+		move1 = new Image("res/animations/hunter_walk1.png");
+		move2 = new Image("res/animations/hunter_walk2.png");
 		
-		barImg = new Image("res/bar_hp.png");
-		hpBackImg = new Image("res/gray_hp.png");
-		hpForeImg = new Image("res/red_hp.png");
+		barImg = new Image("res/miscImages/bar_hp.png");
+		hpBackImg = new Image("res/miscImages/gray_hp.png");
+		hpForeImg = new Image("res/miscImages/red_hp.png");
 		
 		map = new TiledMap("res/tileset/testbackground.tmx");
 	}
@@ -126,7 +126,7 @@ public class TestView extends BasicGameState implements ActionListener{
 			genDirAtt=0;
 			enemyHP -= 10;
 
-			playSound("res/154561__ecfike__hurt-argh-1.wav");
+			playSound("res/sounds/takingDamage.wav");
 		}
 		if(enemyHP>0){
 			g.drawImage(enemyImage, enemyX, enemyY);
@@ -262,7 +262,7 @@ public class TestView extends BasicGameState implements ActionListener{
 	
 	public boolean isColliding() throws SlickException{
 		if((enemyX <= aImgX && aImgX <= enemyX + enemyImage.getWidth()) && (enemyY <= aImgY && aImgY <= enemyY + enemyImage.getHeight()) ){
-			playSound("res/firestorm.wav");
+			playSound("res/sounds/explode.wav");
 			return true;
 		}else
 			return false;
@@ -322,7 +322,7 @@ public class TestView extends BasicGameState implements ActionListener{
 			
 			isAttacking = true;
 			
-			playSound("res/65733__erdie__bow01.wav");
+			playSound("res/sounds/bowShot.wav");
 		}
 	}
 	
@@ -341,20 +341,20 @@ public class TestView extends BasicGameState implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		@SuppressWarnings("unused")
-		String fileName = "res/154561__ecfike__hurt-argh-1.wav";
+		String fileName = "res/sounds/takingDamage.wav";
 		
 		if(e.getActionCommand() == "Taking damage"){
-			playSound("res/154561__ecfike__hurt-argh-1.wav");
+			playSound("res/sounds/takingDamage.wav");
 		} else if(e.getActionCommand() == "Sword"){
-			playSound("res/77611__joelaudio__sfx-attack-sword-001.wav");
+			playSound("res/sounds/swordAttack.wav");
 		} else if(e.getActionCommand() == "Bow"){
-			playSound("res/65733__erdie__bow01.wav");
+			playSound("res/sounds/bowShot.wav");
 		} else if(e.getActionCommand() == "Fireball"){
-			playSound("res/77691__joelaudio__sfx-magic-fireball-001.wav");
+			playSound("res/sounds/fireballCast.wav");
 		} else if(e.getActionCommand() == "Music"){
-			playSound("res/bg-music.wav");
+			playSound("res/sounds/bg-music.wav");
 		} else if(e.getActionCommand() == "Firestorm"){
-			playSound("res/firestorm.wav");
+			playSound("res/sounds/explode.wav");
 		}
 	}
 	

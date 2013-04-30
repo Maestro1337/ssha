@@ -18,10 +18,10 @@ public class SkillSuperSlowTestSkill extends Skill{
 		Image attackImage = null;
 		Image[] skillBar = new Image[2];
 		try {
-			attackImage = new Image("res/awesomeGreenSquare.png");
+			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
 			
-			skillBar[0] = new Image("res/pbs4.png");
-			skillBar[1] = new Image("res/pbs4_active.png");
+			skillBar[0] = new Image("res/skillIcons/pbs4.png");
+			skillBar[1] = new Image("res/skillIcons/pbs4_active.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

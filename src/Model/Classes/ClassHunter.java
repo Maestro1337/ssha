@@ -21,9 +21,9 @@ public class ClassHunter extends Player {
 	public ClassHunter(String name, float x, float y) {
 		super(name, "Hunter", x, y, 1000, 2, 0.4);
 		try {
-			playerImage = new Image("res/hunter_stand.png");
-			firstStep = new Image("res/hunter_walk1.png");
-			secondStep = new Image("res/hunter_walk2.png");
+			playerImage = new Image("res/animations/hunter_stand.png");
+			firstStep = new Image("res/animations/hunter_walk1.png");
+			secondStep = new Image("res/animations/hunter_walk2.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
