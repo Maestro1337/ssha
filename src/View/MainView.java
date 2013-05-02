@@ -54,10 +54,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	Obstacle[] obstacles = new Obstacle[100];
 	
-/*	int eWidth;
-	int eHeight;*/
-	
-	
 	Image userImage;
 	Image user;
 	Image move1;
@@ -80,17 +76,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		map = new TiledMap("res/tileset/bg.tmx");
-		
-	/*	slash = new Image("res/slash.png");
-		fireball = new Image("res/fireball.png");
-		firestorm = new Image("res/Firestorm.png");
-		iceneedle = new Image("res/iceneedle.png");
-		pedobear = new Image("res/pbs4.png");*/
-
-		
-		
-		
-		
 		initRound();
 		
 	}
@@ -161,22 +146,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			g.setColor(Color.black);
 			
 			if(playerSkills[i] != null){
-				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*64, 675);
+				g.drawString(""+playerSkills[i].checkCooldown(), playerSkills[i].getSkillBarImage().getWidth()/2 + i*64, 660);
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
-				//	System.out.println(playerSkills[i].getName());
-			/*		switch (playerSkills[i].getName()) {
-						
-			            case "Slash":g.drawImage(slash,10 + i*50, 660);
-			                     break;
-			            case "Fireball":g.drawImage(fireball,10 + i*50, 660);
-			                     break;
-			            case "Firestorm":g.drawImage(firestorm,10 + i*50, 660);
-			                     break;
-			            case "IceNeedle":g.drawImage(iceneedle,10 + i*50, 660);
-			                     break;
-			            case "SuperSlowTestSkill":g.drawImage(pedobear,10 + i*50, 660);
-			                     break;
-			        }*/
 					g.drawImage(playerSkills[i].getSkillBarImage(),10 + i*64, 640);
 				}
 			}
