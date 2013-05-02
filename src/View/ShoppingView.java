@@ -97,7 +97,15 @@ public class ShoppingView extends BasicGameState {
 		skillText = "Bitch please!";
 		
 		
-		switch(GlobalClassSelector.getController().getPlayer().getType()){
+		
+		playButton = new Image("res/buttons/playButtons.png");
+	}
+
+	public void enter(GameContainer container, StateBasedGame game)
+	         throws SlickException {
+	      // TODO Auto-generated method stub
+	      super.enter(container, game);
+	      chosenSkills = GlobalClassSelector.getController().getPlayer().getSkillList();switch(GlobalClassSelector.getController().getPlayer().getType()){
 			case "Wizard":
 				//Init wizard offensive, defensive and mobility skillists
 				offSkills[0] = new SkillFireball();
@@ -141,31 +149,23 @@ public class ShoppingView extends BasicGameState {
 				mobSkills[2] = new SkillLeapAttack();
 			break;
 		}
-		playButton = new Image("res/buttons/playButtons.png");
-		//Init wizard skillicons
-		//Offensive
-		firstOffSkill = offSkills[0].getSkillBarImage();
-		
-		secondOffSkill = offSkills[1].getSkillBarImage();
-		thirdOffSkill = offSkills[2].getSkillBarImage();
-		//Defensive
-		firstDefSkill = defSkills[0].getSkillBarImage();
-		secondDefSkill = defSkills[1].getSkillBarImage();
-		thirdDefSkill = defSkills[2].getSkillBarImage();
-		//Mobility
-		firstMobSkill = mobSkills[0].getSkillBarImage();
-		secondMobSkill = mobSkills[1].getSkillBarImage();
-		thirdMobSkill = mobSkills[2].getSkillBarImage();
-		//Basic
-		wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
-		wandattackDesc = "Wand attack";
-	}
-
-	public void enter(GameContainer container, StateBasedGame game)
-	         throws SlickException {
-	      // TODO Auto-generated method stub
-	      super.enter(container, game);
-	      chosenSkills = GlobalClassSelector.getController().getPlayer().getSkillList();
+			//Init wizard skillicons
+			//Offensive
+			firstOffSkill = offSkills[0].getSkillBarImage();
+			
+			secondOffSkill = offSkills[1].getSkillBarImage();
+			thirdOffSkill = offSkills[2].getSkillBarImage();
+			//Defensive
+			firstDefSkill = defSkills[0].getSkillBarImage();
+			secondDefSkill = defSkills[1].getSkillBarImage();
+			thirdDefSkill = defSkills[2].getSkillBarImage();
+			//Mobility
+			firstMobSkill = mobSkills[0].getSkillBarImage();
+			secondMobSkill = mobSkills[1].getSkillBarImage();
+			thirdMobSkill = mobSkills[2].getSkillBarImage();
+			//Basic
+			wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
+			wandattackDesc = "Wand attack";
 
 	   }
 	@Override
