@@ -279,9 +279,7 @@ public class PlayerController implements ActionListener {
 			if(obstacles[i] != null && isColliding(obstacles[i], x, y)){
 				
 				if(obstacles[i].isSolid()){
-				//	player.setGenDirMove(100);
-				//	player.setXDirMove(player.getXDirMove()*-1);
-				//	player.setYDirMove(player.getYDirMove()*-1);
+					//Fuck you solid shit...
 				}
 
 //				System.out.println("Target ran into " + obstacles[i].getType());

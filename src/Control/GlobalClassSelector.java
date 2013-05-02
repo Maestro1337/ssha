@@ -21,7 +21,7 @@ public class GlobalClassSelector {
 
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
-		player = new ClassWizard("Tester", 120, 100);
+		player = new ClassHunter("Tester", 120, 100);
 	}
 	
 	public void addPlayer(Player player){

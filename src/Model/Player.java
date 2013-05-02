@@ -189,6 +189,7 @@ public class Player {
 		userImage.setRotation(angle);
 		firstStepImage.setRotation(angle);
 		secondStepImage.setRotation(angle);
+		rotation = angle;
 	}
 	
 	//Getters and setters for stats
