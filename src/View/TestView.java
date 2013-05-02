@@ -60,8 +60,8 @@ public class TestView extends BasicGameState implements ActionListener{
 	private boolean paused;
 	
 	Image user, move1, move2;
-	float shiftX = imgX + 460;
-	float shiftY = imgX + 160;
+	
+	Animation userAni, stand, move;
 	
 	
 	public TestView (int state){
@@ -69,6 +69,10 @@ public class TestView extends BasicGameState implements ActionListener{
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+		
+		Image [] movement = {new Image("res/animations/hunter_walk1.png"), new Image("res/animations/hunter_walk2.png")};
+		Image [] standing = {new Image("res/animations/hunter_stand.png"), new Image("res/animations/hunter_stand.png")};
+		int [] duration = {300, 300};
 		
 		enemyImage = new Image("res/miscImages/awesomePinkSquare.png");
 		userImage = new Image("res/animations/hunter_stand.png");
@@ -87,9 +91,11 @@ public class TestView extends BasicGameState implements ActionListener{
 		
 		attackImage = firstSlash;
 		
-		user = new Image("res/animations/hunter_stand.png");
-		move1 = new Image("res/animations/hunter_walk1.png");
-		move2 = new Image("res/animations/hunter_walk2.png");
+		
+		stand = new Animation(standing, duration, false);
+		move = new Animation(movement, duration, false);
+		
+		userAni = stand;
 		
 		barImg = new Image("res/miscImages/bar_hp.png");
 		hpBackImg = new Image("res/miscImages/gray_hp.png");
@@ -100,10 +106,12 @@ public class TestView extends BasicGameState implements ActionListener{
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		gc.setFullscreen(false);
-		
 		map.render(0, 0);
 		
-		user.draw(imgX,imgY);
+		
+		userAni.draw((int)imgX, (int)imgY);
+		
+		//user.draw(imgX,imgY);
 		
 		g.setColor(Color.white);
 
@@ -118,7 +126,7 @@ public class TestView extends BasicGameState implements ActionListener{
 
 		//g.drawImage(userImage, shiftX,shiftY);
 		
-		userImage.draw(imgX,imgY);
+		//userImage.draw(imgX,imgY);
 
 		if(isColliding()){
 			aImgY=1000;
@@ -152,7 +160,7 @@ public class TestView extends BasicGameState implements ActionListener{
 	
 	float mouseXPosMove;
 	float mouseYPosMove;
-	double moveSpeed = 2;
+	double moveSpeed = 0.5;
 
 	
 	float mouseXPosAtt;
@@ -191,12 +199,30 @@ public class TestView extends BasicGameState implements ActionListener{
         
         // Jump over the other key presses
         if(paused == true) return;
-		if(input.isKeyDown(Input.KEY_W)){imgY -= 1;}
-		if(input.isKeyDown(Input.KEY_S)){imgY += 1;}
-		if(input.isKeyDown(Input.KEY_A)){imgX -= 1;}
-		if(input.isKeyDown(Input.KEY_D)){imgX += 1;}
+		if(input.isKeyDown(Input.KEY_W)){
+			userAni = move;
+			userAni.update(delta);
+			// The lower the delta the slowest the sprite will animate.
+			imgY -= delta * 0.1f;;}
+		if(input.isKeyDown(Input.KEY_S)){
+			userAni = move;
+			userAni.update(delta);
+			// The lower the delta the slowest the sprite will animate.
+			imgY += delta * 0.1f;;}
+		if(input.isKeyDown(Input.KEY_A)){
+			userAni = move;
+			userAni.update(delta);
+			// The lower the delta the slowest the sprite will animate.
+			imgX -= delta * 0.1f;;}
+		if(input.isKeyDown(Input.KEY_D)){
+			userAni = move;
+			userAni.update(delta);
+			// The lower the delta the slowest the sprite will animate.
+			imgX += delta * 0.1f;;}
 		
 		if(input.isMouseButtonDown(1)){
+			userAni = move;
+			userAni.update(delta);
 			move();
 		}
 		

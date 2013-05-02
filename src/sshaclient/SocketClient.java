@@ -5,6 +5,7 @@ import java.io.*;
 
 public class SocketClient implements Runnable {
 	
+	private String playerStats;
 	private TestPlayer tp;
 	
 	private String host;
@@ -30,8 +31,6 @@ public class SocketClient implements Runnable {
 		this.port = port;
 		
 		instr = new StringBuffer();
-		
-		//findConnection();
 	}
 	
 	@Override
@@ -39,27 +38,19 @@ public class SocketClient implements Runnable {
 		
 		while(true) {
 			
-			//System.out.println(tp.isConnected());
-			//System.out.println(connected);
-			//System.out.println("SocketClient");
-			
 			if(connected) {
 				
+				process = tp.getName() + " " + tp.getID() + " " + tp.getMode();
+				
 				if(tp.getMode().equals("lobby")) {
-					
-					
-				} else if(tp.getMode().equals("arena")) {
-					
-					
-				} else if(tp.getMode().equals("shop")) {
-					
-					
+					process = process + " " + tp.getMisc1() + " " + tp.getMisc2();
+				} else {
+					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getAngle();	
 				}
 				
-				//Process nollstalls inte?
-				process = process + "Sebbe " + 10 + " " + 11 + (char)13;
-				sendData(process); //Server far inte heller nagot
-				recieveData(); //Den fastnar har for att server inte skickar nagonting!
+				process = process + " " + (char)13;
+				sendData(process);
+				recieveData();
 				
 			}
 			
@@ -69,12 +60,20 @@ public class SocketClient implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
+			//System.out.println(tp.isConnected());
 		}
 	}
 	
 	public void findConnection() {
 		while(!tp.isConnected()) {
 			//System.out.println("LOL");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		System.out.println("SocketClient initialized");
@@ -89,7 +88,6 @@ public class SocketClient implements Runnable {
 			isr = new InputStreamReader(bis, "US-ASCII");
 			
 			connected = true;
-			System.out.println("Connected: " + connected);
 		}
 		catch(IOException ioe) {
 			connected = false;
@@ -99,15 +97,11 @@ public class SocketClient implements Runnable {
 	}
 	
 	public synchronized void sendData(String process) {
-		//System.out.println("Skickar detta: " + process);
-		
 		try {
 			osw.write(process);
 			osw.flush();
-			System.out.println("FUNKA?");
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -117,22 +111,29 @@ public class SocketClient implements Runnable {
 		int c = 0;
 		
 		try {
-			System.out.println("1");
-			//System.out.println(isr);
-			//System.out.println(isr.read());
-			System.out.println("2");
-			while((c = isr.read()) != 13) {
+			while((c = isr.read()) != 13 && instr.length() < 500) {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
 			System.out.println(inData);
+			System.out.println(inData.substring(0, inData.indexOf(32)));
+			
+			if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
+				//System.out.println(inData.substring(inData.indexOf(32) + 1, inData.length()));
+				tp.setId(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
+				System.out.println(tp.getName() + "'s ID is: " + tp.getID());
+			} else {
+				splitData(inData);
+			}
 			
 			c = 0;
 			instr.delete(0,instr.length());
 		
+			if(inData.length() >= 499) {
+				connected = false;
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			//System.out.println(connection.isClosed());
 			e.printStackTrace();
 		}
 		
@@ -155,9 +156,18 @@ public class SocketClient implements Runnable {
 		return connected;
 	}
 	
-	public String genStatString() {
-		//return name + 0 + " " + x + " " + y + "  &" + (char)13;
-		return "test" + 5 + 1 + (char)13;
+	/**
+	 * A method for splitting up playerData according to their ID.
+	 * @param String Containts data of 1 or more players including this client's.
+	 */
+	public void splitData(String data) {
+		
+	}
+	
+	public String getPlayerStats() {
+		
+		
+		return "test";
 	}
 				
 }

@@ -21,6 +21,7 @@ public class Skill{
 	private int cost;
 	private int damage;
 	private String describe;
+	private boolean affectSelf;
 	
 	private StatusEffect spellEffect = null;
 	
@@ -73,7 +74,7 @@ public class Skill{
 	private boolean isPiercing = false;
 	private int piercingDamage;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe, boolean affectSelf){
 		this.name = name;
 		cooldown = cd;
 		this.range = range;
@@ -89,6 +90,7 @@ public class Skill{
 		
 		
 		this.describe = describe;
+		this.affectSelf = affectSelf;
 		
 		//Backup image if it doesn't get one set by the extended skillClass
 		try {
@@ -173,6 +175,9 @@ public class Skill{
 	}
 	public String getDescription(){
 		return describe;
+	}
+	public boolean getAffectSelf(){
+		return affectSelf;
 	}
 	
 	public Image getAttImage(){

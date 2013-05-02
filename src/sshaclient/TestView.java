@@ -22,7 +22,7 @@ public class TestView extends JFrame {
 	private JButton connectBtn;
 	private JButton lobbyBtn;
 	private JButton arenaBtn;
-	private JButton shopBtn;
+	//private JButton shopBtn;
 	
 	private JLabel nameLabel;
 	private JLabel coordinatesLabel;
@@ -59,12 +59,14 @@ public class TestView extends JFrame {
 		arenaBtn.setActionCommand("arena");
 		add(arenaBtn);
 		
+		/*
 		shopBtn = new JButton("Shop");
 		shopBtn.setLocation(405, 5);
 		shopBtn.setSize(100, 25);
 		shopBtn.setFocusable(false);
 		shopBtn.setActionCommand("shop");
 		add(shopBtn);
+		*/
 		
 		connectedLabel = new JLabel("Connected: false");
 		connectedLabel.setLocation(10, 50);
@@ -103,7 +105,7 @@ public class TestView extends JFrame {
 		connectBtn.addActionListener(tc);
 		lobbyBtn.addActionListener(tc);
 		arenaBtn.addActionListener(tc);
-		shopBtn.addActionListener(tc);
+		//shopBtn.addActionListener(tc);
 		
 		addKeyListener(tc);
 	}

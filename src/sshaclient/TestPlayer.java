@@ -2,8 +2,10 @@ package sshaclient;
 
 public class TestPlayer {
 
-	private String name = "Sebbe";
-	private String ctrlType = "player";
+	private String[] stats;
+	private String name;
+	private int id = 0;
+	private String ctrlType;
 	private int x = 0;
 	private int y = 0;
 	private int angle = 0;
@@ -12,13 +14,35 @@ public class TestPlayer {
 	private int miscData = 13;
 	private int miscData2 = 37;
 	
-	public TestPlayer() {
+	public TestPlayer(String name, String ctrlType) {
+		this.name = name;
+		this.ctrlType = ctrlType;
+		stats = new String[7];
+	}
+	
+	public String[] getStats() {
+		if(mode.equals("lobby")) {
+			
+		} else if(mode.equals("arena")) {
+			
+		} else {
+			
+		}
+		
+		
+		return stats;
+	}
+	
+	public void setStats(String[] stats) {
 		
 	}
 	
-	
 	public String getName() {
 		return name;
+	}
+	
+	public int getID() {
+		return id;
 	}
 	
 	public String getControlType() {
@@ -55,6 +79,10 @@ public class TestPlayer {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public void setControlType(String ctrlType) {

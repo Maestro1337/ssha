@@ -157,11 +157,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Draw the actionbar
 		for(int i=0; i<player.getSkills().length; i++){
 			g.setColor(Color.white);
-			g.fillRect(10 + i*50, 660, 50, 50);
+			g.fillRect(10 + i*64, 640, 64, 64);
 			g.setColor(Color.black);
 			
 			if(playerSkills[i] != null){
-				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*50, 675);
+				g.drawString(""+playerSkills[i].checkCooldown(), 30 + i*64, 675);
 				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
 				//	System.out.println(playerSkills[i].getName());
 			/*		switch (playerSkills[i].getName()) {
@@ -177,7 +177,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			            case "SuperSlowTestSkill":g.drawImage(pedobear,10 + i*50, 660);
 			                     break;
 			        }*/
-					g.drawImage(playerSkills[i].getSkillBarImage(),10 + i*50, 660);
+					g.drawImage(playerSkills[i].getSkillBarImage(),10 + i*64, 640);
 				}
 			}
 		}

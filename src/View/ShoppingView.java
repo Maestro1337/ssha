@@ -44,7 +44,10 @@ import Model.Skills.Wizard.SkillTeleport;
 import Model.Skills.Wizard.SkillUnstablemagic;
 
 
+
 public class ShoppingView extends BasicGameState {
+	
+	String classtype="Hunter";
 	
 
 	Image chosenSkill = null;
@@ -97,7 +100,7 @@ public class ShoppingView extends BasicGameState {
 		skillText = "Bitch please!";
 		
 		
-		switch(GlobalClassSelector.getController().getPlayer().getType()){
+		switch(classtype){
 			case "Wizard":
 				//Init wizard offensive, defensive and mobility skillists
 				offSkills[0] = new SkillFireball();
@@ -166,14 +169,14 @@ public class ShoppingView extends BasicGameState {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
 	      chosenSkills = GlobalClassSelector.getController().getPlayer().getSkillList();
-
+	      classtype= GlobalClassSelector.getController().getPlayer().getType();
 	   }
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		g.drawImage(background, 0, 0);
 		g.setColor(Color.black);
 		g.setColor(Color.gray);
-		g.fillRect(460, 460, 360, 180);
+		g.fillRect(460, 460, 360, 200);
 		g.setColor(Color.white);
 		g.drawImage(playButton, 1120, 670);
 		//g.drawImage(shopText, 599, 70);
@@ -243,17 +246,17 @@ public class ShoppingView extends BasicGameState {
 		if((60<xPos && xPos<124) && (440<yPos && yPos<504)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstOffSkill;
-				skillText = "Skill description:\n" + " " ;
+				skillText = "Skill description:\n" + offSkills[0].getDescription();
 			}
 		}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondOffSkill;
-				skillText = "Second offensive skill!";
+				skillText = "Skill description:\n" + offSkills[1].getDescription();
 			}
 		}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdOffSkill;
-				skillText = "Third offensive skill!";
+				skillText = "Skill description:\n" + offSkills[2].getDescription();
 			}
 		}
 		
@@ -262,17 +265,17 @@ public class ShoppingView extends BasicGameState {
 		else if((200<xPos && xPos<264) && (440<yPos && yPos<504)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstDefSkill;
-				skillText = "First defensive skill!";
+				skillText = "Skill description:\n" + defSkills[0].getDescription();
 			}
 		}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondDefSkill;
-				skillText = "Second defensive skill!";
+				skillText = "Skill description:\n" + defSkills[1].getDescription();
 			}
 		}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdDefSkill;
-				skillText = "Third defensive skill!";
+				skillText = "Skill description:\n" + defSkills[2].getDescription();
 			}
 		}
 		
@@ -281,17 +284,17 @@ public class ShoppingView extends BasicGameState {
 		else if((335<xPos && xPos<399) && (440<yPos && yPos<504)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstMobSkill;
-				skillText = "First mobility skill!";
+				skillText = "Skill description:\n" + mobSkills[0].getDescription();
 			}
 		}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondMobSkill;
-				skillText = "Second mobility skill!";
+				skillText = "Skill description:\n" + mobSkills[1].getDescription();
 			}
 		}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdMobSkill;
-				skillText = "Third mobility skill!";
+				skillText = "Skill description:\n" + mobSkills[2].getDescription();
 			}
 		}
 	}
