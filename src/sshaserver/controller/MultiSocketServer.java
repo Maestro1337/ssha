@@ -12,11 +12,14 @@ public class MultiSocketServer implements Runnable {
 	private int ID;
 	private enum mode {LOBBY, ARENA, SHOP};
 	
+	private boolean isClosing;
 	public String playerName;
 	private int playerX;
 	private int playerY;
 	private String statString;
 	private boolean isDead = false;
+	
+	private String otherStatsString;
 	
 	public MultiSocketServer(Socket s, int i) {
 		this.connection = s;
@@ -25,8 +28,6 @@ public class MultiSocketServer implements Runnable {
 	
 	@Override
 	public void run() {
-		
-		//System.out.println(MC.getLol());
 		
 		try {
 			//Create input and output readers
@@ -37,33 +38,31 @@ public class MultiSocketServer implements Runnable {
 			
 			int character;
 			StringBuffer process = new StringBuffer();
-			System.out.println("Process fore: " + process.toString());
 			
 			while( (character = isr.read()) != 13) {
 				process.append((char)character);
 			}
-			this.playerName = process.toString();
+			playerName = process.toString();
+			playerName = playerName.substring(0, playerName.indexOf(32));
+			
 			character = 0;
 			process.delete(0, process.length());
 			
 			System.out.println("Player " + playerName + " is connected.");
-			
-			
-			System.out.println("Character: " + character);
-			System.out.println("Process efter: " + process.toString());
 
-			osw.write("Connected" + (char)13);
+			// Just let the Client know it's connected and send their ID.
+			otherStatsString = "Connected " + this.ID + (char)13;
+			osw.write(otherStatsString);
 			osw.flush();
 			
 			while(true) {
-				System.out.println("FUNKAR DET?");
 				//Read from client
 				while( (character = isr.read()) != 13 && character >= 0) {
 					process.append((char)character);
 				}
-				System.out.println(process);
 				//Convert StringBuffer to String
 				this.statString = "" + process.toString();
+				System.out.println(statString);
 				//System.out.println(statString.indexOf(32));
 				
 				//Just test this method
@@ -71,7 +70,7 @@ public class MultiSocketServer implements Runnable {
 				
 				//Generate the code to return to the Client
 				//returnCode = process.toString() + (char)13;
-				returnCode = "Test" + (char)13;
+				//returnCode = "Test" + (char)13;
 				
 				//Clear the StringBuffer
 				character = 0;
@@ -88,8 +87,7 @@ public class MultiSocketServer implements Runnable {
 				//returnCode = "test" + (char)13;
 				
 				//Send information to the Client
-				System.out.println("ReturnCode: " + returnCode);
-				osw.write(returnCode);
+				osw.write(otherStatsString);
 				osw.flush();
 			
 			}
@@ -108,24 +106,12 @@ public class MultiSocketServer implements Runnable {
 		return this.ID;
 	}
 	
-	public int[] getPlayerStats() {
-		String tempStats = "" + statString;
-		int[] stats = new int[2];
-		int counter = 0;
-		
-		while(tempStats.length() > 1) {
-			stats[counter] = Integer.parseInt(tempStats.substring(tempStats.indexOf(32)+1, tempStats.indexOf(32, tempStats.indexOf(32)+1)));
-			System.out.println("LOL fastnar"); // Det ar har den fastnar ^
-			tempStats = tempStats.substring(tempStats.indexOf(32, tempStats.indexOf(32)+1), tempStats.length()-1);
-			counter += 1;
-		}
-		
-		
-		return stats;
+	public String getPlayerStats() {
+		return this.statString;
 	}
 	
-	public void setPlayerStats() {
-		
+	public synchronized void setPlayerStats(String stats) {
+		this.otherStatsString = stats + (char)13;
 	}
 	
 	public void closeConnection() {

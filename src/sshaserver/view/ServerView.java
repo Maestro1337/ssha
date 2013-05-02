@@ -85,7 +85,7 @@ public class ServerView extends JFrame {
 	}
 	
 	public void addClient(String str) {
-		connectedClients.append(str + (char)9 + "1" + (char)10);
+		connectedClients.append(str + (char)10);
 	}
 	
 	public void addActionListener(ActionListener al) {

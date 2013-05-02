@@ -27,21 +27,21 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 		
 		if(action.equals("connect")) {
 			tp.setConnected(!tp.isConnected());
-			tv.setConnectedLabel(tp.isConnected());
 			if(tv.getConnectedBtnText().equals("Connect")) {
-				tv.setConnectedBtnText("Disconnect");
+				//tv.setConnectedBtnText("Disconnect");
 				
 				tp.setConnected(true);
 				sc.findConnection(); // kanske fixa denna istallet sa att SC kollar om tp ar connected bara... sa behovs ingen sc har
 			} else {
-				tv.setConnectedBtnText("Connect");
+				//tv.setConnectedBtnText("Connect");
 				tp.setConnected(false);
 				sc.closeConnection();
 			}
 			
 		}
-		if(action.equals("lobby") || action.equals("arena") || action.equals("shop")) {
+		if(action.equals("lobby") || action.equals("arena")) {
 			tv.setModeLabel(action);
+			tp.setMode(action);
 		}
 	}
 
@@ -78,16 +78,18 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 
 	@Override
 	public void run() {
-		//testConnection();
 		
 		while(true) {
 			tv.setXyLabel(tp.getX(), tp.getY());
 			tv.setAngleLabel(tp.getAngle());
 			
-			//System.out.println("TestView: " + tv);
-			//System.out.println("TestPlayer : " + tp);
-			//System.out.println("SocketClient : " + sc);
-			//System.out.println("TestController");
+			if(sc.isConnected()) {
+				tv.setConnectedBtnText("Disconnect");
+				tv.setConnectedLabel(true);
+			} else {
+				tv.setConnectedBtnText("Connect");
+				tv.setConnectedLabel(false);
+			}
 			
 			try {
 				Thread.sleep(1000);
@@ -100,19 +102,6 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 		//Controller kommer alltid koras, men inte alltid anvandas av anvandaren.
 		//Alltsa socketclient hamtar data och uppdaterar testplayer
 		//testcontroller hamtar sen data darifran och skickar till testview
-	}
-	
-	public void testConnection() {
-		tp.setConnected(true);
-		sc.findConnection();
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		tp.setConnected(false);
-		sc.closeConnection();
 	}
 
 }

@@ -8,13 +8,13 @@ import sshaserver.view.ServerView;
 
 public class ClientSupervisor implements Runnable, ActionListener {
 
+	private String statString;
 	private ServerView SV;
 	private SocketFinder SF;
 	private Thread sft;
 	
 	private MultiSocketServer[] theSockets = new MultiSocketServer[constants.nbrOfClients];
 	private Thread[] theThreads = new Thread[constants.nbrOfClients];
-	int count = 0;
 	
 	//private int Socket
 	
@@ -32,33 +32,44 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	
 	
 	public synchronized void addSocket(Socket connection) {
-		System.out.println("lolOLOLOLOlolol1ol1o1!!!1111one");
-		theSockets[count] = new MultiSocketServer(connection, count);
-		theThreads[count] = new Thread(theSockets[count]);
-		theThreads[count].start();
 		
-		
-		while(theSockets[count].getPlayerName() == null) {
-			System.out.println("Searching");
+		for(int j = 0; j < constants.nbrOfClients; j++) {
+			if(theSockets[j] == null) {
+				theSockets[j] = new MultiSocketServer(connection, j);
+				theThreads[j] = new Thread(theSockets[j]);
+				theThreads[j].start();
+				
+				while(theSockets[j].getPlayerName() == null) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				SV.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
+				
+				break;
+			}
 		}
-		SV.addToActivityField(theSockets[count].getPlayerName() + " is now connected");
-		SV.addClient(theSockets[count].getPlayerName());
-		count += 1;
 		
-		//System.out.println(theSockets[count-1].getPlayerName());
+		SV.clearClientsField();
+		for(int i = 0; i < constants.nbrOfClients; i++) {
+			if(theSockets[i] != null) {
+				SV.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
+			}
+		}
+
 	}
 
 	@Override
 	public void run() {
 		
 		while(true) {
+			statString = "";
 			
-			//System.out.println("Socket 1: " + theSockets[0]);
-			//System.out.println("Socket 2: " + theSockets[1]);
-			//System.out.println("Socket 3: " + theSockets[2]);
-			//System.out.println("Socket 4: " + theSockets[3]);
-			
-			for(int i = 0; i < 4; i++) {
+			for(int i = 0; i < constants.nbrOfClients; i++) {
 				/*
 				System.out.println(theSockets[0]);
 				if(theSockets[0] != null) {
@@ -75,16 +86,38 @@ public class ClientSupervisor implements Runnable, ActionListener {
 					}
 					*/
 					
+					statString = statString + theSockets[i].getPlayerStats() + "/";
+					
 					if(theSockets[i].isDead()) {
+						SV.addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
 						theSockets[i].closeConnection();
 						theSockets[i] = null;
 						theThreads[i] = null;
+						SV.clearClientsField();
+						for(int j = 0; j < constants.nbrOfClients; j++) {
+							if(theSockets[j] != null) {
+								SV.addClient(theSockets[j].getPlayerName() + (char)9 + theSockets[j].getPlayerID());
+							}
+						}
 					}
 					
 				}
 					
 					
 			}
+			
+			
+			//statString = statString + "/";
+			//System.out.println(statString + " LOL");
+			
+			
+			for(int j = 0; j < constants.nbrOfClients; j++) {
+				if(theThreads[j] != null) {
+					theSockets[j].setPlayerStats(statString);
+				}
+			}
+			
+			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -102,10 +135,6 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		//System.out.println("Server is running: " + SV.isRunning());
-		//System.out.println("Thread has started: " + sft.isAlive());
-		//System.out.println("Thread is: " + sft.getState());
-		
 		if(!SV.isRunning()) {
 			if(sft.getState() == Thread.State.NEW) {
 				sft.start();
@@ -118,6 +147,11 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		
 		} else {
 			SF.stopSearching();
+			for(int i = 0; i < constants.nbrOfClients; i++) {
+				if(theSockets[i] != null) {
+					theSockets[i].closeConnection();
+				}
+			}
 			//System.out.println(sft.isInterrupted());
 		}
 
