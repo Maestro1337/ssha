@@ -11,6 +11,7 @@ import Model.Skills.*;
 public class Player {
 	
 	private Image userImage;
+	private Image noStepImage;
 	private Image firstStepImage;
 	private Image secondStepImage;
 	private float imgX;
@@ -63,15 +64,7 @@ public class Player {
 		this.armor = armor;
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
-	
-	public void changePlayerClass(Player player){
-		userImage = player.getImage();
-		firstStepImage = player.getFirstStepImage();
-		secondStepImage = player.getSecondStepImage();
-		
-		skillList = player.getSkills();
-	}
-	
+
 	public String getType(){
 		return classType;
 	}
@@ -170,11 +163,6 @@ public class Player {
 		return findNaN;
 	}
 	//Getters for the attacks
-	
-	
-	public Skill[] getSkills(){
-		return skillList;
-	}
 	public boolean isRunning(){
 		return isRunning;
 	}
@@ -232,13 +220,23 @@ public class Player {
 	
 	public void setImages(Image image, Image first, Image second){
 		if(image != null)
-			userImage = image;
+			userImage = noStepImage = image;
 		
 		if(first != null)
 			firstStepImage = first;
 		
 		if(second != null)
 			secondStepImage = second;
+	}
+	public void changeUserImage(){
+		if(isRunning){
+			if(userImage == noStepImage || userImage == secondStepImage)
+				userImage = firstStepImage;
+			else if(userImage == noStepImage || userImage == firstStepImage)
+				userImage = secondStepImage;
+		} else {
+			userImage = noStepImage;
+		}
 	}
 
 	public void setSkillList(Skill[] chosenSkills) {

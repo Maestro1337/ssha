@@ -27,7 +27,7 @@ public class PlayerController implements ActionListener {
 		
 		this.player = player;
 		
-		playerSkills = player.getSkills();
+		playerSkills = player.getSkillList();
 		currentActiveSkill = playerSkills[0];
 		
 		this.obstacles = obstacles;
@@ -35,10 +35,6 @@ public class PlayerController implements ActionListener {
 	
 	public Player getPlayer(){
 		return player;
-	}
-	
-	public Skill[] getPlayerSkills(){
-		return player.getSkills();
 	}
 	
 	public void killPlayer(){
@@ -75,6 +71,7 @@ public class PlayerController implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
+		player.changeUserImage();
 		if(player.isAlive() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()))){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
