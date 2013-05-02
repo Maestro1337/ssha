@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.sound.sampled.AudioSystem;
@@ -39,6 +40,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	private String mouse = "No input yet";
 	
 	String test;
+	TiledMap map;
+	
 	
 	private PlayerController Control; 
 	private PlayerController enemyControl;
@@ -47,12 +50,15 @@ public class MainView extends BasicGameState implements ActionListener {
 	Skill[] playerSkills;
 	Skill activeSkill;
 	
-	TiledMap map;
+	
 	
 	Image enemyImage;
 	Skill[] enemySkills;
 	
-	Obstacle[] obstacles = new Obstacle[100];
+	
+	private int activePlayer;
+	private ArrayList<PlayerController> players = new ArrayList<PlayerController>();
+	private Obstacle[] obstacles = new Obstacle[100];
 	
 	Image userImage;
 	Image user;
@@ -87,9 +93,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		Control = new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles);
-	//	player = Control.getPlayer();
 		player = GlobalClassSelector.getController().getPlayer();
-		playerSkills = Control.getPlayerSkills();
+		playerSkills = player.getSkillList();
 		
 		Control.ressurectPlayer();
 
@@ -101,11 +106,19 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 
 		enemy = enemyControl.getPlayer();
-		enemySkills = enemyControl.getPlayerSkills();
+		enemySkills = enemy.getSkillList();
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
 		
 		enemyControl.checkSpawnCollision();
+		
+		
+		players.clear();
+		players.add(new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles));
+		players.add(enemyControl);
+//		players.add(new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles));
+		
+		activePlayer = 0;
 		
 	}
 	
@@ -121,170 +134,131 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		map.render(0,0);
 		
-		//Show the coodinates for the mouse
+		//Show the coodinates of the mouse
 		g.drawString(mouse, 900, 10);
-		//Show the stats
 		
-		
-		g.drawString(player.getName() + "\nHP: "+player.getHP() + "\nArmor: " + (int)(player.getArmor()*100) + "%\nKills: " + player.getKills(),900,25);
-		g.drawString(enemy.getName() + "\nHP: "+enemy.getHP() + "\nArmor: " + (int)(enemy.getArmor()*100) + "%\nKills: " + enemy.getKills(),1050,25);
-		//Draw the player
-		g.drawImage(userImage, player.getX(),player.getY());
-	
-		
-		
+		//Draw Obstacles
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
 				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
 			}
 		}
-		//Random Comment
 		//Draw the actionbar
-		for(int i=0; i<player.getSkills().length; i++){
+		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
+		for(int j=0; j<activePlayerSkills.length; j++){
 			g.setColor(Color.white);
-			g.fillRect(10 + i*64, 640, 64, 64);
+			g.fillRect(10 + j*64, 640, 64, 64);
 			g.setColor(Color.black);
 			
-			if(playerSkills[i] != null){
-				g.drawString(""+playerSkills[i].checkCooldown(), playerSkills[i].getSkillBarImage().getWidth()/2 + i*64, 660);
-				if(playerSkills[i].checkCooldown() == playerSkills[i].getCoolDown()){
-					g.drawImage(playerSkills[i].getSkillBarImage(),10 + i*64, 640);
+			if(activePlayerSkills[j] != null){
+				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + j*64, 660);
+				if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
+					g.drawImage(activePlayerSkills[j].getSkillBarImage(),10 + j*64, 640);
 				}
 			}
 		}
 		
-		for(int i=0; i<playerSkills.length; i++){
-			if(playerSkills[i] != null){
-				if(playerSkills[i].isAttacking()/* && !playerSkills[i].isColliding() */&& !playerSkills[i].isEndState()){
-					g.drawImage(playerSkills[i].getAttImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
-				}else if(playerSkills[i].isEndState()){
-					g.drawImage(playerSkills[i].getEndStateImage(), playerSkills[i].getAttX(),playerSkills[i].getAttY());
-				}
-			}
-		}
-
 		
-	//	if(enemy.getHP()>0){
-			g.drawImage(enemyImage, enemy.getX(), enemy.getY());
+		//Draw player stats and image
+		for(int i=0; i<players.size(); i++){
+			Player currentPlayer = players.get(i).getPlayer();
+			Skill[] currentSkillset = currentPlayer.getSkillList();
+			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
+					+ "%\nKills: " + currentPlayer.getKills(),900+150*i,25);
+			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 			
-			//Copy for enemy attack render
-			for(int i=0; i<enemySkills.length; i++){
-				if(enemySkills[i] != null){
-					if(enemySkills[i].isAttacking()/* && !playerSkills[i].isColliding() */&& !enemySkills[i].isEndState()){
-						g.drawImage(enemySkills[i].getAttImage(), enemySkills[i].getAttX(),enemySkills[i].getAttY());
-					}else if(enemySkills[i].isEndState()){
-						g.drawImage(enemySkills[i].getEndStateImage(), enemySkills[i].getAttX(),enemySkills[i].getAttY());
+			for(int j=0; j<playerSkills.length; j++){
+				if(playerSkills[j] != null){
+					if(playerSkills[j].isAttacking() && !playerSkills[j].isEndState()){
+						g.drawImage(playerSkills[j].getAttImage(), playerSkills[j].getAttX(),playerSkills[j].getAttY());
+					}else if(playerSkills[j].isEndState()){
+						g.drawImage(playerSkills[j].getEndStateImage(), playerSkills[j].getAttX(),playerSkills[j].getAttY());
 					}
 				}
-			}
-		//}
+			}		
+		}
 	}
 	
 	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+		
+		PlayerController currentActiveController = players.get(activePlayer);
+		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
+		
+		//Update current mouse position
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
-	/*	if(GlobalClassSelector.getController().checkPlayerAddition()){
-			player.changePlayerClass(GlobalClassSelector.getController().getPlayer());
-		}*/
-		
-		Control.checkCollision(enemySkills);
-		enemyControl.checkCollision(playerSkills);
-		
-		Control.checkStatusEffects();
-		enemyControl.checkStatusEffects();
-		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_Q)){player.addY(-1);}
-		if(input.isKeyDown(Input.KEY_S)){player.addY(1);}
-		if(input.isKeyDown(Input.KEY_A)){player.addX(-1);}
-		if(input.isKeyDown(Input.KEY_D)){player.addX(1);}
+		for(int i=0; i<players.size(); i++){
+			PlayerController currentController = players.get(i);
+			
+			//Checking status effects
+			currentController.checkStatusEffects();
+			
+			//Checking collision from other players
+			for(int j=0; j<players.size(); j++){
+				PlayerController checkController;
+				//Check to see it is another player
+				if(j != i){
+					checkController = players.get(j);
+					currentController.checkCollision(checkController.getPlayer().getSkillList());
+				}
+			}
+			
+			//Check if player is running to update positioning
+			if(currentController.getPlayer().isRunning()){
+				currentController.isRunning();
+			}
+			
+			//Check if players skills are in use to update positioning
+			Skill[] currentSkillList = currentController.getPlayer().getSkillList();
+			for(int j=0; j<currentSkillList.length; j++){
+				if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
+					currentController.isAttacking(currentSkillList[j]);
+				}
+			}
+		}
 		
+		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
-			if(playerSkills[0] != null){
-				Control.setCurrentActiveSkill(0);
-				//enemyControl.setCurrentActiveSkill(0);
+			if(activeSkillList[0] != null){
+				currentActiveController.setCurrentActiveSkill(0);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_2)){
-			if(playerSkills[1] != null){
-				Control.setCurrentActiveSkill(1);
-				//enemyControl.setCurrentActiveSkill(1);
+			if(activeSkillList[1] != null){
+				currentActiveController.setCurrentActiveSkill(1);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_3)){
-			if(playerSkills[2] != null){
-				Control.setCurrentActiveSkill(2);
-				//enemyControl.setCurrentActiveSkill(2);
+			if(activeSkillList[2] != null){
+				currentActiveController.setCurrentActiveSkill(2);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
-			if(playerSkills[3] != null){
-				Control.setCurrentActiveSkill(3);
-				//enemyControl.setCurrentActiveSkill(3);
+			if(activeSkillList[3] != null){
+				currentActiveController.setCurrentActiveSkill(3);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_5)){
-			if(playerSkills[4] != null){
-				Control.setCurrentActiveSkill(4);
-				//enemyControl.setCurrentActiveSkill(4);
+			if(activeSkillList[4] != null){
+				currentActiveController.setCurrentActiveSkill(4);
 			}
 		}
 		
-		//Random generator = new Random();
+		
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
-			Control.move(Mouse.getX(), 720 - Mouse.getY());
+			currentActiveController.move(Mouse.getX(), 720 - Mouse.getY());
 			//enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
 		}
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
-			if ((135<xPos && 250>xPos) && (225<yPos && 270>yPos)){
-				enemyControl.ressurectPlayer();
-				Control.ressurectPlayer();
-			}
-			Control.attack(Mouse.getX(), 720 - Mouse.getY());
+			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
 		}
-		if(player.isRunning()){
-			Control.isRunning();
-			if(userImage == player.getImage() || userImage == player.getSecondStepImage())
-				userImage = player.getFirstStepImage();
-			else if(userImage == player.getImage() || userImage == player.getFirstStepImage())
-				userImage = player.getSecondStepImage();
-		} else {
-			userImage = player.getImage();
-		}
-		
-		//Copy for enemy running
-		if(enemy.isRunning()){
-			enemyControl.isRunning();
-			if(enemyImage == enemy.getImage() || enemyImage == enemy.getSecondStepImage())
-				enemyImage = enemy.getFirstStepImage();
-			else if(enemyImage == enemy.getImage() || enemyImage == enemy.getFirstStepImage())
-				enemyImage = enemy.getSecondStepImage();
-		} else {
-			enemyImage = enemy.getImage();
-		}
-		
-		
-		
-		
-		
-		for(int i=0; i<playerSkills.length; i++){
-			if(playerSkills[i] != null && playerSkills[i].isAttacking()){
-				Control.isAttacking(playerSkills[i]);
-			}
-		}
-		
-		//Copy for enemy attacking
-		for(int i=0; i<enemySkills.length; i++){
-			if(enemySkills[i] != null && enemySkills[i].isAttacking()){
-				enemyControl.isAttacking(enemySkills[i]);
-			}
-		}
+
 		if (!enemy.isAlive()){
 		//	enemy
 			Control.getPlayer().incKills();
@@ -292,6 +266,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		AI();
 	}
+	
+	
+	
 	public boolean willCollide(){
 		float collitionx;
 		float collitiony;
@@ -340,7 +317,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 			time=System.currentTimeMillis();
 		}
-		for(int i=0;i<enemyControl.getPlayerSkills().length;i++){
+		for(int i=0;i<enemy.getSkillList().length;i++){
 			enemyControl.setCurrentActiveSkill(i);
 			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
 							enemyControl.getCurrentActiveSkill().checkCooldown()==enemyControl.getCurrentActiveSkill().getCoolDown()){
