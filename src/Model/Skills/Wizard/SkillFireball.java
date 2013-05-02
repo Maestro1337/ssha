@@ -22,7 +22,7 @@ String description;
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		super.setStatusEffect(new StatusEffectBurning(null, this));
 		
@@ -39,6 +39,7 @@ String description;
 			
 			skillBar[0] = new Image("res/skillIcons/fireball.png");
 			skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+			skillBar[2] = new Image("res/skillIcons/fireball_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -16,7 +16,7 @@ public class SkillStealth extends Skill {
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
@@ -29,8 +29,9 @@ public class SkillStealth extends Skill {
 			animation[5] = new Image("res/animations/explode6.png");
 			animation[6] = new Image("res/animations/explode7.png");
 			
-			skillBar[0] = new Image("res/skillIcons/Stealth.jpg");
-			skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+			skillBar[0] = new Image("res/skillIcons/stealth.png");
+			skillBar[1] = new Image("res/skillIcons/stealth_active.png");
+			skillBar[2] = new Image("res/skillIcons/stealth_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

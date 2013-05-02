@@ -170,7 +170,7 @@ public class ShoppingView extends BasicGameState {
 			secondMobSkill = mobSkills[1].getSkillBarImage();
 			thirdMobSkill = mobSkills[2].getSkillBarImage();
 			//Basic
-			wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
+			wandAttackSkill = new Image("res/skillIcons/wandattack.png");
 			wandattackDesc = "Wand attack";
 
 
@@ -184,7 +184,7 @@ public class ShoppingView extends BasicGameState {
 		g.setColor(Color.white);
 		g.drawImage(playButton, 1120, 670);
 		//g.drawImage(shopText, 599, 70);
-		//g.drawString(skillText, 540, 475);
+		g.drawString(skillText, 540, 475);
 		if(chosenSkill != null)
 			g.drawImage(chosenSkill, 470, 470);
 

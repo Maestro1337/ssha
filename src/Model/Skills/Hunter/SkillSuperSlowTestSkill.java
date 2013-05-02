@@ -16,12 +16,13 @@ public class SkillSuperSlowTestSkill extends Skill{
 				"Level 4: 45 damage", false);
 		
 		Image attackImage = null;
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		try {
 			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
 			
-			skillBar[0] = new Image("res/skillIcons/pbs4.png");
-			skillBar[1] = new Image("res/skillIcons/pbs4_active.png");
+			skillBar[0] = new Image("res/skillIcons/fireball.png");
+			skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+			skillBar[2] = new Image("res/skillIcons/fireball_disabled.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

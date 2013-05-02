@@ -19,7 +19,7 @@ public class SkillSlash extends Skill{
 		
 		Image attackImage = null;
 		Image[] animation = new Image[4];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		try {
 			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
@@ -32,6 +32,7 @@ public class SkillSlash extends Skill{
 			
 			skillBar[0] = new Image("res/skillIcons/slash.png");
 			skillBar[1] = new Image("res/skillIcons/slash_active.png");
+			skillBar[2] = new Image("res/skillIcons/slash_disabled.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
