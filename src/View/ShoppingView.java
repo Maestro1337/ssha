@@ -175,7 +175,7 @@ public class ShoppingView extends BasicGameState {
 		g.drawLine(420, 60, 420, 660);
 		g.drawLine(860, 60, 860, 660);
 		g.setColor(Color.gray);
-		g.fillRect(460, 460, 360, 180);
+		g.fillRect(460, 460, 360, 200);
 		g.setColor(Color.white);
 		g.drawImage(playButton, 950, 600);
 		g.drawImage(shopText, 599, 70);
