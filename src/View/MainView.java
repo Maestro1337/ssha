@@ -167,12 +167,12 @@ public class MainView extends BasicGameState implements ActionListener {
 					+ "%\nKills: " + currentPlayer.getKills(),900+150*i,25);
 			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 			
-			for(int j=0; j<playerSkills.length; j++){
-				if(playerSkills[j] != null){
-					if(playerSkills[j].isAttacking() && !playerSkills[j].isEndState()){
-						g.drawImage(playerSkills[j].getAttImage(), playerSkills[j].getAttX(),playerSkills[j].getAttY());
-					}else if(playerSkills[j].isEndState()){
-						g.drawImage(playerSkills[j].getEndStateImage(), playerSkills[j].getAttX(),playerSkills[j].getAttY());
+			for(int j=0; j<currentSkillset.length; j++){
+				if(currentSkillset[j] != null){
+					if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
+						g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+					}else if(currentSkillset[j].isEndState()){
+						g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 					}
 				}
 			}		
@@ -264,6 +264,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			Control.getPlayer().incKills();
 			sbg.enterState(4);
 		}
+		
+		
 		AI();
 	}
 	
