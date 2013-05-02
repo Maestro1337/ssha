@@ -76,7 +76,7 @@ public class ShoppingView extends BasicGameState {
 
 	String skillText;
 	
-	Image square;
+	Image background;
 	Image skillsText;
 	Image shopText;
 
@@ -91,7 +91,7 @@ public class ShoppingView extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		
-		square = new Image("res/miscImages/ruta.png");
+		background = new Image("res/miscImages/ShoppingviewBackground.png");
 		skillsText = new Image("res/miscImages/skillsText.png");
 		shopText = new Image("res/miscImages/shopText.png");
 		skillText = "Bitch please!";
@@ -170,16 +170,14 @@ public class ShoppingView extends BasicGameState {
 	   }
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
-		g.drawImage(square, 40, 40);
+		g.drawImage(background, 0, 0);
 		g.setColor(Color.black);
-		g.drawLine(420, 60, 420, 660);
-		g.drawLine(860, 60, 860, 660);
 		g.setColor(Color.gray);
 		g.fillRect(460, 460, 360, 180);
 		g.setColor(Color.white);
-		g.drawImage(playButton, 950, 600);
-		g.drawImage(shopText, 599, 70);
-		g.drawString(skillText, 540, 475);
+		g.drawImage(playButton, 1120, 670);
+		//g.drawImage(shopText, 599, 70);
+		//g.drawString(skillText, 540, 475);
 		if(chosenSkill != null)
 			g.drawImage(chosenSkill, 470, 470);
 
@@ -198,26 +196,24 @@ public class ShoppingView extends BasicGameState {
 		g.drawString("5", 377, 200);
 		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 225);
 		
-		g.drawImage(skillsText, 200, 350);
-		g.drawString("Off", 100, 375);
-		g.drawString("Def", 200, 375);
-		g.drawString("Mob", 300, 375);
+		//g.drawImage(skillsText, 200, 350);
+	
 		
 		
 		//Offensive skills
-		g.drawImage(firstOffSkill, 100, 400);
-		g.drawImage(secondOffSkill, 100, 475);
-		g.drawImage(thirdOffSkill, 100, 550);
+		g.drawImage(firstOffSkill, 60, 440);
+		g.drawImage(secondOffSkill, 60, 515);
+		g.drawImage(thirdOffSkill, 60, 590);
 			
 		//Defensive skills
-		g.drawImage(firstDefSkill, 200, 400);
-		g.drawImage(secondDefSkill, 200, 475);
-		g.drawImage(thirdDefSkill, 200, 550);
+		g.drawImage(firstDefSkill, 200, 440);
+		g.drawImage(secondDefSkill, 200, 515);
+		g.drawImage(thirdDefSkill, 200, 590);
 			
 		//Mobility skills
-		g.drawImage(firstMobSkill, 300, 400);
-		g.drawImage(secondMobSkill, 300, 475);
-		g.drawImage(thirdMobSkill, 300, 550);
+		g.drawImage(firstMobSkill, 335, 440);
+		g.drawImage(secondMobSkill, 335, 515);
+		g.drawImage(thirdMobSkill, 335, 590);
 	}
 
 	@Override
@@ -229,30 +225,32 @@ public class ShoppingView extends BasicGameState {
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();
+		
+		
 
-		if((950<xPos && xPos<1200) && (600<yPos && yPos<654)){
-			playButton = new Image("res/buttons/playButton_hover.png");
+		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
+			playButton = new Image("res/buttons/ReadyOver.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				playButton = new Image("res/buttons/playButton_pressed.png");
+				playButton = new Image("res/buttons/Ready.png");
 				sbg.enterState(1);
 			}
 		}else{
-			playButton = new Image("res/buttons/playButtons.png");
+			playButton = new Image("res/buttons/Ready.png");
 		}
 		
 		//Handling clicking on offensive skills
 		
-		if((100<xPos && xPos<164) && (400<yPos && yPos<464)){
+		if((60<xPos && xPos<124) && (440<yPos && yPos<504)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstOffSkill;
 				skillText = "Skill description:\n" + " " ;
 			}
-		}else if((100<xPos && xPos<164) && (475<yPos && yPos<539)){
+		}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondOffSkill;
 				skillText = "Second offensive skill!";
 			}
-		}else if((100<xPos && xPos<164) && (550<yPos && yPos<614)){
+		}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdOffSkill;
 				skillText = "Third offensive skill!";
@@ -261,17 +259,17 @@ public class ShoppingView extends BasicGameState {
 		
 		//Handling clicking on defensive skills
 		
-		else if((200<xPos && xPos<264) && (400<yPos && yPos<464)){
+		else if((200<xPos && xPos<264) && (440<yPos && yPos<504)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstDefSkill;
 				skillText = "First defensive skill!";
 			}
-		}else if((200<xPos && xPos<264) && (475<yPos && yPos<539)){
+		}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondDefSkill;
 				skillText = "Second defensive skill!";
 			}
-		}else if((200<xPos && xPos<264) && (550<yPos && yPos<614)){
+		}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdDefSkill;
 				skillText = "Third defensive skill!";
@@ -280,17 +278,17 @@ public class ShoppingView extends BasicGameState {
 		
 		//Handling clicking on mobility skills
 		
-		else if((300<xPos && xPos<364) && (400<yPos && yPos<464)){
+		else if((335<xPos && xPos<399) && (440<yPos && yPos<504)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = firstMobSkill;
 				skillText = "First mobility skill!";
 			}
-		}else if((300<xPos && xPos<364) && (475<yPos && yPos<539)){
+		}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondMobSkill;
 				skillText = "Second mobility skill!";
 			}
-		}else if((300<xPos && xPos<364) && (550<yPos && yPos<614)){
+		}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdMobSkill;
 				skillText = "Third mobility skill!";

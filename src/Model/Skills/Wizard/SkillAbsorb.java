@@ -8,11 +8,11 @@ import Model.Skills.Skill;
 public class SkillAbsorb extends Skill{
 	public SkillAbsorb(){
 	//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-			super("Absorb", 11000, 400, 0.4, 3, 0, 150,"The wizard \n" +
-					"Level 1: 15 damage\n" +
-					"Level 2: 25 damage\n" +
-					"Level 3: 35 damage\n" +
-					"Level 4: 45 damage");
+			super("Absorb", 11000, 400, 0.4, 3, 0, 150,"The wizards' spells drains the \n lifeforce off his enemies when they hit./n The forces are then used as a shield against incoming damage." +
+					"Level 1: 10 % of damage done up to a maximum shield that absorbs 100 damage.\n" +
+					"Level 2: 15 % of damage done up to a maximum shield that absorbs 150 damage.\n" +
+					"Level 3: 20 % of damage done up to a maximum shield that absorbs 200 damage.\n" +
+					"Level 4: 25 % of damage done up to a maximum shield that absorbs 250 damage.");
 			
 			Image attackImage = null;
 			Image[] animation = new Image[7];
