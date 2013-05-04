@@ -291,10 +291,14 @@ public class Skill{
 	}
 	//returns skillbarpicture depending on if it is the active skill or not
 	public Image getSkillBarImage(){
-		if(!isChosen){
-			return skillBarImages[0];
+		if(checkCooldown() == getCoolDown()){
+			if(!isChosen){
+				return skillBarImages[0];
+			}else{
+				return skillBarImages[1];
+			}
 		}else{
-			return skillBarImages[1];
+			return skillBarImages[2];
 		}
 	}
 	
