@@ -2,7 +2,7 @@ package Model.Skills;
 
 import Control.Timers.AnimationTimer;
 import Control.Timers.SkillCheckingTimer;
-import Data.Player;
+import Model.Player;
 import Model.StatusEffect;
 
 import java.sql.Date;
@@ -207,6 +207,10 @@ public class Skill{
 		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2-currentWidth/2;
 		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
 	}
+	public void resetCooldown(){
+		CDstartTime = System.currentTimeMillis() - cooldown;
+	}
+	
 	public void setNonProjectileShot(){
 		addAttX((float)(getXDirAtt()*getGenDirAtt())-endStateImgWidth/2);
 		addAttY((float)(getYDirAtt()*getGenDirAtt())-endStateImgHeight/2);
@@ -307,6 +311,7 @@ public class Skill{
     }
     
     public long checkCooldown(){
+    	//TODO make own class for this and remake to make it easier to understand
     	CDelapsedTime = System.currentTimeMillis() - CDstartTime;
     	if(CDelapsedTime >= cooldown){
     		CDelapsedTime = 0;
@@ -321,13 +326,8 @@ public class Skill{
 		endStateElapsedTime = 0;
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-	//	attImgX -= endStateImgWidth/2;
-	//	attImgY -= endStateImgHeight/2;
 		isEndState = true;
-		
-	//	if(animation != null){
     	animation.resetCounterAndTimer();
-    //	}
 	}
 	public void activatePreEndState(){
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
@@ -386,6 +386,4 @@ public class Skill{
 	public StatusEffect getStatusEffect(){
 		return spellEffect;
 	}
-	
-	
 }

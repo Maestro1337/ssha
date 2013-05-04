@@ -3,7 +3,7 @@ package Model.Classes;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Data.Player;
+import Model.Player;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillSuperSlowTestSkill;
 import Model.Skills.Warrior.SkillSlash;

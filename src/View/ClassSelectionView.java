@@ -9,7 +9,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 import Control.GlobalClassSelector;
-import Data.Player;
+import Model.Player;
 import Model.PlayerModel;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;

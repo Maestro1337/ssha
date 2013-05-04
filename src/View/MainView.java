@@ -33,7 +33,6 @@ import Model.Obstacles.Obstacle;
 import Model.Skills.*;
 
 import Control.*;
-import Data.Player;
 
 public class MainView extends BasicGameState implements ActionListener {
 	

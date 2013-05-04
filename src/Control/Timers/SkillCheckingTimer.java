@@ -1,6 +1,5 @@
 package Control.Timers;
 
-import Data.Player;
 import Model.Skills.*;
 import Model.*;
 

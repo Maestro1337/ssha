@@ -1,6 +1,6 @@
 package Model.StatusEffects;
 
-import Data.Player;
+import Model.Player;
 import Model.StatusEffect;
 import Model.Skills.Skill;
 

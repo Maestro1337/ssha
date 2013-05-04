@@ -12,7 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Control.GlobalClassSelector;
-import Data.Player;
+import Model.Player;
 import Model.PlayerModel;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrowFlurry;

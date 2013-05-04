@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Data.Player;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.*;
@@ -54,6 +53,9 @@ public class PlayerModel implements ActionListener {
 		player.resetHP();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
+		for(int i=0; i<playerSkills.length; i++){
+			playerSkills[i].resetCooldown();
+		}
 	}
 	
 	public Skill getCurrentActiveSkill(){
