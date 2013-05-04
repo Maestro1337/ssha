@@ -49,6 +49,7 @@ public class ShoppingView extends BasicGameState {
 	
 	String classtype="Hunter";
 	
+	Image skillDescBg;
 
 	Image chosenSkill = null;
 	
@@ -99,7 +100,7 @@ public class ShoppingView extends BasicGameState {
 		shopText = new Image("res/miscImages/shopText.png");
 		skillText = "Bitch please!";
 		
-		
+		skillDescBg = new Image("res/miscImages/skillDescBg.png");
 
 		
 		playButton = new Image("res/buttons/playButtons.png");
@@ -179,8 +180,7 @@ public class ShoppingView extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		g.drawImage(background, 0, 0);
 		g.setColor(Color.black);
-		g.setColor(Color.gray);
-		g.fillRect(460, 460, 360, 200);
+		g.drawImage(skillDescBg, 485, 460);
 		g.setColor(Color.white);
 		g.drawImage(playButton, 1120, 670);
 		//g.drawImage(shopText, 599, 70);
