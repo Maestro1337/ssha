@@ -1,9 +1,9 @@
 package Model.Skills;
 
-import Control.Timers.AnimationTimer;
-import Control.Timers.SkillCheckingTimer;
 import Model.Player;
 import Model.StatusEffect;
+import Model.Timers.AnimationTimer;
+import Model.Timers.SkillCheckingTimer;
 
 import java.sql.Date;
 import java.util.Timer;
@@ -132,7 +132,7 @@ public class Skill{
 			endStateDuration = duration;
 			ESColInterval = interval;
 			
-			animation = new AnimationTimer(duration/(images.length), images, this);
+			animation = new AnimationTimer(duration, images, this);
 		}
 	}
 	public void setStatusEffect(StatusEffect SE){

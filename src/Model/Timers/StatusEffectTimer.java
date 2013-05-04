@@ -1,23 +1,19 @@
-package Control.Timers;
+package Model.Timers;
 
 import Model.Skills.*;
 import Model.*;
 
 public class StatusEffectTimer {
 
-	private int interval;
+	private int interval = 1000;
 	private long startTime = 0;
 	private long elapsedTime = 0;
-	private boolean delay;
 	
-	public StatusEffectTimer(int interval, boolean delay){
-		this.interval = interval;
-		this.delay = delay;
+	public StatusEffectTimer(int delay){
 		
 		resetTimer();
-		//If there is no delay the elapsed time will start at the interval to get the first check instantly
-		if(!delay)
-			elapsedTime = interval;
+		//Setting startTime to startTime minus interval to make the first check instant and then plus delay to add delay if there is any
+		startTime = startTime - interval + delay;
 	}
 	
 	
@@ -27,7 +23,8 @@ public class StatusEffectTimer {
 	}
 	public long checkTimer(){
 		elapsedTime = System.currentTimeMillis() - startTime;
-		if(elapsedTime > interval){
+		
+		if(elapsedTime >= interval){
 			elapsedTime = interval;
 		}
 		return elapsedTime;

@@ -1,4 +1,4 @@
-package Control.Timers;
+package Model.Timers;
 
 import Model.Skills.*;
 import Model.*;

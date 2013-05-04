@@ -1,7 +1,7 @@
 package Model;
 
-import Control.Timers.*;
 import Model.Skills.Skill;
+import Model.Timers.*;
 
 public class StatusEffect {
 	
@@ -24,9 +24,9 @@ public class StatusEffect {
 	private String[] playersGivenTo;
 	
 	private StatusEffectTimer ESIT;
-	private boolean delay;
+	private int delay;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, int moveX, int moveY, int arm, int attackSpeed, int range, int counts, int interval, boolean delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, int moveX, int moveY, int arm, int attackSpeed, int range, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -42,7 +42,7 @@ public class StatusEffect {
 		this.delay = delay;
 		
 		playersGivenTo = new String[3];
-		ESIT = new StatusEffectTimer(interval, delay);
+		ESIT = new StatusEffectTimer(delay);
 		
 	}
 	
@@ -143,9 +143,9 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, (int)(skill.getAttX()), (int)(skill.getAttY()), armEff, atkSpeedEff, rangeEff, maxCounts, interval, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, (int)(skill.getAttX()), (int)(skill.getAttY()), armEff, atkSpeedEff, rangeEff, maxCounts, delay);
 		}else{
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, interval, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, delay);
 		}
 		return newSE;
 	}
