@@ -1,4 +1,4 @@
-package Model;
+package Data;
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import Model.StatusEffect;
 import Model.Skills.*;
 
 public class Player {

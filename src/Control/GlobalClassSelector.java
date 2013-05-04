@@ -1,6 +1,6 @@
 package Control;
 
-import Model.Player;
+import Data.Player;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
 import Model.Classes.ClassWizard;

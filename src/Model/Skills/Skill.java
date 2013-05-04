@@ -2,7 +2,7 @@ package Model.Skills;
 
 import Control.Timers.AnimationTimer;
 import Control.Timers.SkillCheckingTimer;
-import Model.Player;
+import Data.Player;
 import Model.StatusEffect;
 
 import java.sql.Date;

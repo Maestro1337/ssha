@@ -2,7 +2,7 @@ package Control.Timers;
 
 import org.newdawn.slick.Image;
 
-import Model.Player;
+import Data.Player;
 import Model.Skills.Skill;
 
 public class AnimationTimer {

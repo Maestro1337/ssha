@@ -1,6 +1,7 @@
 package Model;
 
 import Control.Timers.*;
+import Data.Player;
 import Model.Skills.Skill;
 
 public class StatusEffect {

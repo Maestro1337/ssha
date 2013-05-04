@@ -1,4 +1,4 @@
-package Control;
+package Model;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Image;
@@ -7,12 +7,13 @@ import org.newdawn.slick.SlickException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Data.Player;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.*;
 import Model.Skills.*;
 
-public class PlayerController implements ActionListener {
+public class PlayerModel implements ActionListener {
 	
 	Player player;
 	//Player enemy;
@@ -23,7 +24,7 @@ public class PlayerController implements ActionListener {
 
 	Double findNaN;
 
-	public PlayerController(Player player, Obstacle[] obstacles){
+	public PlayerModel(Player player, Obstacle[] obstacles){
 		
 		this.player = player;
 		
