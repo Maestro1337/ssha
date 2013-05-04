@@ -18,12 +18,13 @@ public class SkillIceNeedle extends Skill{
 				"Level 4: 45 damage", false);
 		
 		Image attackImage = null;
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		try {
 			attackImage = new Image("res/miscImages/awesomeBlueSquare.png");
 			
 			skillBar[0] = new Image("res/skillIcons/iceneedle.png");
 			skillBar[1] = new Image("res/skillIcons/iceneedle_active.png");
+			skillBar[2] = new Image("res/skillIcons/iceneedle_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
