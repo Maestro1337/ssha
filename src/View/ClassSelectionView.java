@@ -9,8 +9,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 import Control.GlobalClassSelector;
-import Control.PlayerController;
 import Model.Player;
+import Model.PlayerModel;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
 import Model.Obstacles.ObstaclePillar;

@@ -43,8 +43,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	TiledMap map;
 	
 	
-	private PlayerController Control; 
-	private PlayerController enemyControl;
+	private PlayerModel Control; 
+	private PlayerModel enemyControl;
 	Player player;
 	Player enemy;
 	Skill[] playerSkills;
@@ -57,7 +57,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	
 	private int activePlayer;
-	private ArrayList<PlayerController> players = new ArrayList<PlayerController>();
+	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
 	private Obstacle[] obstacles = new Obstacle[100];
 	
 	Image userImage;
@@ -92,7 +92,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
 		
-		Control = new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles);
+		Control = new PlayerModel(GlobalClassSelector.getController().getPlayer(), obstacles);
 		player = GlobalClassSelector.getController().getPlayer();
 		playerSkills = player.getSkillList();
 		
@@ -102,7 +102,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		Control.checkSpawnCollision();
 
-		enemyControl = new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
+		enemyControl = new PlayerModel(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
 		
 
 		enemy = enemyControl.getPlayer();
@@ -114,7 +114,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		
 		players.clear();
-		players.add(new PlayerController(GlobalClassSelector.getController().getPlayer(), obstacles));
+		players.add(new PlayerModel(GlobalClassSelector.getController().getPlayer(), obstacles));
 		players.add(enemyControl);
 //		players.add(new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles));
 		
@@ -183,7 +183,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
-		PlayerController currentActiveController = players.get(activePlayer);
+		PlayerModel currentActiveController = players.get(activePlayer);
 		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
 		
 		//Update current mouse position
@@ -192,14 +192,14 @@ public class MainView extends BasicGameState implements ActionListener {
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		for(int i=0; i<players.size(); i++){
-			PlayerController currentController = players.get(i);
+			PlayerModel currentController = players.get(i);
 			
 			//Checking status effects
 			currentController.checkStatusEffects();
 			
 			//Checking collision from other players
 			for(int j=0; j<players.size(); j++){
-				PlayerController checkController;
+				PlayerModel checkController;
 				//Check to see it is another player
 				if(j != i){
 					checkController = players.get(j);

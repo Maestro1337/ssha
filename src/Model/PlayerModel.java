@@ -1,4 +1,4 @@
-package Control;
+package Model;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Image;
@@ -12,7 +12,7 @@ import Model.Classes.*;
 import Model.Obstacles.*;
 import Model.Skills.*;
 
-public class PlayerController implements ActionListener {
+public class PlayerModel implements ActionListener {
 	
 	Player player;
 	//Player enemy;
@@ -23,7 +23,7 @@ public class PlayerController implements ActionListener {
 
 	Double findNaN;
 
-	public PlayerController(Player player, Obstacle[] obstacles){
+	public PlayerModel(Player player, Obstacle[] obstacles){
 		
 		this.player = player;
 		
@@ -53,6 +53,9 @@ public class PlayerController implements ActionListener {
 		player.resetHP();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
+		for(int i=0; i<playerSkills.length; i++){
+			playerSkills[i].resetCooldown();
+		}
 	}
 	
 	public Skill getCurrentActiveSkill(){

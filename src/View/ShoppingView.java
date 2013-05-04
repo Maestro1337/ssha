@@ -12,8 +12,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Control.GlobalClassSelector;
-import Control.PlayerController;
 import Model.Player;
+import Model.PlayerModel;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
