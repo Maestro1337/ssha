@@ -289,7 +289,7 @@ public class Skill{
 	public void setSkillBarImages(Image[] images){
 		skillBarImages = images;
 	}
-	//returns skillbarpicture depending on if it is the active skill or not
+	//returns skillbarpicture depending on if it is the active skill or not, or in use
 	public Image getSkillBarImage(){
 		if(checkCooldown() == getCoolDown()){
 			if(!isChosen){

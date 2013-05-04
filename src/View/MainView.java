@@ -55,6 +55,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image enemyImage;
 	Skill[] enemySkills;
 	
+	private int enemyPlayer = 1;
 	
 	private int activePlayer;
 	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
@@ -82,7 +83,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		map = new TiledMap("res/tileset/bg.tmx");
-		initRound();
+	//	initRound();
 		
 	}
 	
@@ -92,34 +93,41 @@ public class MainView extends BasicGameState implements ActionListener {
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
 		
-		Control = new PlayerModel(GlobalClassSelector.getController().getPlayer(), obstacles);
-		player = GlobalClassSelector.getController().getPlayer();
-		playerSkills = player.getSkillList();
+		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
 		
+		//TODO Is to be removed later (is still here because of AI methods)-------
+		
+		Control = new PlayerModel(GlobalClassSelector.getController().getPlayers().get(activePlayer), obstacles);
+		player = GlobalClassSelector.getController().getPlayers().get(activePlayer);
+		playerSkills = player.getSkillList();
+
 		Control.ressurectPlayer();
 
 		userImage = player.getImage();
-		
+
 		Control.checkSpawnCollision();
 
-		enemyControl = new PlayerModel(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles);
-		
+		enemyControl = new PlayerModel(GlobalClassSelector.getController().getPlayers().get(enemyPlayer), obstacles);
+
 
 		enemy = enemyControl.getPlayer();
 		enemySkills = enemy.getSkillList();
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
-		
+
 		enemyControl.checkSpawnCollision();
 		
+		//----------------- Up until this point
 		
 		players.clear();
-		players.add(new PlayerModel(GlobalClassSelector.getController().getPlayer(), obstacles));
+		players.add(new PlayerModel(GlobalClassSelector.getController().getPlayers().get(activePlayer), obstacles));
+		
 		players.add(enemyControl);
-//		players.add(new PlayerController(new ClassWarrior("Enemy", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1), obstacles));
 		
-		activePlayer = 0;
-		
+		for(int i=0; i<players.size(); i++){
+			PlayerModel currentController = players.get(i);
+			currentController.ressurectPlayer();
+		}
 	}
 	
 	@Override
@@ -203,9 +211,12 @@ public class MainView extends BasicGameState implements ActionListener {
 			for(int j=0; j<players.size(); j++){
 				PlayerModel checkController;
 				//Check to see it is another player
-				if(j != i){
+				if(j != i && currentController.getPlayer().isAlive()){
 					checkController = players.get(j);
 					currentController.checkCollision(checkController.getPlayer().getSkillList());
+					if(!currentController.getPlayer().isAlive()){
+						checkController.getPlayer().incKills();
+					}
 				}
 			}
 			
@@ -260,10 +271,18 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isMouseButtonDown(0)){
 			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
 		}
-
-		if (!enemy.isAlive()){
-		//	enemy
-			Control.getPlayer().incKills();
+		
+		
+		//Checks if round should be ended
+		int endRound = 0;
+		for(int i=0; i<players.size(); i++){
+			if(!players.get(i).getPlayer().isAlive()){
+				endRound++;
+				
+			}
+		}
+		//Ends round if only 1 player is alive
+		if (endRound >= players.size() - 1){
 			sbg.enterState(4);
 		}
 		

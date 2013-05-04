@@ -109,8 +109,9 @@ public class ShoppingView extends BasicGameState {
 	         throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      chosenSkills = GlobalClassSelector.getController().getPlayer().getSkillList();switch(GlobalClassSelector.getController().getPlayer().getType()){
-
+	      chosenSkills = GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getSkillList();
+	      
+	      switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
 			case "Wizard":
 				//Init wizard offensive, defensive and mobility skillists
 				offSkills[0] = new SkillFireball();

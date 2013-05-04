@@ -48,9 +48,11 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 	
-	public void ressurectPlayer(){
+	public void ressurectPlayer() throws SlickException{
 		player.setAliveState(true);
+		checkSpawnCollision();
 		player.resetHP();
+		player.resetStatusEffects();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
 		for(int i=0; i<playerSkills.length; i++){
