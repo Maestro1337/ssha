@@ -1,4 +1,4 @@
-package Control.Timers;
+package Model.Timers;
 
 import org.newdawn.slick.Image;
 
@@ -15,8 +15,8 @@ public class AnimationTimer {
 	
 	Skill skill;
 	
-	public AnimationTimer(int interval, Image[] images, Skill skill){
-		this.interval = interval;
+	public AnimationTimer(int duration, Image[] images, Skill skill){
+		interval = duration/(images.length);
 		this.images = images;
 		this.skill = skill;
 	}
