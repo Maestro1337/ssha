@@ -95,42 +95,71 @@ public class PlayerModel implements ActionListener {
 	
 	//Determines action depending on what state the skill is in
 	public void isAttacking(Skill attackingSkill){
-		if(attackingSkill != null && player.isAlive())
-				if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
-					//determines which x and y the skill will have in the next render session
-					attackingSkill.addAttX((float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()));
-					attackingSkill.addAttY((float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
+		if(attackingSkill != null && player.isAlive()){
+			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
+				
+				//Calculates the new direction if the skill is guided
+				if(attackingSkill.isGuided()){
+					//TODO make guided just slightly influenced by target and not completely
+				/*	float xDiff = attackingSkill.getGuidedTarget().getX()-attackingSkill.getMouseXPosAtt();
+					float yDiff = attackingSkill.getGuidedTarget().getY()-attackingSkill.getMouseYPosAtt();
+					float genDiff = (float)Math.sqrt(xDiff*xDiff+yDiff*yDiff);
+					xDiff /= genDiff;
+					yDiff /= genDiff;*/
 					
-					attackingSkill.incAttCounter();
+					float xDir = attackingSkill.getGuidedTarget().getX()-attackingSkill.getAttX();
+					float yDir = attackingSkill.getGuidedTarget().getY()-attackingSkill.getAttY();
 					
-					if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
-						if(!attackingSkill.hasEndState()){
-							attackingSkill.setAttackingState(false);
-						}else{
-							attackingSkill.activateEndState();
-							System.out.println("Commencing end state with " + attackingSkill.getName());
-						}
-					}
+			//		float xDir = attackingSkill.getXDirAtt() - xDiff;
+			//		float yDir = attackingSkill.getYDirAtt() - yDiff;
+				
+					float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+
+					/* Comletely guided to hit enemy
+					attackingSkill.setXDirAtt(xDir/genDir);
+					attackingSkill.setYDirAtt(yDir/genDir);
+					*/
 					
-				}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
-					attackingSkill.activateEndState();					
-					System.out.println("Commencing end state with " + attackingSkill.getName());
-				}else if(attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-					attackingSkill.finishEndState();
-					attackingSkill.setAttackingState(false);
-	//				attackingSkill.resetESColTimer();
-					System.out.println("Finishing end state with " + attackingSkill.getName());
+					attackingSkill.setXDirAtt(xDir/genDir);
+					attackingSkill.setYDirAtt(yDir/genDir);
 					
-					
-				}else if(attackingSkill.isEndState()){
-					if(attackingSkill.getAnimationTimer() != null){
-						Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-					
-						if(animationImage != null)
-							attackingSkill.setEndStateImage(animationImage);
-					}
+				//	attackingSkill.addAttX(xDir/genDir);
+				//	attackingSkill.addAttY(yDir/genDir);
 					
 				}
+				//determines which x and y the skill will have in the next render session
+				attackingSkill.addAttX((float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()));
+				attackingSkill.addAttY((float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
+				
+				attackingSkill.incAttCounter();
+				
+				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+					if(!attackingSkill.hasEndState()){
+						attackingSkill.setAttackingState(false);
+					}else{
+						attackingSkill.activateEndState();
+						System.out.println("Commencing end state with " + attackingSkill.getName());
+					}
+				}
+				
+			}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
+				attackingSkill.activateEndState();					
+				System.out.println("Commencing end state with " + attackingSkill.getName());
+			}else if(attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
+				attackingSkill.finishEndState();
+				attackingSkill.setAttackingState(false);
+				System.out.println("Finishing end state with " + attackingSkill.getName());
+				
+				
+			}else if(attackingSkill.isEndState()){
+				if(attackingSkill.getAnimationTimer() != null){
+					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+				
+					if(animationImage != null)
+						attackingSkill.setEndStateImage(animationImage);
+				}
+			}
+		}
 	}
 	
 	public boolean isColliding(Skill skill) throws SlickException{
@@ -159,9 +188,7 @@ public class PlayerModel implements ActionListener {
 					|| skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()+player.getImage().getWidth() ){
 				return true;
 			}
-		}/*else if(skill.getAttX() <= enemyX && skill.getAttX()+skill.getCurrentWidth() >= enemyX+enemyImage.getWidth()){
-			return true;
-		}*/
+		}
 		
 	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
 		
@@ -204,11 +231,11 @@ public class PlayerModel implements ActionListener {
 				
 				currentActiveSkill.resetShot(player);
 				
-				currentActiveSkill.setXDirAtt((currentActiveSkill.getMouseXPosAtt() - currentActiveSkill.getAttX()));
-				currentActiveSkill.setYDirAtt((currentActiveSkill.getMouseYPosAtt() - currentActiveSkill.getAttY()));
-				currentActiveSkill.setGenDirAtt((float)Math.sqrt(currentActiveSkill.getXDirAtt()*currentActiveSkill.getXDirAtt()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getYDirAtt()));
-				currentActiveSkill.setXDirAtt(currentActiveSkill.getXDirAtt()/currentActiveSkill.getGenDirAtt());
-				currentActiveSkill.setYDirAtt(currentActiveSkill.getYDirAtt()/currentActiveSkill.getGenDirAtt());
+				float xDir = x - currentActiveSkill.getAttX();
+				float yDir = y - currentActiveSkill.getAttY();
+				currentActiveSkill.setGenDirAtt((float)Math.sqrt(xDir*xDir+yDir*yDir));
+				currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
+				currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
 				
 				if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
 					currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
@@ -219,6 +246,10 @@ public class PlayerModel implements ActionListener {
 				if(!currentActiveSkill.isProjectile()){
 					currentActiveSkill.setNonProjectileShot();
 				}
+				
+			/*	if(currentActiveSkill.isGuided()){
+					currentActiveSkill.setGuidedTarget(player);
+				}*/
 				
 				System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
 				currentActiveSkill.setAttackingState(true);

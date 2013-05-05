@@ -9,7 +9,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 	
 	public SkillSuperSlowTestSkill(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("SuperSlowTestSkill", 1000, 800, 1.5, 3, 0, 300, 300, 300, 300,"The hunter \n" +
+		super("SuperSlowTestSkill", 1000, 800, 0.5, 3, 0, 300, 300, 300, 300,"The hunter \n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -27,6 +27,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 			e.printStackTrace();
 		}
 		
+		super.setGuided();
 		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
 		super.setSkillBarImages(skillBar);
 	}

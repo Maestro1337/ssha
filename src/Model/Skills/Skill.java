@@ -70,7 +70,6 @@ public class Skill{
 	SkillCheckingTimer ESIT;
 	
 	AnimationTimer animation;
-//	Image[] animationImages;
 	
 	private boolean isProjectile = true;
 
@@ -79,6 +78,9 @@ public class Skill{
 	
 	private boolean isPiercing = false;
 	private int piercingDamage;
+	
+	private boolean isGuided = false;
+	private Player guidedTarget;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
 			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
@@ -421,6 +423,18 @@ public class Skill{
 	}
 	public boolean isProjectile(){
 		return isProjectile;
+	}
+	public boolean isGuided(){
+		return isGuided;
+	}
+	public void setGuided(){
+		isGuided = true;
+	}
+	public void setGuidedTarget(Player player){
+		guidedTarget = player;
+	}
+	public Player getGuidedTarget(){
+		return guidedTarget;
 	}
 	
 	//Methods for StatusEffect Control

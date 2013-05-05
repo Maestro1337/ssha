@@ -270,6 +270,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0)){
 			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
+			
+			//Setting target to guide if skill permits it
+			if(currentActiveController.getCurrentActiveSkill().isGuided()){
+				currentActiveController.getCurrentActiveSkill().setGuidedTarget(GlobalClassSelector.getController().getPlayers().get(enemyPlayer));
+			}
 		}
 		
 		
