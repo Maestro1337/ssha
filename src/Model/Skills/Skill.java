@@ -20,6 +20,12 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
+	private int damageLvl1;
+	private int damageLvl2;
+	private int damageLvl3;
+	private int damageLvl4;
+	private int lvlOfSkill;
+	
 	private String describe;
 	private boolean affectSelf;
 	
@@ -74,13 +80,16 @@ public class Skill{
 	private boolean isPiercing = false;
 	private int piercingDamage;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe, boolean affectSelf){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
+			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
 		this.name = name;
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
 		this.cost = cost;
-		this.damage = damage;
+		damage = this.damageLvl1 = damageLvl1;
+		lvlOfSkill = 1;
+		
 		attackRange = range;
 		if(speed < 100){
 			attSpeed = 3*speed;
@@ -172,6 +181,34 @@ public class Skill{
 	}
 	public int getDamage(){
 		return damage;
+	}
+	public int getDamageLvl1(){
+		return damageLvl1;
+	}
+	public int getDamageLvl2(){
+		return damageLvl2;
+	}
+	public int getDamageLvl3(){
+		return damageLvl3;
+	}
+	public int getDamageLvl4(){
+		return damageLvl4;
+	}
+	public void upgradeSkill(){
+		if(lvlOfSkill <= 4){
+			lvlOfSkill++;
+		}
+		switch(damage){
+		case 2:
+			damage = damageLvl2;
+			break;
+		case 3:
+			damage = damageLvl3;
+			break;
+		case 4:
+			damage = damageLvl4;
+			break;
+		}
 	}
 	public String getDescription(){
 		return describe;

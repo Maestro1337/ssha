@@ -7,8 +7,8 @@ import Model.Skills.Skill;
 
 public class SkillArrowFlurry extends Skill {
 	public SkillArrowFlurry(){
-		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Arrow flurry", 11000, 400, 0.4, 3, 0, 150,"The hunter \n" +
+		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
+		super("Arrow flurry", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"The hunter \n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +

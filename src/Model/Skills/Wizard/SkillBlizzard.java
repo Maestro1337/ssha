@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillBlizzard extends Skill {
 	public SkillBlizzard(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Blizzard", 11000, 400, 0.4, 3, 0, 150,"A rain of icicles which \nslows every enemy in the \ntargeted area.\n" +
+				super("Blizzard", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"A rain of icicles which \nslows every enemy in the \ntargeted area.\n" +
 						"\nLevel 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
