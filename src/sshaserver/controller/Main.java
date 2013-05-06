@@ -16,6 +16,8 @@ public class Main {
 		t = new Thread(CS);
 		t.start();
 		
+		//System.out.println(CS.getLocalIP());
+		//System.out.println(CS.getPublicIP());
 		//new SocketFinder(constants.port, CS);
 		
 	}

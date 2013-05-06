@@ -10,7 +10,6 @@ public class MultiSocketServer implements Runnable {
 	//private String TimeStamp;
 	private String returnCode;
 	private int ID;
-	private enum mode {LOBBY, ARENA, SHOP};
 	
 	private boolean isClosing;
 	public String playerName;
@@ -111,7 +110,7 @@ public class MultiSocketServer implements Runnable {
 	}
 	
 	public synchronized void setPlayerStats(String stats) {
-		this.otherStatsString = stats + (char)13;
+		this.otherStatsString = stats + "/" + (char)13;
 	}
 	
 	public void closeConnection() {

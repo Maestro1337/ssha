@@ -10,7 +10,7 @@ public class SocketFinder implements Runnable {
 
 	//private static MultiSocketServer[] theSockets = new MultiSocketServer[constants.nbrOfClients];
 	//private static Thread[] theThreads = new Thread[constants.nbrOfClients];
-	int port;
+	private int port;
 	//int count = 0;
 	
 	private ClientSupervisor CS;
@@ -23,6 +23,7 @@ public class SocketFinder implements Runnable {
 		this.CS = CS;
 		this.SV = SV;
 		
+		
 		startSearching();
 	}
 
@@ -31,13 +32,14 @@ public class SocketFinder implements Runnable {
 		//System.out.println("1");
 		while(!isActive) {
 			try {
+				System.out.println("lol");
 				Thread.sleep(10);
 			} catch (InterruptedException e) {}
 		}
 		
 		try {
 			socket1 = new ServerSocket(port);
-			SV.addToActivityField("Server started");
+			SV.addToActivityField("Server started on port " + port);
 			
 			while(isActive) {
 				//System.out.println("2");
@@ -72,4 +74,8 @@ public class SocketFinder implements Runnable {
 		isActive = true;
 	}
 	
+	public void changePort(int port) {
+		this.port = port;
+	}
+
 }

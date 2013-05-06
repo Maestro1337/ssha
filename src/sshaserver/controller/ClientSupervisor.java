@@ -2,7 +2,13 @@ package sshaserver.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.URL;
+import java.util.Enumeration;
 
 import sshaserver.view.ServerView;
 
@@ -20,8 +26,15 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	
 	private String[] clientsStats = new String[constants.nbrOfClients];
 	
+	private boolean isRunning;
+	
 	public ClientSupervisor(ServerView SV) {
 		this.SV = SV;
+		
+		isRunning = false;
+		
+		SV.setPrivIPLabel(getLocalIP());
+		SV.setPubIPLabel(getPublicIP());
 		
 		SF = new SocketFinder(constants.port, this, SV);
 		sft = new Thread(SF);
@@ -134,29 +147,147 @@ public class ClientSupervisor implements Runnable, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if(!SV.isRunning()) {
-			if(sft.getState() == Thread.State.NEW) {
-				sft.start();
+		if(e.getActionCommand().equals("connect")) {
+			if(!SV.isRunning()) {
+				startServer();
 			} else {
-				SF.startSearching();
-				sft = null;
-				sft = new Thread(SF);
-				sft.start();
+				stopServer();
 			}
-		
-		} else {
-			SF.stopSearching();
-			for(int i = 0; i < constants.nbrOfClients; i++) {
-				if(theSockets[i] != null) {
-					theSockets[i].closeConnection();
+			SV.changeButtonText();
+		} else if(e.getActionCommand().equals("save")) {
+			
+		} else if(e.getActionCommand().equals("clear")) {
+			SV.clearActivityField();
+		} else if(e.getActionCommand().equals("change")) {
+			String tempPort = SV.getPortField();
+			int port = -1;
+			String whatChange;
+			
+			try {
+				port = Integer.parseInt(tempPort);
+			}
+			catch(NumberFormatException nfe) {
+				tempPort = "" + constants.port;
+			}
+				
+			if(port < 1024 || port > 9999 || tempPort.length() > 4) {
+				whatChange = SV.showDialogBox("error");
+				
+				
+				SV.setPortField("" + constants.port);
+				tempPort = "" + constants.port;
+			} else {
+				
+				// Have to have a check if the server is running
+				if(isRunning) {
+					
+					whatChange = SV.showDialogBox("change");
+					
+					if(whatChange.equals("Restart now")) {
+						restartServer(Integer.parseInt(tempPort));
+					}
+				} else {
+					SF.changePort(Integer.parseInt(tempPort));
+					SV.addToActivityField("Port changed to " + tempPort);
+				}
+				
+			}
+			
+		} else if(e.getActionCommand().equals("default")) {
+			SV.setPortField("" + constants.port);
+		}
+	}
+	
+	public String getLocalIP() {
+		String tempIP = "";
+		try {
+			Enumeration e = NetworkInterface.getNetworkInterfaces();
+			while(e.hasMoreElements()) {
+				NetworkInterface ni = (NetworkInterface) e.nextElement();
+				Enumeration e2 = ni.getInetAddresses();
+				while(e2.hasMoreElements()) {
+					InetAddress ip = (InetAddress) e2.nextElement();
+					// Netgear-routers (and others)
+					if(ip.toString().length() > 9) {
+						if(ip.toString().substring(0, 9).equals("/192.168.")) {
+							tempIP = ip.toString();
+						}
+					}
+					// Apple-routers
+					if(ip.toString().substring(0, 6).equals("/10.0.")) {
+						tempIP = ip.toString();
+					}
+					
 				}
 			}
-			//System.out.println(sft.isInterrupted());
+			
 		}
-
-		SV.changeButtonText();
+		catch (Exception e) {
+			tempIP = "Not available";
+			System.out.println("No network avalible.");
+			e.printStackTrace();
+		}
+		if(!tempIP.equals("")) {
+			if(tempIP.substring(0, 1).equals("/")) {
+				tempIP = tempIP.substring(1, tempIP.length());
+			}
+		} else {
+			tempIP = "Not available";
+		}
+		return tempIP;
+	}
+	
+	public String getPublicIP() {
+		String tempIP = "";
+		try {
+			URL whatismyip = new URL("http://checkip.amazonaws.com");
+			BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+			tempIP = in.readLine();
+		}
+		catch (Exception e) {
+			System.out.println("Not connected to internet.");
+			tempIP = "Not available";
+		}
+		return tempIP;
+	}
+	
+	public void startServer() {
+		if(sft.getState() == Thread.State.NEW) {
+			sft.start();
+		} else {
+			SF.startSearching();
+			sft = null;
+			sft = new Thread(SF);
+			sft.start();
+		}
+		isRunning = true;
+	}
+	
+	public void stopServer() {
+		SF.stopSearching();
+		for(int i = 0; i < constants.nbrOfClients; i++) {
+			if(theSockets[i] != null) {
+				theSockets[i].closeConnection();
+			}
+		}
 		
+		isRunning = false;
+	}
+	
+	public void restartServer(int newPort) {
+		isRunning = false;
+		stopServer();
+		SF.changePort(newPort);
+		SV.changeButtonText();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		startServer();
+		SV.changeButtonText();
+		isRunning = true;
 	}
 
 }
