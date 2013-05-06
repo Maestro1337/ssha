@@ -9,7 +9,7 @@ public class SkillAbsorb extends Skill{
 	public SkillAbsorb(){
 	//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-			super("Absorb", 11000, 400, 0.4, 3, 0, 150,"The wizards' spells drains the \n lifeforce off his enemies when they hit./n The forces are then used as a shield against incoming damage." +
+			super("Absorb", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"The wizards' spells drains the \nlifeforce off his enemies when they hit.\nThe forces are then used as a shield against incoming damage.\n" +
 					"Level 1: 10 % of damage done up to a maximum shield that absorbs 100 damage.\n" +
 					"Level 2: 15 % of damage done up to a maximum shield that absorbs 150 damage.\n" +
 					"Level 3: 20 % of damage done up to a maximum shield that absorbs 200 damage.\n" +
@@ -18,7 +18,7 @@ public class SkillAbsorb extends Skill{
 			
 			Image attackImage = null;
 			Image[] animation = new Image[7];
-			Image[] skillBar = new Image[2];
+			Image[] skillBar = new Image[3];
 			
 			try {
 				attackImage = new Image("res/animations/explode1.png");
@@ -31,8 +31,9 @@ public class SkillAbsorb extends Skill{
 				animation[5] = new Image("res/animations/explode6.png");
 				animation[6] = new Image("res/animations/explode7.png");
 				
-				skillBar[0] = new Image("res/skillIcons/Absorb2.jpg");
-				skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+				skillBar[0] = new Image("res/skillIcons/absorb.png");
+				skillBar[1] = new Image("res/skillIcons/absorb_active.png");
+				skillBar[2] = new Image("res/skillIcons/absorb_disabled.png");
 			} catch (SlickException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

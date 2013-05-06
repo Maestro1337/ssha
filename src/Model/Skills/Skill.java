@@ -1,9 +1,9 @@
 package Model.Skills;
 
-import Control.Timers.AnimationTimer;
-import Control.Timers.SkillCheckingTimer;
 import Model.Player;
 import Model.StatusEffect;
+import Model.Timers.AnimationTimer;
+import Model.Timers.SkillCheckingTimer;
 
 import java.sql.Date;
 import java.util.Timer;
@@ -20,6 +20,12 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
+	private int damageLvl1;
+	private int damageLvl2;
+	private int damageLvl3;
+	private int damageLvl4;
+	private int lvlOfSkill;
+	
 	private String describe;
 	private boolean affectSelf;
 	
@@ -64,7 +70,6 @@ public class Skill{
 	SkillCheckingTimer ESIT;
 	
 	AnimationTimer animation;
-//	Image[] animationImages;
 	
 	private boolean isProjectile = true;
 
@@ -74,13 +79,19 @@ public class Skill{
 	private boolean isPiercing = false;
 	private int piercingDamage;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe, boolean affectSelf){
+	private boolean isGuided = false;
+	private Player guidedTarget;
+	
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
+			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
 		this.name = name;
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
 		this.cost = cost;
-		this.damage = damage;
+		damage = this.damageLvl1 = damageLvl1;
+		lvlOfSkill = 1;
+		
 		attackRange = range;
 		if(speed < 100){
 			attSpeed = 3*speed;
@@ -132,7 +143,7 @@ public class Skill{
 			endStateDuration = duration;
 			ESColInterval = interval;
 			
-			animation = new AnimationTimer(duration/(images.length), images, this);
+			animation = new AnimationTimer(duration, images, this);
 		}
 	}
 	public void setStatusEffect(StatusEffect SE){
@@ -173,6 +184,34 @@ public class Skill{
 	public int getDamage(){
 		return damage;
 	}
+	public int getDamageLvl1(){
+		return damageLvl1;
+	}
+	public int getDamageLvl2(){
+		return damageLvl2;
+	}
+	public int getDamageLvl3(){
+		return damageLvl3;
+	}
+	public int getDamageLvl4(){
+		return damageLvl4;
+	}
+	public void upgradeSkill(){
+		if(lvlOfSkill <= 4){
+			lvlOfSkill++;
+		}
+		switch(damage){
+		case 2:
+			damage = damageLvl2;
+			break;
+		case 3:
+			damage = damageLvl3;
+			break;
+		case 4:
+			damage = damageLvl4;
+			break;
+		}
+	}
 	public String getDescription(){
 		return describe;
 	}
@@ -207,6 +246,10 @@ public class Skill{
 		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2-currentWidth/2;
 		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
 	}
+	public void resetCooldown(){
+		CDstartTime = System.currentTimeMillis() - cooldown;
+	}
+	
 	public void setNonProjectileShot(){
 		addAttX((float)(getXDirAtt()*getGenDirAtt())-endStateImgWidth/2);
 		addAttY((float)(getYDirAtt()*getGenDirAtt())-endStateImgHeight/2);
@@ -285,12 +328,16 @@ public class Skill{
 	public void setSkillBarImages(Image[] images){
 		skillBarImages = images;
 	}
-	//returns skillbarpicture depending on if it is the active skill or not
+	//returns skillbarpicture depending on if it is the active skill or not, or in use
 	public Image getSkillBarImage(){
-		if(!isChosen){
-			return skillBarImages[0];
+		if(checkCooldown() == getCoolDown()){
+			if(!isChosen){
+				return skillBarImages[0];
+			}else{
+				return skillBarImages[1];
+			}
 		}else{
-			return skillBarImages[1];
+			return skillBarImages[2];
 		}
 	}
 	
@@ -307,6 +354,7 @@ public class Skill{
     }
     
     public long checkCooldown(){
+    	//TODO make own class for this and remake to make it easier to understand
     	CDelapsedTime = System.currentTimeMillis() - CDstartTime;
     	if(CDelapsedTime >= cooldown){
     		CDelapsedTime = 0;
@@ -321,13 +369,8 @@ public class Skill{
 		endStateElapsedTime = 0;
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-	//	attImgX -= endStateImgWidth/2;
-	//	attImgY -= endStateImgHeight/2;
 		isEndState = true;
-		
-	//	if(animation != null){
     	animation.resetCounterAndTimer();
-    //	}
 	}
 	public void activatePreEndState(){
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
@@ -381,11 +424,21 @@ public class Skill{
 	public boolean isProjectile(){
 		return isProjectile;
 	}
+	public boolean isGuided(){
+		return isGuided;
+	}
+	public void setGuided(){
+		isGuided = true;
+	}
+	public void setGuidedTarget(Player player){
+		guidedTarget = player;
+	}
+	public Player getGuidedTarget(){
+		return guidedTarget;
+	}
 	
 	//Methods for StatusEffect Control
 	public StatusEffect getStatusEffect(){
 		return spellEffect;
 	}
-	
-	
 }

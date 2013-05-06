@@ -7,13 +7,6 @@ import Model.Player;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillSuperSlowTestSkill;
 import Model.Skills.Warrior.SkillSlash;
-import Model.Skills.Wizard.SkillAbsorb;
-import Model.Skills.Wizard.SkillFireball;
-import Model.Skills.Wizard.SkillFirestorm;
-import Model.Skills.Wizard.SkillFlamewave;
-import Model.Skills.Wizard.SkillIceNeedle;
-import Model.Skills.Wizard.SkillIceblock;
-import Model.Skills.Wizard.SkillIroncloak;
 import Model.Skills.Wizard.*;
 
 public class ClassWizard extends Player {

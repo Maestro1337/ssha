@@ -9,7 +9,7 @@ public class SkillFirestorm extends Skill{
 
 	public SkillFirestorm(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 5000, 350, 100, 8, 0, 50,"A dangerous explosion that \nburns an area for a limited \ntime." +
+		super("Firestorm", 5000, 350, 100, 8, 0, 50, 300, 300, 300,"A dangerous explosion that \nburns an area for a limited \ntime." +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -17,15 +17,16 @@ public class SkillFirestorm extends Skill{
 		
 		Image attackImage = null;
 		Image[] animation = new Image[1];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		try {
 			attackImage = new Image("res/miscImages/awesomeMiniRedSquare.png");
 			
-			animation[0] = new Image("res/skillIcons/Firestorm.png");
+			animation[0] = new Image("res/skillIcons/firestorm.png");
 			
-			skillBar[0] = new Image("res/skillIcons/Firestorm.png");
-			skillBar[1] = new Image("res/skillIcons/Firestorm_active.png");
+			skillBar[0] = new Image("res/skillIcons/firestorm.png");
+			skillBar[1] = new Image("res/skillIcons/firestorm_active.png");
+			skillBar[2] = new Image("res/skillIcons/firestorm_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

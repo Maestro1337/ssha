@@ -1,5 +1,7 @@
 package Control;
 
+import java.util.ArrayList;
+
 import Model.Player;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
@@ -8,8 +10,9 @@ import Model.Classes.ClassWizard;
 public class GlobalClassSelector {
 
 	private static GlobalClassSelector myControl = null;
-	private Player player = null;
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private boolean changedPlayer = false;
+	private int activePlayer = 0;
 
 	public static GlobalClassSelector getController() {
 	if (myControl == null) {
@@ -21,23 +24,20 @@ public class GlobalClassSelector {
 
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
-		player = new ClassHunter("Tester", 120, 100);
+		players.add(new ClassHunter("Tester", 120, 100));
 	}
 	
 	public void addPlayer(Player player){
-		this.player = player;
-		changedPlayer = true;
+		players.add(player);
+	}
+	public void resetPlayers(){
+		players = new ArrayList<Player>();
 	}
 	
-	public boolean checkPlayerAddition(){
-		if(changedPlayer){
-			changedPlayer = false;
-			return true;
-		}
-		return false;
+	public ArrayList<Player> getPlayers(){
+		return players;
 	}
-	
-	public Player getPlayer(){
-		return player;
+	public int getActivePlayerIndex(){
+		return activePlayer;
 	}
 }

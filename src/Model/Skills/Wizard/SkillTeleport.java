@@ -10,11 +10,11 @@ public class SkillTeleport extends Skill {
 
 	public SkillTeleport() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Teleport", 20000, 500, 100, 3, 0, 0, "TAFLEPoRT!", true);
+		super("Teleport", 20000, 500, 100, 3, 0, 0, 0, 0, 0, "TAFLEPoRT!", true);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		super.setStatusEffect(new StatusEffectTeleport(null, this, 0, 0));
 		
@@ -29,8 +29,9 @@ public class SkillTeleport extends Skill {
 			animation[5] = new Image("res/animations/explode6.png");
 			animation[6] = new Image("res/animations/explode7.png");
 			
-			skillBar[0] = new Image("res/skillIcons/Teleport.jpg");
-			skillBar[1] = new Image("res/skillIcons/Teleport.jpg");
+			skillBar[0] = new Image("res/skillIcons/teleport.png");
+			skillBar[1] = new Image("res/skillIcons/teleport_active.png");
+			skillBar[2] = new Image("res/skillIcons/teleport_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -254,12 +254,13 @@ public class Player {
 	public ArrayList<StatusEffect> getStatusEffects(){
 		return statusEffectList;
 	}
-	
-	//Ful lösning där vid varje koll kollar om personen har den status effekten på sig.
 	public void addStatusEffect(StatusEffect SE){
 		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
 		statusEffectList.remove(SE);
+	}
+	public void resetStatusEffects(){
+		statusEffectList = new ArrayList<StatusEffect>();
 	}
 }

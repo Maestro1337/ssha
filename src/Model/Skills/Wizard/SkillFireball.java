@@ -14,7 +14,7 @@ String description;
 
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 0, 150,"A fireball that burns the \nenemy to oblivion.\n" +
+		super("Fireball", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"A fireball that burns the \nenemy to oblivion.\n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -22,7 +22,7 @@ String description;
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		super.setStatusEffect(new StatusEffectBurning(null, this));
 		
@@ -39,6 +39,7 @@ String description;
 			
 			skillBar[0] = new Image("res/skillIcons/fireball.png");
 			skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+			skillBar[2] = new Image("res/skillIcons/fireball_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

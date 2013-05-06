@@ -12,8 +12,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Control.GlobalClassSelector;
-import Control.PlayerController;
 import Model.Player;
+import Model.PlayerModel;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
@@ -49,6 +49,7 @@ public class ShoppingView extends BasicGameState {
 	
 	String classtype="Hunter";
 	
+	Image skillDescBg;
 
 	Image chosenSkill = null;
 	
@@ -99,7 +100,7 @@ public class ShoppingView extends BasicGameState {
 		shopText = new Image("res/miscImages/shopText.png");
 		skillText = "Bitch please!";
 		
-		
+		skillDescBg = new Image("res/miscImages/skillDescBg.png");
 
 		
 		playButton = new Image("res/buttons/playButtons.png");
@@ -109,8 +110,9 @@ public class ShoppingView extends BasicGameState {
 	         throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      chosenSkills = GlobalClassSelector.getController().getPlayer().getSkillList();switch(GlobalClassSelector.getController().getPlayer().getType()){
-
+	      chosenSkills = GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getSkillList();
+	      
+	      switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
 			case "Wizard":
 				//Init wizard offensive, defensive and mobility skillists
 				offSkills[0] = new SkillFireball();
@@ -170,7 +172,7 @@ public class ShoppingView extends BasicGameState {
 			secondMobSkill = mobSkills[1].getSkillBarImage();
 			thirdMobSkill = mobSkills[2].getSkillBarImage();
 			//Basic
-			wandAttackSkill = new Image("res/skillIcons/WandAttack.jpg");
+			wandAttackSkill = new Image("res/skillIcons/wandattack.png");
 			wandattackDesc = "Wand attack";
 
 
@@ -179,12 +181,11 @@ public class ShoppingView extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		g.drawImage(background, 0, 0);
 		g.setColor(Color.black);
-		g.setColor(Color.gray);
-		g.fillRect(460, 460, 360, 200);
+		g.drawImage(skillDescBg, 485, 460);
 		g.setColor(Color.white);
 		g.drawImage(playButton, 1120, 670);
 		//g.drawImage(shopText, 599, 70);
-		//g.drawString(skillText, 540, 475);
+		g.drawString(skillText, 540, 475);
 		if(chosenSkill != null)
 			g.drawImage(chosenSkill, 470, 470);
 

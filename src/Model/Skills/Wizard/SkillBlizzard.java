@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillBlizzard extends Skill {
 	public SkillBlizzard(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Blizzard", 11000, 400, 0.4, 3, 0, 150,"A rain of icicles which \nslows every enemy in the \ntargeted area.\n" +
+				super("Blizzard", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"A rain of icicles which \nslows every enemy in the \ntargeted area.\n" +
 						"\nLevel 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -16,7 +16,7 @@ public class SkillBlizzard extends Skill {
 				
 				Image attackImage = null;
 				Image[] animation = new Image[7];
-				Image[] skillBar = new Image[2];
+				Image[] skillBar = new Image[3];
 				
 				try {
 					attackImage = new Image("res/animations/explode1.png");
@@ -29,8 +29,9 @@ public class SkillBlizzard extends Skill {
 					animation[5] = new Image("res/animations/explode6.png");
 					animation[6] = new Image("res/animations/explode7.png");
 					
-					skillBar[0] = new Image("res/skillIcons/Blizzard.jpg");
-					skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+					skillBar[0] = new Image("res/skillIcons/blizzard.png");
+					skillBar[1] = new Image("res/skillIcons/blizzard_active.png");
+					skillBar[2] = new Image("res/skillIcons/blizzard_disabled.png");
 				} catch (SlickException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -9,7 +9,7 @@ public class SkillFlamewave extends Skill{
 
 	public SkillFlamewave() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flamewave", 11000, 400, 0.4, 3, 0, 150,"A majestic shot of flames that \ntakes the form of a phoenix \nwhile scorching your enemies.\n" +
+		super("Flamewave", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"A majestic shot of flames that \ntakes the form of a phoenix \nwhile scorching your enemies.\n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -17,7 +17,7 @@ public class SkillFlamewave extends Skill{
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
-		Image[] skillBar = new Image[2];
+		Image[] skillBar = new Image[3];
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
@@ -30,8 +30,9 @@ public class SkillFlamewave extends Skill{
 			animation[5] = new Image("res/animations/explode6.png");
 			animation[6] = new Image("res/animations/explode7.png");
 			
-			skillBar[0] = new Image("res/skillIcons/FlameWave.jpg");
-			skillBar[1] = new Image("res/skillIcons/fireball_active.png");
+			skillBar[0] = new Image("res/skillIcons/flamewave.png");
+			skillBar[1] = new Image("res/skillIcons/flamewave_active.png");
+			skillBar[2] = new Image("res/skillIcons/flamewave_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
