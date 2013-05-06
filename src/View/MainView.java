@@ -69,6 +69,12 @@ public class MainView extends BasicGameState implements ActionListener {
 	String test;
 	TiledMap map;
 	
+	String endRoundText = "";
+	String winningPlayer= "<Fix code to get> \n<the winning> \n<players name>";
+	Image nextRoundButton;
+	Image nextRoundBg;
+	boolean roundOver = false;
+	
 	
 	private PlayerModel Control; 
 	private PlayerModel enemyControl;
@@ -78,9 +84,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	Skill activeSkill;
 	
 	Image playerPortrait;
-	Image barImg;
-	Image hpBackImg;
-	Image hpForeImg;
 	
 	Image enemyImage;
 	Skill[] enemySkills;
@@ -168,9 +171,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			PlayerModel currentController = players.get(i);
 			currentController.ressurectPlayer();
 		}
-		barImg = new Image("res/miscImages/bar_hp.png");
-		hpBackImg = new Image("res/miscImages/gray_hp.png");
-		hpForeImg = new Image("res/miscImages/red_hp.png");
+		nextRoundButton = new Image("res/buttons/Ready.png");
+		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
 	}
 	
 	@Override
@@ -233,6 +235,11 @@ public class MainView extends BasicGameState implements ActionListener {
 					}
 				}
 			}		
+		}
+		if(roundOver){
+			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
+			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
+			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
 		}
 	}
 	
@@ -335,7 +342,17 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		//Ends round if only 1 player is alive
 		if (endRound >= players.size() - 1){
-			sbg.enterState(4);
+			roundOver = true;
+			endRoundText = winningPlayer + " " + "wins!";
+			if((640 - nextRoundButton.getWidth()/2<xPos && xPos<760 - nextRoundButton.getWidth()/2) && (200 + nextRoundBg.getHeight()/2<yPos && yPos<245 + nextRoundBg.getHeight()/2)){
+				nextRoundButton = new Image("res/buttons/ReadyOver.png");
+				if(input.isMousePressed(0)){
+					roundOver = false;
+					sbg.enterState(4);
+				}
+			}else{
+				nextRoundButton = new Image("res/buttons/Ready.png");
+			}
 		}
 		
 		
@@ -368,7 +385,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	long time = 0;
 	int dodgedirX;
 	int dodgedirY;
-	
 	
 	public void AI(){
 		Random generator = new Random();
