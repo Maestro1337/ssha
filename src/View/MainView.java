@@ -31,6 +31,33 @@ import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
 import Model.Obstacles.Obstacle;
 import Model.Skills.*;
+import Model.Skills.Hunter.SkillArrowFlurry;
+import Model.Skills.Hunter.SkillBarrelRoll;
+import Model.Skills.Hunter.SkillCripplingShot;
+import Model.Skills.Hunter.SkillFlamingArrow;
+import Model.Skills.Hunter.SkillGuidedArrow;
+import Model.Skills.Hunter.SkillLifestealingArrows;
+import Model.Skills.Hunter.SkillPassiveDodge;
+import Model.Skills.Hunter.SkillSprint;
+import Model.Skills.Hunter.SkillStealth;
+import Model.Skills.Warrior.SkillAdrenaline;
+import Model.Skills.Warrior.SkillFirstAid;
+import Model.Skills.Warrior.SkillGrapplingHook;
+import Model.Skills.Warrior.SkillImprovedArmor;
+import Model.Skills.Warrior.SkillIncreasedMovement;
+import Model.Skills.Warrior.SkillLeapAttack;
+import Model.Skills.Warrior.SkillShieldStance;
+import Model.Skills.Warrior.SkillThrowingAxe;
+import Model.Skills.Warrior.SkillWarstomp;
+import Model.Skills.Wizard.SkillAbsorb;
+import Model.Skills.Wizard.SkillBlizzard;
+import Model.Skills.Wizard.SkillFireball;
+import Model.Skills.Wizard.SkillFirestorm;
+import Model.Skills.Wizard.SkillFlamewave;
+import Model.Skills.Wizard.SkillIceblock;
+import Model.Skills.Wizard.SkillIroncloak;
+import Model.Skills.Wizard.SkillTeleport;
+import Model.Skills.Wizard.SkillUnstablemagic;
 
 import Control.*;
 
@@ -50,7 +77,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	Skill[] playerSkills;
 	Skill activeSkill;
 	
-	
+	Image playerPortrait;
+	Image barImg;
+	Image hpBackImg;
+	Image hpForeImg;
 	
 	Image enemyImage;
 	Skill[] enemySkills;
@@ -92,7 +122,17 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
-		
+		switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
+		case "Wizard":
+			playerPortrait = new Image("res/classImages/mage_portrait.png");
+		break;
+		case "Hunter":
+			playerPortrait = new Image("res/classImages/hunter_portrait.png");
+		break;
+		case "Warrior":
+			playerPortrait = new Image("res/classImages/warrior_portrait.png");
+		break;
+      	}
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
 		
 		//TODO Is to be removed later (is still here because of AI methods)-------
@@ -128,6 +168,9 @@ public class MainView extends BasicGameState implements ActionListener {
 			PlayerModel currentController = players.get(i);
 			currentController.ressurectPlayer();
 		}
+		barImg = new Image("res/miscImages/bar_hp.png");
+		hpBackImg = new Image("res/miscImages/gray_hp.png");
+		hpForeImg = new Image("res/miscImages/red_hp.png");
 	}
 	
 	@Override
@@ -145,31 +188,35 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the coodinates of the mouse
 		g.drawString(mouse, 900, 10);
 		
+		
 		//Draw Obstacles
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
 				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
 			}
 		}
+
+		g.drawImage(playerPortrait, 20, 555);
 		//Draw the actionbar
 		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
 			g.setColor(Color.white);
-			g.fillRect(10 + j*64, 640, 64, 64);
+			g.fillRect(140 + j*64, 640, 64, 64);
 			g.setColor(Color.black);
 			
 			if(activePlayerSkills[j] != null){
 				
 			//	if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
-					g.drawImage(activePlayerSkills[j].getSkillBarImage(),10 + j*64, 640);
+					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
 			//	}
-				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + j*64, 610);
+				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
 				
 			}
 		}
 		
 		
 		//Draw player stats and image
+		
 		for(int i=0; i<players.size(); i++){
 			Player currentPlayer = players.get(i).getPlayer();
 			Skill[] currentSkillset = currentPlayer.getSkillList();
