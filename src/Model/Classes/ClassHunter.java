@@ -24,7 +24,7 @@ public class ClassHunter extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillSuperSlowTestSkill();
+		chosenSkills[0] = new SkillArrowFlurry();
 		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillSuperSlowTestSkill();
 		chosenSkills[3] = new SkillSuperSlowTestSkill();

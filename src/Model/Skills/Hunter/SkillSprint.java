@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import Model.Skills.Skill;
 
 public class SkillSprint extends Skill {
-	private static final boolean ekmanIsTheKing = true;
 	public SkillSprint(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 		super("Sprint", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"The hunter \n" +

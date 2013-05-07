@@ -231,24 +231,6 @@ public class PlayerModel implements ActionListener {
 		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
 			player.setRunningState(true);
 		}
-		
-
-/*	
-		
-		
-		
-		Double findNaN = (double)player.getGenDirMove();
-		if(!findNaN.isNaN()){
-			player.setGenDirMove(genDir);
-			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
-			
-			player.resetMoveCounter();
-			
-		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
-			player.setRunningState(true);
-		}
-		*/
 	}
 	
 	public void attack(int x, int y){

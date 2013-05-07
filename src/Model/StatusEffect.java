@@ -16,6 +16,7 @@ public class StatusEffect {
 	private int armEff;
 	private int atkSpeedEff;
 	private int rangeEff;
+	private int moveSpeedEff;
 	private int counts;
 	private int maxCounts;
 	private int interval;
@@ -26,7 +27,7 @@ public class StatusEffect {
 	private StatusEffectTimer ESIT;
 	private int delay;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, int arm, int attackSpeed, int range, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, int moveSpeed, int arm, int attackSpeed, int range, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -37,6 +38,7 @@ public class StatusEffect {
 		armEff = arm;
 		atkSpeedEff = attackSpeed;
 		rangeEff = range;
+		moveSpeedEff = moveSpeed;
 		this.counts = maxCounts = counts;
 		this.interval = interval;
 		this.delay = delay;
@@ -143,9 +145,9 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getAttY()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, armEff, atkSpeedEff, rangeEff, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getAttY()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, maxCounts, delay);
 		}else{
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, maxCounts, delay);
 		}
 		return newSE;
 	}

@@ -455,6 +455,7 @@ public class Skill{
 	public boolean isProjectile(){
 		return isProjectile;
 	}
+	
 	public boolean isGuided(){
 		return isGuided;
 	}
