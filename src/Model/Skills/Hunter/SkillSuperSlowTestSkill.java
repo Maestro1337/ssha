@@ -18,7 +18,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 		Image attackImage = null;
 		Image[] skillBar = new Image[3];
 		try {
-			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
+			attackImage = new Image("res/animations/arrow.png");
 			
 			skillBar[0] = new Image("res/skillIcons/guidedarrow.png");
 			skillBar[1] = new Image("res/skillIcons/guidedarrow_active.png");

@@ -445,4 +445,5 @@ public class Skill{
 	public StatusEffect getStatusEffect(){
 		return spellEffect;
 	}
+	
 }
