@@ -9,7 +9,7 @@ public class StatusEffectBarrelRoll extends StatusEffect{
 	public StatusEffectBarrelRoll(Player player, Skill skill) {
 		
 		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, counts, delay
-		super(player, skill, "Barrel Roll", 0, 1, 1, 0, 0, 0, 1, 100);
+		super(player, skill, "Barrel Roll", 0, 1, 1, 0, 0, 0, 1, 50);
 	}
 
 }

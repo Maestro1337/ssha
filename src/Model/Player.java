@@ -38,7 +38,7 @@ public class Player {
 	private float mouseYPosMove;
 	private double moveSpeed = 1;
 	
-	double rotation=0;
+	float rotation=0;
 	
 	private int moveCounter=0;
 	private float xDirMove;
@@ -169,7 +169,7 @@ public class Player {
 	public void setRunningState(boolean state){
 		isRunning = state;
 	}
-	public double getRotation(){
+	public float getRotation(){
 		return rotation;
 	}
 	

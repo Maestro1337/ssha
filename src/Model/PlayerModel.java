@@ -21,8 +21,6 @@ public class PlayerModel implements ActionListener {
 	
 	Obstacle[] obstacles;
 
-	Double findNaN;
-
 	public PlayerModel(Player player, Obstacle[] obstacles){
 		
 		this.player = player;
@@ -122,6 +120,8 @@ public class PlayerModel implements ActionListener {
 					
 					attackingSkill.setXDirAtt(xDir/genDir);
 					attackingSkill.setYDirAtt(yDir/genDir);
+					double rotation = Math.toDegrees(Math.atan2((xDir),(yDir)));
+					attackingSkill.setRotation((float)rotation);
 					
 				//	attackingSkill.addAttX(xDir/genDir);
 				//	attackingSkill.addAttY(yDir/genDir);
@@ -203,17 +203,43 @@ public class PlayerModel implements ActionListener {
 		rotate(x, y);
 		player.setMouseXPosMove(x);
 		player.setMouseYPosMove(y);
-		player.setXDirMove((player.getMouseXPosMove() - player.getX()));
-		player.setYDirMove((player.getMouseYPosMove() - player.getY()));
-		player.setGenDirMove((float)Math.sqrt(player.getXDirMove()*player.getXDirMove()+player.getYDirMove()*player.getYDirMove()));
-		findNaN = (double)player.getGenDirMove();
-		player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-		player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
 		
-		player.resetMoveCounter();
+		float xDir = x - player.getX();
+		float yDir = y - player.getY();
+		float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
 		
-	//	System.out.println("Running " + player.getGenDirMove() + " pixels");
-		player.setRunningState(true);
+		
+		Double findNaN = (double)genDir;
+		if(!findNaN.isNaN() && !findNaN.isInfinite()){
+			player.setXDirMove(xDir);
+			player.setYDirMove(yDir);
+			player.setGenDirMove(genDir);
+			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+			
+			player.resetMoveCounter();
+			
+		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
+			player.setRunningState(true);
+		}
+		
+
+/*	
+		
+		
+		
+		Double findNaN = (double)player.getGenDirMove();
+		if(!findNaN.isNaN()){
+			player.setGenDirMove(genDir);
+			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+			
+			player.resetMoveCounter();
+			
+		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
+			player.setRunningState(true);
+		}
+		*/
 	}
 	
 	public void attack(int x, int y){
@@ -233,26 +259,29 @@ public class PlayerModel implements ActionListener {
 				
 				float xDir = x - currentActiveSkill.getAttX();
 				float yDir = y - currentActiveSkill.getAttY();
-				currentActiveSkill.setGenDirAtt((float)Math.sqrt(xDir*xDir+yDir*yDir));
-				currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
-				currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
+				float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
 				
-				if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-					currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+				
+				Double findNaN = (double)genDir;
+				if(!findNaN.isNaN() && !findNaN.isInfinite()){
+				
+					//Currently -45 cause of picture arrow is not pointed upwards
+					currentActiveSkill.setRotation(player.getRotation()-45);
+					
+					currentActiveSkill.setGenDirAtt(genDir);
+					currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
+					currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
+					
+					if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
+						currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+					}
+					currentActiveSkill.resetAttCounter();
+					if(!currentActiveSkill.isProjectile()){
+						currentActiveSkill.setNonProjectileShot();
+					}
+					System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
+					currentActiveSkill.setAttackingState(true);
 				}
-				
-				currentActiveSkill.resetAttCounter();
-				
-				if(!currentActiveSkill.isProjectile()){
-					currentActiveSkill.setNonProjectileShot();
-				}
-				
-			/*	if(currentActiveSkill.isGuided()){
-					currentActiveSkill.setGuidedTarget(player);
-				}*/
-				
-				System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
-				currentActiveSkill.setAttackingState(true);
 				
 			if(currentActiveSkill.getAffectSelf()){
 				if(currentActiveSkill.getStatusEffect() != null && !currentActiveSkill.getStatusEffect().hasBeenGivenTo(player.getName())){

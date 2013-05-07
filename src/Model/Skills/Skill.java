@@ -36,6 +36,7 @@ public class Skill{
 	private float attImgY;
 	private int imgWidth;
 	private int imgHeight;
+	private float rotation;
 	
 	private Image endStateImage;
 	private int endStateImgWidth;
@@ -131,6 +132,10 @@ public class Skill{
 		
 		endStateImgHeight = image.getHeight();
 		endStateImgWidth = image.getWidth();
+	}
+	public void setRotation(float angle){
+		attackImage.setRotation(angle);
+		rotation = angle;
 	}
 	public void setEndState(Image[] images, int duration, int interval){
 		if(images[0] != null){

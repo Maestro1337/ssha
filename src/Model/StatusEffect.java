@@ -102,6 +102,7 @@ public class StatusEffect {
 		if(moveXEff != 0 || moveYEff != 0){
 			player.setX(moveXEff);
 			player.setY(moveYEff);
+			player.setRunningState(false);
 		}
 		if(armEff>0 && !commitedChange){
 			player.addArmor(armEff);
