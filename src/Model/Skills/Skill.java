@@ -149,8 +149,7 @@ public class Skill{
 	public void setStatusEffect(StatusEffect SE){
 		spellEffect = SE;
 	}
-	
-	
+
 	public int getCurrentHeight(){
 		return currentHeight;
 	}
@@ -199,18 +198,23 @@ public class Skill{
 	public void upgradeSkill(){
 		if(lvlOfSkill <= 4){
 			lvlOfSkill++;
+			
+			switch(damage){
+			case 2:
+				damage = damageLvl2;
+				break;
+			case 3:
+				damage = damageLvl3;
+				break;
+			case 4:
+				damage = damageLvl4;
+				break;
+			}
 		}
-		switch(damage){
-		case 2:
-			damage = damageLvl2;
-			break;
-		case 3:
-			damage = damageLvl3;
-			break;
-		case 4:
-			damage = damageLvl4;
-			break;
-		}
+		
+	}
+	public int getCurrentLvl(){
+		return lvlOfSkill;
 	}
 	public String getDescription(){
 		return describe;

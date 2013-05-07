@@ -4,30 +4,28 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.*;
 
 public class SkillBarrelRoll extends Skill {
 	public SkillBarrelRoll(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Barrel Roll", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"The hunter \n" +
+		super("Barrel Roll", 1000, 40, 100.4, 3, 0, 0, 0, 0, 0,"The hunter \n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage", false);
+				"Level 4: 45 damage", true);
 		
 		Image attackImage = null;
-		Image[] animation = new Image[7];
+		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
+//		super.setStatusEffect(new StatusEffectBarrelRoll(null, this, 0, 0));
+		super.setStatusEffect(new StatusEffectTeleport(null, this, 0, 0));
+		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImage = new Image("res/animations/hunter_walk1.png");
 			
-			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
+			animation[0] = new Image("res/animations/hunter_walk2.png");
 			
 			skillBar[0] = new Image("res/skillIcons/barrelroll.png");
 			skillBar[1] = new Image("res/skillIcons/barrelroll_active.png");

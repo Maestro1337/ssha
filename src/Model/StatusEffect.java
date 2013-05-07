@@ -11,8 +11,8 @@ public class StatusEffect {
 	private String name;
 	
 	private int dmgEff;
-	private int moveXEff;
-	private int moveYEff;
+	private float moveXEff;
+	private float moveYEff;
 	private int armEff;
 	private int atkSpeedEff;
 	private int rangeEff;
@@ -26,7 +26,7 @@ public class StatusEffect {
 	private StatusEffectTimer ESIT;
 	private int delay;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, int moveX, int moveY, int arm, int attackSpeed, int range, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, int arm, int attackSpeed, int range, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -58,10 +58,10 @@ public class StatusEffect {
 	public int getDmgEff(){
 		return dmgEff;
 	}
-	public int getMoveXEff(){
+	public float getMoveXEff(){
 		return moveXEff;
 	}
-	public int getMoveYEff(){
+	public float getMoveYEff(){
 		return moveYEff;
 	}
 	public int getArmEff(){
@@ -100,7 +100,6 @@ public class StatusEffect {
 			player.dealDamage(dmgEff);
 		}
 		if(moveXEff != 0 || moveYEff != 0){
-			System.out.println("ARRIBA");
 			player.setX(moveXEff);
 			player.setY(moveYEff);
 		}
@@ -143,7 +142,7 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, (int)(skill.getAttX()), (int)(skill.getAttY()), armEff, atkSpeedEff, rangeEff, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX(), skill.getAttY(), armEff, atkSpeedEff, rangeEff, maxCounts, delay);
 		}else{
 			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, armEff, atkSpeedEff, rangeEff, maxCounts, delay);
 		}

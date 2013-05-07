@@ -8,12 +8,12 @@ import Model.Skills.Skill;
 public class SkillSuperSlowTestSkill extends Skill{
 	
 	public SkillSuperSlowTestSkill(){
-		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
+		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
 		super("SuperSlowTestSkill", 1000, 800, 0.5, 3, 0, 300, 300, 300, 300,"The hunter \n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage", false);
+				"Level 1: 300 damage\n" +
+				"Level 2: 300 damage\n" +
+				"Level 3: 300 damage\n" +
+				"Level 4: 300 damage", false);
 		
 		Image attackImage = null;
 		Image[] skillBar = new Image[3];

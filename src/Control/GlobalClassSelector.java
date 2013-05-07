@@ -14,6 +14,7 @@ public class GlobalClassSelector {
 	private boolean changedPlayer = false;
 	private int activePlayer = 0;
 
+	//Singleton
 	public static GlobalClassSelector getController() {
 	if (myControl == null) {
 	   myControl = new GlobalClassSelector();
@@ -39,5 +40,8 @@ public class GlobalClassSelector {
 	}
 	public int getActivePlayerIndex(){
 		return activePlayer;
+	}
+	public void setActivePlayerIndex(int index){
+		activePlayer = index;
 	}
 }

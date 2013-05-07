@@ -19,6 +19,7 @@ public class SkillFirestorm extends Skill{
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
+		
 		try {
 			attackImage = new Image("res/miscImages/awesomeMiniRedSquare.png");
 			

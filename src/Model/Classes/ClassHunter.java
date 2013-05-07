@@ -5,11 +5,7 @@ import org.newdawn.slick.SlickException;
 
 import Model.Player;
 import Model.Skills.Skill;
-import Model.Skills.Hunter.SkillSuperSlowTestSkill;
-import Model.Skills.Warrior.SkillSlash;
-import Model.Skills.Wizard.SkillFireball;
-import Model.Skills.Wizard.SkillFirestorm;
-import Model.Skills.Wizard.SkillIceNeedle;
+import Model.Skills.Hunter.*;
 
 public class ClassHunter extends Player {
 
@@ -29,7 +25,7 @@ public class ClassHunter extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillSuperSlowTestSkill();
-		chosenSkills[1] = new SkillSuperSlowTestSkill();
+		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillSuperSlowTestSkill();
 		chosenSkills[3] = new SkillSuperSlowTestSkill();
 		chosenSkills[4] = new SkillSuperSlowTestSkill();
