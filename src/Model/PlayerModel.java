@@ -288,6 +288,8 @@ public class PlayerModel implements ActionListener {
 							playerSkills[i].collidedShot();
 							player.dealDamage(playerSkills[i].getDamage());
 						}else{
+							System.out.println("Target hit with " + playerSkills[i].getName());
+							player.dealDamage(playerSkills[i].getDamage());
 							playerSkills[i].activatePreEndState();
 						}
 					}else{
