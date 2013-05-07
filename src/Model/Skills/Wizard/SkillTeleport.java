@@ -21,13 +21,13 @@ public class SkillTeleport extends Skill {
 		try {
 			attackImage = new Image("res/miscImages/awesomeMiniRedSquare.png");
 			
-			animation[0] = new Image("res/animations/mage_stand.png");
-			animation[1] = new Image("res/animations/mage_walk1.png");
-			animation[2] = new Image("res/animations/mage_walk2.png");
-			animation[3] = new Image("res/animations/mage_stand.png");
-			animation[4] = new Image("res/animations/mage_walk1.png");
-			animation[5] = new Image("res/animations/mage_walk2.png");
-			animation[6] = new Image("res/animations/mage_walk2.png");
+			animation[0] = new Image("res/skillIcons/firestorm.png");
+			animation[1] = new Image("res/skillIcons/firestorm.png");
+			animation[2] = new Image("res/skillIcons/firestorm.png");
+			animation[3] = new Image("res/skillIcons/firestorm.png");
+			animation[4] = new Image("res/skillIcons/firestorm.png");
+			animation[5] = new Image("res/skillIcons/firestorm.png");
+			animation[6] = new Image("res/skillIcons/firestorm.png");
 			
 			
 			skillBar[0] = new Image("res/skillIcons/teleport.png");
