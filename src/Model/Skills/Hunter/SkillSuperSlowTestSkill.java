@@ -15,10 +15,10 @@ public class SkillSuperSlowTestSkill extends Skill{
 				"Level 3: 300 damage\n" +
 				"Level 4: 300 damage", false);
 		
-		Image attackImage = null;
+		Image[] attackImages = new Image[1];
 		Image[] skillBar = new Image[3];
 		try {
-			attackImage = new Image("res/animations/arrow.png");
+			attackImages[0] = new Image("res/animations/arrow.png");
 			
 			skillBar[0] = new Image("res/skillIcons/guidedarrow.png");
 			skillBar[1] = new Image("res/skillIcons/guidedarrow_active.png");
@@ -28,7 +28,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 		}
 		
 		super.setGuided();
-		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setImage(attackImages);
 		super.setSkillBarImages(skillBar);
 	}
 

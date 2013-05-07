@@ -116,8 +116,8 @@ public class Skill{
 		
 	}
 	
-	public void setImage(Image image, int height, int width){
-		if(image != null)
+	public void setImage(Image[] images){
+		if(images[0] != null)
 			attackImage = image;
 		
 		currentHeight = imgHeight = height;
