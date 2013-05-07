@@ -255,8 +255,8 @@ public class Skill{
 	}
 	
 	public void setNonProjectileShot(){
-		addAttX((float)(getXDirAtt()*getGenDirAtt())-endStateImgWidth/2);
-		addAttY((float)(getYDirAtt()*getGenDirAtt())-endStateImgHeight/2);
+		addAttX((float)(getXDirAtt()*getGenDirAtt())/*-endStateImgWidth/2*/);
+		addAttY((float)(getYDirAtt()*getGenDirAtt())/*-endStateImgHeight/2*/);
 	}
 	
 	public void collidedShot(){
