@@ -223,7 +223,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			Player currentPlayer = players.get(i).getPlayer();
 			Skill[] currentSkillset = currentPlayer.getSkillList();
 			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-					+ "%\nKills: " + currentPlayer.getKills(),900+150*i,25);
+					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
 			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 			
 			for(int j=0; j<currentSkillset.length; j++){
@@ -334,10 +334,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		//Checks if round should be ended
 		int endRound = 0;
+		String winningPlayer = null;
 		for(int i=0; i<players.size(); i++){
 			if(!players.get(i).getPlayer().isAlive()){
 				endRound++;
 				
+			}else{
+				winningPlayer = players.get(i).getPlayer().getName();
 			}
 		}
 		//Ends round if only 1 player is alive

@@ -4,6 +4,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectBarrelRoll;
+import Model.StatusEffects.StatusEffectStun;
 
 public class SkillArrowFlurry extends Skill {
 	public SkillArrowFlurry(){
@@ -17,6 +19,8 @@ public class SkillArrowFlurry extends Skill {
 		Image attackImage = null;
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
+		
+		super.setStatusEffect(new StatusEffectStun(null, this, 1));
 		
 		try {
 			attackImage = new Image("res/animations/arrowFlurry.png");

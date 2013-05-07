@@ -75,7 +75,7 @@ public class PlayerModel implements ActionListener {
 	
 	public void isRunning() throws SlickException{
 		player.changeUserImage();
-		if(player.isAlive() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()))){
+		if(player.isAlive() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 	//		if(findNaN.isNaN()){

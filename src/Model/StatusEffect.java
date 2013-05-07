@@ -106,16 +106,16 @@ public class StatusEffect {
 			player.setY(moveYEff);
 			player.setRunningState(false);
 		}
-		if(armEff>0 && !commitedChange){
+		if(armEff!=0 && !commitedChange){
 			player.addArmor(armEff);
 		}
-		if(moveSpeedEff>0 && !commitedChange){
+		if(moveSpeedEff!=0 && !commitedChange){
 			player.addMovementSpeed(moveSpeedEff);
 		}
-		if(atkSpeedEff>0 && !commitedChange){
+		if(atkSpeedEff!=0 && !commitedChange){
 			
 		}
-		if(rangeEff>0 && !commitedChange){
+		if(rangeEff!=0 && !commitedChange){
 			skill.addAttackRange(rangeEff);
 		}
 		
@@ -125,16 +125,16 @@ public class StatusEffect {
 	private void returnStatsToNormal(){
 		System.out.println("Return status effect");
 		if(commitedChange){
-			if(armEff>0){
+			if(armEff!=0){
 				player.addArmor(-armEff);
 			}
-			if(atkSpeedEff>0){
+			if(atkSpeedEff!=0){
 				
 			}
-			if(rangeEff>0){
+			if(rangeEff!=0){
 				skill.addAttackRange(-rangeEff);
 			}
-			if(moveSpeedEff>0){
+			if(moveSpeedEff!=0){
 				player.addMovementSpeed(-moveSpeedEff);
 			}
 		}
