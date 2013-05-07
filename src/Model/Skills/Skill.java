@@ -3,6 +3,7 @@ package Model.Skills;
 import Model.Player;
 import Model.StatusEffect;
 import Model.Timers.AnimationTimer;
+import Model.Timers.RepeatingAnimationTimer;
 import Model.Timers.SkillCheckingTimer;
 
 import java.sql.Date;
@@ -71,6 +72,7 @@ public class Skill{
 	SkillCheckingTimer ESIT;
 	
 	AnimationTimer animation;
+	RepeatingAnimationTimer projectileAnimation;
 	
 	private boolean isProjectile = true;
 
@@ -111,27 +113,44 @@ public class Skill{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setImage(attackImage, 5, 4);
-		
+		currentHeight = imgHeight = attackImage.getHeight();
+		currentWidth = imgWidth = attackImage.getWidth();
 		
 	}
 	
-	public void setImage(Image[] images){
-		if(images[0] != null)
+	//Set new image for projectile
+	public void setImage(Image image){
+		if(image != null){
 			attackImage = image;
 		
-		currentHeight = imgHeight = height;
-		currentWidth = imgWidth = width;
+			currentHeight = imgHeight = image.getHeight();
+			currentWidth = imgWidth = image.getWidth();
+		}
 	}
-	public void setAnimationImages(Image[] images){
-		animation = new AnimationTimer(200, images, this);
+	
+	//Set new animation for projectile
+	public void setImage(Image[] images, int duration){
+		if(images[0] != null){
+			attackImage = images[0];
+		
+			currentHeight = imgHeight = images[0].getHeight();
+			currentWidth = imgWidth = images[0].getWidth();
+			
+			projectileAnimation = new RepeatingAnimationTimer(duration, images);
+		}
 	}
+	//public void setAnimationImages(Image[] images){
+	//	animation = new AnimationTimer(200, images, this);
+	//}
 	public void setEndStateImage(Image image){
 		if(image != null)
 			endStateImage = image;
 		
 		endStateImgHeight = image.getHeight();
 		endStateImgWidth = image.getWidth();
+	}
+	public float getRotation(){
+		return rotation;
 	}
 	public void setRotation(float angle){
 		attackImage.setRotation(angle);
@@ -420,6 +439,9 @@ public class Skill{
 		return ESIT;
 	}
 	
+	public RepeatingAnimationTimer getProjectileAnimationTimer(){
+		return projectileAnimation;
+	}
 	public AnimationTimer getAnimationTimer(){
 		return animation;
 	}

@@ -30,7 +30,7 @@ public class SkillIceNeedle extends Skill{
 			e.printStackTrace();
 		}
 		
-		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setImage(attackImage);
 		super.setSkillBarImages(skillBar);
 	}
 }

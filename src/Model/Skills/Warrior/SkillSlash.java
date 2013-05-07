@@ -37,7 +37,7 @@ public class SkillSlash extends Skill{
 			e.printStackTrace();
 		}
 		
-		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setImage(attackImage);
 		super.setEndState(animation, 400, 350);
 		super.setSkillBarImages(skillBar);
 		

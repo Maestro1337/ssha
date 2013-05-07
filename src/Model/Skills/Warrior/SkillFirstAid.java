@@ -36,7 +36,7 @@ public class SkillFirstAid extends Skill {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+				super.setImage(attackImage);
 				super.setEndState(animation, 200, 400);
 				super.setSkillBarImages(skillBar);
 			}

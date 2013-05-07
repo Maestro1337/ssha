@@ -20,14 +20,17 @@ String description;
 				"Level 3: 35 damage\n" +
 				"Level 4: 45 damage", false);
 		
-		Image[] attackImages = new Image[1];
+		Image[] attackImages = new Image[4];
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
 		super.setStatusEffect(new StatusEffectBurning(null, this));
 		
 		try {
-			attackImages[0] = new Image("res/animations/fireball.png");
+			attackImages[0] = new Image("res/animations/fireball1.png");
+			attackImages[1] = new Image("res/animations/fireball2.png");
+			attackImages[2] = new Image("res/animations/fireball3.png");
+			attackImages[3] = new Image("res/animations/fireball4.png");
 			
 			animation[0] = new Image("res/animations/explode1.png");
 			animation[1] = new Image("res/animations/explode2.png");
@@ -45,7 +48,7 @@ String description;
 			e.printStackTrace();
 		}
 		
-		super.setImage(attackImages);
+		super.setImage(attackImages, 200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}

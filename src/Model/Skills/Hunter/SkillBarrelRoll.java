@@ -40,7 +40,7 @@ public class SkillBarrelRoll extends Skill {
 		
 		
 		
-		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setImage(attackImage);
 		super.setEndState(animation, 20, 200);
 		super.setSkillBarImages(skillBar);
 	}

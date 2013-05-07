@@ -40,7 +40,7 @@ public class SkillSprint extends Skill {
 		
 		
 		
-		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setImage(attackImage);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}

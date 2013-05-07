@@ -133,6 +133,15 @@ public class PlayerModel implements ActionListener {
 				
 				attackingSkill.incAttCounter();
 				
+				if(attackingSkill.getProjectileAnimationTimer() != null){
+					Image projectileImage = attackingSkill.getProjectileAnimationTimer().getCurrentAnimationImage();
+				
+					if(projectileImage != null)
+						attackingSkill.setImage(projectileImage);
+					
+					attackingSkill.setRotation(attackingSkill.getRotation());
+				}
+				
 				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
 					if(!attackingSkill.hasEndState()){
 						attackingSkill.setAttackingState(false);
@@ -265,8 +274,7 @@ public class PlayerModel implements ActionListener {
 				Double findNaN = (double)genDir;
 				if(!findNaN.isNaN() && !findNaN.isInfinite()){
 				
-					//Currently -45 cause of picture arrow is not pointed upwards
-					currentActiveSkill.setRotation(player.getRotation()-45);
+					currentActiveSkill.setRotation(player.getRotation());
 					
 					currentActiveSkill.setGenDirAtt(genDir);
 					currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());

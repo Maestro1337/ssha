@@ -32,7 +32,7 @@ public class SkillFirestorm extends Skill{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		super.setImage(attackImage, attackImage.getHeight(), attackImage.getWidth());
+		super.setImage(attackImage);
 		super.setEndState(animation, 3000, 30);
 		super.setSkillBarImages(skillBar);
 	}

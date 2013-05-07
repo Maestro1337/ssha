@@ -28,7 +28,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 		}
 		
 		super.setGuided();
-		super.setImage(attackImages);
+		super.setImage(attackImages, 200);
 		super.setSkillBarImages(skillBar);
 	}
 
