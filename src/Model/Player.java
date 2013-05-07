@@ -209,6 +209,9 @@ public class Player {
 	public void addArmor(double armor){
 		this.armor += armor;
 	}
+	public void addMovementSpeed(double speed){
+		this.moveSpeed += speed;
+	}
 	public int getKills(){
 		return kills;
 	}

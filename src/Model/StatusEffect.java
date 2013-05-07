@@ -16,7 +16,7 @@ public class StatusEffect {
 	private int armEff;
 	private int atkSpeedEff;
 	private int rangeEff;
-	private int moveSpeedEff;
+	private double moveSpeedEff;
 	private int counts;
 	private int maxCounts;
 	private int interval;
@@ -27,7 +27,7 @@ public class StatusEffect {
 	private StatusEffectTimer ESIT;
 	private int delay;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, int moveSpeed, int arm, int attackSpeed, int range, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -109,6 +109,9 @@ public class StatusEffect {
 		if(armEff>0 && !commitedChange){
 			player.addArmor(armEff);
 		}
+		if(moveSpeedEff>0 && !commitedChange){
+			player.addMovementSpeed(moveSpeedEff);
+		}
 		if(atkSpeedEff>0 && !commitedChange){
 			
 		}
@@ -130,6 +133,9 @@ public class StatusEffect {
 			}
 			if(rangeEff>0){
 				skill.addAttackRange(-rangeEff);
+			}
+			if(moveSpeedEff>0){
+				player.addMovementSpeed(-moveSpeedEff);
 			}
 		}
 	}

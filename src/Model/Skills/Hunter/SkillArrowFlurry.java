@@ -15,19 +15,13 @@ public class SkillArrowFlurry extends Skill {
 				"Level 4: 45 damage", false);
 		
 		Image attackImage = null;
-		Image[] animation = new Image[7];
+		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/animations/arrowFlurry1.png");
+			attackImage = new Image("res/animations/arrowFlurry.png");
 			
-			animation[0] = new Image("res/animations/arrowFlurry1.png");
-			animation[1] = new Image("res/animations/arrowFlurry2.png");
-			animation[2] = new Image("res/animations/arrowFlurry3.png");
-			animation[3] = new Image("res/animations/arrowFlurry4.png");
-			animation[4] = new Image("res/animations/arrowFlurry5.png");
-			animation[5] = new Image("res/animations/arrowFlurry6.png");
-			animation[6] = new Image("res/animations/arrowFlurry7.png");
+			animation[0] = new Image("res/animations/arrowFlurry.png");
 			
 			skillBar[0] = new Image("res/skillIcons/arrowflurry.png");
 			skillBar[1] = new Image("res/skillIcons/arrowflurry_active.png");
