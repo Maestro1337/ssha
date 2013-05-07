@@ -9,7 +9,7 @@ public class SkillUnstablemagic extends Skill {
 
 	public SkillUnstablemagic() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Unstable magic", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"The wizard \n" +
+		super("Unstable magic", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"Unstable magic \n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
