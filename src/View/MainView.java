@@ -127,13 +127,13 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
 		case "Wizard":
-			playerPortrait = new Image("res/classImages/mage_portrait.png");
+			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
 		break;
 		case "Hunter":
-			playerPortrait = new Image("res/classImages/hunter_portrait.png");
+			playerPortrait = new Image("res/classImages/Portrait_Hunter.png");
 		break;
 		case "Warrior":
-			playerPortrait = new Image("res/classImages/warrior_portrait.png");
+			playerPortrait = new Image("res/classImages/Portrait_Warrior.png");
 		break;
       	}
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
@@ -198,7 +198,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 
-		g.drawImage(playerPortrait, 20, 555);
+		g.drawImage(playerPortrait, 20, 585);
 		//Draw the actionbar
 		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
