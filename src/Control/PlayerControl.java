@@ -7,4 +7,5 @@ package Control;
  */
 public interface PlayerControl extends Runnable{
 
+	public void killItWithFire();
 }

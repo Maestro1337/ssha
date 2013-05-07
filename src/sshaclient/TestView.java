@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class TestView extends JFrame {
 
 	private int wWidth = 550;
-	private int wHeight = 140;
+	private int wHeight = 340;
 	
 	private JButton connectBtn;
 	private JButton lobbyBtn;
@@ -30,6 +30,12 @@ public class TestView extends JFrame {
 	private JLabel modeLabel;
 	private JLabel connectedLabel;
 	private JLabel miscLabel;
+	
+	private JLabel p2NameLabel;
+	private JLabel p2CoordinatesLabel;
+	private JLabel p2AngleLabel;
+	private JLabel p2MiscLabel;
+	
 	
 	public TestView() {
 		setSize(wWidth,wHeight);
@@ -98,6 +104,26 @@ public class TestView extends JFrame {
 		miscLabel.setSize(110, 15);
 		add(miscLabel);
 		
+		p2NameLabel = new JLabel("Name: null");
+		p2NameLabel.setLocation(10,120);
+		p2NameLabel.setSize(160, 15);
+		add(p2NameLabel);
+		
+		p2CoordinatesLabel = new JLabel("X,Y: null");
+		p2CoordinatesLabel.setLocation(200, 120);
+		p2CoordinatesLabel.setSize(100, 15);
+		add(p2CoordinatesLabel);
+		
+		p2AngleLabel = new JLabel("Angle: null");
+		p2AngleLabel.setLocation(340, 120);
+		p2AngleLabel.setSize(130, 15);
+		add(p2AngleLabel);
+		
+		p2MiscLabel = new JLabel("Misc: null");
+		p2MiscLabel.setLocation(440, 120);
+		p2MiscLabel.setSize(110,15);
+		add(p2MiscLabel);
+		
 		setVisible(true);
 	}
 	
@@ -136,5 +162,17 @@ public class TestView extends JFrame {
 	
 	public void setConnectedBtnText(String txt) {
 		connectBtn.setText(txt);
+	}
+	
+	public void setOtherNameLabel(String name) {
+		p2NameLabel.setText("Name: " + name);
+	}
+	
+	public void setOtherXyLabel(int x, int y) {
+		p2CoordinatesLabel.setText("X,Y: " + x + "," + y);
+	}
+	
+	public void setOtherAngleLabel(int angle) {
+		p2AngleLabel.setText("Angle: " + angle);
 	}
 }

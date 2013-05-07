@@ -62,6 +62,9 @@ public class ShoppingView extends BasicGameState {
 	Skill[] chosenSkills = new Skill[5];
 	
 	Image playButton;
+	
+	Image classPortrait;
+	
 	//Wizard skillicons
 	Image firstOffSkill;
 	Image secondOffSkill;
@@ -114,6 +117,7 @@ public class ShoppingView extends BasicGameState {
 	      
 	      switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
 			case "Wizard":
+				classPortrait = new Image("res/classImages/mage_portrait.png");
 				//Init wizard offensive, defensive and mobility skillists
 				offSkills[0] = new SkillFireball();
 				offSkills[1] = new SkillFirestorm();
@@ -128,6 +132,7 @@ public class ShoppingView extends BasicGameState {
 				mobSkills[2] = new SkillTeleport();
 			break;
 			case "Hunter":
+				classPortrait = new Image("res/classImages/hunter_portrait.png");
 				//Init Hunter offensive, defensive and mobility skillists
 				offSkills[0] = new SkillFlamingArrow();
 				offSkills[1] = new SkillGuidedArrow();
@@ -142,6 +147,7 @@ public class ShoppingView extends BasicGameState {
 				mobSkills[2] = new SkillBarrelRoll();
 			break;
 			case "Warrior":
+				classPortrait = new Image("res/classImages/warrior_portrait.png");
 				//Init warrior offensive, defensive and mobility skillists
 				offSkills[0] = new SkillThrowingAxe();
 				offSkills[1] = new SkillWarstomp();
@@ -155,7 +161,7 @@ public class ShoppingView extends BasicGameState {
 				mobSkills[1] = new SkillGrapplingHook();
 				mobSkills[2] = new SkillLeapAttack();
 			break;
-		}
+	      	}
 
 			//Init wizard skillicons
 			//Offensive
@@ -192,6 +198,11 @@ public class ShoppingView extends BasicGameState {
 		g.drawString(mouse, 900, 10);
 		// TODO Auto-generated method stub
 		
+		g.drawImage(classPortrait, 70, 30);
+		g.drawString(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getName() + 
+				"\nHP: "+GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getHP() + 
+				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getArmor()*100) 
+				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getKills(), 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
 
 		g.drawString("1", 102, 200);
 		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 225);
