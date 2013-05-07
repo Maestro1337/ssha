@@ -61,6 +61,8 @@ public class TestView extends BasicGameState implements ActionListener{
 	
 	Image user, move1, move2;
 	
+	Image testGIF;
+	
 	Animation userAni, stand, move;
 	
 	
@@ -102,6 +104,8 @@ public class TestView extends BasicGameState implements ActionListener{
 		hpForeImg = new Image("res/miscImages/red_hp.png");
 		
 		map = new TiledMap("res/tileset/testbackground.tmx");
+		
+		testGIF = new Image("res/animations/fireball.gif");
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -150,6 +154,7 @@ public class TestView extends BasicGameState implements ActionListener{
 			enemyX=-1000;
 			enemyY=-1000;
 		}
+		g.drawImage(testGIF, 500, 500);
 			
 	}
 	
