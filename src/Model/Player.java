@@ -46,7 +46,7 @@ public class Player {
 	private float genDirMove;
 	private Double findNaN;
 	
-	
+	private boolean isStunned = false;
 	
 	
 	
@@ -232,7 +232,7 @@ public class Player {
 			secondStepImage = second;
 	}
 	public void changeUserImage(){
-		if(isRunning){
+		if(isRunning && !isStunned){
 			if(userImage == noStepImage || userImage == secondStepImage)
 				userImage = firstStepImage;
 			else if(userImage == noStepImage || userImage == firstStepImage)
@@ -265,5 +265,11 @@ public class Player {
 	}
 	public void resetStatusEffects(){
 		statusEffectList = new ArrayList<StatusEffect>();
+	}
+	public boolean isStunned(){
+		return isStunned;
+	}
+	public void setStunState(boolean state){
+		isStunned = state;
 	}
 }

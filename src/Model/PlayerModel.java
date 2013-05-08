@@ -75,7 +75,7 @@ public class PlayerModel implements ActionListener {
 	
 	public void isRunning() throws SlickException{
 		player.changeUserImage();
-		if(player.isAlive() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		if(player.isAlive() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 	//		if(findNaN.isNaN()){
@@ -112,16 +112,11 @@ public class PlayerModel implements ActionListener {
 			//		float yDir = attackingSkill.getYDirAtt() - yDiff;
 				
 					float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-
-					/* Comletely guided to hit enemy
-					attackingSkill.setXDirAtt(xDir/genDir);
-					attackingSkill.setYDirAtt(yDir/genDir);
-					*/
 					
 					attackingSkill.setXDirAtt(xDir/genDir);
 					attackingSkill.setYDirAtt(yDir/genDir);
-					double rotation = Math.toDegrees(Math.atan2((xDir),(yDir)));
-					attackingSkill.setRotation((float)rotation);
+					double rotation = Math.toDegrees(Math.atan2((yDir),(xDir)));
+					attackingSkill.setRotation(90 + (float)rotation);
 					
 				//	attackingSkill.addAttX(xDir/genDir);
 				//	attackingSkill.addAttY(yDir/genDir);
@@ -238,7 +233,7 @@ public class PlayerModel implements ActionListener {
 		x -= currentActiveSkill.getCurrentWidth()/2;
 		y -= currentActiveSkill.getCurrentHeight()/2;
 		rotate(x, y);
-		if(currentActiveSkill != null && player.isAlive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+		if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
 				currentActiveSkill.activateSkill();
 				
@@ -282,13 +277,18 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void rotate(int x, int y){
-		player.setMouseXPosMove(x);
-		player.setMouseYPosMove(y);
-		double rotation = Math.toDegrees(Math.atan2((player.getMouseYPosMove()-player.getY()),(player.getMouseXPosMove()-player.getX())));
-		player.setRotation(90 + (float)rotation);
+		if(!player.isStunned()){
+			player.setMouseXPosMove(x);
+			player.setMouseYPosMove(y);
+			double rotation = Math.toDegrees(Math.atan2((player.getMouseYPosMove()-player.getY()),(player.getMouseXPosMove()-player.getX())));
+			player.setRotation(90 + (float)rotation);
+		}
 	}
 
 	public void checkCollision(Skill[] playerSkills) throws SlickException{
+		if(player.getType() == "Warrior")
+			System.out.println(player.isStunned());
+		
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
@@ -386,7 +386,7 @@ public class PlayerModel implements ActionListener {
 				while(isColliding(obstacles[i], x, y)){
 					player.addX(1);
 				}
-			}	
+			}
 		}
 	}
 	
@@ -399,6 +399,16 @@ public class PlayerModel implements ActionListener {
 			//Checks and makes the effect if timer has not run out. If it has it will return false and remove the statusEffect from player
 			if(!currentStatusEffect.checkStatusEffect()){
 				player.removeStatusEffect(currentStatusEffect);
+				/*if(currentStatusEffect.hasStun()){
+					boolean stunDecision = false;
+					for(int j=0; j<player.getStatusEffects().size(); j++){
+						StatusEffect stunCheckSE = player.getStatusEffects().get(j);
+						if(stunCheckSE.hasStun()){
+							stunDecision = true;
+						}
+						player.setStunState(stunDecision);
+					}
+				}*/
 			}
 		}
 	}

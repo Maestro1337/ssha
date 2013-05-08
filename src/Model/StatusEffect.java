@@ -20,6 +20,7 @@ public class StatusEffect {
 	private int counts;
 	private int maxCounts;
 	private int interval;
+	private boolean hasStun;
 	
 	private boolean commitedChange = false;
 	private String[] playersGivenTo;
@@ -27,7 +28,7 @@ public class StatusEffect {
 	private StatusEffectTimer ESIT;
 	private int delay;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, boolean isStun, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -42,6 +43,7 @@ public class StatusEffect {
 		this.counts = maxCounts = counts;
 		this.interval = interval;
 		this.delay = delay;
+		hasStun = isStun;
 		
 		playersGivenTo = new String[3];
 		ESIT = new StatusEffectTimer(delay);
@@ -74,6 +76,9 @@ public class StatusEffect {
 	}
 	public int getRangeEff(){
 		return rangeEff;
+	}
+	public boolean hasStun(){
+		return hasStun;
 	}
 	
 	public void resetStatusEffect(){
@@ -118,7 +123,7 @@ public class StatusEffect {
 		if(rangeEff!=0 && !commitedChange){
 			skill.addAttackRange(rangeEff);
 		}
-		
+		player.setStunState(hasStun);
 		commitedChange = true;
 	} 
 	
@@ -137,6 +142,7 @@ public class StatusEffect {
 			if(moveSpeedEff!=0){
 				player.addMovementSpeed(-moveSpeedEff);
 			}
+			player.setStunState(false);
 		}
 	}
 	
@@ -151,9 +157,9 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getAttY()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getAttY()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}else{
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}
 		return newSE;
 	}

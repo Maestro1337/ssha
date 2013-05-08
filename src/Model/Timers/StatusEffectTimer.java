@@ -14,6 +14,8 @@ public class StatusEffectTimer {
 		resetTimer();
 		//Setting startTime to startTime minus interval to make the first check instant and then plus delay to add delay if there is any
 		startTime = startTime - interval + delay;
+		elapsedTime = System.currentTimeMillis() - startTime;
+	//	System.out.println(elapsedTime);
 	}
 	
 	
@@ -23,10 +25,11 @@ public class StatusEffectTimer {
 	}
 	public long checkTimer(){
 		elapsedTime = System.currentTimeMillis() - startTime;
-		
+	//	System.out.println(elapsedTime);
 		if(elapsedTime >= interval){
 			elapsedTime = interval;
 		}
+	//	System.out.println(elapsedTime);
 		return elapsedTime;
 	}
 	public int getInterval(){
