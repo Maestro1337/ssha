@@ -247,6 +247,7 @@ public class Player {
 				userImage = secondStepImage;
 		} else {
 			userImage = noStepImage;
+			setRotation(rotation);
 		}
 	}
 

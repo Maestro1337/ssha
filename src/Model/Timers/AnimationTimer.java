@@ -32,7 +32,6 @@ public class AnimationTimer {
 		if(elapsedTime > interval){
 			resetTimer();
 			counter++;
-			System.out.println("ARRRRH");
 		}
 		
 		return counter>=0 && counter<images.length ? images[counter] : null;
