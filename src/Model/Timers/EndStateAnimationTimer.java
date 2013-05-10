@@ -5,7 +5,7 @@ import org.newdawn.slick.Image;
 import Model.Player;
 import Model.Skills.Skill;
 
-public class AnimationTimer {
+public class EndStateAnimationTimer {
 	
 	private int interval;
 	private long startTime;
@@ -13,9 +13,12 @@ public class AnimationTimer {
 	Image[] images;
 	int counter = 0;
 	
-	public AnimationTimer(int duration, Image[] images){
+	Skill skill;
+	
+	public EndStateAnimationTimer(int duration, Image[] images, Skill skill){
 		interval = duration/(images.length);
 		this.images = images;
+		this.skill = skill;
 	}
 	
 	
@@ -32,7 +35,14 @@ public class AnimationTimer {
 		if(elapsedTime > interval){
 			resetTimer();
 			counter++;
-			System.out.println("ARRRRH");
+	//		System.out.println("Counter: " + counter + " Length: " + images.length);
+		}
+		if(counter >= images.length){
+			skill.finishEndState();
+			skill.setAttackingState(false);
+			resetCounterAndTimer();
+			
+			System.out.println("Finishing end state with " + skill.getName());
 		}
 		
 		return counter>=0 && counter<images.length ? images[counter] : null;
