@@ -11,6 +11,8 @@ public class GlobalClassSelector {
 
 	private static GlobalClassSelector myControl = null;
 	private Player[] players = new Player[4];
+	private PlayerControl[] playerControllers = new PlayerControl[4];
+	private Thread[] controllerThreads = new Thread[4];
 	private boolean changedPlayer = false;
 	private int activePlayer = 0;
 
@@ -35,10 +37,16 @@ public class GlobalClassSelector {
 	public void resetPlayers(){
 		players = new Player[4];
 	}
-	
-	public Player[] getPlayers(){
+	public synchronized Player[] getPlayers(){
 		return players;
 	}
+	public synchronized PlayerControl[] getPlayerControllers() {
+		return playerControllers;
+	}
+	public synchronized Thread[] getControllerThreads() {
+		return controllerThreads;
+	}
+	
 	public int getActivePlayerIndex(){
 		return activePlayer;
 	}
