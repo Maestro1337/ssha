@@ -143,6 +143,7 @@ public class StatusEffect {
 				player.addMovementSpeed(-moveSpeedEff);
 			}
 			player.setStunState(false);
+			resetCloning();
 		}
 	}
 	

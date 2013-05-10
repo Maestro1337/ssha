@@ -390,6 +390,9 @@ public class Skill{
 		isAttacking = state;
 		if(state == false){
 			collidedShot();
+			if(spellEffect != null){
+				spellEffect.resetCloning();
+			}
 		}
 	}
 	

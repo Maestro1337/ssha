@@ -10,7 +10,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 	
 	public SkillSuperSlowTestSkill(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("SuperSlowTestSkill", 1000, 800, 0.5, 3, 0, 300, 300, 300, 300,"The hunter \n" +
+		super("SuperSlowTestSkill", 1000, 800, 0.5, 3, 0, 30, 300, 300, 300,"The hunter \n" +
 				"Level 1: 300 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
