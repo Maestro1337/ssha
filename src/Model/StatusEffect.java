@@ -158,7 +158,7 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getAttY()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getMouseXPos()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getMouseYPos()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}else{
 			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}

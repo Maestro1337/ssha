@@ -10,7 +10,7 @@ import Model.Classes.ClassWizard;
 public class GlobalClassSelector {
 
 	private static GlobalClassSelector myControl = null;
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private Player[] players = new Player[4];
 	private boolean changedPlayer = false;
 	private int activePlayer = 0;
 
@@ -25,17 +25,18 @@ public class GlobalClassSelector {
 
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
-		players.add(new ClassHunter("Tester", 120, 100));
+	//	players.add(new ClassHunter("Tester", 120, 100));
+		players[0] = new ClassHunter("Tester", 120, 100);
 	}
 	
-	public void addPlayer(Player player){
-		players.add(player);
+	public void addPlayer(Player player, int index){
+		players[index] = player;
 	}
 	public void resetPlayers(){
-		players = new ArrayList<Player>();
+		players = new Player[4];
 	}
 	
-	public ArrayList<Player> getPlayers(){
+	public Player[] getPlayers(){
 		return players;
 	}
 	public int getActivePlayerIndex(){

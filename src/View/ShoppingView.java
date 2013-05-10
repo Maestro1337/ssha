@@ -113,9 +113,9 @@ public class ShoppingView extends BasicGameState {
 	         throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      chosenSkills = GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getSkillList();
+	      chosenSkills = GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getSkillList();
 	      
-	      switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
+	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
 			case "Wizard":
 				classPortrait = new Image("res/classImages/mage_portrait.png");
 				//Init wizard offensive, defensive and mobility skillists
@@ -199,10 +199,10 @@ public class ShoppingView extends BasicGameState {
 		// TODO Auto-generated method stub
 		
 		g.drawImage(classPortrait, 70, 30);
-		g.drawString(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getName() + 
-				"\nHP: "+GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getHP() + 
-				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getArmor()*100) 
-				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getKills(), 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
+		g.drawString(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getName() + 
+				"\nHP: "+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getHP() + 
+				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
+				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getKills(), 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
 
 		g.drawString("1", 102, 200);
 		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 225);
