@@ -2,7 +2,7 @@ package Model.Skills;
 
 import Model.Player;
 import Model.StatusEffect;
-import Model.Timers.AnimationTimer;
+import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
 import Model.Timers.SkillCheckingTimer;
 
@@ -71,7 +71,7 @@ public class Skill{
 	
 	SkillCheckingTimer ESIT;
 	
-	AnimationTimer animation;
+	EndStateAnimationTimer animation;
 	RepeatingAnimationTimer projectileAnimation;
 	
 	private boolean isProjectile = true;
@@ -167,7 +167,7 @@ public class Skill{
 			endStateDuration = duration;
 			ESColInterval = interval;
 			
-			animation = new AnimationTimer(duration, images, this);
+			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
 	public void setStatusEffect(StatusEffect SE){
@@ -462,7 +462,7 @@ public class Skill{
 	public RepeatingAnimationTimer getProjectileAnimationTimer(){
 		return projectileAnimation;
 	}
-	public AnimationTimer getAnimationTimer(){
+	public EndStateAnimationTimer getAnimationTimer(){
 		return animation;
 	}
 	

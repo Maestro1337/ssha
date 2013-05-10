@@ -58,6 +58,7 @@ import Model.Skills.Wizard.SkillIceblock;
 import Model.Skills.Wizard.SkillIroncloak;
 import Model.Skills.Wizard.SkillTeleport;
 import Model.Skills.Wizard.SkillUnstablemagic;
+import Model.Timers.AnimationTimer;
 
 import Control.*;
 
@@ -74,7 +75,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image nextRoundButton;
 	Image nextRoundBg;
 	boolean roundOver = false;
+	boolean firstTimeRoundOver;
+	Image roundOverAnimationImage;
 	
+	AnimationTimer victoryAnimation;
 	
 	private PlayerModel Control; 
 	private PlayerModel enemyControl;
@@ -173,6 +177,17 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
+		
+		Image[] victoryanimation = new Image[5];
+		
+		victoryanimation[0] = new Image("res/animations/victory5.png");
+		victoryanimation[1] = new Image("res/animations/victory4.png");
+		victoryanimation[2] = new Image("res/animations/victory3.png");
+		victoryanimation[3] = new Image("res/animations/victory2.png");
+		victoryanimation[4] = new Image("res/animations/victory1.png");
+		
+		victoryAnimation = new AnimationTimer(2000,victoryanimation);
+		firstTimeRoundOver = true;
 	}
 	
 	@Override
@@ -240,6 +255,14 @@ public class MainView extends BasicGameState implements ActionListener {
 			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
+			if(Control.getPlayer().getHP()>0){
+				Image testAnimationImage = victoryAnimation.getCurrentAnimationImage();
+				if(testAnimationImage != null){
+					roundOverAnimationImage = testAnimationImage;
+				}
+				if(roundOverAnimationImage != null)
+					g.drawImage(roundOverAnimationImage, 1280/2 - nextRoundBg.getWidth()/2, 200);
+			}
 		}
 	}
 	
@@ -345,6 +368,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		//Ends round if only 1 player is alive
 		if (endRound >= players.size() - 1){
+			if(firstTimeRoundOver){
+				victoryAnimation.resetCounterAndTimer();
+				firstTimeRoundOver = false;
+			}
 			roundOver = true;
 			endRoundText = winningPlayer + " " + "wins!";
 			if((640 - nextRoundButton.getWidth()/2<xPos && xPos<760 - nextRoundButton.getWidth()/2) && (200 + nextRoundBg.getHeight()/2<yPos && yPos<245 + nextRoundBg.getHeight()/2)){
