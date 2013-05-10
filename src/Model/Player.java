@@ -189,6 +189,12 @@ public class Player {
 	public int getMaxHP(){
 		return maxHP;
 	}
+	public void setHP(int HP) {
+		this.HP = HP;
+	}
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
 	public void dealDamage(int damage){
 		//Remove some damage given depending on armor
 		damage *= (1-armor);
