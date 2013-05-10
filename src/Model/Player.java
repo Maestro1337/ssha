@@ -18,6 +18,7 @@ public class Player {
 	private float imgY;
 	private float startingPosX;
 	private float startingPosY;
+	private boolean isReady;
 	
 	private boolean isAlive = true;
 	
@@ -55,6 +56,7 @@ public class Player {
 	public Player(String name, String type, float x, float y, int maxHP, double speed, double armor){
 		this.name = name;
 		this.classType = type;
+		this.isReady = false;
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
