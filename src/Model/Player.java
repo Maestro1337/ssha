@@ -240,7 +240,7 @@ public class Player {
 			secondStepImage = second;
 	}
 	public void changeUserImage(){
-		if(isRunning && !isStunned){
+		if(isRunning && !isStunned  && moveSpeed > 0){
 			if(userImage == noStepImage || userImage == secondStepImage)
 				userImage = firstStepImage;
 			else if(userImage == noStepImage || userImage == firstStepImage)
