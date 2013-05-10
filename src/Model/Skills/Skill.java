@@ -240,6 +240,23 @@ public class Skill{
 	public int getCurrentLvl(){
 		return lvlOfSkill;
 	}
+	public void setCurrentLvl(int lvl) {
+		lvlOfSkill = lvl;
+		switch(lvl) {
+		case 1:
+			damage = damageLvl1;
+			break;
+		case 2:
+			damage = damageLvl2;
+			break;
+		case 3:
+			damage = damageLvl3;
+			break;
+		case 4:
+			damage = damageLvl4;
+			break;
+		}
+	}
 	public String getDescription(){
 		return describe;
 	}
