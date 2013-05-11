@@ -9,10 +9,12 @@ import Model.Classes.ClassWizard;
 
 public class GlobalClassSelector {
 
+	private static final int nbrOfPlayers = 4;
+	
 	private static GlobalClassSelector myControl = null;
-	private Player[] players = new Player[4];
-	private PlayerControl[] playerControllers = new PlayerControl[4];
-	private Thread[] controllerThreads = new Thread[4];
+	private Player[] players = new Player[nbrOfPlayers];
+	private PlayerControl[] playerControllers = new PlayerControl[nbrOfPlayers];
+	private Thread[] controllerThreads = new Thread[nbrOfPlayers];
 	private boolean changedPlayer = false;
 	private int activePlayer = 0;
 
@@ -31,19 +33,31 @@ public class GlobalClassSelector {
 		players[0] = new ClassHunter("Tester", 120, 100);
 	}
 	
-	public void addPlayer(Player player, int index){
+	public synchronized void addPlayer(Player player, int index){
 		players[index] = player;
 	}
-	public void resetPlayers(){
-		players = new Player[4];
+	public synchronized void resetPlayers(){
+		players = new Player[nbrOfPlayers];
 	}
-	public synchronized Player[] getPlayers(){
+	public Player[] getPlayers(){
 		return players;
 	}
-	public synchronized PlayerControl[] getPlayerControllers() {
+	public synchronized void addPlayerController(PlayerControl pc, int index) {
+		playerControllers[index] = pc;
+	}
+	public synchronized void resetPlayerControllers() {
+		playerControllers = new PlayerControl[nbrOfPlayers];
+	}
+	public PlayerControl[] getPlayerControllers() {
 		return playerControllers;
 	}
-	public synchronized Thread[] getControllerThreads() {
+	public synchronized void addcontrollerThread(Thread thread, int index) {
+		controllerThreads[index] = thread;
+	}
+	public synchronized void resetControllerThreads() {
+		controllerThreads = new Thread[nbrOfPlayers];
+	}
+	public Thread[] getControllerThreads() {
 		return controllerThreads;
 	}
 	
