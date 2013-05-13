@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Control.GlobalClassSelector;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.*;
@@ -46,6 +47,7 @@ public class PlayerModel implements ActionListener {
 	public void ressurectPlayer() throws SlickException{
 		player.setAliveState(true);
 		player.setStunState(false);
+		player.setPushState(false);
 		checkSpawnCollision();
 		player.resetHP();
 		player.setX(player.getStartX());
@@ -234,6 +236,10 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
+		
+		if(currentActiveSkill.isGuided()){
+			findAndSetGuidedTarget(currentActiveSkill);
+		}
 		//Setting x and y to be in middle of mouse click
 		x -= currentActiveSkill.getCurrentWidth()/2;
 		y -= currentActiveSkill.getCurrentHeight()/2;
@@ -307,13 +313,14 @@ public class PlayerModel implements ActionListener {
 					}
 					
 					if(!playerSkills[i].isEndState()){
+						pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
 							player.dealDamage(playerSkills[i].getDamage());
 							
-							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
+							
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							player.dealDamage(playerSkills[i].getDamage());
@@ -345,7 +352,9 @@ public class PlayerModel implements ActionListener {
 			if(obstacles[i] != null && isColliding(obstacles[i], x, y)){
 				
 				if(obstacles[i].isSolid()){
-					//Fuck you solid shit...
+					player.setPushState(false);
+					
+					
 				}
 
 //				System.out.println("Target ran into " + obstacles[i].getType());
@@ -449,22 +458,42 @@ public class PlayerModel implements ActionListener {
 			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
 			
 			player.resetMoveCounter();
-			
-		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
 			player.setRunningState(true);
+			player.setPushState(true);
 		}
+	}
+	
+	
+	/**
+	 * Finds the enemy closest enemy to where the player used the attack and sets him as the target for the guided attack
+	 * @param skill which is the skill that will have a target assigned to it
+	 */
+	public void findAndSetGuidedTarget(Skill skill){
+		Player[] guidedPlayers = GlobalClassSelector.getController().getPlayers();
+		int targetPlayer = player.getPlayerListIndex() != 0 ? 0 : 1;
+		float targetPlayerXDir = guidedPlayers[targetPlayer].getX() - player.getX();
+		float targetPlayerYDir = guidedPlayers[targetPlayer].getY() - player.getY();
+		float targetPlayerGenDir = (float)Math.sqrt(targetPlayerXDir*targetPlayerXDir+targetPlayerYDir*targetPlayerYDir);
 		
-		
-		player.setPushState(true);
-		
+		for(int i=targetPlayer+1; i<guidedPlayers.length; i++){
+			if(guidedPlayers[i] != null && player.getPlayerListIndex() != i){
+				float compXDir = guidedPlayers[i].getX() - player.getX();
+				float compYDir = guidedPlayers[i].getY() - player.getY();
+				float compGenDir = (float)Math.sqrt(compXDir*compXDir+compYDir*compYDir);
+				
+				if(compGenDir<targetPlayerGenDir){
+					targetPlayer = i;
+					targetPlayerXDir = compXDir;
+					targetPlayerYDir = compYDir;
+					targetPlayerGenDir = compGenDir;
+				}
+			}
+		}
+		skill.setGuidedTarget(guidedPlayers[targetPlayer]);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
-
-	
-
 }

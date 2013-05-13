@@ -30,7 +30,7 @@ public class GlobalClassSelector {
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
 	//	players.add(new ClassHunter("Tester", 120, 100));
-		players[0] = new ClassHunter("Tester", 120, 100);
+		players[0] = new ClassHunter("Tester", 120, 100, 0);
 	}
 	
 	public synchronized void addPlayer(Player player, int index){

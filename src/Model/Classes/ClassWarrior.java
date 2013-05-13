@@ -18,8 +18,8 @@ public class ClassWarrior extends Player {
 	Image secondStep;
 	static Skill[] chosenSkills = new Skill[5];
 
-	public ClassWarrior(String name, float x, float y) {
-		super(name, "Warrior", x, y, 200, 0.7, 0.7);
+	public ClassWarrior(String name, float x, float y, int index) {
+		super(name, "Warrior", x, y, 200, 0.7, 0.7, index);
 		try {
 			playerImage = new Image("res/animations/warrior_stand.png");
 			firstStep = new Image("res/animations/warrior_walk1.png");

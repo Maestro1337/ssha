@@ -311,13 +311,16 @@ public class MainView extends BasicGameState implements ActionListener {
 				currentController.isRunning();
 			}
 			
-			//Check if players skills are in use to update positioning
+			
 			Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 			for(int j=0; j<currentSkillList.length; j++){
+				//Check if players skills are in use to update positioning
 				if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
 					currentController.isAttacking(currentSkillList[j]);
 				}
 			}
+			
+			
 		}
 		
 		Input input = gc.getInput();
@@ -357,10 +360,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isMouseButtonDown(0)){
 			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
 			
-			//Setting target to guide if skill permits it
-			if(currentActiveController.getCurrentActiveSkill().isGuided()){
-				currentActiveController.getCurrentActiveSkill().setGuidedTarget(playerList[enemyPlayer]);
-			}
 		}
 		
 		
