@@ -6,9 +6,9 @@ import Model.Skills.Skill;
 
 public class StatusEffectBurning extends StatusEffect{
 
-	public StatusEffectBurning(Player player, Skill skill) {
+	public StatusEffectBurning(Skill skill, int seconds) {
 		
-		super(player, skill, "Burning", 50, 0, 0, 0, 0, 0, 0, false, 5, 0);
+		super(null, skill, "Burning", 50, 0, 0, 0, 0, 0, 0, false, seconds+1, 0);
 	}
 
 }

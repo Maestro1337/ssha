@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillArrowFlurry extends Skill {
 	public SkillArrowFlurry(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow flurry", 1000, 400, 100, 3, 50, 15, 15, 15, 15,"Arrow flurry: \n" +
+		super("Arrow flurry", 1000, 400, 100, 3, 50, 100, 200, 400, 800,"Arrow flurry: \n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -19,7 +19,7 @@ public class SkillArrowFlurry extends Skill {
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectImmobilize(null, this, 10));
+		super.setStatusEffect(new StatusEffectImmobilize(this, 1));
 		
 		try {
 			attackImage = new Image("res/animations/arrowFlurry.png");

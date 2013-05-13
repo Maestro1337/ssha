@@ -13,6 +13,7 @@ public class SkillLifestealingArrows extends Skill {
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
 				"Level 4: 45 damage", false);
+		// TODO Lifesteal StatusAffect AffectSelf
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

@@ -4,6 +4,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectCripple;
+import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillCripplingShot extends Skill {
 	public SkillCripplingShot(){
@@ -15,20 +17,12 @@ public class SkillCripplingShot extends Skill {
 				"Level 4: 45 damage", false);
 		
 		Image attackImage = null;
-		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
+		super.setStatusEffect(new StatusEffectCripple(this, -0.3, 4));
+		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
-			
-			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
-			
+			attackImage = new Image("res/animations/arrow.png");
 			skillBar[0] = new Image("res/skillIcons/cripplingshot.png");
 			skillBar[1] = new Image("res/skillIcons/cripplingshot_active.png");
 			skillBar[2] = new Image("res/skillIcons/cripplingshot_disabled.png");
@@ -40,7 +34,6 @@ public class SkillCripplingShot extends Skill {
 		
 		
 		super.setImage(attackImage);
-		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
 }

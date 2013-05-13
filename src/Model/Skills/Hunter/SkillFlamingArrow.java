@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectBurning;
 
 public class SkillFlamingArrow extends Skill {
 	public SkillFlamingArrow(){
@@ -17,6 +18,8 @@ public class SkillFlamingArrow extends Skill {
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
+		
+		super.setStatusEffect(new StatusEffectBurning(this, 3));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");

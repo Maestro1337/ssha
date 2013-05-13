@@ -16,6 +16,7 @@ import org.newdawn.slick.SlickException;
 public class Skill{
 
 	private String name;
+	private String smallName;
 	private int cooldown;
 	private int range;
 	private int areaOfEffect;
@@ -88,6 +89,7 @@ public class Skill{
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
 			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
 		this.name = name;
+		this.smallName = name.toLowerCase().replaceAll("\\s", "");
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
@@ -191,6 +193,9 @@ public class Skill{
 	}
 	public String getName(){
 		return name;
+	}
+	public String getSmallName() {
+		return smallName;
 	}
 	public int getCoolDown(){
 		return cooldown/1000;

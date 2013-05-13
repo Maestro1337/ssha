@@ -19,7 +19,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 		Image[] attackImages = new Image[1];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectStun(null, this, 5));
+		super.setStatusEffect(new StatusEffectStun(this, 5));
 		
 		try {
 			attackImages[0] = new Image("res/animations/arrow.png");
