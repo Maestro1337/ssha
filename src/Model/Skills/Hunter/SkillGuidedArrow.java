@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillGuidedArrow extends Skill {
 	public SkillGuidedArrow(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Guided Arrow", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"The hunter \n" +
+		super("Guided Arrow", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Guided arrow: \n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
