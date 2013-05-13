@@ -40,17 +40,18 @@ public class PlayerModel implements ActionListener {
 		player.setX(1000);
 		player.setY(-1000);
 		player.setRunningState(false);
-		for(int i=0; i<playerSkills.length; i++){
+	/*	for(int i=0; i<playerSkills.length; i++){
 			playerSkills[i].setAttX(-1000);
 			playerSkills[i].setAttY(-1000);
-		}
+		}*/
+		player.resetStatusEffects();
 	}
 	
 	public void ressurectPlayer() throws SlickException{
 		player.setAliveState(true);
+		player.setStunState(false);
 		checkSpawnCollision();
 		player.resetHP();
-		player.resetStatusEffects();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
 		for(int i=0; i<playerSkills.length; i++){

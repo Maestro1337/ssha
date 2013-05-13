@@ -220,6 +220,9 @@ public class Player {
 	public void addMovementSpeed(double speed){
 		this.moveSpeed += speed;
 	}
+	public void setMovementSpeed(double speed) {
+		this.moveSpeed = speed;
+	}
 	public int getKills(){
 		return kills;
 	}
@@ -282,6 +285,9 @@ public class Player {
 		statusEffectList.remove(SE);
 	}
 	public void resetStatusEffects(){
+		for(int j=0; j<statusEffectList.size(); j++){
+			statusEffectList.get(j).setResetOfStatusEffect();
+		}
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
 	public boolean isStunned(){

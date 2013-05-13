@@ -101,6 +101,9 @@ public class StatusEffect {
 			return false;
 		}
 	}
+	public void setResetOfStatusEffect(){
+		returnStatsToNormal();
+	}
 	
 	private void commitStatusEffect(){
 		if(dmgEff>0){
@@ -115,6 +118,8 @@ public class StatusEffect {
 			player.addArmor(armEff);
 		}
 		if(moveSpeedEff!=0 && !commitedChange){
+			//Calculating how the moveSpeed will be changed to know how much to change it back after return of statusEffect
+			moveSpeedEff = moveSpeedEff*player.getMoveSpeed();
 			player.addMovementSpeed(moveSpeedEff);
 		}
 		if(atkSpeedEff!=0 && !commitedChange){
