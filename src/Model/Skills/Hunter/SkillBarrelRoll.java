@@ -19,7 +19,7 @@ public class SkillBarrelRoll extends Skill {
 		Image[] animation = new Image[5];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectBarrelRoll(null, this));
+		super.setStatusEffect(new StatusEffectBarrelRoll(this));
 	//	super.setStatusEffect(new StatusEffectTeleport(null, this));
 		
 		try {

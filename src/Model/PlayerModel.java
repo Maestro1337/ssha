@@ -40,10 +40,6 @@ public class PlayerModel implements ActionListener {
 		player.setX(1000);
 		player.setY(-1000);
 		player.setRunningState(false);
-	/*	for(int i=0; i<playerSkills.length; i++){
-			playerSkills[i].setAttX(-1000);
-			playerSkills[i].setAttY(-1000);
-		}*/
 		player.resetStatusEffects();
 	}
 	
@@ -56,6 +52,7 @@ public class PlayerModel implements ActionListener {
 		player.setY(player.getStartY());
 		for(int i=0; i<playerSkills.length; i++){
 			playerSkills[i].resetCooldown();
+			playerSkills[i].collidedShot();
 		}
 	}
 	
