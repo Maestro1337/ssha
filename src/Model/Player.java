@@ -220,6 +220,9 @@ public class Player {
 	public void addMovementSpeed(double speed){
 		this.moveSpeed += speed;
 	}
+	public void setMovementSpeed(double speed) {
+		this.moveSpeed = speed;
+	}
 	public int getKills(){
 		return kills;
 	}
