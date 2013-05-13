@@ -29,7 +29,7 @@ public class Player {
 	private double armor=0;
 	private int kills=0;
 	private int deaths;
-	private int coins;
+	private int gold=0;
 	private Skill[] skillList = new Skill[5];
 	
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
@@ -189,6 +189,12 @@ public class Player {
 	public int getMaxHP(){
 		return maxHP;
 	}
+	public int getGold(){
+		return gold;
+	}
+	public void setGold(int gold){
+		this.gold=gold;
+	}
 	public void setHP(int HP) {
 		this.HP = HP;
 	}
@@ -220,6 +226,9 @@ public class Player {
 	public void addMovementSpeed(double speed){
 		this.moveSpeed += speed;
 	}
+	public void setMovementSpeed(double speed) {
+		this.moveSpeed = speed;
+	}
 	public int getKills(){
 		return kills;
 	}
@@ -229,15 +238,11 @@ public class Player {
 	public void setKills(int kills) {
 		this.kills = kills;
 	}
-	public int getCoins() {
-		return coins;
+
+	public void addGold(int gold) {
+		this.gold += gold;
 	}
-	public void addCoins(int coins) {
-		this.coins += coins;
-	}
-	public void setCoins(int coins) {
-		this.coins = coins;
-	}
+
 	public void setImages(Image image, Image first, Image second){
 		if(image != null)
 			userImage = noStepImage = image;

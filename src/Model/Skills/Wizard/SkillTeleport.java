@@ -13,21 +13,20 @@ public class SkillTeleport extends Skill {
 		super("Teleport", 20000, 500, 100, 8, 50, 0, 0, 0, 0, "Teleport:\nTAFLEPoRT!", true);
 		
 		Image attackImage = null;
-		Image[] animation = new Image[7];
+		Image[] animation = new Image[5];
 		Image[] skillBar = new Image[3];
 		
 		super.setStatusEffect(new StatusEffectTeleport(this));
 		
 		try {
-			attackImage = new Image("res/skillIcons/firestorm.png");
+			attackImage = new Image("res/animations/Teleport1.png");
 			
-			animation[0] = new Image("res/skillIcons/firestorm.png");
-			animation[1] = new Image("res/skillIcons/firestorm.png");
-			animation[2] = new Image("res/skillIcons/firestorm.png");
-			animation[3] = new Image("res/skillIcons/firestorm.png");
-			animation[4] = new Image("res/skillIcons/firestorm.png");
-			animation[5] = new Image("res/skillIcons/firestorm.png");
-			animation[6] = new Image("res/skillIcons/firestorm.png");
+			animation[0] = new Image("res/animations/Teleport1.png");
+			animation[1] = new Image("res/animations/Teleport2.png");
+			animation[2] = new Image("res/animations/Teleport3.png");
+			animation[3] = new Image("res/animations/Teleport4.png");
+			animation[4] = new Image("res/animations/Teleport5.png");
+			
 			
 			
 			skillBar[0] = new Image("res/skillIcons/teleport.png");

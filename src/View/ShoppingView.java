@@ -53,6 +53,9 @@ public class ShoppingView extends BasicGameState {
 
 	Image chosenSkill = null;
 	
+	Image playerGold;
+	String playerGoldText;
+	
 	private String mouse = "No input yet";
 	Image menuTab;
 	
@@ -101,7 +104,11 @@ public class ShoppingView extends BasicGameState {
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
 		skillsText = new Image("res/miscImages/skillsText.png");
 		shopText = new Image("res/miscImages/shopText.png");
-		skillText = " ";
+
+		skillText = "Bitch please!";
+		playerGold = new Image("res/miscImages/PlayerGold.png");
+		
+
 		
 		skillDescBg = new Image("res/miscImages/initEmptyPic.png");
 
@@ -203,7 +210,7 @@ public class ShoppingView extends BasicGameState {
 				"\nHP: "+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getHP() + 
 				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
 				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getKills()
-				+ "\nGold:" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getCoins(), 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
+				+ "\nGold:" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold(), 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
 
 		g.drawString("1", 102, 200);
 		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 225);
