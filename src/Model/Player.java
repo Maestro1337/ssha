@@ -229,13 +229,13 @@ public class Player {
 	public void setKills(int kills) {
 		this.kills = kills;
 	}
-	public int getCoins() {
+	public int getGold() {
 		return coins;
 	}
-	public void addCoins(int coins) {
+	public void addGold(int coins) {
 		this.coins += coins;
 	}
-	public void setCoins(int coins) {
+	public void setGold(int coins) {
 		this.coins = coins;
 	}
 	public void setImages(Image image, Image first, Image second){
