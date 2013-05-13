@@ -8,11 +8,11 @@ import Model.Skills.Skill;
 public class SkillPassiveDodge extends Skill {
 	public SkillPassiveDodge(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Dodge: \n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage", true);
+		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Dodge: \nGives the chance to avoid incoming damage." +
+				"Level 1: 5% chance\n" +
+				"Level 2: 10% chance\n" +
+				"Level 3: 15% chance\n" +
+				"Level 4: 20% chance", true);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
