@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillLifestealingArrows extends Skill {
 	public SkillLifestealingArrows(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Lifestealing Arrows", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Lifestealing arrow: \nArrows that steals the\nlifeforce of the target." +
+		super("Lifestealing Arrows", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Lifestealing arrow: \nArrows that steals the\nlifeforce of the target.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +

@@ -9,7 +9,7 @@ import Model.StatusEffects.*;
 public class SkillBarrelRoll extends Skill {
 	public SkillBarrelRoll(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Barrel Roll", 4000, 40, 0.4, 3, 50, 0, 0, 0, 0,"Barrel roll: \n Roll out of the fray... or into it." +
+		super("Barrel Roll", 4000, 40, 0.4, 3, 50, 0, 0, 0, 0,"Barrel roll: \nRoll out of the fray... \nor into it.\n" +
 				"Level 1: 15 sec cd\n" +
 				"Level 2: 12 sec cd\n" +
 				"Level 3: 8 sec cd\n" +

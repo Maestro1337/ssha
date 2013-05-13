@@ -10,7 +10,7 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillCripplingShot extends Skill {
 	public SkillCripplingShot(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Crippling shot: \n A shot which slows the enemy." +
+		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Crippling shot: \nA shot which slows the enemy.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +

@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillSprint extends Skill {
 	public SkillSprint(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Sprint", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Sprint: \nIncreases movementspeed for a short duration." +
+		super("Sprint", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
 				"Level 1: 3 sec\n" +
 				"Level 2: 5 sec\n" +
 				"Level 3: 7 sec\n" +

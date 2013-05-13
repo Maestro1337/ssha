@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillStealth extends Skill {
 	public SkillStealth(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Stealth", 11000, 400, 0.4, 3, 50, 150, 300, 300, 300,"Stealth: \nFades into the shadows \nrendering the hunter invisible." +
+		super("Stealth", 11000, 400, 0.4, 3, 50, 150, 300, 300, 300,"Stealth: \nFades into the shadows \nrendering the hunter invisible.\n" +
 				"Level 1: 5 sec\n" +
 				"Level 2: 10 sec\n" +
 				"Level 3: 15 sec\n" +
