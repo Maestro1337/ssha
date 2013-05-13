@@ -24,11 +24,11 @@ public class ClassHunter extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillArrowFlurry();
+		chosenSkills[0] = new SkillArrow();
 		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillCripplingShot();
-		chosenSkills[3] = new SkillArrow();
-		chosenSkills[4] = new SkillArrow();
+		chosenSkills[3] = new SkillFlamingArrow();
+		chosenSkills[4] = new SkillGuidedArrow();
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);

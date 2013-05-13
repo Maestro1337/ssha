@@ -22,7 +22,7 @@ public class SkillFlamingArrow extends Skill {
 		super.setStatusEffect(new StatusEffectBurning(this, 3));
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImage = new Image("res/animations/arrow.png");
 			
 			animation[0] = new Image("res/animations/explode1.png");
 			animation[1] = new Image("res/animations/explode2.png");

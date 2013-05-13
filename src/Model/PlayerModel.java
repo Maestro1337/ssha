@@ -264,6 +264,10 @@ public class PlayerModel implements ActionListener {
 					}
 					System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
 					currentActiveSkill.setAttackingState(true);
+					
+					currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
+					currentActiveSkill.setMouseYPos(player.getY()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getGenDirAtt());
+					
 				}
 				
 			if(currentActiveSkill.getAffectSelf()){
@@ -304,7 +308,7 @@ public class PlayerModel implements ActionListener {
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							player.dealDamage(playerSkills[i].getDamage());
-							playerSkills[i].activatePreEndState();
+							playerSkills[i].activateCollisionEndState();
 						}
 					}else{
 						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
