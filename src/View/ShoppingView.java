@@ -15,6 +15,7 @@ import Control.GlobalClassSelector;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Skills.Skill;
+import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
 import Model.Skills.Hunter.SkillCripplingShot;
@@ -24,7 +25,6 @@ import Model.Skills.Hunter.SkillLifestealingArrows;
 import Model.Skills.Hunter.SkillPassiveDodge;
 import Model.Skills.Hunter.SkillSprint;
 import Model.Skills.Hunter.SkillStealth;
-import Model.Skills.Hunter.SkillSuperSlowTestSkill;
 import Model.Skills.Warrior.SkillAdrenaline;
 import Model.Skills.Warrior.SkillFirstAid;
 import Model.Skills.Warrior.SkillGrapplingHook;
@@ -150,7 +150,7 @@ public class ShoppingView extends BasicGameState {
 				classPortrait = new Image("res/classImages/hunter_portrait.png");
 				//Init Hunter basic, offensive, defensive and mobility skillists
 				
-				basicSkill = new SkillSuperSlowTestSkill();
+				basicSkill = new SkillArrow();
 				
 				offSkills[0] = new SkillFlamingArrow();
 				offSkills[1] = new SkillGuidedArrow();
@@ -223,8 +223,7 @@ public class ShoppingView extends BasicGameState {
 				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
 				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getKills()
 				 , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
-
-<<<<<<< HEAD
+		
 		g.drawString("1", 102, 250);
 		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 275);
 		g.drawString("2", 170, 250);
@@ -237,20 +236,6 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
 		
 		//g.drawImage(skillsText, 200, 350);
-	
-		
-=======
-		g.drawString("1", 102, 200);
-		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 225);
-		g.drawString("2", 170, 200);
-		g.drawImage(chosenSkills[1].getSkillBarImage(), 139, 225);
-		g.drawString("3", 239, 200);
-		g.drawImage(chosenSkills[2].getSkillBarImage(), 208, 225);
-		g.drawString("4", 308, 202);
-		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 225);
-		g.drawString("5", 377, 200);
-		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 225);
->>>>>>> branch 'master' of git@github.com:Maestro1337/ssha.git
 		
 		//Offensive skills
 		g.drawImage(firstOffSkill, 60, 440);
