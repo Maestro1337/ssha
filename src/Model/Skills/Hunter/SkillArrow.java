@@ -10,7 +10,7 @@ public class SkillArrow extends Skill{
 	
 	public SkillArrow(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow", 1000, 800, 0.5, 3, 0, 30, 300, 300, 300,"Arrow: \nShoots a plain arrow.\n" +
+		super("Arrow", 1000, 500, 0.5, 3, 0, 30, 300, 300, 300,"Arrow: \nShoots a plain arrow.\n" +
 				"Level 1: 10 damage\n" +
 				"Level 2: 20 damage\n" +
 				"Level 3: 30 damage\n" +
@@ -19,7 +19,7 @@ public class SkillArrow extends Skill{
 		Image[] attackImages = new Image[1];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectStun(this, 5));
+	//	super.setStatusEffect(new StatusEffectStun(this, 5));
 		
 		try {
 			attackImages[0] = new Image("res/animations/arrow.png");

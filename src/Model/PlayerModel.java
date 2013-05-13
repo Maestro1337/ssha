@@ -73,17 +73,22 @@ public class PlayerModel implements ActionListener {
 	
 	public void isRunning() throws SlickException{
 		player.changeUserImage();
-		if(player.isAlive() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
-	//		if(findNaN.isNaN()){
-	//			imgX = mouseXPosMove;
-	//			imgY = mouseYPosMove;
-	//			player.setRunningState(false);
-	//		}
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
+			
+		}else if(player.isAlive() && player.isPushed() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+			player.addX((float)(player.getXDirMove()*player.getPushSpeed()));
+			player.addY((float)(player.getYDirMove()*player.getPushSpeed()));
+			
+			player.incMoveCounter();
+			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove()){
+				player.setRunningState(false);
+				player.setPushState(false);
+			}
 		}else{
 			player.setRunningState(false);
 		}
@@ -202,6 +207,7 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
+
 		rotate(x, y);
 		player.setMouseXPosMove(x);
 		player.setMouseYPosMove(y);
@@ -305,11 +311,17 @@ public class PlayerModel implements ActionListener {
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
 							player.dealDamage(playerSkills[i].getDamage());
+							
+							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							player.dealDamage(playerSkills[i].getDamage());
 							playerSkills[i].activateCollisionEndState();
 						}
+						
+						
+						
+						
 					}else{
 						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
 							System.out.println("Target hit with " + playerSkills[i].getName());
@@ -380,9 +392,7 @@ public class PlayerModel implements ActionListener {
 	public void checkSpawnCollision() throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
-				float x = 0;
-				float y= 0;
-				while(isColliding(obstacles[i], x, y)){
+				while(isColliding(obstacles[i], 1, 0)){
 					player.addX(1);
 				}
 			}
@@ -412,6 +422,19 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 
+	public void pushPlayer(float xDir, float yDir){
+		System.out.println("PUSHES");
+		
+		float x = player.getX()+xDir*50;
+		float y = player.getY()+yDir*50;
+		
+		
+		move((int)x,(int)y);
+		
+		
+		player.setPushState(true);
+		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

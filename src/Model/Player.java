@@ -48,8 +48,8 @@ public class Player {
 	private Double findNaN;
 	
 	private boolean isStunned = false;
-	
-	
+	private boolean isPushed = false;
+	private double pushSpeed = 1.5;
 	
 	private boolean isRunning = false;
 	
@@ -297,5 +297,14 @@ public class Player {
 	}
 	public void setStunState(boolean state){
 		isStunned = state;
+	}
+	public boolean isPushed(){
+		return isPushed;
+	}
+	public void setPushState(boolean state){
+		isPushed = state;
+	}
+	public double getPushSpeed(){
+		return pushSpeed;
 	}
 }
