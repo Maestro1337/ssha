@@ -13,7 +13,7 @@ public class SkillAbsorb extends Skill{
 					"Level 1: 10 % of damage done up to a maximum shield that absorbs 100 damage.\n" +
 					"Level 2: 15 % of damage done up to a maximum shield that absorbs 150 damage.\n" +
 					"Level 3: 20 % of damage done up to a maximum shield that absorbs 200 damage.\n" +
-					"Level 4: 25 % of damage done up to a maximum shield that absorbs 250 damage.", false);
+					"Level 4: 25 % of damage done up to a maximum shield that absorbs 250 damage.", true);
 
 			
 			Image attackImage = null;
