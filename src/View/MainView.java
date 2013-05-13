@@ -62,7 +62,9 @@ import Model.Timers.AnimationTimer;
 
 import Control.*;
 
-public class MainView extends BasicGameState implements ActionListener {
+public class MainView extends BasicGameState implements ActionListener {	
+	boolean shouldcalcgold;
+	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
 	private String mouse = "No input yet";
@@ -127,6 +129,9 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void initRound() throws SlickException{
+		TimeRoundStart = System.currentTimeMillis();
+		shouldcalcgold=true;
+		
 		Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
@@ -182,15 +187,20 @@ public class MainView extends BasicGameState implements ActionListener {
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
 		
-		Image[] victoryanimation = new Image[5];
+		Image[] victoryanimation = new Image[10];
 		
-		victoryanimation[0] = new Image("res/animations/victory5.png");
-		victoryanimation[1] = new Image("res/animations/victory4.png");
-		victoryanimation[2] = new Image("res/animations/victory3.png");
-		victoryanimation[3] = new Image("res/animations/victory2.png");
-		victoryanimation[4] = new Image("res/animations/victory1.png");
+		victoryanimation[0] = new Image("res/animations/victory10.png");
+		victoryanimation[1] = new Image("res/animations/victory9.png");
+		victoryanimation[2] = new Image("res/animations/victory8.png");
+		victoryanimation[3] = new Image("res/animations/victory7.png");
+		victoryanimation[4] = new Image("res/animations/victory6.png");
+		victoryanimation[5] = new Image("res/animations/victory5.png");
+		victoryanimation[6] = new Image("res/animations/victory4.png");
+		victoryanimation[7] = new Image("res/animations/victory3.png");
+		victoryanimation[8] = new Image("res/animations/victory2.png");
+		victoryanimation[9] = new Image("res/animations/victory1.png");
 		
-		victoryAnimation = new AnimationTimer(2000,victoryanimation);
+		victoryAnimation = new AnimationTimer(500,victoryanimation);
 		firstTimeRoundOver = true;
 	}
 	
@@ -256,18 +266,37 @@ public class MainView extends BasicGameState implements ActionListener {
 			}		
 		}
 		if(roundOver){
+			if (shouldcalcgold){
+				goldreward();
+			}
+			shouldcalcgold=false;
+			System.out.println(player.getGold());
 			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
 			if(Control.getPlayer().getHP()>0){
+				
 				Image testAnimationImage = victoryAnimation.getCurrentAnimationImage();
 				if(testAnimationImage != null){
 					roundOverAnimationImage = testAnimationImage;
 				}
 				if(roundOverAnimationImage != null)
-					g.drawImage(roundOverAnimationImage, 1280/2 - nextRoundBg.getWidth()/2, 200);
+					g.drawImage(roundOverAnimationImage, 1280/2 - nextRoundBg.getWidth()/2, 200-nextRoundBg.getHeight()/2);
 			}
 		}
+	}
+	public void goldreward(){
+		System.out.println("hora");
+		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
+			player.setGold(player.getGold()+1);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
+			player.setGold(player.getGold()+5);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
+			player.setGold(player.getGold()+15);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
+			player.setGold(player.getGold()+25);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
+			player.setGold(player.getGold()+50);
 	}
 	
 	

@@ -22,7 +22,7 @@ public class SkillSlash extends Skill{
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
+			attackImage = new Image("res/animations/slash1.png");
 			
 			animation[0] = new Image("res/animations/slash1.png");
 			animation[1] = new Image("res/animations/slash2.png");
@@ -38,7 +38,7 @@ public class SkillSlash extends Skill{
 		}
 		
 		super.setImage(attackImage);
-		super.setEndState(animation, 400, 350);
+		super.setEndState(animation, 400, 400);
 		super.setSkillBarImages(skillBar);
 		
 	}

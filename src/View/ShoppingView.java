@@ -56,6 +56,9 @@ public class ShoppingView extends BasicGameState {
 
 	Image chosenSkill = null;
 	
+	Image playerGold;
+	String playerGoldText;
+	
 	private String mouse = "No input yet";
 	Image menuTab;
 	
@@ -105,7 +108,11 @@ public class ShoppingView extends BasicGameState {
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
 		skillsText = new Image("res/miscImages/skillsText.png");
 		shopText = new Image("res/miscImages/shopText.png");
-		skillText = " ";
+
+		skillText = "Bitch please!";
+		playerGold = new Image("res/miscImages/PlayerGold.png");
+		
+
 		
 		skillDescBg = new Image("res/miscImages/initEmptyPic.png");
 
