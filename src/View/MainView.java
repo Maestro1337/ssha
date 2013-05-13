@@ -72,6 +72,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	String test;
 	TiledMap map;
 	
+	Player[] playerList;
+	
 	String endRoundText = "";
 	String winningPlayer= "<Fix code to get> \n<the winning> \n<players name>";
 	Image nextRoundButton;
@@ -134,7 +136,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
-		switch(GlobalClassSelector.getController().getPlayers().get(GlobalClassSelector.getController().getActivePlayerIndex()).getType()){
+		playerList = GlobalClassSelector.getController().getPlayers();
+		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
+		switch(playerList[activePlayer].getType()){
 		case "Wizard":
 			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
 		break;
@@ -145,12 +149,12 @@ public class MainView extends BasicGameState implements ActionListener {
 			playerPortrait = new Image("res/classImages/Portrait_Warrior.png");
 		break;
       	}
-		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
+		
 		
 		//TODO Is to be removed later (is still here because of AI methods)-------
 		
-		Control = new PlayerModel(GlobalClassSelector.getController().getPlayers().get(activePlayer), obstacles);
-		player = GlobalClassSelector.getController().getPlayers().get(activePlayer);
+		Control = new PlayerModel(playerList[activePlayer], obstacles);
+		player = playerList[activePlayer];
 		playerSkills = player.getSkillList();
 
 		Control.ressurectPlayer();
@@ -159,7 +163,7 @@ public class MainView extends BasicGameState implements ActionListener {
 
 		Control.checkSpawnCollision();
 
-		enemyControl = new PlayerModel(GlobalClassSelector.getController().getPlayers().get(enemyPlayer), obstacles);
+		enemyControl = new PlayerModel(playerList[enemyPlayer], obstacles);
 
 
 		enemy = enemyControl.getPlayer();
@@ -172,7 +176,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//----------------- Up until this point
 		
 		players.clear();
-		players.add(new PlayerModel(GlobalClassSelector.getController().getPlayers().get(activePlayer), obstacles));
+		players.add(new PlayerModel(playerList[activePlayer], obstacles));
 		
 		players.add(enemyControl);
 		
@@ -379,7 +383,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			//Setting target to guide if skill permits it
 			if(currentActiveController.getCurrentActiveSkill().isGuided()){
-				currentActiveController.getCurrentActiveSkill().setGuidedTarget(GlobalClassSelector.getController().getPlayers().get(enemyPlayer));
+				currentActiveController.getCurrentActiveSkill().setGuidedTarget(playerList[enemyPlayer]);
 			}
 		}
 		

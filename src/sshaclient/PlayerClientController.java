@@ -3,12 +3,12 @@ package sshaclient;
 public class PlayerClientController implements PlayerControl {
 
 	private SocketClient sc;
-	private TestPlayer tp; 
+	private Player tp; 
 
 	private int playerID;
 	private boolean isAlive = false;
 	
-	public PlayerClientController(SocketClient sc, TestPlayer tp) {
+	public PlayerClientController(SocketClient sc, Player tp) {
 		this.sc = sc;
 		this.tp = tp;
 		
@@ -27,7 +27,7 @@ public class PlayerClientController implements PlayerControl {
 			System.out.println(tp.getName() + " is alive!");
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Constants.globalSleep);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

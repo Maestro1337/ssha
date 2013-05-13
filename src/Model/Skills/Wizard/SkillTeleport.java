@@ -10,13 +10,13 @@ public class SkillTeleport extends Skill {
 
 	public SkillTeleport() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Teleport", 20000, 500, 100, 8, 0, 0, 0, 0, 0, "TAFLEPoRT!", true);
+		super("Teleport", 20000, 500, 100, 8, 50, 0, 0, 0, 0, "Teleport:\nTAFLEPoRT!", true);
 		
 		Image attackImage = null;
 		Image[] animation = new Image[5];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectTeleport(null, this, 0, 0));
+		super.setStatusEffect(new StatusEffectTeleport(null, this));
 		
 		try {
 			attackImage = new Image("res/animations/Teleport1.png");

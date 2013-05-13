@@ -5,7 +5,7 @@ package Control;
  * @author bellevik
  *
  */
-public interface PlayerControl extends Runnable{
+public interface PlayerControl extends Runnable {
 
 	public void killItWithFire();
 }

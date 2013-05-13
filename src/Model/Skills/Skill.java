@@ -47,8 +47,8 @@ public class Skill{
 	private int currentHeight;
 	
 	//Attack variables
-	private float mouseXPosAtt;
-	private float mouseYPosAtt;
+	private float mouseXPos;
+	private float mouseYPos;
 	private double attSpeed;
 	
 	private int attCounter=0;
@@ -306,16 +306,16 @@ public class Skill{
 	}
 	
 	public void setMouseXPos(int x){
-		mouseXPosAtt = x;
+		mouseXPos = x;
 	}
 	public void setMouseYPos(int y){
-		mouseYPosAtt = y;
+		mouseYPos = y;
 	}
-	public float getMouseXPosAtt(){
-		return mouseXPosAtt;
+	public float getMouseXPos(){
+		return mouseXPos;
 	}
-	public float getMouseYPosAtt(){
-		return mouseYPosAtt;
+	public float getMouseYPos(){
+		return mouseYPos;
 	}
 	public double getAttSpeed(){
 		return attSpeed;
@@ -390,6 +390,9 @@ public class Skill{
 		isAttacking = state;
 		if(state == false){
 			collidedShot();
+			if(spellEffect != null){
+				spellEffect.resetCloning();
+			}
 		}
 	}
 	

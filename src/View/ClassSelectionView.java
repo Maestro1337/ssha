@@ -77,18 +77,18 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				selectButton = new Image("res/buttons/playButton_pressed.png");
 				
-				System.out.println(GlobalClassSelector.getController().getPlayers().size());
+//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
 				
 				GlobalClassSelector.getController().resetPlayers();
 				
-				System.out.println(GlobalClassSelector.getController().getPlayers().size());
-				GlobalClassSelector.getController().addPlayer(player);
+//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
+				GlobalClassSelector.getController().addPlayer(player, 0);
 				
-				System.out.println(GlobalClassSelector.getController().getPlayers().size());
+//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
 				
 				//Addition of AI player
-				GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", 600, 600));
-				System.out.println(GlobalClassSelector.getController().getPlayers().size());
+				GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", 600, 600), 1);
+//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
 				
 				sbg.enterState(1);
 			}

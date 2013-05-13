@@ -226,15 +226,23 @@ public class Player {
 	public void addMovementSpeed(double speed){
 		this.moveSpeed += speed;
 	}
+	public void setMovementSpeed(double speed) {
+		this.moveSpeed = speed;
+	}
 	public int getKills(){
 		return kills;
 	}
 	public void incKills(){
 		kills++;
 	}
-	
-	
-	
+	public void setKills(int kills) {
+		this.kills = kills;
+	}
+
+	public void addGold(int gold) {
+		this.gold += gold;
+	}
+
 	public void setImages(Image image, Image first, Image second){
 		if(image != null)
 			userImage = noStepImage = image;
@@ -246,13 +254,14 @@ public class Player {
 			secondStepImage = second;
 	}
 	public void changeUserImage(){
-		if(isRunning && !isStunned){
+		if(isRunning && !isStunned  && moveSpeed > 0){
 			if(userImage == noStepImage || userImage == secondStepImage)
 				userImage = firstStepImage;
 			else if(userImage == noStepImage || userImage == firstStepImage)
 				userImage = secondStepImage;
 		} else {
 			userImage = noStepImage;
+			setRotation(rotation);
 		}
 	}
 
@@ -278,6 +287,9 @@ public class Player {
 		statusEffectList.remove(SE);
 	}
 	public void resetStatusEffects(){
+		for(int j=0; j<statusEffectList.size(); j++){
+			statusEffectList.get(j).setResetOfStatusEffect();
+		}
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
 	public boolean isStunned(){

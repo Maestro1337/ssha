@@ -101,6 +101,9 @@ public class StatusEffect {
 			return false;
 		}
 	}
+	public void setResetOfStatusEffect(){
+		returnStatsToNormal();
+	}
 	
 	private void commitStatusEffect(){
 		if(dmgEff>0){
@@ -115,6 +118,8 @@ public class StatusEffect {
 			player.addArmor(armEff);
 		}
 		if(moveSpeedEff!=0 && !commitedChange){
+			//Calculating how the moveSpeed will be changed to know how much to change it back after return of statusEffect
+			moveSpeedEff = moveSpeedEff*player.getMoveSpeed();
 			player.addMovementSpeed(moveSpeedEff);
 		}
 		if(atkSpeedEff!=0 && !commitedChange){
@@ -143,6 +148,7 @@ public class StatusEffect {
 				player.addMovementSpeed(-moveSpeedEff);
 			}
 			player.setStunState(false);
+			resetCloning();
 		}
 	}
 	
@@ -157,7 +163,7 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getAttX()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getAttY()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getMouseXPos()+skill.getEndStateImgWidth()/2-newPlayer.getImage().getWidth()/2, skill.getMouseYPos()+skill.getEndStateImgHeight()/2-newPlayer.getImage().getHeight()/2, moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}else{
 			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}

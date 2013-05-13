@@ -40,17 +40,18 @@ public class PlayerModel implements ActionListener {
 		player.setX(1000);
 		player.setY(-1000);
 		player.setRunningState(false);
-		for(int i=0; i<playerSkills.length; i++){
+	/*	for(int i=0; i<playerSkills.length; i++){
 			playerSkills[i].setAttX(-1000);
 			playerSkills[i].setAttY(-1000);
-		}
+		}*/
+		player.resetStatusEffects();
 	}
 	
 	public void ressurectPlayer() throws SlickException{
 		player.setAliveState(true);
+		player.setStunState(false);
 		checkSpawnCollision();
 		player.resetHP();
-		player.resetStatusEffects();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
 		for(int i=0; i<playerSkills.length; i++){
@@ -286,9 +287,6 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void checkCollision(Skill[] playerSkills) throws SlickException{
-		if(player.getType() == "Warrior")
-			System.out.println(player.isStunned());
-		
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
@@ -399,7 +397,7 @@ public class PlayerModel implements ActionListener {
 			//Checks and makes the effect if timer has not run out. If it has it will return false and remove the statusEffect from player
 			if(!currentStatusEffect.checkStatusEffect()){
 				player.removeStatusEffect(currentStatusEffect);
-				/*if(currentStatusEffect.hasStun()){
+				if(currentStatusEffect.hasStun()){
 					boolean stunDecision = false;
 					for(int j=0; j<player.getStatusEffects().size(); j++){
 						StatusEffect stunCheckSE = player.getStatusEffects().get(j);
@@ -408,7 +406,7 @@ public class PlayerModel implements ActionListener {
 						}
 						player.setStunState(stunDecision);
 					}
-				}*/
+				}
 			}
 		}
 	}
