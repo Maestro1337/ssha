@@ -101,6 +101,9 @@ public class StatusEffect {
 			return false;
 		}
 	}
+	public void setResetOfStatusEffect(){
+		returnStatsToNormal();
+	}
 	
 	private void commitStatusEffect(){
 		if(dmgEff>0){
