@@ -109,7 +109,7 @@ public class ShoppingView extends BasicGameState {
 		skillsText = new Image("res/miscImages/skillsText.png");
 		shopText = new Image("res/miscImages/shopText.png");
 
-		skillText = "Bitch please!";
+		skillText = " ";
 		playerGold = new Image("res/miscImages/PlayerGold.png");
 		playerGoldText = ""+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
 		
@@ -233,6 +233,7 @@ public class ShoppingView extends BasicGameState {
 		g.drawString("4", 308, 252);
 		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 275);
 		g.drawString("5", 377, 250);
+		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
 		
 		//g.drawImage(skillsText, 200, 350);
 		
