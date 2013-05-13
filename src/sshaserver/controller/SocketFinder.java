@@ -8,10 +8,7 @@ import sshaserver.view.ServerView;
 
 public class SocketFinder implements Runnable {
 
-	//private static MultiSocketServer[] theSockets = new MultiSocketServer[constants.nbrOfClients];
-	//private static Thread[] theThreads = new Thread[constants.nbrOfClients];
 	private int port;
-	//int count = 0;
 	
 	private ClientSupervisor CS;
 	private ServerView SV;
@@ -29,7 +26,6 @@ public class SocketFinder implements Runnable {
 
 	@Override
 	public void run() {
-		//System.out.println("1");
 		while(!isActive) {
 			try {
 				System.out.println("lol");
@@ -41,25 +37,21 @@ public class SocketFinder implements Runnable {
 			socket1 = new ServerSocket(port);
 			SV.addToActivityField("Server started on port " + port);
 			
+			// Listens for new connections
 			while(isActive) {
-				//System.out.println("2");
 				Socket connection = socket1.accept();
-				//theSockets[++count] = new MultiSocketServer(connection, count);
-				//theThreads[count] = new Thread(theSockets[count]);
-				//theThreads[count].start();
-				//System.out.println(count);
 				if(connection != null) {
 					CS.addSocket(connection);
 				}
 			}
 		}
 		catch(Exception e) {
-			//System.out.println("3");
+
 		}
-		//System.out.println("4");
 		SV.addToActivityField("Server stopped");
 	}
 	
+	// Closes the socket and thereby stops the search
 	public void stopSearching() {
 		try {
 			socket1.close();
@@ -76,6 +68,10 @@ public class SocketFinder implements Runnable {
 	
 	public void changePort(int port) {
 		this.port = port;
+	}
+	
+	public int getCurrentPort() {
+		return port;
 	}
 
 }

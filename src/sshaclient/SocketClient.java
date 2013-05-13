@@ -7,9 +7,9 @@ public class SocketClient implements Runnable {
 	
 	private String[] playerStats;
 	private boolean[] playerChanged;
-	private TestPlayer tp;
+	private Player tp;
 	
-	private TestPlayer[] tpa;
+	private Player[] tpa;
 	private PlayerControl[] tpac;
 	private Thread[] tpat;
 	
@@ -29,7 +29,7 @@ public class SocketClient implements Runnable {
 	private BufferedInputStream bis;
 	private InputStreamReader isr;
 	
-	public SocketClient(String host, int port, TestPlayer tp, TestPlayer[] tpa, PlayerControl[] tpac, Thread[] tpat) {
+	public SocketClient(String host, int port, Player tp, Player[] tpa, PlayerControl[] tpac, Thread[] tpat) {
 		this.tp = tp;
 		
 		this.host = host;
@@ -53,19 +53,19 @@ public class SocketClient implements Runnable {
 			if(connected) {
 				
 				if(tp.getMode().equals("lobby")) {
-					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getMisc1() + " " + tp.getMisc2();
+					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getMisc1() + " " + tp.getMisc2();
 				} else {
-					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getAngle();
+					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation();
 				}
 				
-				process = process + " " + (char)13;
+				process = process + (char)13;
 				sendData(process);
 				recieveData();
 				
 			}
 			
 			try {
-				Thread.sleep(500);
+				Thread.sleep(Constants.globalSleep);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -76,7 +76,7 @@ public class SocketClient implements Runnable {
 	public void findConnection() {
 		while(!tp.isConnected()) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Constants.globalSleep);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -105,6 +105,11 @@ public class SocketClient implements Runnable {
 	}
 	
 	public synchronized void sendData(String process) {
+		
+		//System.out.println(process.substring(beginIndex, endIndex));
+		
+		//System.out.println("Din klass aer: " + Constants.getItem(process, 3));
+		
 		try {
 			osw.write(process);
 			osw.flush();
@@ -187,26 +192,30 @@ public class SocketClient implements Runnable {
 		while(data.length() > 1) {
 			tempStats = data.substring(0, data.indexOf(47));
 			
-			System.out.println("Stat: " + tempStats);
+			//System.out.println("Stat: " + tempStats);
+			System.out.println("Name: " + Constants.getItem(tempStats, 0) + " Class: " + Constants.getItem(tempStats, 3));
 			
 			if(!tempStats.equals("null") && !tempStats.equals("")) {
-				arrPos = Integer.parseInt(tempStats.substring(tempStats.indexOf(32)+1, tempStats.indexOf(32, tempStats.indexOf(32)+1)));
+				arrPos = Integer.parseInt(Constants.getItem(tempStats, 1));
+				
+				//arrPos = Integer.parseInt(tempStats.substring(tempStats.indexOf(32)+1, tempStats.indexOf(32, tempStats.indexOf(32)+1)));
 				playerStats[arrPos] = tempStats;
 				playerChanged[arrPos] = true;
 				
-				System.out.println(tempStats.substring(0, tempStats.indexOf(32)));
+				//System.out.println(tempStats.substring(0, tempStats.indexOf(32)));
 				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
 				if(tpa[arrPos] == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
-					tpa[arrPos] = new TestPlayer(tempStats.substring(0, tempStats.indexOf(32)), "server");
+					// Add method for checking class, string after id maybe? Instead of just adding "TestClass"
+					
+					tpa[arrPos] = new Player(Constants.getItem(tempStats, 0), "server", Constants.getItem(tempStats, 3));
 					tpa[arrPos].setId(arrPos);
 					tpac[arrPos] = new PlayerClientController(this, tpa[arrPos]);
 					tpat[arrPos] = new Thread(tpac[arrPos]);
 					tpat[arrPos].start();
 				}
 			}
-			
 			data = data.substring(data.indexOf(47)+1, data.length());
 		}
 		
@@ -225,7 +234,7 @@ public class SocketClient implements Runnable {
 		
 		// Just a test-method for checking which stats the Socket is getting.
 		for(int i = 0; i < playerStats.length; i++) {
-			System.out.println("Stats: " + playerStats[i]);
+			//System.out.println("Stats: " + playerStats[i]);
 		}
 		
 	}

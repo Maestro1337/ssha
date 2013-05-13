@@ -8,13 +8,13 @@ import java.awt.event.KeyListener;
 public class TestController implements Runnable, KeyListener, ActionListener {
 
 	private TestView tv;
-	private TestPlayer tp;
+	private Player tp;
 	private String mode;
 	private SocketClient sc;
-	private TestPlayer[] tpa;
+	private Player[] tpa;
 	private Thread[] tpat;
 	
-	public TestController(TestView tv, TestPlayer tp, SocketClient sc, TestPlayer[] tpa, Thread[] tpat) {
+	public TestController(TestView tv, Player tp, SocketClient sc, Player[] tpa, Thread[] tpat) {
 		this.tv = tv;
 		this.tp = tp;
 		this.sc = sc;
@@ -69,11 +69,11 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 		if(theKey == KeyEvent.VK_DOWN && tp.getY() < 9999) {
 			tp.setY(tp.getY()+1);
 		}
-		if(theKey == KeyEvent.VK_A && tp.getAngle() > 0 ) {
-			tp.setAngle(tp.getAngle()-1);
+		if(theKey == KeyEvent.VK_A && tp.getRotation() > 0 ) {
+			tp.setRotation(tp.getRotation()-1);
 		}
-		if(theKey == KeyEvent.VK_S && tp.getAngle() < 360) {
-			tp.setAngle(tp.getAngle()+1);
+		if(theKey == KeyEvent.VK_S && tp.getRotation() < 360) {
+			tp.setRotation(tp.getRotation()+1);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 		
 		while(true) {
 			tv.setXyLabel(tp.getX(), tp.getY());
-			tv.setAngleLabel(tp.getAngle());
+			tv.setAngleLabel(tp.getRotation());
 			
 			if(sc.isConnected()) {
 				tv.setConnectedBtnText("Disconnect");
@@ -97,7 +97,7 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 			}
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(Constants.globalSleep);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

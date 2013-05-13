@@ -62,10 +62,6 @@ public class MultiSocketServer implements Runnable {
 				//Convert StringBuffer to String
 				this.statString = "" + process.toString();
 				System.out.println(statString);
-				//System.out.println(statString.indexOf(32));
-				
-				//Just test this method
-				//getPlayerStats();
 				
 				//Generate the code to return to the Client
 				//returnCode = process.toString() + (char)13;
@@ -76,7 +72,7 @@ public class MultiSocketServer implements Runnable {
 				process.delete(0,process.length());
 			
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(constants.globalSleep);
 				}
 				catch(Exception e) {}
 			

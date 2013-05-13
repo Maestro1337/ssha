@@ -152,8 +152,8 @@ public class TestView extends JFrame {
 		coordinatesLabel.setText("X,Y: " + x + "," + y);
 	}
 	
-	public void setAngleLabel(int angle) {
-		angleLabel.setText("Angle: " + angle);
+	public void setAngleLabel(float angle) {
+		angleLabel.setText("Angle: " + (int)angle);
 	}
 	
 	public String getConnectedBtnText() {
@@ -172,7 +172,7 @@ public class TestView extends JFrame {
 		p2CoordinatesLabel.setText("X,Y: " + x + "," + y);
 	}
 	
-	public void setOtherAngleLabel(int angle) {
-		p2AngleLabel.setText("Angle: " + angle);
+	public void setOtherAngleLabel(float angle) {
+		p2AngleLabel.setText("Angle: " + (int)angle);
 	}
 }

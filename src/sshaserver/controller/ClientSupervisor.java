@@ -22,9 +22,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	private MultiSocketServer[] theSockets = new MultiSocketServer[constants.nbrOfClients];
 	private Thread[] theThreads = new Thread[constants.nbrOfClients];
 	
-	//private int Socket
-	
-	private String[] clientsStats = new String[constants.nbrOfClients];
+	//private String[] clientsStats = new String[constants.nbrOfClients];
 	
 	private boolean isRunning;
 	
@@ -42,8 +40,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		SV.addActionListener(this);
 	}
 	
-	
-	
+	// Adds a socket-connection it gets from SocketFinder
 	public synchronized void addSocket(Socket connection) {
 		
 		for(int j = 0; j < constants.nbrOfClients; j++) {
@@ -54,15 +51,13 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				
 				while(theSockets[j].getPlayerName() == null) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(constants.globalSleep);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-				
 				SV.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
-				
 				break;
 			}
 		}
@@ -73,7 +68,6 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				SV.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
 			}
 		}
-
 	}
 
 	@Override
@@ -114,11 +108,8 @@ public class ClientSupervisor implements Runnable, ActionListener {
 						}
 					}
 					
-				}
-					
-					
+				}	
 			}
-			
 			
 			//statString = statString + "/";
 			//System.out.println(statString + " LOL");
@@ -132,7 +123,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 			
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(constants.globalSleep);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -172,23 +163,20 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				
 			if(port < 1024 || port > 9999 || tempPort.length() > 4) {
 				whatChange = SV.showDialogBox("error");
-				
-				
 				SV.setPortField("" + constants.port);
 				tempPort = "" + constants.port;
 			} else {
-				
-				// Have to have a check if the server is running
-				if(isRunning) {
-					
-					whatChange = SV.showDialogBox("change");
-					
-					if(whatChange.equals("Restart now")) {
-						restartServer(Integer.parseInt(tempPort));
+				if(SF.getCurrentPort() != port) {
+					// Have to have a check if the server is running
+					if(isRunning) {
+						whatChange = SV.showDialogBox("change");
+						if(whatChange.equals("Restart now")) {
+							restartServer(Integer.parseInt(tempPort));
+						}
+					} else {
+						SF.changePort(Integer.parseInt(tempPort));
+						SV.addToActivityField("Port changed to " + tempPort);
 					}
-				} else {
-					SF.changePort(Integer.parseInt(tempPort));
-					SV.addToActivityField("Port changed to " + tempPort);
 				}
 				
 			}
@@ -280,7 +268,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		SF.changePort(newPort);
 		SV.changeButtonText();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(constants.globalSleep);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

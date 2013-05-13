@@ -92,7 +92,6 @@ public class ServerView extends JFrame {
 		
 		// Create Activity-label
 		activityPanel.setLocation(7, activityFieldY);
-		//activityPanel.setSize(mainWidth-14, wHeight-activityFieldY-27-4-30);
 		activityPanel.setSize(mainWidth-14, activityHeight);
 		activityField.setEditable(false);
 		mainPanel.add(activityPanel);
@@ -102,7 +101,6 @@ public class ServerView extends JFrame {
 		
 		// Create ConnectedClients-textarea
 		clientsPanel.setLocation(7, connectedClientsY);
-		//clientsPanel.setSize(mainWidth-14, wHeight-connectedClientsY-(int)activityPanel.getSize().getHeight()-55);
 		clientsPanel.setSize(mainWidth-14, clientsHeight);
 		connectedClients.setEditable(false);
 		mainPanel.add(clientsPanel);
@@ -112,7 +110,6 @@ public class ServerView extends JFrame {
 		
 		// Create Connect-button
 		startServer.setLocation(7, 18);
-		//startServer.setSize(mainWidth-14, wHeight-(int)activityPanel.getSize().getHeight()-(int)clientsPanel.getSize().getHeight()-95);
 		startServer.setSize(mainWidth-14, 50);
 		startServer.setFont(new Font("Italic", Font.BOLD, 30));
 		startServer.setActionCommand("connect");
@@ -266,7 +263,7 @@ public class ServerView extends JFrame {
 				returnStr = options[0];
 			}
 		} else if(type.equals("error")) {
-			
+			JOptionPane.showMessageDialog(this, "Invalid port", "Invalid port", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		return returnStr;

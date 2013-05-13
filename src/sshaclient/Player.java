@@ -1,6 +1,6 @@
 package sshaclient;
 
-public class TestPlayer {
+public class Player {
 
 	private String[] stats;
 	private String name;
@@ -8,16 +8,36 @@ public class TestPlayer {
 	private String ctrlType;
 	private int x = 0;
 	private int y = 0;
-	private int angle = 0;
+	private float angle = 0;
 	private String mode = "lobby";
 	private boolean connected = false;
 	private int miscData = 13;
 	private int miscData2 = 37;
 	
-	public TestPlayer(String name, String ctrlType) {
+	private Skill[] skillList;
+	private boolean isAlive;
+	
+	private String classType;
+	private int HP;
+	private int maxHP;
+	
+	public Player(String name, String ctrlType, String classType) {
 		this.name = name;
 		this.ctrlType = ctrlType;
 		stats = new String[7];
+		
+		HP = 100;
+		maxHP = 100;
+		
+		isAlive = true;
+		skillList = new Skill[5];
+		skillList[0] = new Skill("Test1");
+		skillList[2] = new Skill("Test2");
+		skillList[2] = new Skill("Test3");
+		skillList[3] = new Skill("Test4");
+		skillList[4] = new Skill("Test5");
+		
+		this.classType = classType;
 	}
 	
 	public String[] getStats() {
@@ -57,7 +77,7 @@ public class TestPlayer {
 		return y;
 	}
 	
-	public int getAngle() {
+	public float getRotation() {
 		return angle;
 	}
 	
@@ -97,7 +117,7 @@ public class TestPlayer {
 		this.y = y;
 	}
 	
-	public void setAngle(int angle) {
+	public void setRotation(float angle) {
 		this.angle = angle;
 	}
 	
@@ -115,5 +135,47 @@ public class TestPlayer {
 	
 	public void setConnected(boolean connected) {
 		this.connected = connected;
+	}
+	
+	public boolean isAlive(){
+		return isAlive;
+	}
+	
+	public void setAliveState(boolean state){
+		isAlive = state;
+	}
+	
+	public void setSkillList(Skill[] chosenSkills) {
+		if(chosenSkills != null){
+			skillList[0] = chosenSkills[0];
+			skillList[1] = chosenSkills[1];
+			skillList[2] = chosenSkills[2];
+			skillList[3] = chosenSkills[3];
+			skillList[4] = chosenSkills[4];
+		}
+	}
+	
+	public Skill[] getSkillList(){
+		return skillList;
+	}
+	
+	public int getHP(){
+		return HP;
+	}
+	
+	public int getMaxHP(){
+		return maxHP;
+	}
+	
+	public void setHP(int HP) {
+		this.HP = HP;
+	}
+	
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+	
+	public String getType(){
+		return classType;
 	}
 }
