@@ -36,6 +36,9 @@ public class GlobalClassSelector {
 	public synchronized void addPlayer(Player player, int index){
 		players[index] = player;
 	}
+	public synchronized void removePlayer(int index) {
+		players[index] = null;
+	}
 	public synchronized void resetPlayers(){
 		players = new Player[nbrOfPlayers];
 	}
@@ -45,14 +48,20 @@ public class GlobalClassSelector {
 	public synchronized void addPlayerController(PlayerControl pc, int index) {
 		playerControllers[index] = pc;
 	}
+	public synchronized void removePlayerController(int index) {
+		playerControllers[index] = null;
+	}
 	public synchronized void resetPlayerControllers() {
 		playerControllers = new PlayerControl[nbrOfPlayers];
 	}
 	public PlayerControl[] getPlayerControllers() {
 		return playerControllers;
 	}
-	public synchronized void addcontrollerThread(Thread thread, int index) {
+	public synchronized void addControllerThread(Thread thread, int index) {
 		controllerThreads[index] = thread;
+	}
+	public synchronized void removeControllerThread(int index) {
+		controllerThreads[index] = null;
 	}
 	public synchronized void resetControllerThreads() {
 		controllerThreads = new Thread[nbrOfPlayers];
