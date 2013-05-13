@@ -226,9 +226,18 @@ public class Player {
 	public void incKills(){
 		kills++;
 	}
-	
-	
-	
+	public void setKills(int kills) {
+		this.kills = kills;
+	}
+	public int getCoins() {
+		return coins;
+	}
+	public void addCoins(int coins) {
+		this.coins += coins;
+	}
+	public void setCoins(int coins) {
+		this.coins = coins;
+	}
 	public void setImages(Image image, Image first, Image second){
 		if(image != null)
 			userImage = noStepImage = image;
