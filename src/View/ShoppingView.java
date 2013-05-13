@@ -223,7 +223,7 @@ public class ShoppingView extends BasicGameState {
 				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
 				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getKills()
 				 , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
-		
+
 		g.drawString("1", 102, 250);
 		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 275);
 		g.drawString("2", 170, 250);
@@ -236,6 +236,7 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
 		
 		//g.drawImage(skillsText, 200, 350);
+
 		
 		//Offensive skills
 		g.drawImage(firstOffSkill, 60, 440);
