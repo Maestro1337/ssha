@@ -24,6 +24,7 @@ import Model.Skills.Hunter.SkillLifestealingArrows;
 import Model.Skills.Hunter.SkillPassiveDodge;
 import Model.Skills.Hunter.SkillSprint;
 import Model.Skills.Hunter.SkillStealth;
+import Model.Skills.Hunter.SkillSuperSlowTestSkill;
 import Model.Skills.Warrior.SkillAdrenaline;
 import Model.Skills.Warrior.SkillFirstAid;
 import Model.Skills.Warrior.SkillGrapplingHook;
@@ -31,6 +32,7 @@ import Model.Skills.Warrior.SkillImprovedArmor;
 import Model.Skills.Warrior.SkillIncreasedMovement;
 import Model.Skills.Warrior.SkillLeapAttack;
 import Model.Skills.Warrior.SkillShieldStance;
+import Model.Skills.Warrior.SkillSlash;
 import Model.Skills.Warrior.SkillThrowingAxe;
 import Model.Skills.Warrior.SkillWarstomp;
 import Model.Skills.Wizard.SkillAbsorb;
@@ -42,6 +44,7 @@ import Model.Skills.Wizard.SkillIceblock;
 import Model.Skills.Wizard.SkillIroncloak;
 import Model.Skills.Wizard.SkillTeleport;
 import Model.Skills.Wizard.SkillUnstablemagic;
+import Model.Skills.Wizard.SkillWandattack;
 
 
 
@@ -60,6 +63,7 @@ public class ShoppingView extends BasicGameState {
 	Skill[] defSkills = new Skill[3];
 	Skill[] mobSkills = new Skill[3];
 	Skill[] chosenSkills = new Skill[5];
+	Skill basicSkill;
 	
 	Image playButton;
 	
@@ -118,7 +122,10 @@ public class ShoppingView extends BasicGameState {
 	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
 			case "Wizard":
 				classPortrait = new Image("res/classImages/mage_portrait.png");
-				//Init wizard offensive, defensive and mobility skillists
+				//Init wizard basic, offensive, defensive and mobility skillists
+				
+				basicSkill = new SkillWandattack();
+				
 				offSkills[0] = new SkillFireball();
 				offSkills[1] = new SkillFirestorm();
 				offSkills[2] = new SkillFlamewave();
@@ -133,7 +140,10 @@ public class ShoppingView extends BasicGameState {
 			break;
 			case "Hunter":
 				classPortrait = new Image("res/classImages/hunter_portrait.png");
-				//Init Hunter offensive, defensive and mobility skillists
+				//Init Hunter basic, offensive, defensive and mobility skillists
+				
+				basicSkill = new SkillSuperSlowTestSkill();
+				
 				offSkills[0] = new SkillFlamingArrow();
 				offSkills[1] = new SkillGuidedArrow();
 				offSkills[2] = new SkillArrowFlurry();
@@ -148,7 +158,10 @@ public class ShoppingView extends BasicGameState {
 			break;
 			case "Warrior":
 				classPortrait = new Image("res/classImages/warrior_portrait.png");
-				//Init warrior offensive, defensive and mobility skillists
+				//Init warrior basic, offensive, defensive and mobility skillists
+				
+				basicSkill = new SkillSlash();
+				
 				offSkills[0] = new SkillThrowingAxe();
 				offSkills[1] = new SkillWarstomp();
 				offSkills[2] = new SkillAdrenaline();
@@ -163,10 +176,9 @@ public class ShoppingView extends BasicGameState {
 			break;
 	      	}
 
-			//Init wizard skillicons
+			//Init skillicons
 			//Offensive
 			firstOffSkill = offSkills[0].getSkillBarImage();
-			
 			secondOffSkill = offSkills[1].getSkillBarImage();
 			thirdOffSkill = offSkills[2].getSkillBarImage();
 			//Defensive
@@ -177,10 +189,7 @@ public class ShoppingView extends BasicGameState {
 			firstMobSkill = mobSkills[0].getSkillBarImage();
 			secondMobSkill = mobSkills[1].getSkillBarImage();
 			thirdMobSkill = mobSkills[2].getSkillBarImage();
-			//Basic
-			wandAttackSkill = new Image("res/skillIcons/wandattack.png");
-			wandattackDesc = "Wand attack";
-
+			
 
 	   }
 	@Override
@@ -215,10 +224,6 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 225);
 		g.drawString("5", 377, 200);
 		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 225);
-		
-		//g.drawImage(skillsText, 200, 350);
-	
-		
 		
 		//Offensive skills
 		g.drawImage(firstOffSkill, 60, 440);
