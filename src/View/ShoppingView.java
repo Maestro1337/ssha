@@ -107,6 +107,7 @@ public class ShoppingView extends BasicGameState {
 
 		skillText = "Bitch please!";
 		playerGold = new Image("res/miscImages/PlayerGold.png");
+		playerGoldText = ""+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
 		
 
 		
@@ -206,22 +207,24 @@ public class ShoppingView extends BasicGameState {
 		// TODO Auto-generated method stub
 		
 		g.drawImage(classPortrait, 70, 30);
+		g.drawString(playerGoldText, 140, 190);
+		g.drawImage(playerGold,70,185);
 		g.drawString(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getName() + 
 				"\nHP: "+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getHP() + 
 				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
 				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getKills()
-				+ "\nGold:" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold(), 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
+				 , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
 
-		g.drawString("1", 102, 200);
-		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 225);
-		g.drawString("2", 170, 200);
-		g.drawImage(chosenSkills[1].getSkillBarImage(), 139, 225);
-		g.drawString("3", 239, 200);
-		g.drawImage(chosenSkills[2].getSkillBarImage(), 208, 225);
-		g.drawString("4", 308, 202);
-		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 225);
-		g.drawString("5", 377, 200);
-		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 225);
+		g.drawString("1", 102, 250);
+		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 275);
+		g.drawString("2", 170, 250);
+		g.drawImage(chosenSkills[1].getSkillBarImage(), 139, 275);
+		g.drawString("3", 239, 250);
+		g.drawImage(chosenSkills[2].getSkillBarImage(), 208, 275);
+		g.drawString("4", 308, 252);
+		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 275);
+		g.drawString("5", 377, 250);
+		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
 		
 		//g.drawImage(skillsText, 200, 350);
 	
