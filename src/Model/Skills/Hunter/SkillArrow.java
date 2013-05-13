@@ -6,11 +6,11 @@ import org.newdawn.slick.SlickException;
 import Model.Skills.Skill;
 import Model.StatusEffects.StatusEffectStun;
 
-public class SkillSuperSlowTestSkill extends Skill{
+public class SkillArrow extends Skill{
 	
-	public SkillSuperSlowTestSkill(){
+	public SkillArrow(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("SuperSlowTestSkill", 1000, 800, 0.5, 3, 0, 30, 300, 300, 300,"The hunter \n" +
+		super("Arrow", 1000, 800, 0.5, 3, 0, 30, 300, 300, 300,"The hunter \n" +
 				"Level 1: 300 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -31,7 +31,7 @@ public class SkillSuperSlowTestSkill extends Skill{
 			e.printStackTrace();
 		}
 		
-		super.setGuided();
+		
 		super.setImage(attackImages, 200);
 		super.setSkillBarImages(skillBar);
 	}

@@ -15,6 +15,7 @@ import Control.GlobalClassSelector;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Skills.Skill;
+import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
 import Model.Skills.Hunter.SkillCripplingShot;
@@ -24,7 +25,6 @@ import Model.Skills.Hunter.SkillLifestealingArrows;
 import Model.Skills.Hunter.SkillPassiveDodge;
 import Model.Skills.Hunter.SkillSprint;
 import Model.Skills.Hunter.SkillStealth;
-import Model.Skills.Hunter.SkillSuperSlowTestSkill;
 import Model.Skills.Warrior.SkillAdrenaline;
 import Model.Skills.Warrior.SkillFirstAid;
 import Model.Skills.Warrior.SkillGrapplingHook;
@@ -150,7 +150,7 @@ public class ShoppingView extends BasicGameState {
 				classPortrait = new Image("res/classImages/hunter_portrait.png");
 				//Init Hunter basic, offensive, defensive and mobility skillists
 				
-				basicSkill = new SkillSuperSlowTestSkill();
+				basicSkill = new SkillArrow();
 				
 				offSkills[0] = new SkillFlamingArrow();
 				offSkills[1] = new SkillGuidedArrow();
@@ -233,7 +233,8 @@ public class ShoppingView extends BasicGameState {
 		g.drawString("4", 308, 252);
 		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 275);
 		g.drawString("5", 377, 250);
-		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
+		
+		//g.drawImage(skillsText, 200, 350);
 		
 		//Offensive skills
 		g.drawImage(firstOffSkill, 60, 440);

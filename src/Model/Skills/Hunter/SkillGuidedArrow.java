@@ -14,6 +14,8 @@ public class SkillGuidedArrow extends Skill {
 				"Level 3: 35 damage\n" +
 				"Level 4: 45 damage", false);
 		
+		super.setGuided();
+		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];

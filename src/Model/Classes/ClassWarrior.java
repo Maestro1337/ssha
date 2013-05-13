@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 import Model.Player;
 import Model.Skills.Skill;
-import Model.Skills.Hunter.SkillSuperSlowTestSkill;
+import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Warrior.SkillSlash;
 import Model.Skills.Wizard.SkillFireball;
 import Model.Skills.Wizard.SkillFirestorm;

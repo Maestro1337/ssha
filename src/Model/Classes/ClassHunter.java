@@ -27,8 +27,8 @@ public class ClassHunter extends Player {
 		chosenSkills[0] = new SkillArrowFlurry();
 		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillCripplingShot();
-		chosenSkills[3] = new SkillSuperSlowTestSkill();
-		chosenSkills[4] = new SkillSuperSlowTestSkill();
+		chosenSkills[3] = new SkillArrow();
+		chosenSkills[4] = new SkillArrow();
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);
