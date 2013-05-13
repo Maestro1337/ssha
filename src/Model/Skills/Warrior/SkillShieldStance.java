@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillShieldStance extends Skill {
 	public SkillShieldStance(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Shield stance", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"Shieldstance \n" +
+				super("Shield stance", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Shieldstance \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +

@@ -285,6 +285,9 @@ public class Player {
 		statusEffectList.remove(SE);
 	}
 	public void resetStatusEffects(){
+		for(int j=0; j<statusEffectList.size(); j++){
+			statusEffectList.get(j).setResetOfStatusEffect();
+		}
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
 	public boolean isStunned(){

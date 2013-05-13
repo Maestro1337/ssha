@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("First aid", 11000, 400, 0.4, 3, 0, 150, 300, 300, 300,"First Aid \n" +
+				super("First aid", 11000, 400, 0.4, 3, 50, 150, 300, 300, 300,"First Aid \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
