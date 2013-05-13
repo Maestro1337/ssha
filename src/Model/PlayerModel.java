@@ -207,28 +207,29 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
-
-		rotate(x, y);
-		player.setMouseXPosMove(x);
-		player.setMouseYPosMove(y);
-		
-		float xDir = x - player.getX();
-		float yDir = y - player.getY();
-		float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-		
-		
-		Double findNaN = (double)genDir;
-		if(!findNaN.isNaN() && !findNaN.isInfinite()){
-			player.setXDirMove(xDir);
-			player.setYDirMove(yDir);
-			player.setGenDirMove(genDir);
-			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+		if(!player.isPushed()){
+			rotate(x, y);
+			player.setMouseXPosMove(x);
+			player.setMouseYPosMove(y);
 			
-			player.resetMoveCounter();
+			float xDir = x - player.getX();
+			float yDir = y - player.getY();
+			float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
 			
-		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
-			player.setRunningState(true);
+			
+			Double findNaN = (double)genDir;
+			if(!findNaN.isNaN() && !findNaN.isInfinite()){
+				player.setXDirMove(xDir);
+				player.setYDirMove(yDir);
+				player.setGenDirMove(genDir);
+				player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+				player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+				
+				player.resetMoveCounter();
+				
+			//	System.out.println("Running " + player.getGenDirMove() + " pixels");
+				player.setRunningState(true);
+			}
 		}
 	}
 	
@@ -429,7 +430,29 @@ public class PlayerModel implements ActionListener {
 		float y = player.getY()+yDir*50;
 		
 		
-		move((int)x,(int)y);
+
+		player.setMouseXPosMove(x);
+		player.setMouseYPosMove(y);
+		
+		xDir = x - player.getX();
+		yDir = y - player.getY();
+		
+		float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+		
+		
+		Double findNaN = (double)genDir;
+		if(!findNaN.isNaN() && !findNaN.isInfinite()){
+			player.setXDirMove(xDir);
+			player.setYDirMove(yDir);
+			player.setGenDirMove(genDir);
+			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+			
+			player.resetMoveCounter();
+			
+		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
+			player.setRunningState(true);
+		}
 		
 		
 		player.setPushState(true);
