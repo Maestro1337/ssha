@@ -83,11 +83,28 @@ public class PlayerModel implements ActionListener {
 				player.setRunningState(false);
 			
 		}else if(player.isAlive() && player.isPushed() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
-			player.addX((float)(player.getXDirMove()*player.getPushSpeed()));
-			player.addY((float)(player.getYDirMove()*player.getPushSpeed()));
+			
+			double tempSpeed = player.getPushSpeed();
+			double calculateDecision = tempSpeed*player.getMoveCounter();
+			if(calculateDecision>player.getGenDirMove()*0.5){
+				tempSpeed *= 0.7;
+				if(calculateDecision>player.getGenDirMove()*0.7){
+					tempSpeed *= 0.7;
+					if(calculateDecision>player.getGenDirMove()*0.9){
+						tempSpeed *= 0.7;
+					}
+				}
+				
+			}else if(calculateDecision<player.getGenDirMove()*0.3){
+				tempSpeed *= 1.5;
+			}
+			
+			
+			player.addX((float)(player.getXDirMove()*tempSpeed));
+			player.addY((float)(player.getYDirMove()*tempSpeed));
 			
 			player.incMoveCounter();
-			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove()){
+			if(player.getMoveCounter()*player.getPushSpeed() >= player.getGenDirMove()){
 				player.setRunningState(false);
 				player.setPushState(false);
 			}
@@ -98,7 +115,7 @@ public class PlayerModel implements ActionListener {
 	
 	//Determines action depending on what state the skill is in
 	public void isAttacking(Skill attackingSkill){
-		if(attackingSkill != null && player.isAlive()){
+		if(attackingSkill != null){
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
 				//Calculates the new direction if the skill is guided
@@ -435,8 +452,8 @@ public class PlayerModel implements ActionListener {
 	public void pushPlayer(float xDir, float yDir){
 		System.out.println("PUSHES");
 		
-		float x = player.getX()+xDir*50;
-		float y = player.getY()+yDir*50;
+		float x = player.getX()+xDir*150;
+		float y = player.getY()+yDir*150;
 		
 		
 
