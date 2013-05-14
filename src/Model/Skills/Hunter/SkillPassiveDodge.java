@@ -20,7 +20,7 @@ public class SkillPassiveDodge extends Skill {
 		Image[] skillBar = new Image[3];
 		
 		super.setPassive();
-		super.setSelfAffectingStatusEffect(new StatusEffectDodge(this, 100, 0));
+		super.setSelfAffectingStatusEffect(new StatusEffectDodge(this, 5, 0));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");

@@ -329,27 +329,27 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
-			if(activeSkillList[0] != null){
+			if(activeSkillList[0] != null && !activeSkillList[0].isPassive()){
 				currentActiveController.setCurrentActiveSkill(0);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_2)){
-			if(activeSkillList[1] != null){
+			if(activeSkillList[1] != null && !activeSkillList[1].isPassive()){
 				currentActiveController.setCurrentActiveSkill(1);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_3)){
-			if(activeSkillList[2] != null){
+			if(activeSkillList[2] != null && !activeSkillList[2].isPassive()){
 				currentActiveController.setCurrentActiveSkill(2);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
-			if(activeSkillList[3] != null){
+			if(activeSkillList[3] != null && !activeSkillList[3].isPassive()){
 				currentActiveController.setCurrentActiveSkill(3);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_5)){
-			if(activeSkillList[4] != null){
+			if(activeSkillList[4] != null && !activeSkillList[4].isPassive()){
 				currentActiveController.setCurrentActiveSkill(4);
 			}
 		}
