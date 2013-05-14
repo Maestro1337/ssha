@@ -14,18 +14,11 @@ public class SkillThrowingAxe extends Skill {
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage", false);
 				
-				Image[] attackImage = new Image[7];
+				Image attackImage = null;
 				Image[] animation = new Image[18];
 				Image[] skillBar = new Image[3];
 				
 				try {
-					attackImage[0] = new Image("res/animations/explode1.png");
-					attackImage[1] = new Image("res/animations/explode2.png");
-					attackImage[2] = new Image("res/animations/explode3.png");
-					attackImage[3] = new Image("res/animations/explode4.png");
-					attackImage[4] = new Image("res/animations/explode5.png");
-					attackImage[5] = new Image("res/animations/explode6.png");
-					attackImage[6] = new Image("res/animations/explode7.png");
 					
 					animation[0] = new Image("res/animations/throwingAxe/axe1.png");
 					animation[1] = new Image("res/animations/throwingAxe/axe2.png");
@@ -54,7 +47,6 @@ public class SkillThrowingAxe extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(animation, 200);
-				super.setEndState(attackImage, 200, 400);
 				super.setSkillBarImages(skillBar);
 			}
 }
