@@ -9,11 +9,11 @@ public class SkillAbsorb extends Skill{
 	public SkillAbsorb(){
 	//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-			super("Absorb", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Absorb:\nThe wizards' spells drains the \nlifeforce off his enemies when they hit.\nThe forces are then used as a shield against incoming damage.\n" +
-					"Level 1: 10 % of damage done up to a maximum shield that absorbs 100 damage.\n" +
-					"Level 2: 15 % of damage done up to a maximum shield that absorbs 150 damage.\n" +
-					"Level 3: 20 % of damage done up to a maximum shield that absorbs 200 damage.\n" +
-					"Level 4: 25 % of damage done up to a maximum shield that absorbs 250 damage.", true);
+			super("Absorb", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Absorb (Passive):\nThe wizards gains an absorbing \n shield around him. \n" +
+					"Level 1: 10 % of damage done, max 100\n" +
+					"Level 2: 15 % of damage done, max 150\n" +
+					"Level 3: 20 % of damage done, max 200\n" +
+					"Level 4: 25 % of damage done, max 250", true);
 
 			
 			Image attackImage = null;
