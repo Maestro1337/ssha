@@ -171,12 +171,7 @@ public class PlayerModel implements ActionListener {
 			}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();					
 				System.out.println("Commencing end state with " + attackingSkill.getName());
-			}else if(attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-				attackingSkill.finishEndState();
-				attackingSkill.setAttackingState(false);
-				System.out.println("Finishing end state with " + attackingSkill.getName());
-				
-				
+			
 			}else if(attackingSkill.isEndState()){
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();

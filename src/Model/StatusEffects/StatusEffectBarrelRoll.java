@@ -10,6 +10,8 @@ public class StatusEffectBarrelRoll extends StatusEffect{
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, isStun, counts, delay
 		super(null, skill, "Barrel Roll", 0, 1, 1, 0, 0, 0, 0, false, 1, 0);
+		
+		super.setChangeModel();
 	}
 
 }
