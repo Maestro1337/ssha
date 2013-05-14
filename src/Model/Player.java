@@ -36,18 +36,22 @@ public class Player {
 	private int maxHP;
 	private String name;
 	private String classType;
+	private double baseArmor = 0;
 	private double armor=0;
+	private int baseEvasion = 0;
 	private int evasion=0;
 	private int kills=0;
-	private int deaths;
+	private int deaths = 0;
 	private int gold=0;
 	private Skill[] skillList = new Skill[5];
 	
+	private ArrayList<StatusEffect> passiveEffects = new ArrayList<StatusEffect>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
 	
 	//Movement variables
 	private float mouseXPosMove;
 	private float mouseYPosMove;
+	private double baseMoveSpeed = 1;
 	private double moveSpeed = 1;
 	
 	float rotation=0;
@@ -57,7 +61,8 @@ public class Player {
 	private float yDirMove;
 	private float genDirMove;
 	private Double findNaN;
-	
+
+	private boolean isChanneling = false;
 	private boolean isStunned = false;
 	private boolean isPushed = false;
 	private double pushSpeed = 1.5;
@@ -74,8 +79,8 @@ public class Player {
 		imgY = startingPosY = y;
 		
 		HP = this.maxHP = maxHP;
-		moveSpeed = speed;
-		this.armor = armor;
+		baseMoveSpeed = moveSpeed = speed;
+		baseArmor = this.armor = armor;
 		
 		playerListIndex = index;
 		
@@ -236,6 +241,9 @@ public class Player {
 	public int getEvasion(){
 		return evasion;
 	}
+	public void addEvasion(int evasion){
+		this.evasion += evasion;
+	}
 	public void addArmor(double armor){
 		this.armor += armor;
 	}
@@ -301,6 +309,23 @@ public class Player {
 	public Skill[] getSkillList(){
 		return skillList;
 	}
+	public ArrayList<StatusEffect> getPassiveEffects(){
+		return passiveEffects;
+	}
+	public void addPassiveEffect(StatusEffect SE){
+		passiveEffects.add(SE);
+	}
+	public void removePassiveEffect(StatusEffect SE){
+		passiveEffects.remove(SE);
+	}
+	public void activatePassiveEffects(){
+		evasion = baseEvasion;
+		armor = baseArmor;
+		moveSpeed = baseMoveSpeed;
+		for(int i=0; i<passiveEffects.size(); i++){
+			//evasion += passiveEffects.get(i).getE
+		}
+	}
 	public ArrayList<StatusEffect> getStatusEffects(){
 		return statusEffectList;
 	}
@@ -346,11 +371,15 @@ public class Player {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-	
+	public boolean getChannel(){
+		return isChanneling;
+	}
+	public void setChannel(boolean channelState){
+		this.isChanneling = channelState;
+	}
 	public boolean isReady() {
 		return isReady;
 	}
-	
 	public void setReadyness(boolean ready) {
 		isReady = ready;
 	}

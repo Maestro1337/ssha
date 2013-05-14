@@ -7,8 +7,7 @@ import Model.Skills.Skill;
 
 public class SkillPassiveDodge extends Skill {
 	public SkillPassiveDodge(){
-		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Dodge: \nGives the chance to avoid \nincoming damage.\n" +
+		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 5, 10, 15, 20,"Dodge: \nGives the chance to avoid \nincoming damage.\n" +
 				"Level 1: 5% chance\n" +
 				"Level 2: 10% chance\n" +
 				"Level 3: 15% chance\n" +
@@ -40,7 +39,6 @@ public class SkillPassiveDodge extends Skill {
 		
 		
 		super.setImage(attackImage);
-		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
 }

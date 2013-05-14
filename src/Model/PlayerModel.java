@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import Control.GlobalClassSelector;
 import Model.*;
@@ -221,6 +222,9 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
+		if(player.getChannel()){
+			player.setChannel(false);
+		}
 		if(!player.isPushed()){
 			rotate(x, y);
 			player.setMouseXPosMove(x);
@@ -248,6 +252,10 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
+		
+		if(player.getChannel()){
+			player.setChannel(false);
+		}
 		
 		if(currentActiveSkill.isGuided()){
 			findAndSetGuidedTarget(currentActiveSkill);
@@ -316,36 +324,45 @@ public class PlayerModel implements ActionListener {
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
-					
+					int evasion = player.getEvasion();
+					System.out.println(evasion);
+					//Calculates new evasion to check if player will evade the attack in this state
+					if(evasion>=0){
+						Random generator = new Random();
+						evasion = generator.nextInt(100) - evasion;
+					}
+					System.out.println(evasion);
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
 					//And if it can affect others
 					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName()) 
-							&& !playerSkills[i].getAffectSelf()){
+							&& !playerSkills[i].getAffectSelf() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getStatusEffect().cloneTo(player));
 					}
 					
 					if(!playerSkills[i].isEndState()){
-						pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
+						if(evasion>=0){
+							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
+						}
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
-							player.dealDamage(playerSkills[i].getDamage());
-							
-							
+							if(evasion>=0){
+								player.dealDamage(playerSkills[i].getDamage());
+							}
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
-							player.dealDamage(playerSkills[i].getDamage());
+							if(evasion>=0){
+								player.dealDamage(playerSkills[i].getDamage());
+							}
 							playerSkills[i].activateCollisionEndState();
 						}
-						
-						
-						
-						
 					}else{
 						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
 							System.out.println("Target hit with " + playerSkills[i].getName());
-							player.dealDamage(playerSkills[i].getDamage());
+							if(evasion>=0){
+								player.dealDamage(playerSkills[i].getDamage());
+							}
 							playerSkills[i].getESIT().resetESColTimer();
 						}else if(playerSkills[i].getESIT() == null){
 							playerSkills[i].activateESIT(player);
