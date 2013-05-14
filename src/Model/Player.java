@@ -27,6 +27,7 @@ public class Player {
 	private float startingPosX;
 	private float startingPosY;
 	private boolean isReady;
+	private String mode;
 	
 	private int playerListIndex;
 	private boolean isAlive = true;
@@ -71,6 +72,7 @@ public class Player {
 		this.name = name;
 		this.classType = type;
 		this.isReady = false;
+		this.mode = "lobby";
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
@@ -345,5 +347,13 @@ public class Player {
 	}
 	public double getPushSpeed(){
 		return pushSpeed;
+	}
+	
+	public String getMode() {
+		return mode;
+	}
+	
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }
