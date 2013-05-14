@@ -36,6 +36,7 @@ public class Player {
 	private String name;
 	private String classType;
 	private double armor=0;
+	private int evasion=0;
 	private int kills=0;
 	private int deaths;
 	private int gold=0;
@@ -229,6 +230,9 @@ public class Player {
 	}
 	public double getArmor(){
 		return armor;
+	}
+	public int getEvasion(){
+		return evasion;
 	}
 	public void addArmor(double armor){
 		this.armor += armor;
