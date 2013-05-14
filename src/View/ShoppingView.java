@@ -273,7 +273,7 @@ public class ShoppingView extends BasicGameState {
 		
 		if(showingSkillDescription){
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
-			if((700<xPos && xPos<820) && (625<yPos && yPos<670)){
+			if((710<xPos && xPos<830) && (600<yPos && yPos<645)){
 				buyUpgradeButton = new Image("res/buttons/buyOver.png");
 			}else{
 				buyUpgradeButton = new Image("res/buttons/buy.png");
