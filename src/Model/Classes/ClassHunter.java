@@ -14,8 +14,8 @@ public class ClassHunter extends Player {
 	Image secondStep;
 	static Skill[] chosenSkills = new Skill[5];
 
-	public ClassHunter(String name, float x, float y) {
-		super(name, "Hunter", x, y, 1000, 2, 0.4);
+	public ClassHunter(String name, float x, float y, int index) {
+		super(name, "Hunter", x, y, 1000, 1, 0.4, index);
 		try {
 			playerImage = new Image("res/animations/hunter_stand.png");
 			firstStep = new Image("res/animations/hunter_walk1.png");
@@ -24,11 +24,11 @@ public class ClassHunter extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillArrowFlurry();
+		chosenSkills[0] = new SkillArrow();
 		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillCripplingShot();
-		chosenSkills[3] = new SkillArrow();
-		chosenSkills[4] = new SkillArrow();
+		chosenSkills[3] = new SkillFlamingArrow();
+		chosenSkills[4] = new SkillGuidedArrow();
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);

@@ -310,10 +310,10 @@ public class Skill{
 		attImgY = -1000;
 	}
 	
-	public void setMouseXPos(int x){
+	public void setMouseXPos(float x){
 		mouseXPos = x;
 	}
-	public void setMouseYPos(int y){
+	public void setMouseYPos(float y){
 		mouseYPos = y;
 	}
 	public float getMouseXPos(){
@@ -420,12 +420,14 @@ public class Skill{
 	public void activateEndState(){
 		endStateStartTime = System.currentTimeMillis();
 		endStateElapsedTime = 0;
+		
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
+	//	addAttX(-currentWidth/2);
 		isEndState = true;
     	animation.resetCounterAndTimer();
 	}
-	public void activatePreEndState(){
+	public void activateCollisionEndState(){
 		//Setting direction to 0 so it will count as reaching it's goal to begin End State
 		setXDirAtt(0);
 		setYDirAtt(0);

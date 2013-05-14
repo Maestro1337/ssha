@@ -19,8 +19,8 @@ public class ClassWizard extends Player {
 	Skill[] defensiveSkills = new Skill[3];
 	Skill[] mobilitySkills = new Skill[3];
 
-	public ClassWizard(String name, float x, float y) {
-		super(name, "Wizard", x, y, 900, 0.8, 0.2);
+	public ClassWizard(String name, float x, float y, int index) {
+		super(name, "Wizard", x, y, 900, 0.5, 0.2, index);
 		try {
 			playerImage = new Image("res/animations/mage_stand.png");
 			firstStep = new Image("res/animations/mage_walk1.png");

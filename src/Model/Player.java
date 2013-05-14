@@ -20,6 +20,7 @@ public class Player {
 	private float startingPosY;
 	private boolean isReady;
 	
+	private int playerListIndex;
 	private boolean isAlive = true;
 	
 	private int HP;
@@ -48,12 +49,12 @@ public class Player {
 	private Double findNaN;
 	
 	private boolean isStunned = false;
-	
-	
+	private boolean isPushed = false;
+	private double pushSpeed = 1.5;
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, String type, float x, float y, int maxHP, double speed, double armor){
+	public Player(String name, String type, float x, float y, int maxHP, double speed, double armor, int index){
 		this.name = name;
 		this.classType = type;
 		this.isReady = false;
@@ -64,6 +65,9 @@ public class Player {
 		HP = this.maxHP = maxHP;
 		moveSpeed = speed;
 		this.armor = armor;
+		
+		playerListIndex = index;
+		
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
 
@@ -76,6 +80,9 @@ public class Player {
 	}
 	public void setAliveState(boolean state){
 		isAlive = state;
+	}
+	public int getPlayerListIndex(){
+		return playerListIndex;
 	}
 	
 	//Getters for the movements
@@ -297,5 +304,14 @@ public class Player {
 	}
 	public void setStunState(boolean state){
 		isStunned = state;
+	}
+	public boolean isPushed(){
+		return isPushed;
+	}
+	public void setPushState(boolean state){
+		isPushed = state;
+	}
+	public double getPushSpeed(){
+		return pushSpeed;
 	}
 }

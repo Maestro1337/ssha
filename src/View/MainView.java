@@ -31,33 +31,6 @@ import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
 import Model.Obstacles.Obstacle;
 import Model.Skills.*;
-import Model.Skills.Hunter.SkillArrowFlurry;
-import Model.Skills.Hunter.SkillBarrelRoll;
-import Model.Skills.Hunter.SkillCripplingShot;
-import Model.Skills.Hunter.SkillFlamingArrow;
-import Model.Skills.Hunter.SkillGuidedArrow;
-import Model.Skills.Hunter.SkillLifestealingArrows;
-import Model.Skills.Hunter.SkillPassiveDodge;
-import Model.Skills.Hunter.SkillSprint;
-import Model.Skills.Hunter.SkillStealth;
-import Model.Skills.Warrior.SkillAdrenaline;
-import Model.Skills.Warrior.SkillFirstAid;
-import Model.Skills.Warrior.SkillGrapplingHook;
-import Model.Skills.Warrior.SkillImprovedArmor;
-import Model.Skills.Warrior.SkillIncreasedMovement;
-import Model.Skills.Warrior.SkillLeapAttack;
-import Model.Skills.Warrior.SkillShieldStance;
-import Model.Skills.Warrior.SkillThrowingAxe;
-import Model.Skills.Warrior.SkillWarstomp;
-import Model.Skills.Wizard.SkillAbsorb;
-import Model.Skills.Wizard.SkillBlizzard;
-import Model.Skills.Wizard.SkillFireball;
-import Model.Skills.Wizard.SkillFirestorm;
-import Model.Skills.Wizard.SkillFlamewave;
-import Model.Skills.Wizard.SkillIceblock;
-import Model.Skills.Wizard.SkillIroncloak;
-import Model.Skills.Wizard.SkillTeleport;
-import Model.Skills.Wizard.SkillUnstablemagic;
 import Model.Timers.AnimationTimer;
 
 import Control.*;
@@ -226,7 +199,10 @@ public class MainView extends BasicGameState implements ActionListener {
 				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
 			}
 		}
-
+		
+		//Attempt to draw oval around player which displays max range (Currently not working correctly)
+//		g.drawOval(player.getX()-Control.getCurrentActiveSkill().getAttackRange()/2, player.getY()-Control.getCurrentActiveSkill().getAttackRange()/2, Control.getCurrentActiveSkill().getAttackRange(), Control.getCurrentActiveSkill().getAttackRange());
+//		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
 		g.drawImage(playerPortrait, 20, 585);
 		//Draw the actionbar
 		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
@@ -335,13 +311,16 @@ public class MainView extends BasicGameState implements ActionListener {
 				currentController.isRunning();
 			}
 			
-			//Check if players skills are in use to update positioning
+			
 			Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 			for(int j=0; j<currentSkillList.length; j++){
+				//Check if players skills are in use to update positioning
 				if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
 					currentController.isAttacking(currentSkillList[j]);
 				}
 			}
+			
+			
 		}
 		
 		Input input = gc.getInput();
@@ -381,10 +360,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(input.isMouseButtonDown(0)){
 			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
 			
-			//Setting target to guide if skill permits it
-			if(currentActiveController.getCurrentActiveSkill().isGuided()){
-				currentActiveController.getCurrentActiveSkill().setGuidedTarget(playerList[enemyPlayer]);
-			}
 		}
 		
 		

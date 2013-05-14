@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Control.GlobalClassSelector;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.*;
@@ -46,6 +47,7 @@ public class PlayerModel implements ActionListener {
 	public void ressurectPlayer() throws SlickException{
 		player.setAliveState(true);
 		player.setStunState(false);
+		player.setPushState(false);
 		checkSpawnCollision();
 		player.resetHP();
 		player.setX(player.getStartX());
@@ -73,17 +75,39 @@ public class PlayerModel implements ActionListener {
 	
 	public void isRunning() throws SlickException{
 		player.changeUserImage();
-		if(player.isAlive() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
-	//		if(findNaN.isNaN()){
-	//			imgX = mouseXPosMove;
-	//			imgY = mouseYPosMove;
-	//			player.setRunningState(false);
-	//		}
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
+			
+		}else if(player.isAlive() && player.isPushed() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+			
+			double tempSpeed = player.getPushSpeed();
+			double calculateDecision = tempSpeed*player.getMoveCounter();
+			if(calculateDecision>player.getGenDirMove()*0.5){
+				tempSpeed *= 0.7;
+				if(calculateDecision>player.getGenDirMove()*0.7){
+					tempSpeed *= 0.7;
+					if(calculateDecision>player.getGenDirMove()*0.9){
+						tempSpeed *= 0.7;
+					}
+				}
+				
+			}else if(calculateDecision<player.getGenDirMove()*0.3){
+				tempSpeed *= 1.5;
+			}
+			
+			
+			player.addX((float)(player.getXDirMove()*tempSpeed));
+			player.addY((float)(player.getYDirMove()*tempSpeed));
+			
+			player.incMoveCounter();
+			if(player.getMoveCounter()*player.getPushSpeed() >= player.getGenDirMove()){
+				player.setRunningState(false);
+				player.setPushState(false);
+			}
 		}else{
 			player.setRunningState(false);
 		}
@@ -91,7 +115,7 @@ public class PlayerModel implements ActionListener {
 	
 	//Determines action depending on what state the skill is in
 	public void isAttacking(Skill attackingSkill){
-		if(attackingSkill != null && player.isAlive()){
+		if(attackingSkill != null){
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
 				//Calculates the new direction if the skill is guided
@@ -202,31 +226,37 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
-		rotate(x, y);
-		player.setMouseXPosMove(x);
-		player.setMouseYPosMove(y);
-		
-		float xDir = x - player.getX();
-		float yDir = y - player.getY();
-		float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-		
-		
-		Double findNaN = (double)genDir;
-		if(!findNaN.isNaN() && !findNaN.isInfinite()){
-			player.setXDirMove(xDir);
-			player.setYDirMove(yDir);
-			player.setGenDirMove(genDir);
-			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+		if(!player.isPushed()){
+			rotate(x, y);
+			player.setMouseXPosMove(x);
+			player.setMouseYPosMove(y);
 			
-			player.resetMoveCounter();
+			float xDir = x - player.getX();
+			float yDir = y - player.getY();
+			float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
 			
-		//	System.out.println("Running " + player.getGenDirMove() + " pixels");
-			player.setRunningState(true);
+			
+			Double findNaN = (double)genDir;
+			if(!findNaN.isNaN() && !findNaN.isInfinite()){
+				player.setXDirMove(xDir);
+				player.setYDirMove(yDir);
+				player.setGenDirMove(genDir);
+				player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+				player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+				
+				player.resetMoveCounter();
+				
+			//	System.out.println("Running " + player.getGenDirMove() + " pixels");
+				player.setRunningState(true);
+			}
 		}
 	}
 	
 	public void attack(int x, int y){
+		
+		if(currentActiveSkill.isGuided()){
+			findAndSetGuidedTarget(currentActiveSkill);
+		}
 		//Setting x and y to be in middle of mouse click
 		x -= currentActiveSkill.getCurrentWidth()/2;
 		y -= currentActiveSkill.getCurrentHeight()/2;
@@ -264,6 +294,10 @@ public class PlayerModel implements ActionListener {
 					}
 					System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
 					currentActiveSkill.setAttackingState(true);
+					
+					currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
+					currentActiveSkill.setMouseYPos(player.getY()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getGenDirAtt());
+					
 				}
 				
 			if(currentActiveSkill.getAffectSelf()){
@@ -296,16 +330,23 @@ public class PlayerModel implements ActionListener {
 					}
 					
 					if(!playerSkills[i].isEndState()){
+						pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
 							player.dealDamage(playerSkills[i].getDamage());
+							
+							
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							player.dealDamage(playerSkills[i].getDamage());
-							playerSkills[i].activatePreEndState();
+							playerSkills[i].activateCollisionEndState();
 						}
+						
+						
+						
+						
 					}else{
 						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
 							System.out.println("Target hit with " + playerSkills[i].getName());
@@ -328,7 +369,9 @@ public class PlayerModel implements ActionListener {
 			if(obstacles[i] != null && isColliding(obstacles[i], x, y)){
 				
 				if(obstacles[i].isSolid()){
-					//Fuck you solid shit...
+					player.setPushState(false);
+					
+					
 				}
 
 //				System.out.println("Target ran into " + obstacles[i].getType());
@@ -376,9 +419,7 @@ public class PlayerModel implements ActionListener {
 	public void checkSpawnCollision() throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
-				float x = 0;
-				float y= 0;
-				while(isColliding(obstacles[i], x, y)){
+				while(isColliding(obstacles[i], 1, 0)){
 					player.addX(1);
 				}
 			}
@@ -408,13 +449,68 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 
+	public void pushPlayer(float xDir, float yDir){
+		System.out.println("PUSHES");
+		
+		float x = player.getX()+xDir*150;
+		float y = player.getY()+yDir*150;
+		
+		
+
+		player.setMouseXPosMove(x);
+		player.setMouseYPosMove(y);
+		
+		xDir = x - player.getX();
+		yDir = y - player.getY();
+		
+		float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+		
+		
+		Double findNaN = (double)genDir;
+		if(!findNaN.isNaN() && !findNaN.isInfinite()){
+			player.setXDirMove(xDir);
+			player.setYDirMove(yDir);
+			player.setGenDirMove(genDir);
+			player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+			player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+			
+			player.resetMoveCounter();
+			player.setRunningState(true);
+			player.setPushState(true);
+		}
+	}
+	
+	
+	/**
+	 * Finds the enemy closest enemy to where the player used the attack and sets him as the target for the guided attack
+	 * @param skill which is the skill that will have a target assigned to it
+	 */
+	public void findAndSetGuidedTarget(Skill skill){
+		Player[] guidedPlayers = GlobalClassSelector.getController().getPlayers();
+		int targetPlayer = player.getPlayerListIndex() != 0 ? 0 : 1;
+		float targetPlayerXDir = guidedPlayers[targetPlayer].getX() - player.getX();
+		float targetPlayerYDir = guidedPlayers[targetPlayer].getY() - player.getY();
+		float targetPlayerGenDir = (float)Math.sqrt(targetPlayerXDir*targetPlayerXDir+targetPlayerYDir*targetPlayerYDir);
+		
+		for(int i=targetPlayer+1; i<guidedPlayers.length; i++){
+			if(guidedPlayers[i] != null && player.getPlayerListIndex() != i){
+				float compXDir = guidedPlayers[i].getX() - player.getX();
+				float compYDir = guidedPlayers[i].getY() - player.getY();
+				float compGenDir = (float)Math.sqrt(compXDir*compXDir+compYDir*compYDir);
+				
+				if(compGenDir<targetPlayerGenDir){
+					targetPlayer = i;
+					targetPlayerXDir = compXDir;
+					targetPlayerYDir = compYDir;
+					targetPlayerGenDir = compGenDir;
+				}
+			}
+		}
+		skill.setGuidedTarget(guidedPlayers[targetPlayer]);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
-
-	
-
 }
