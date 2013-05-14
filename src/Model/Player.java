@@ -11,6 +11,7 @@ import Model.Skills.*;
 public class Player {
 	
 	private Image userImage;
+	private Image referenceImage;
 	private Image noStepImage;
 	private Image firstStepImage;
 	private Image secondStepImage;
@@ -211,8 +212,6 @@ public class Player {
 	
 	public void setRotation(float angle){
 		userImage.setRotation(angle);
-		firstStepImage.setRotation(angle);
-		secondStepImage.setRotation(angle);
 		rotation = angle;
 	}
 	
@@ -279,7 +278,7 @@ public class Player {
 
 	public void setImages(Image image, Image first, Image second){
 		if(image != null){
-			userImage = noStepImage = image;
+			referenceImage = userImage = noStepImage = image;
 			changedNoStepImage[0] = noStepImage;
 		}
 		
@@ -301,15 +300,22 @@ public class Player {
 			}
 		}
 		if(isRunning && !isStunned  && moveSpeed > 0){
-			if(userImage == noStepImage || userImage == secondStepImage)
+		/*	if(userImage == noStepImage || userImage == secondStepImage)
 				userImage = firstStepImage;
 			else if(userImage == noStepImage || userImage == firstStepImage)
 				userImage = secondStepImage;
-			
+			*/
+			if(referenceImage == changedNoStepImage[0] || referenceImage == changedSecondStepImage[0]){
+				userImage = changedFirstStepImage[changedModelIndex];
+				referenceImage = changedFirstStepImage[0];
+			}else if(referenceImage == changedNoStepImage[0] || referenceImage == changedFirstStepImage[0]){
+				userImage = changedSecondStepImage[changedModelIndex];
+				referenceImage = changedSecondStepImage[0];
+			}
 		} else {
-			userImage = noStepImage;
-			setRotation(rotation);
+			userImage = changedNoStepImage[changedModelIndex];
 		}
+		setRotation(rotation);
 	}
 
 	public void setSkillList(Skill[] chosenSkills) {
