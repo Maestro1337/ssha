@@ -346,4 +346,12 @@ public class Player {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
+	
+	public boolean isReady() {
+		return isReady;
+	}
+	
+	public void setReadyness(boolean ready) {
+		isReady = ready;
+	}
 }
