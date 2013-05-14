@@ -27,9 +27,9 @@ public class SkillFirstAid extends Skill {
 					animation[3] = new Image("res/animations/firstaid/firstAid4.png");
 					animation[4] = new Image("res/animations/firstaid/firstAid5.png");
 					
-					skillBar[0] = new Image("res/skillIcons/fireball.png");
-					skillBar[1] = new Image("res/skillIcons/fireball_active.png");
-					skillBar[2] = new Image("res/skillIcons/fireball_disabled.png");
+					skillBar[0] = new Image("res/skillIcons/firstaid.png");
+					skillBar[1] = new Image("res/skillIcons/firstaid_active.png");
+					skillBar[2] = new Image("res/skillIcons/firstaid_disabled.png");
 				} catch (SlickException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

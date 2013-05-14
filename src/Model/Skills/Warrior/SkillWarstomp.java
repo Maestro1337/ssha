@@ -32,7 +32,6 @@ public class SkillWarstomp extends Skill {
 					skillBar[1] = new Image("res/skillIcons/warstomp_active.png");
 					skillBar[2] = new Image("res/skillIcons/warstomp_disabled.png");
 				} catch (SlickException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
