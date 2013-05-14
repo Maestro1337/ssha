@@ -34,14 +34,6 @@ public class ClassWizard extends Player {
 		chosenSkills[3] = new SkillFireball();
 		chosenSkills[4] = new SkillTeleport();
 		
-		offensiveSkills[0] = new SkillFireball();
-		offensiveSkills[1] = new SkillFirestorm();
-		offensiveSkills[2] = new SkillFlamewave();
-		
-		defensiveSkills[0] = new SkillIroncloak();
-		defensiveSkills[1] = new SkillAbsorb();
-		defensiveSkills[2] = new SkillIceblock();
-
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setSkillList(chosenSkills);
 	}

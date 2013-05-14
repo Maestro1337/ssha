@@ -7,6 +7,7 @@ import Model.Player;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Warrior.SkillSlash;
+import Model.Skills.Warrior.SkillThrowingAxe;
 import Model.Skills.Wizard.SkillFireball;
 import Model.Skills.Wizard.SkillFirestorm;
 import Model.Skills.Wizard.SkillIceNeedle;
@@ -29,7 +30,7 @@ public class ClassWarrior extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillSlash();
+		chosenSkills[1] = new SkillThrowingAxe();
 		chosenSkills[2] = new SkillSlash();
 		chosenSkills[3] = new SkillSlash();
 		chosenSkills[4] = new SkillSlash();

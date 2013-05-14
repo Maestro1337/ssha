@@ -301,6 +301,7 @@ public class Skill{
 	}
 	
 	public void setNonProjectileShot(){
+		animation.resetCounterAndTimer();
 		addAttX((float)(getXDirAtt()*getGenDirAtt())/*-endStateImgWidth/2*/);
 		addAttY((float)(getYDirAtt()*getGenDirAtt())/*-endStateImgHeight/2*/);
 	}
