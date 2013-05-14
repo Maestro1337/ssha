@@ -63,7 +63,7 @@ public class SkillFirestorm extends Skill{
 			e.printStackTrace();
 		}
 		super.setImage(attackImage);
-		super.setEndState(animation, 10000, 30);
+		super.setEndState(animation, 1000, 30);
 		super.setSkillBarImages(skillBar);
 	}
 }
