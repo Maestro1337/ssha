@@ -57,7 +57,7 @@ public class ClassWizard extends Player {
 		chosenSkills[0] = new SkillFireball();
 		chosenSkills[1] = new SkillFirestorm();
 		chosenSkills[2] = new SkillIceNeedle();
-		chosenSkills[3] = new SkillFireball();
+		chosenSkills[3] = new SkillUnstableMagic();
 		chosenSkills[4] = new SkillTeleport();
 		
 		super.setImages(playerImage, firstStep, secondStep);

@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Random;
+
 import Model.Skills.Skill;
 import Model.Timers.*;
 
@@ -155,6 +157,9 @@ public class StatusEffect {
 			if(moveSpeedEff!=0){
 				player.addMovementSpeed(-moveSpeedEff);
 			}
+			if(moveXEff != 0 || moveYEff != 0){
+				player.setPushState(false);
+			}
 			player.setStunState(false);
 			resetCloning();
 		}
@@ -168,6 +173,11 @@ public class StatusEffect {
 				break;
 			}
 		}
+		
+		if(name == "Unstable Magic"){
+			moveSpeedEff = getRandomSpeed();
+		}
+		
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
@@ -179,6 +189,13 @@ public class StatusEffect {
 			newSE.setChangeModel();
 		}
 		return newSE;
+	}
+	
+	private double getRandomSpeed(){
+		Random obsGenerator = new Random();
+		double decider = (double)obsGenerator.nextInt(30)/10 - 1;
+		
+		return decider;
 	}
 	
 	public boolean hasBeenGivenTo(String name){

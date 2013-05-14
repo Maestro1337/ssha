@@ -314,6 +314,7 @@ public class Player {
 		for(int j=0; j<statusEffectList.size(); j++){
 			statusEffectList.get(j).setResetOfStatusEffect();
 		}
+		changeModel = false;
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
 	public boolean isStunned(){

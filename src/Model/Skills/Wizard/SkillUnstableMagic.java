@@ -7,11 +7,11 @@ import Model.Skills.Skill;
 import Model.StatusEffects.StatusEffectBarrelRoll;
 import Model.StatusEffects.StatusEffectUnstableMagic;
 
-public class SkillUnstablemagic extends Skill {
+public class SkillUnstableMagic extends Skill {
 
-	public SkillUnstablemagic() {
+	public SkillUnstableMagic() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Unstable magic", 20000, 400, 0.4, 3, 10, 0, 0, 0, 0,"Unstable magic: \n" +
+		super("Unstable magic", 2000, 0, 0.4, 3, 10, 0, 0, 0, 0,"Unstable magic: \n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -21,7 +21,7 @@ public class SkillUnstablemagic extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectUnstableMagic(this, 20));
+		super.setStatusEffect(new StatusEffectUnstableMagic(this, 2));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
