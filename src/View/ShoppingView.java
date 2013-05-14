@@ -43,7 +43,7 @@ import Model.Skills.Wizard.SkillFlamewave;
 import Model.Skills.Wizard.SkillIceblock;
 import Model.Skills.Wizard.SkillIroncloak;
 import Model.Skills.Wizard.SkillTeleport;
-import Model.Skills.Wizard.SkillUnstablemagic;
+import Model.Skills.Wizard.SkillUnstableMagic;
 import Model.Skills.Wizard.SkillWandattack;
 
 
@@ -151,7 +151,7 @@ public class ShoppingView extends BasicGameState {
 				defSkills[1] = new SkillAbsorb();
 				defSkills[2] = new SkillIceblock();
 				
-				mobSkills[0] = new SkillUnstablemagic();
+				mobSkills[0] = new SkillUnstableMagic();
 				mobSkills[1] = new SkillBlizzard();
 				mobSkills[2] = new SkillTeleport();
 			break;

@@ -293,8 +293,8 @@ public class Skill{
 	}
 	
 	public void resetShot(Player player){
-		attImgX = player.getX()+player.getFirstStepImage().getWidth()/2-currentWidth/2;
-		attImgY = player.getY()+player.getFirstStepImage().getHeight()/2-currentHeight/2;
+		attImgX = player.getX()+player.getImage().getWidth()/2-currentWidth/2;
+		attImgY = player.getY()+player.getImage().getHeight()/2-currentHeight/2;
 	}
 	public void resetCooldown(){
 		CDstartTime = System.currentTimeMillis() - cooldown;
