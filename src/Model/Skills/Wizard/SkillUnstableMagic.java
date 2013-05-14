@@ -21,7 +21,7 @@ public class SkillUnstableMagic extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectUnstableMagic(this, 20));
+		super.setSelfAffectingStatusEffect(new StatusEffectUnstableMagic(this, 20));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");

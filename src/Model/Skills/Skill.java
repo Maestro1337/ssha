@@ -29,9 +29,11 @@ public class Skill{
 	private int lvlOfSkill;
 	
 	private String describe;
-	private boolean affectSelf;
+	private boolean affectSelf = false;
+	private boolean affectOthers = true;
 	
-	private StatusEffect spellEffect = null;
+	private StatusEffect offensiveSE = null;
+	private StatusEffect selfAffectingSE = null;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -85,6 +87,8 @@ public class Skill{
 	
 	private boolean isGuided = false;
 	private Player guidedTarget;
+	
+	private boolean isPassive = false;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
 			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
@@ -172,8 +176,13 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setStatusEffect(StatusEffect SE){
-		spellEffect = SE;
+	public void setOffensiveStatusEffect(StatusEffect SE){
+		affectOthers = true;
+		offensiveSE = SE;
+	}
+	public void setSelfAffectingStatusEffect(StatusEffect SE){
+		affectSelf = true;
+		selfAffectingSE = SE;
 	}
 
 	public int getCurrentHeight(){
@@ -267,6 +276,9 @@ public class Skill{
 	}
 	public boolean getAffectSelf(){
 		return affectSelf;
+	}
+	public boolean getAffectOthers(){
+		return affectOthers;
 	}
 	
 	public Image getAttImage(){
@@ -396,8 +408,8 @@ public class Skill{
 		isAttacking = state;
 		if(state == false){
 			collidedShot();
-			if(spellEffect != null){
-				spellEffect.resetCloning();
+			if(offensiveSE != null){
+				offensiveSE.resetCloning();
 			}
 		}
 	}
@@ -451,8 +463,8 @@ public class Skill{
 		
 		isEndState = false;
 		
-		if(spellEffect != null)
-			spellEffect.resetCloning();
+		if(offensiveSE != null)
+			offensiveSE.resetCloning();
 	}
 	public boolean isEndState(){
 		return isEndState;
@@ -496,10 +508,16 @@ public class Skill{
 	public Player getGuidedTarget(){
 		return guidedTarget;
 	}
+	public boolean isPassive(){
+		return isPassive;
+	}
 	
 	//Methods for StatusEffect Control
-	public StatusEffect getStatusEffect(){
-		return spellEffect;
+	public StatusEffect getOffensiveStatusEffect(){
+		return offensiveSE;
+	}
+	public StatusEffect getSelfAffectingStatusEffect(){
+		return selfAffectingSE;
 	}
 	
 }

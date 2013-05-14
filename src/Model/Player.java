@@ -323,7 +323,10 @@ public class Player {
 		armor = baseArmor;
 		moveSpeed = baseMoveSpeed;
 		for(int i=0; i<passiveEffects.size(); i++){
-			//evasion += passiveEffects.get(i).getE
+			StatusEffect SE = passiveEffects.get(i);
+			armor += SE.getArmEff();
+			evasion += SE.getEvasionEff();
+			moveSpeed += SE.getMoveSpeedEff();
 		}
 	}
 	public ArrayList<StatusEffect> getStatusEffects(){

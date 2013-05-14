@@ -21,7 +21,7 @@ public class SkillWarstomp extends Skill {
 				Image[] skillBar = new Image[3];
 
 				
-				super.setStatusEffect(new StatusEffectStun(this, 2));
+				super.setOffensiveStatusEffect(new StatusEffectStun(this, 2));
 				
 				try {
 					attackImage = new Image("res/animations/warstomp/warstompGround.png");
