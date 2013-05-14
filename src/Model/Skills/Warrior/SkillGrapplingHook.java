@@ -29,9 +29,9 @@ public class SkillGrapplingHook extends Skill {
 					animation[5] = new Image("res/animations/explode6.png");
 					animation[6] = new Image("res/animations/explode7.png");
 					
-					skillBar[0] = new Image("res/skillIcons/fireball_active.png");
-					skillBar[1] = new Image("res/skillIcons/fireball_active.png");
-					skillBar[2] = new Image("res/skillIcons/fireball_disabled.png");
+					skillBar[0] = new Image("res/skillIcons/grapplinghook.png");
+					skillBar[1] = new Image("res/skillIcons/grapplinghook_active.png");
+					skillBar[2] = new Image("res/skillIcons/grapplinghook_disabled.png");
 				} catch (SlickException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
