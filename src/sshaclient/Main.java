@@ -1,5 +1,6 @@
 package sshaclient;
 
+import Model.Classes.*;
 
 public class Main {
 	
@@ -10,7 +11,7 @@ public class Main {
 		Thread[] tpat = new Thread[Constants.nbrOfPlayer];
 		
 		TestView tv = new TestView();
-		Player tp = new Player("Sebbe", "player", "TestClass");
+		Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
 		SocketClient sc = new SocketClient(Constants.hostName, Constants.port, tp, tpa, tpac, tpat);
 		Thread t2 = new Thread(sc);
 		t2.start();

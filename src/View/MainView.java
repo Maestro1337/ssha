@@ -425,19 +425,26 @@ public class MainView extends BasicGameState implements ActionListener {
 	int dodgedirX;
 	int dodgedirY;
 	
-	public void AI(){
+	public void AI() throws SlickException{
 		Random generator = new Random();
 		long delay=500;
 		double dx = enemy.getX()-player.getX();
 		double dy = enemy.getY()-player.getY();
 		double distance = Math.sqrt((dx*dx)+(dy*dy));
 		while (System.currentTimeMillis()>time+delay){
+			// if player is attacking the AI will try to dodge.
 			if(Control.getCurrentActiveSkill().isAttacking()&&Control.getCurrentActiveSkill().getRange()>distance){
-				enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
+				if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+					
+				}
+				else if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
 				}
 				
+			}
+				
 			
-			else if (distance>=100){
+			else if (distance>=30){
 				enemyControl.move((int)player.getX(),(int) player.getY());
 			}else if (dx<0){
 				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(719) + 1);

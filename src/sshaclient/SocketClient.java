@@ -3,6 +3,9 @@ package sshaclient;
 import java.net.*;
 import java.io.*;
 
+import Model.Classes.*;
+
+
 public class SocketClient implements Runnable {
 	
 	private String[] playerStats;
@@ -48,14 +51,33 @@ public class SocketClient implements Runnable {
 	@Override
 	public void run() {
 		
+		Skill[] tempSkills;
+		
 		while(true) {
 			
 			if(connected) {
-				
+				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
-					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getMisc1() + " " + tp.getMisc2();
+					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getKills() + " " + tp.getGold() + " skills";
+					for(int i = 0; i < tempSkills.length; i++) {
+						if(tempSkills[i] != null) {
+							process = process + " " + tempSkills[i].getSmallName() + " " + tempSkills[i].getCurrentLvl();
+						} else {
+							process = process + " noskill 0";
+						}
+					}
+					process = process + " " + tp.getX() + " " + tp.getY();
 				} else {
-					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation();
+					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
+					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " skills";
+					for(int j = 0; j < tempSkills.length; j++) {
+						if(tempSkills[j] != null) {
+							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getAttX() + " " + tempSkills[j].getAttY() + " ";
+							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking();
+						} else {
+							process = process + " noskill 0 0 0 0 false";
+						}
+					}
 				}
 				
 				process = process + (char)13;
@@ -94,7 +116,7 @@ public class SocketClient implements Runnable {
 			bis = new BufferedInputStream(connection.getInputStream());
 			isr = new InputStreamReader(bis, "US-ASCII");
 			
-			System.out.println("lol");
+			//System.out.println("lol");
 			connected = true;
 		}
 		catch(IOException ioe) {
@@ -153,6 +175,13 @@ public class SocketClient implements Runnable {
 	
 	public void closeConnection() {
 		if(connection != null) {
+			
+			for(int i = 0; i < tpac.length; i++) {
+				if(tpac[i] != null) {
+					tpac[i].killItWithFire();
+				}
+			}
+			
 			try {
 				connection.close();
 				connected = false;
@@ -193,7 +222,7 @@ public class SocketClient implements Runnable {
 			tempStats = data.substring(0, data.indexOf(47));
 			
 			//System.out.println("Stat: " + tempStats);
-			System.out.println("Name: " + Constants.getItem(tempStats, 0) + " Class: " + Constants.getItem(tempStats, 3));
+			//System.out.println("Name: " + Constants.getItem(tempStats, 0) + " Class: " + Constants.getItem(tempStats, 3));
 			
 			if(!tempStats.equals("null") && !tempStats.equals("")) {
 				arrPos = Integer.parseInt(Constants.getItem(tempStats, 1));
@@ -209,7 +238,19 @@ public class SocketClient implements Runnable {
 				if(tpa[arrPos] == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
 					// Add method for checking class, string after id maybe? Instead of just adding "TestClass"
 					
-					tpa[arrPos] = new Player(Constants.getItem(tempStats, 0), "server", Constants.getItem(tempStats, 3));
+					//Create new player from the playerclass
+					
+					if(Constants.getItem(tempStats, 3).equals("Hunter")) {
+						tpa[arrPos] = new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
+					} else if(Constants.getItem(tempStats, 3).equals("Warrior")) {
+						tpa[arrPos] = new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
+					} else if(Constants.getItem(tempStats, 3).equals("Wizard")) {
+						tpa[arrPos] = new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
+					}
+					
+					//tpa[arrPos] = new Player(Constants.getItem(tempStats, 0), "server", Constants.getItem(tempStats, 3));
+					
+					
 					tpa[arrPos].setId(arrPos);
 					tpac[arrPos] = new PlayerClientController(this, tpa[arrPos]);
 					tpat[arrPos] = new Thread(tpac[arrPos]);

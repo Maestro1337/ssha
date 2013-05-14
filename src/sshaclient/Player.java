@@ -1,18 +1,20 @@
 package sshaclient;
 
+import Model.Skills.Hunter.*;
+import Model.Skills.Warrior.*;
+import Model.Skills.Wizard.*;
+
 public class Player {
 
 	private String[] stats;
 	private String name;
-	private int id = 0;
+	private int id;
 	private String ctrlType;
-	private int x = 0;
-	private int y = 0;
+	private float x;
+	private float y;
 	private float angle = 0;
 	private String mode = "lobby";
 	private boolean connected = false;
-	private int miscData = 13;
-	private int miscData2 = 37;
 	
 	private Skill[] skillList;
 	private boolean isAlive;
@@ -20,22 +22,39 @@ public class Player {
 	private String classType;
 	private int HP;
 	private int maxHP;
+	private int kills;
+	private int coins;
+	private double moveSpeed;
+	private boolean isRunning;
+	private boolean isStunned;
 	
-	public Player(String name, String ctrlType, String classType) {
+	public Player(String name, String ctrlType, String classType, float x, float y, int maxHP, double speed, double armor ,int index) {
 		this.name = name;
 		this.ctrlType = ctrlType;
+		this.x = x;
+		this.y = y;
+		this.id = index;
+		
 		stats = new String[7];
 		
 		HP = 100;
 		maxHP = 100;
+		kills = 0;
+		coins = 0;
+		moveSpeed = 0;
+		isRunning = false;
+		isStunned = false;
 		
 		isAlive = true;
+		
 		skillList = new Skill[5];
-		skillList[0] = new Skill("Test1");
-		skillList[2] = new Skill("Test2");
-		skillList[2] = new Skill("Test3");
-		skillList[3] = new Skill("Test4");
-		skillList[4] = new Skill("Test5");
+		/*
+		skillList[0] = new SkillAbsorb();
+		skillList[1] = new SkillAdrenaline();
+		skillList[2] = new SkillArrow();
+		skillList[3] = new SkillArrowFlurry();
+		skillList[4] = new SkillBarrelRoll();
+		*/
 		
 		this.classType = classType;
 	}
@@ -69,11 +88,11 @@ public class Player {
 		return ctrlType;
 	}
 	
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	
@@ -83,14 +102,6 @@ public class Player {
 	
 	public String getMode() {
 		return mode;
-	}
-	
-	public int getMisc1() {
-		return miscData;
-	}
-
-	public int getMisc2() {
-		return miscData2;
 	}
 	
 	public boolean isConnected() {
@@ -109,11 +120,11 @@ public class Player {
 		this.ctrlType = ctrlType;
 	}
 	
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	
@@ -123,14 +134,6 @@ public class Player {
 	
 	public void setMode(String mode) {
 		this.mode = mode;
-	}
-	
-	public void setMisc1(int misc) {
-		this.miscData = misc;
-	}
-	
-	public void setMisc2(int misc) {
-		this.miscData2 = misc;
 	}
 	
 	public void setConnected(boolean connected) {
@@ -146,6 +149,9 @@ public class Player {
 	}
 	
 	public void setSkillList(Skill[] chosenSkills) {
+		
+		//System.out.println(chosenSkills[0].getName());
+		
 		if(chosenSkills != null){
 			skillList[0] = chosenSkills[0];
 			skillList[1] = chosenSkills[1];
@@ -178,4 +184,45 @@ public class Player {
 	public String getType(){
 		return classType;
 	}
+	
+	public int getKills() {
+		return kills;
+	}
+	
+	public void setKills(int kills) {
+		this.kills = kills;
+	}
+	
+	public int getGold() {
+		return coins;
+	}
+	
+	public void setGold(int coins) {
+		this.coins = coins;
+	}
+	
+	public boolean isRunning(){
+		return isRunning;
+	}
+	
+	public void setRunningState(boolean state){
+		isRunning = state;
+	}
+	
+	public boolean isStunned(){
+		return isStunned;
+	}
+	
+	public void setStunState(boolean state){
+		isStunned = state;
+	}
+	
+	public double getMoveSpeed() {
+		return moveSpeed;
+	}
+	
+	public void setMoveSpeed(double speed) {
+		this.moveSpeed = speed;
+	}
+	
 }

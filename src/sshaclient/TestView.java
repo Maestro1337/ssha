@@ -84,7 +84,7 @@ public class TestView extends JFrame {
 		modeLabel.setSize(110, 15);
 		add(modeLabel);
 		
-		nameLabel = new JLabel("Name: Sebbe");
+		nameLabel = new JLabel("Name: " + Constants.name);
 		nameLabel.setLocation(10, 80);
 		nameLabel.setSize(160,15);
 		add(nameLabel);
@@ -148,8 +148,8 @@ public class TestView extends JFrame {
 		modeLabel.setText("Mode: " + mode);
 	}
 	
-	public void setXyLabel(int x, int y) {
-		coordinatesLabel.setText("X,Y: " + x + "," + y);
+	public void setXyLabel(float x, float y) {
+		coordinatesLabel.setText("X,Y: " + (int)x + "," + (int)y);
 	}
 	
 	public void setAngleLabel(float angle) {
