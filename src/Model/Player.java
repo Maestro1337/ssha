@@ -7,19 +7,18 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.*;
+import Model.Timers.RepeatingAnimationTimer;
 
 public class Player {
 	
 	private Image userImage;
-	private Image referenceImage;
 	private Image noStepImage;
-	private Image firstStepImage;
-	private Image secondStepImage;
 	
-	private Image[] changedNoStepImage = new Image[4];
-	private Image[] changedFirstStepImage = new Image[4];
-	private Image[] changedSecondStepImage = new Image[4];
-	private int changedModelIndex = 0;
+	private RepeatingAnimationTimer changedModelAnimation;
+	private RepeatingAnimationTimer regularModelAnimation;
+	private RepeatingAnimationTimer noStepChangedModelAnimation;
+	
+	
 	
 	private boolean changeModel = false;
 	
@@ -79,23 +78,6 @@ public class Player {
 		
 		statusEffectList = new ArrayList<StatusEffect>();
 		
-		try {
-			changedNoStepImage[1] = new Image("res/animations/mage_stand.png");
-			changedFirstStepImage[1] = new Image("res/animations/mage_walk1.png");
-			changedSecondStepImage[1] = new Image("res/animations/mage_walk2.png");
-			changedNoStepImage[2] = new Image("res/animations/hunter_stand.png");
-			changedFirstStepImage[2] = new Image("res/animations/hunter_walk1.png");
-			changedSecondStepImage[2] = new Image("res/animations/hunter_walk2.png");
-			changedNoStepImage[3] = new Image("res/animations/warrior_stand.png");
-			changedFirstStepImage[3] = new Image("res/animations/warrior_walk1.png");
-			changedSecondStepImage[3] = new Image("res/animations/warrior_walk2.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
 		
 	}
 
@@ -118,12 +100,7 @@ public class Player {
 	public Image getImage(){
 		return userImage;
 	}
-	public Image getFirstStepImage(){
-		return firstStepImage;
-	}
-	public Image getSecondStepImage(){
-		return secondStepImage;
-	}
+
 	public float getX(){
 		return imgX;
 	}
@@ -277,43 +254,31 @@ public class Player {
 	}
 
 	public void setImages(Image image, Image first, Image second){
-		if(image != null){
-			referenceImage = userImage = noStepImage = image;
-			changedNoStepImage[0] = noStepImage;
-		}
-		
-		if(first != null){
-			firstStepImage = first;
-			changedFirstStepImage[0] = firstStepImage;
-		}
-		
-		if(second != null){
-			secondStepImage = second;
-			changedSecondStepImage[0] = secondStepImage;
-		}
+		userImage = noStepImage = image;
+		Image[] tempImages = new Image[2];
+		tempImages[0] = first;
+		tempImages[1] = second;
+		regularModelAnimation = new RepeatingAnimationTimer(200, tempImages);
 	}
+	
+	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
+		changedModelAnimation = new RepeatingAnimationTimer(2000, walkingImages);
+		noStepChangedModelAnimation = new RepeatingAnimationTimer(2000, standingImages);
+	}
+	
 	public void changeUserImage(){
-		if(changeModel){
-			changedModelIndex++;
-			if(changedModelIndex>=4){
-				changedModelIndex=0;
-			}
-		}
 		if(isRunning && !isStunned  && moveSpeed > 0){
-		/*	if(userImage == noStepImage || userImage == secondStepImage)
-				userImage = firstStepImage;
-			else if(userImage == noStepImage || userImage == firstStepImage)
-				userImage = secondStepImage;
-			*/
-			if(referenceImage == changedNoStepImage[0] || referenceImage == changedSecondStepImage[0]){
-				userImage = changedFirstStepImage[changedModelIndex];
-				referenceImage = changedFirstStepImage[0];
-			}else if(referenceImage == changedNoStepImage[0] || referenceImage == changedFirstStepImage[0]){
-				userImage = changedSecondStepImage[changedModelIndex];
-				referenceImage = changedSecondStepImage[0];
+			if(changeModel){
+				userImage = changedModelAnimation.getCurrentAnimationImage();
+			}else{
+				userImage = regularModelAnimation.getCurrentAnimationImage();
 			}
 		} else {
-			userImage = changedNoStepImage[changedModelIndex];
+			if(changeModel){
+				userImage = noStepChangedModelAnimation.getCurrentAnimationImage();
+			}else{
+				userImage = noStepImage;
+			}
 		}
 		setRotation(rotation);
 	}
@@ -340,6 +305,9 @@ public class Player {
 		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
+		if(SE.getChangeModel()){
+			changeModel = false;
+		}
 		statusEffectList.remove(SE);
 	}
 	public void resetStatusEffects(){

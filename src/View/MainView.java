@@ -98,7 +98,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		map = new TiledMap("res/tileset/bg.tmx");
 	//	initRound();
-		
 	}
 	
 	public void initRound() throws SlickException{

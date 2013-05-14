@@ -4,12 +4,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectBarrelRoll;
+import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillUnstablemagic extends Skill {
 
 	public SkillUnstablemagic() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Unstable magic", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Unstable magic: \n" +
+		super("Unstable magic", 20000, 400, 0.4, 3, 10, 0, 0, 0, 0,"Unstable magic: \n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -18,6 +20,8 @@ public class SkillUnstablemagic extends Skill {
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
+		
+		super.setStatusEffect(new StatusEffectUnstableMagic(this, 20));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
