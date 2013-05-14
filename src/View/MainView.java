@@ -294,6 +294,9 @@ public class MainView extends BasicGameState implements ActionListener {
 			//Checking status effects
 			currentController.checkStatusEffects();
 			
+			//Checking userImageChange
+			currentController.checkUserImageChange();
+			
 			//Checking collision from other players
 			for(int j=0; j<players.size(); j++){
 				PlayerModel checkController;
