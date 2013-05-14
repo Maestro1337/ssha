@@ -21,6 +21,7 @@ public class SkillFirestorm extends Skill{
 		
 		
 		try {
+			attackImage = new Image("res/animations/firestorm/firestorm1.png");
 			
 			animation[0] = new Image("res/animations/firestorm/firestorm1.png");
 			animation[1] = new Image("res/animations/firestorm/firestorm2.png");
@@ -62,7 +63,7 @@ public class SkillFirestorm extends Skill{
 			e.printStackTrace();
 		}
 		super.setImage(attackImage);
-		super.setEndState(animation, 3000, 30);
+		super.setEndState(animation, 10000, 30);
 		super.setSkillBarImages(skillBar);
 	}
 }
