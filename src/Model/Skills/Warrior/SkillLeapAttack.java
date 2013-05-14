@@ -4,30 +4,31 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectTeleport;
 
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 11000, 400, 0.4, 3, 50, 150, 300, 300, 300,"Leap attack \n" +
+				super("Leap attack", 2000, 500, 0.4, 8, 50, 150, 300, 300, 300,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage", false);
-				
-				Image attackImage = null;
-				Image[] animation = new Image[7];
+
+				Image[] attackImages = new Image[4];
+				Image[] animation = new Image[1];
 				Image[] skillBar = new Image[3];
 				
+				super.setStatusEffect(new StatusEffectTeleport(this));
+				
 				try {
-					attackImage = new Image("res/animations/explode1.png");
 					
-					animation[0] = new Image("res/animations/explode1.png");
-					animation[1] = new Image("res/animations/explode2.png");
-					animation[2] = new Image("res/animations/explode3.png");
-					animation[3] = new Image("res/animations/explode4.png");
-					animation[4] = new Image("res/animations/explode5.png");
-					animation[5] = new Image("res/animations/explode6.png");
-					animation[6] = new Image("res/animations/explode7.png");
+					attackImages[0] = new Image("res/animations/leapattack/leapattack1.png");
+					attackImages[1] = new Image("res/animations/leapattack/leapattack2.png");
+					attackImages[2] = new Image("res/animations/leapattack/leapattack3.png");
+					attackImages[3] = new Image("res/animations/leapattack/leapattack4.png");
+					
+					animation[0] = new Image("res/animations/warstomp/warstompGround.png");
 					
 					skillBar[0] = new Image("res/skillIcons/leapattack.png");
 					skillBar[1] = new Image("res/skillIcons/leapattack_active.png");
@@ -36,8 +37,8 @@ public class SkillLeapAttack extends Skill {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				super.setImage(attackImage);
-				super.setEndState(animation, 200, 400);
+				super.setImage(attackImages, 1000);
+				super.setEndState(animation, 5000, 5000);
 				super.setSkillBarImages(skillBar);
 			}
 }
