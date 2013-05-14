@@ -28,6 +28,8 @@ public class StatusEffect {
 	private StatusEffectTimer ESIT;
 	private int delay;
 	
+	private boolean changeModel = false;
+	
 	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, boolean isStun, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
@@ -79,6 +81,12 @@ public class StatusEffect {
 	}
 	public boolean hasStun(){
 		return hasStun;
+	}
+	public void setChangeModel(){
+		changeModel = true;
+	}
+	public boolean getChangeModel(){
+		return changeModel;
 	}
 	
 	public void resetStatusEffect(){
@@ -166,6 +174,9 @@ public class StatusEffect {
 			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getMouseXPos(), skill.getMouseYPos(), moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
 		}else{
 			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
+		}
+		if(changeModel){
+			newSE.setChangeModel();
 		}
 		return newSE;
 	}

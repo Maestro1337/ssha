@@ -229,7 +229,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			Skill[] currentSkillset = currentPlayer.getSkillList();
 			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
 					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
-			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
+			
 			
 			for(int j=0; j<currentSkillset.length; j++){
 				if(currentSkillset[j] != null){
@@ -239,7 +239,8 @@ public class MainView extends BasicGameState implements ActionListener {
 						g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 					}
 				}
-			}		
+			}
+			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 		}
 		if(roundOver){
 			if (shouldcalcgold){
@@ -292,6 +293,9 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			//Checking status effects
 			currentController.checkStatusEffects();
+			
+			//Checking userImageChange
+			currentController.checkUserImageChange();
 			
 			//Checking collision from other players
 			for(int j=0; j<players.size(); j++){

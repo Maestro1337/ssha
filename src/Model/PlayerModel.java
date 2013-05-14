@@ -74,7 +74,6 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
-		player.changeUserImage();
 		if(player.isAlive() && !player.isPushed() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
@@ -171,12 +170,7 @@ public class PlayerModel implements ActionListener {
 			}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();					
 				System.out.println("Commencing end state with " + attackingSkill.getName());
-			}else if(attackingSkill.isEndState() && attackingSkill.checkEndStateTimer() == attackingSkill.getEndStateDuration()){
-				attackingSkill.finishEndState();
-				attackingSkill.setAttackingState(false);
-				System.out.println("Finishing end state with " + attackingSkill.getName());
-				
-				
+			
 			}else if(attackingSkill.isEndState()){
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
@@ -426,8 +420,19 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 	
+	
+	int changeRate = 10;
+	public void checkUserImageChange(){
+		if(changeRate<=0){
+			player.changeUserImage();
+			changeRate = 20;
+		}else{
+			changeRate--;
+		}
+	}
+	
+	
 	public void checkStatusEffects(){
-		
 		//Goes through all the current StatusEffects player has
 		for(int i=0; i<player.getStatusEffects().size(); i++){
 			StatusEffect currentStatusEffect = player.getStatusEffects().get(i);

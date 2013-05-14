@@ -54,6 +54,10 @@ public class ShoppingView extends BasicGameState {
 	
 	Image skillDescBg;
 	String costText;
+	
+	boolean showingSkillDescription = false;
+	
+	Image buyUpgradeButton;
 
 	Image chosenSkill = null;
 	
@@ -123,6 +127,7 @@ public class ShoppingView extends BasicGameState {
 
 		
 		playButton = new Image("res/buttons/playButtons.png");
+		buyUpgradeButton = new Image("res/miscImages/initEmptyPic.png");
 	}
 
 	public void enter(GameContainer container, StateBasedGame game)
@@ -213,6 +218,8 @@ public class ShoppingView extends BasicGameState {
 		g.setColor(Color.white);
 		g.drawString(skillText, 560, 475);
 		g.drawString(costText, 760, 475);
+		g.drawImage(buyUpgradeButton, 710, 600);
+		
 		if(chosenSkill != null)
 			g.drawImage(chosenSkill, 490, 470);
 
@@ -264,6 +271,15 @@ public class ShoppingView extends BasicGameState {
 		
 		Input input = gc.getInput();
 		
+		if(showingSkillDescription){
+			skillDescBg = new Image("res/miscImages/skillDescBg.png");
+			if((700<xPos && xPos<820) && (625<yPos && yPos<670)){
+				buyUpgradeButton = new Image("res/buttons/buyOver.png");
+			}else{
+				buyUpgradeButton = new Image("res/buttons/buy.png");
+			}
+		}
+
 		
 
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
@@ -283,21 +299,21 @@ public class ShoppingView extends BasicGameState {
 				chosenSkill = firstOffSkill;
 				skillText = offSkills[0].getDescription();
 				costText = "Cost: " + offSkills[0].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondOffSkill;
 				skillText = offSkills[1].getDescription();
 				costText = "Cost: " + offSkills[1].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdOffSkill;
 				skillText = offSkills[2].getDescription();
 				costText = "Cost: " + offSkills[2].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}
 		
@@ -308,21 +324,21 @@ public class ShoppingView extends BasicGameState {
 				chosenSkill = firstDefSkill;
 				skillText = defSkills[0].getDescription();
 				costText = "Cost: " + defSkills[0].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondDefSkill;
 				skillText = defSkills[1].getDescription();
 				costText = "Cost: " + defSkills[1].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdDefSkill;
 				skillText = defSkills[2].getDescription();
 				costText = "Cost: " + defSkills[2].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}
 		
@@ -333,23 +349,22 @@ public class ShoppingView extends BasicGameState {
 				chosenSkill = firstMobSkill;
 				skillText = mobSkills[0].getDescription();
 				costText = "Cost: " + mobSkills[0].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = secondMobSkill;
 				skillText = mobSkills[1].getDescription();
 				costText = "Cost: " + mobSkills[1].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				chosenSkill = thirdMobSkill;
 				skillText = mobSkills[2].getDescription();
 				costText = "Cost: " + mobSkills[2].getCost();
-				skillDescBg = new Image("res/miscImages/skillDescBg.png");
+				showingSkillDescription = true;
 			}
 		}
 	}
 }
-

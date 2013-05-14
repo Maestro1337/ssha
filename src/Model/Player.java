@@ -11,9 +11,18 @@ import Model.Skills.*;
 public class Player {
 	
 	private Image userImage;
+	private Image referenceImage;
 	private Image noStepImage;
 	private Image firstStepImage;
 	private Image secondStepImage;
+	
+	private Image[] changedNoStepImage = new Image[4];
+	private Image[] changedFirstStepImage = new Image[4];
+	private Image[] changedSecondStepImage = new Image[4];
+	private int changedModelIndex = 0;
+	
+	private boolean changeModel = false;
+	
 	private float imgX;
 	private float imgY;
 	private float startingPosX;
@@ -69,6 +78,25 @@ public class Player {
 		playerListIndex = index;
 		
 		statusEffectList = new ArrayList<StatusEffect>();
+		
+		try {
+			changedNoStepImage[1] = new Image("res/animations/mage_stand.png");
+			changedFirstStepImage[1] = new Image("res/animations/mage_walk1.png");
+			changedSecondStepImage[1] = new Image("res/animations/mage_walk2.png");
+			changedNoStepImage[2] = new Image("res/animations/hunter_stand.png");
+			changedFirstStepImage[2] = new Image("res/animations/hunter_walk1.png");
+			changedSecondStepImage[2] = new Image("res/animations/hunter_walk2.png");
+			changedNoStepImage[3] = new Image("res/animations/warrior_stand.png");
+			changedFirstStepImage[3] = new Image("res/animations/warrior_walk1.png");
+			changedSecondStepImage[3] = new Image("res/animations/warrior_walk2.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 
 	public String getType(){
@@ -184,8 +212,6 @@ public class Player {
 	
 	public void setRotation(float angle){
 		userImage.setRotation(angle);
-		firstStepImage.setRotation(angle);
-		secondStepImage.setRotation(angle);
 		rotation = angle;
 	}
 	
@@ -251,25 +277,45 @@ public class Player {
 	}
 
 	public void setImages(Image image, Image first, Image second){
-		if(image != null)
-			userImage = noStepImage = image;
+		if(image != null){
+			referenceImage = userImage = noStepImage = image;
+			changedNoStepImage[0] = noStepImage;
+		}
 		
-		if(first != null)
+		if(first != null){
 			firstStepImage = first;
+			changedFirstStepImage[0] = firstStepImage;
+		}
 		
-		if(second != null)
+		if(second != null){
 			secondStepImage = second;
+			changedSecondStepImage[0] = secondStepImage;
+		}
 	}
 	public void changeUserImage(){
+		if(changeModel){
+			changedModelIndex++;
+			if(changedModelIndex>=4){
+				changedModelIndex=0;
+			}
+		}
 		if(isRunning && !isStunned  && moveSpeed > 0){
-			if(userImage == noStepImage || userImage == secondStepImage)
+		/*	if(userImage == noStepImage || userImage == secondStepImage)
 				userImage = firstStepImage;
 			else if(userImage == noStepImage || userImage == firstStepImage)
 				userImage = secondStepImage;
+			*/
+			if(referenceImage == changedNoStepImage[0] || referenceImage == changedSecondStepImage[0]){
+				userImage = changedFirstStepImage[changedModelIndex];
+				referenceImage = changedFirstStepImage[0];
+			}else if(referenceImage == changedNoStepImage[0] || referenceImage == changedFirstStepImage[0]){
+				userImage = changedSecondStepImage[changedModelIndex];
+				referenceImage = changedSecondStepImage[0];
+			}
 		} else {
-			userImage = noStepImage;
-			setRotation(rotation);
+			userImage = changedNoStepImage[changedModelIndex];
 		}
+		setRotation(rotation);
 	}
 
 	public void setSkillList(Skill[] chosenSkills) {
@@ -288,6 +334,9 @@ public class Player {
 		return statusEffectList;
 	}
 	public void addStatusEffect(StatusEffect SE){
+		if(SE.getChangeModel()){
+			changeModel = true;
+		}
 		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
