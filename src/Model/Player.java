@@ -39,7 +39,7 @@ public class Player {
 	private double baseArmor = 0;
 	private double armor=0;
 	private int baseEvasion = 0;
-	private int evasion=0;
+	private int evasion=50;
 	private int kills=0;
 	private int deaths;
 	private int gold=0;
