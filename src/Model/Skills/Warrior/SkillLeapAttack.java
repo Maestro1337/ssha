@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectTeleport;
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 2000, 500, 0.4, 8, 50, 150, 300, 300, 300,"Leap attack \n" +
+				super("Leap attack", 5000, 500, 0.4, 8, 50, 150, 300, 300, 300,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -19,7 +19,7 @@ public class SkillLeapAttack extends Skill {
 				Image[] animation = new Image[1];
 				Image[] skillBar = new Image[3];
 				
-				super.setStatusEffect(new StatusEffectTeleport(this));
+				
 				
 				try {
 					
@@ -38,7 +38,7 @@ public class SkillLeapAttack extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImages, 1000);
-				super.setEndState(animation, 5000, 5000);
+				super.setEndState(animation, 2000, 2000);
 				super.setSkillBarImages(skillBar);
 			}
 }

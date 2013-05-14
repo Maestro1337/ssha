@@ -222,6 +222,9 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
+		if(player.getChannel()){
+			player.setChannel(false);
+		}
 		if(!player.isPushed()){
 			rotate(x, y);
 			player.setMouseXPosMove(x);
@@ -249,6 +252,10 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
+		
+		if(player.getChannel()){
+			player.setChannel(false);
+		}
 		
 		if(currentActiveSkill.isGuided()){
 			findAndSetGuidedTarget(currentActiveSkill);
