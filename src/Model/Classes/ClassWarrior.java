@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import Model.Player;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
+import Model.Skills.Warrior.SkillAdrenaline;
 import Model.Skills.Warrior.SkillFirstAid;
 import Model.Skills.Warrior.SkillLeapAttack;
 import Model.Skills.Warrior.SkillSlash;
@@ -62,7 +63,7 @@ public class ClassWarrior extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillThrowingAxe();
+		chosenSkills[1] = new SkillAdrenaline();
 		chosenSkills[2] = new SkillWarstomp();
 		chosenSkills[3] = new SkillFirstAid();
 		chosenSkills[4] = new SkillLeapAttack();

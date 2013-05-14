@@ -39,7 +39,7 @@ public class Player {
 	private double armor=0;
 	private int evasion=0;
 	private int kills=0;
-	private int deaths;
+	private int deaths = 0;
 	private int gold=0;
 	private Skill[] skillList = new Skill[5];
 	
@@ -57,7 +57,8 @@ public class Player {
 	private float yDirMove;
 	private float genDirMove;
 	private Double findNaN;
-	
+
+	private boolean isChanneling = false;
 	private boolean isStunned = false;
 	private boolean isPushed = false;
 	private double pushSpeed = 1.5;
@@ -345,5 +346,11 @@ public class Player {
 	
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+	public boolean getChannel(){
+		return isChanneling;
+	}
+	public void setChannel(boolean channelState){
+		this.isChanneling = channelState;
 	}
 }

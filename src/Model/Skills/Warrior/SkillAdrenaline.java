@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillAdrenaline extends Skill {
 	public SkillAdrenaline(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Adrenaline", 11000, 400, 0.4, 3, 50, 0, 0, 0, 0,"Adrenaline \n" +
+				super("Adrenaline", 5000, 0, 0.4, 3, 50, 0, 0, 0, 0,"Adrenaline \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -35,7 +35,7 @@ public class SkillAdrenaline extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 200, 400);
+				super.setEndState(animation, 1000, 1000);
 				super.setSkillBarImages(skillBar);
 			}
 }
