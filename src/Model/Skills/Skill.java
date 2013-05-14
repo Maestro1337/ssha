@@ -184,6 +184,9 @@ public class Skill{
 		affectSelf = true;
 		selfAffectingSE = SE;
 	}
+	public void setPassive(){
+		isPassive = true;
+	}
 
 	public int getCurrentHeight(){
 		return currentHeight;

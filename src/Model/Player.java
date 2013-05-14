@@ -85,8 +85,7 @@ public class Player {
 		playerListIndex = index;
 		
 		statusEffectList = new ArrayList<StatusEffect>();
-		
-		
+		passiveEffects = new ArrayList<StatusEffect>();
 	}
 
 	public String getType(){
@@ -304,6 +303,12 @@ public class Player {
 			skillList[2] = chosenSkills[2];
 			skillList[3] = chosenSkills[3];
 			skillList[4] = chosenSkills[4];
+		}
+		
+		for(int i=0; i<skillList.length; i++){
+			if(skillList[i] != null && skillList[i].isPassive()){
+				addPassiveEffect(skillList[i].getSelfAffectingStatusEffect());
+			}
 		}
 	}
 	public Skill[] getSkillList(){

@@ -50,6 +50,7 @@ public class PlayerModel implements ActionListener {
 		player.setStunState(false);
 		player.setPushState(false);
 		player.resetStatusEffects();
+		player.activatePassiveEffects();
 		checkSpawnCollision();
 		player.resetHP();
 		player.setX(player.getStartX());
@@ -266,7 +267,7 @@ public class PlayerModel implements ActionListener {
 		x -= currentActiveSkill.getCurrentWidth()/2;
 		y -= currentActiveSkill.getCurrentHeight()/2;
 		rotate(x, y);
-		if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+		if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
 				currentActiveSkill.activateSkill();
 				
@@ -327,13 +328,11 @@ public class PlayerModel implements ActionListener {
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					int evasion = player.getEvasion();
-					System.out.println(evasion);
 					//Calculates new evasion to check if player will evade the attack in this state
 					if(evasion>=0){
 						Random generator = new Random();
 						evasion = generator.nextInt(100) - evasion;
 					}
-					System.out.println(evasion);
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
 					//And if it can affect others
 					if(playerSkills[i].getOffensiveStatusEffect() != null && !playerSkills[i].getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 

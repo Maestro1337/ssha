@@ -98,6 +98,9 @@ public class StatusEffect {
 	public boolean getChangeModel(){
 		return changeModel;
 	}
+	public int getMaxCounts(){
+		return maxCounts;
+	}
 	
 	public void resetStatusEffect(){
 		counts = maxCounts;
