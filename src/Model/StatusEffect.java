@@ -165,9 +165,6 @@ public class StatusEffect {
 			if(moveXEff != 0 || moveYEff != 0){
 				player.setPushState(false);
 			}
-			if(moveSpeedEff!=0){
-				player.addMovementSpeed(-moveSpeedEff);
-			}
 			if(evasionEff!=0){
 				player.addEvasion(-evasionEff);
 			}
