@@ -318,13 +318,13 @@ public class PlayerModel implements ActionListener {
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					int evasion = player.getEvasion();
-			//		System.out.println(evasion);
+					System.out.println(evasion);
 					//Calculates new evasion to check if player will evade the attack in this state
-					if(evasion>0){
+					if(evasion>=0){
 						Random generator = new Random();
 						evasion = generator.nextInt(100) - evasion;
 					}
-			//		System.out.println(evasion);
+					System.out.println(evasion);
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
 					//And if it can affect others
 					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName()) 
@@ -333,19 +333,19 @@ public class PlayerModel implements ActionListener {
 					}
 					
 					if(!playerSkills[i].isEndState()){
-						if(evasion>0){
+						if(evasion>=0){
 							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						}
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
-							if(evasion>0){
+							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 							}
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
-							if(evasion>0){
+							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 							}
 							playerSkills[i].activateCollisionEndState();
@@ -353,7 +353,7 @@ public class PlayerModel implements ActionListener {
 					}else{
 						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
 							System.out.println("Target hit with " + playerSkills[i].getName());
-							if(evasion>0){
+							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 							}
 							playerSkills[i].getESIT().resetESColTimer();
