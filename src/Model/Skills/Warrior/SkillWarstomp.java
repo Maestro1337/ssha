@@ -36,7 +36,7 @@ public class SkillWarstomp extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 5000, 400);
+				super.setEndState(animation, 5000, 5000);
 				super.setSkillBarImages(skillBar);
 			}
 }
