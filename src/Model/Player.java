@@ -39,7 +39,7 @@ public class Player {
 	private double baseArmor = 0;
 	private double armor=0;
 	private int baseEvasion = 0;
-	private int evasion=50;
+	private int evasion=0;
 	private int kills=0;
 	private int deaths;
 	private int gold=0;
@@ -240,6 +240,9 @@ public class Player {
 	public int getEvasion(){
 		return evasion;
 	}
+	public void addEvasion(int evasion){
+		this.evasion += evasion;
+	}
 	public void addArmor(double armor){
 		this.armor += armor;
 	}
@@ -310,6 +313,17 @@ public class Player {
 	}
 	public void addPassiveEffect(StatusEffect SE){
 		passiveEffects.add(SE);
+	}
+	public void removePassiveEffect(StatusEffect SE){
+		passiveEffects.remove(SE);
+	}
+	public void activatePassiveEffects(){
+		evasion = baseEvasion;
+		armor = baseArmor;
+		moveSpeed = baseMoveSpeed;
+		for(int i=0; i<passiveEffects.size(); i++){
+			//evasion += passiveEffects.get(i).getE
+		}
 	}
 	public ArrayList<StatusEffect> getStatusEffects(){
 		return statusEffectList;

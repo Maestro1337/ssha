@@ -19,6 +19,7 @@ public class StatusEffect {
 	private int atkSpeedEff;
 	private int rangeEff;
 	private double moveSpeedEff;
+	private int evasionEff;
 	private int counts;
 	private int maxCounts;
 	private int interval;
@@ -32,7 +33,7 @@ public class StatusEffect {
 	
 	private boolean changeModel = false;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, boolean isStun, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int evasion, boolean isStun, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -48,6 +49,7 @@ public class StatusEffect {
 		this.interval = interval;
 		this.delay = delay;
 		hasStun = isStun;
+		evasionEff = evasion;
 		
 		playersGivenTo = new String[3];
 		ESIT = new StatusEffectTimer(delay);
@@ -138,6 +140,9 @@ public class StatusEffect {
 		if(rangeEff!=0 && !commitedChange){
 			skill.addAttackRange(rangeEff);
 		}
+		if(evasionEff!=0 && !commitedChange){
+			player.addEvasion(evasionEff);
+		}
 		player.setStunState(hasStun);
 		commitedChange = true;
 	} 
@@ -160,6 +165,12 @@ public class StatusEffect {
 			if(moveXEff != 0 || moveYEff != 0){
 				player.setPushState(false);
 			}
+			if(moveSpeedEff!=0){
+				player.addMovementSpeed(-moveSpeedEff);
+			}
+			if(evasionEff!=0){
+				player.addEvasion(-evasionEff);
+			}
 			player.setStunState(false);
 			resetCloning();
 		}
@@ -181,9 +192,9 @@ public class StatusEffect {
 		StatusEffect newSE;
 		//checks if it is supposed to move the player
 		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getMouseXPos(), skill.getMouseYPos(), moveSpeedEff,armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getMouseXPos(), skill.getMouseYPos(), moveSpeedEff,armEff, atkSpeedEff, rangeEff, evasionEff, hasStun, maxCounts, delay);
 		}else{
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, hasStun, maxCounts, delay);
+			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, evasionEff, hasStun, maxCounts, delay);
 		}
 		if(changeModel){
 			newSE.setChangeModel();
