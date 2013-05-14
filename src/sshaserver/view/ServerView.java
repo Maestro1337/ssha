@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultCaret;
 
 import sshaserver.controller.constants;
 
@@ -37,6 +38,8 @@ public class ServerView extends JFrame {
 	TitledBorder settingsTitle;
 	Border blackline;
 	
+	private DefaultCaret caretActivity;
+	private DefaultCaret caretClients;
 	private JScrollPane activityPanel;
 	private JTextArea activityField;
 	private JLabel activityLabel;
@@ -89,6 +92,9 @@ public class ServerView extends JFrame {
 		clientsPanel = new JScrollPane(connectedClients, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		clientsLabel = new JLabel("Connected clients:");
 		startServer = new JButton("Start server");
+		caretActivity = (DefaultCaret) activityField.getCaret();
+        caretActivity.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		
 		
 		// Create Activity-label
 		activityPanel.setLocation(7, activityFieldY);
@@ -107,6 +113,8 @@ public class ServerView extends JFrame {
 		clientsLabel.setLocation(7, connectedClientsY-20);
 		clientsLabel.setSize(117, 15);
 		mainPanel.add(clientsLabel);
+		caretClients = (DefaultCaret) connectedClients.getCaret();
+		caretClients.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
 		// Create Connect-button
 		startServer.setLocation(7, 18);

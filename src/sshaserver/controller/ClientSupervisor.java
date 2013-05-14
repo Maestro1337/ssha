@@ -146,7 +146,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 			}
 			SV.changeButtonText();
 		} else if(e.getActionCommand().equals("save")) {
-			
+			System.out.println("Not implemented yet!");
 		} else if(e.getActionCommand().equals("clear")) {
 			SV.clearActivityField();
 		} else if(e.getActionCommand().equals("change")) {
