@@ -29,6 +29,7 @@ public class Player {
 	private boolean isReady;
 	private String mode;
 	private String ctrlType;
+	private boolean connected;
 	
 	private int playerListIndex;
 	private boolean isAlive = true;
@@ -76,6 +77,7 @@ public class Player {
 		this.isReady = false;
 		this.mode = "lobby";
 		this.ctrlType = ctrlType;
+		this.connected = false;
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
@@ -407,5 +409,11 @@ public class Player {
 	}
 	public void setControlType(String ctrlType) {
 		this.ctrlType = ctrlType;
+	}
+	public boolean isConnected() {
+		return this.connected;
+	}
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 }
