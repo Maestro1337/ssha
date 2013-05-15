@@ -2,6 +2,9 @@ package Control;
 
 import java.util.ArrayList;
 
+import sshaclient.Constants;
+import sshaclient.SocketClient;
+
 import Model.Player;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
@@ -43,8 +46,11 @@ public class GlobalClassSelector {
 	public synchronized void resetPlayers(){
 		players = new Player[nbrOfPlayers];
 	}
-	public Player[] getPlayers(){
+	public synchronized Player[] getPlayers(){
 		return players;
+	}
+	public synchronized Player getPlayer(int index) {
+		return players[index];
 	}
 	public synchronized void addPlayerController(PlayerControl pc, int index) {
 		playerControllers[index] = pc;
@@ -55,8 +61,11 @@ public class GlobalClassSelector {
 	public synchronized void resetPlayerControllers() {
 		playerControllers = new PlayerControl[nbrOfPlayers];
 	}
-	public PlayerControl[] getPlayerControllers() {
+	public synchronized PlayerControl[] getPlayerControllers() {
 		return playerControllers;
+	}
+	public synchronized PlayerControl getPlayerControl(int index) {
+		return playerControllers[index];
 	}
 	public synchronized void addControllerThread(Thread thread, int index) {
 		controllerThreads[index] = thread;
@@ -67,8 +76,11 @@ public class GlobalClassSelector {
 	public synchronized void resetControllerThreads() {
 		controllerThreads = new Thread[nbrOfPlayers];
 	}
-	public Thread[] getControllerThreads() {
+	public synchronized Thread[] getControllerThreads() {
 		return controllerThreads;
+	}
+	public synchronized Thread getControllerThread( int index) {
+		return controllerThreads[index];
 	}
 	
 	public int getActivePlayerIndex(){

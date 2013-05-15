@@ -156,6 +156,7 @@ public class StatusEffect {
 		if(moveSpeedEff!=0 && !commitedChange){
 			//Calculating how the moveSpeed will be changed to know how much to change it back after return of statusEffect
 			moveSpeedEff = moveSpeedEff*player.getMoveSpeed();
+			System.out.println(moveSpeedEff);
 			player.addMovementSpeed(moveSpeedEff);
 		}
 		if(atkSpeedEff!=0 && !commitedChange){
@@ -190,6 +191,7 @@ public class StatusEffect {
 				skill.addAttackRange(-rangeEff);
 			}
 			if(moveSpeedEff!=0){
+				System.out.println(moveSpeedEff);
 				player.addMovementSpeed(-moveSpeedEff);
 			}
 			if(moveXEff != 0 || moveYEff != 0){

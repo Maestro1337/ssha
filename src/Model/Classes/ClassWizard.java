@@ -54,6 +54,7 @@ public class ClassWizard extends Player {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+
 		chosenSkills[0] = new SkillWandattack();
 		chosenSkills[1] = new SkillFirestorm();
 		chosenSkills[2] = new SkillBlizzard();

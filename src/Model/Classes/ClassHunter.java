@@ -59,6 +59,7 @@ public class ClassHunter extends Player {
 		chosenSkills[3] = new SkillLifestealingArrows();
 		chosenSkills[4] = new SkillArrowFlurry();
 
+
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
 		super.setSkillList(chosenSkills);

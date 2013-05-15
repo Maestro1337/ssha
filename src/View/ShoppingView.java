@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 
+
 import Control.GlobalClassSelector;
 import Model.Player;
 import Model.PlayerModel;
@@ -53,6 +54,8 @@ import Model.Skills.Wizard.SkillWandattack;
 
 public class ShoppingView extends BasicGameState {
 	
+	String buyString = " ";
+	
 	String classtype="Hunter";
 	
 	Image skillDescBg;
@@ -67,6 +70,7 @@ public class ShoppingView extends BasicGameState {
 	Image playerGold;
 	String playerGoldText;
 	
+	
 	private String mouse = "No input yet";
 	Image menuTab;
 	
@@ -75,6 +79,7 @@ public class ShoppingView extends BasicGameState {
 	Skill[] mobSkills = new Skill[3];
 	Skill[] chosenSkills = new Skill[5];
 	Skill basicSkill;
+	Skill selectedSkill;
 	
 	Image playButton;
 	
@@ -113,13 +118,15 @@ public class ShoppingView extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		
+		selectedSkill = new SkillFireball();
+		
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
 		skillsText = new Image("res/miscImages/skillsText.png");
 		shopText = new Image("res/miscImages/shopText.png");
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");
-		playerGoldText = ""+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
+		playerGoldText = "" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
 		
 
 		skillText = " ";
@@ -230,7 +237,7 @@ public class ShoppingView extends BasicGameState {
 		
 		g.drawImage(classPortrait, 70, 30);
 		g.drawImage(playerGold,70,185);
-		g.drawString(playerGoldText, 140, 198);
+		g.drawString(""+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold(), 140, 198);
 		g.drawString(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getName() + 
 				"\nHP: "+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getHP() + 
 				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
@@ -262,6 +269,8 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(firstMobSkill, 335, 440);
 		g.drawImage(secondMobSkill, 335, 515);
 		g.drawImage(thirdMobSkill, 335, 590);
+		
+		g.drawString(buyString, 640, 200);
 	}
 
 	@Override
@@ -278,6 +287,12 @@ public class ShoppingView extends BasicGameState {
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
 			if((710<xPos && xPos<830) && (600<yPos && yPos<645)){
 				buyUpgradeButton = new Image("res/buttons/buyOver.png");
+				if(input.isMouseButtonDown(0)){
+					if(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()>=selectedSkill.getCost()){
+						buyString = "Succesfully bought a skill!";
+						GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].setGold(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()-selectedSkill.getCost());
+					}
+				}
 			}else{
 				buyUpgradeButton = new Image("res/buttons/buy.png");
 			}
@@ -303,6 +318,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = offSkills[0].getDescription();
 				costText = "Cost: " + offSkills[0].getCost();
 				showingSkillDescription = true;
+				selectedSkill = offSkills[0];
 			}
 		}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -310,6 +326,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = offSkills[1].getDescription();
 				costText = "Cost: " + offSkills[1].getCost();
 				showingSkillDescription = true;
+				selectedSkill = offSkills[1];
 			}
 		}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -317,6 +334,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = offSkills[2].getDescription();
 				costText = "Cost: " + offSkills[2].getCost();
 				showingSkillDescription = true;
+				selectedSkill = offSkills[2];
 			}
 		}
 		
@@ -328,6 +346,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = defSkills[0].getDescription();
 				costText = "Cost: " + defSkills[0].getCost();
 				showingSkillDescription = true;
+				selectedSkill = defSkills[0];
 			}
 		}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -335,6 +354,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = defSkills[1].getDescription();
 				costText = "Cost: " + defSkills[1].getCost();
 				showingSkillDescription = true;
+				selectedSkill = defSkills[1];
 			}
 		}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -342,6 +362,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = defSkills[2].getDescription();
 				costText = "Cost: " + defSkills[2].getCost();
 				showingSkillDescription = true;
+				selectedSkill = defSkills[2];
 			}
 		}
 		
@@ -353,6 +374,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = mobSkills[0].getDescription();
 				costText = "Cost: " + mobSkills[0].getCost();
 				showingSkillDescription = true;
+				selectedSkill = mobSkills[0];
 			}
 		}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -360,6 +382,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = mobSkills[1].getDescription();
 				costText = "Cost: " + mobSkills[1].getCost();
 				showingSkillDescription = true;
+				selectedSkill = mobSkills[1];
 			}
 		}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -367,6 +390,7 @@ public class ShoppingView extends BasicGameState {
 				skillText = mobSkills[2].getDescription();
 				costText = "Cost: " + mobSkills[2].getCost();
 				showingSkillDescription = true;
+				selectedSkill = mobSkills[2];
 			}
 		}
 	}

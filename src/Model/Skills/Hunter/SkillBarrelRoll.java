@@ -14,23 +14,28 @@ public class SkillBarrelRoll extends Skill {
 				"Level 1: 15 sec cd\n" +
 				"Level 2: 12 sec cd\n" +
 				"Level 3: 8 sec cd\n" +
-				"Level 4: 4 sec cd", true);
+				"Level 4: 4 sec cd");
 		
-		Image attackImage = null;
-		Image[] animation = new Image[5];
+		Image[] attackImages = new Image[2];
+		Image[] animation = new Image[9];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingStatusEffectShell(new StatusEffectLeap(this));
-		super.setAffectSelfOnHit();
+		super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
+		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 		
 		try {
-			attackImage = new Image("res/animations/hunter_walk2.png");
+			attackImages[0] = new Image("res/animations/hunter_walk1.png");
+			attackImages[1] = new Image("res/animations/hunter_walk2.png");
 			
-			animation[0] = new Image("res/animations/hunter_walk1.png");
-			animation[1] = new Image("res/animations/hunter_walk1.png");
-			animation[2] = new Image("res/animations/hunter_walk1.png");
-			animation[3] = new Image("res/animations/hunter_walk1.png");
-			animation[4] = new Image("res/animations/hunter_walk1.png");
+			animation[0] = new Image("res/animations/barrelroll/roll1.png");
+			animation[1] = new Image("res/animations/barrelroll/roll2.png");
+			animation[2] = new Image("res/animations/barrelroll/roll3.png");
+			animation[3] = new Image("res/animations/barrelroll/roll4.png");
+			animation[4] = new Image("res/animations/barrelroll/roll5.png");
+			animation[5] = new Image("res/animations/barrelroll/roll6.png");
+			animation[6] = new Image("res/animations/barrelroll/roll7.png");
+			animation[7] = new Image("res/animations/barrelroll/roll8.png");
+			animation[8] = new Image("res/animations/barrelroll/roll9.png");
 			
 			skillBar[0] = new Image("res/skillIcons/barrelroll.png");
 			skillBar[1] = new Image("res/skillIcons/barrelroll_active.png");
@@ -42,8 +47,8 @@ public class SkillBarrelRoll extends Skill {
 		
 		
 		
-		super.setImage(attackImage);
-		super.setEndState(animation, 20, 200);
+		super.setImage(animation, 1000);
+		super.setEndState(attackImages, 20, 200);
 		super.setSkillBarImages(skillBar);
 	}
 }

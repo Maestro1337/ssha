@@ -13,7 +13,7 @@ public class SkillAbsorb extends Skill{
 					"Level 1: 10 % of damage done, max 100\n" +
 					"Level 2: 15 % of damage done, max 150\n" +
 					"Level 3: 20 % of damage done, max 200\n" +
-					"Level 4: 25 % of damage done, max 250", true);
+					"Level 4: 25 % of damage done, max 250");
 
 			
 			Image attackImage = null;

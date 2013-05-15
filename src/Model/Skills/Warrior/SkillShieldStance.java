@@ -14,13 +14,13 @@ public class SkillShieldStance extends Skill {
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage", true);
+						"Level 4: 45 damage");
 				
 				Image attackImage = null;
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
 				
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 10));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 5));
 				
 				try {
 					attackImage = new Image("res/animations/explode1.png");

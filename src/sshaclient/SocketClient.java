@@ -3,6 +3,7 @@ package sshaclient;
 import java.net.*;
 import java.io.*;
 
+import Control.GlobalClassSelector;
 import Model.Player;
 import Model.Classes.*;
 import Model.Skills.Skill;
@@ -17,10 +18,6 @@ public class SocketClient implements Runnable {
 	private boolean[] playerChanged;
 	private Player tp;
 	private boolean allAreReady;
-	
-	private Player[] tpa;
-	private PlayerControl[] tpac;
-	private Thread[] tpat;
 	
 	private String host;
 	private int port;
@@ -38,17 +35,13 @@ public class SocketClient implements Runnable {
 	private BufferedInputStream bis;
 	private InputStreamReader isr;
 	
-	public SocketClient(String host, int port, Player tp, Player[] tpa, PlayerControl[] tpac, Thread[] tpat) {
+	public SocketClient(String host, int port, Player tp) {
 		this.tp = tp;
 		
 		this.allAreReady = false;
 		
 		this.host = host;
 		this.port = port;
-		
-		this.tpa = tpa;
-		this.tpac = tpac;
-		this.tpat = tpat;
 		
 		playerStats = new String[Constants.nbrOfPlayer];
 		playerChanged = new boolean[Constants.nbrOfPlayer];
@@ -183,9 +176,9 @@ public class SocketClient implements Runnable {
 	public void closeConnection() {
 		if(connection != null) {
 			
-			for(int i = 0; i < tpac.length; i++) {
-				if(tpac[i] != null) {
-					tpac[i].killItWithFire();
+			for(int i = 0; i < GlobalClassSelector.getController().getPlayerControllers().length; i++) {
+				if(GlobalClassSelector.getController().getPlayerControllers()[i] != null) {
+					GlobalClassSelector.getController().getPlayerControllers()[i].killItWithFire();
 				}
 			}
 			
@@ -235,22 +228,22 @@ public class SocketClient implements Runnable {
 				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
-				if(tpa[arrPos] == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
+				if(GlobalClassSelector.getController().getPlayer(arrPos) == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
 					// Add method for checking class, string after id maybe? Instead of just adding "TestClass"
 					
 					//Create new player from the playerclass
 					if(Constants.getItem(tempStats, 3).equals("Hunter")) {
-						tpa[arrPos] = new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
+						GlobalClassSelector.getController().addPlayer(new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					} else if(Constants.getItem(tempStats, 3).equals("Warrior")) {
-						tpa[arrPos] = new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
+						GlobalClassSelector.getController().addPlayer(new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					} else if(Constants.getItem(tempStats, 3).equals("Wizard")) {
-						tpa[arrPos] = new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
+						GlobalClassSelector.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					}
 					
-					tpa[arrPos].setPlayerListIndex(arrPos);
-					tpac[arrPos] = new PlayerClientController(this, tpa[arrPos]);
-					tpat[arrPos] = new Thread(tpac[arrPos]);
-					tpat[arrPos].start();
+					GlobalClassSelector.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
+					GlobalClassSelector.getController().addPlayerController(new PlayerClientController(this, GlobalClassSelector.getController().getPlayer(arrPos)), arrPos);
+					GlobalClassSelector.getController().addControllerThread(new Thread(GlobalClassSelector.getController().getPlayerControl(arrPos)), arrPos);
+					GlobalClassSelector.getController().getControllerThread(arrPos).start();
 				}
 			}
 			data = data.substring(data.indexOf(47)+1, data.length());
@@ -260,20 +253,20 @@ public class SocketClient implements Runnable {
 		for(int k = 0; k < playerChanged.length; k++) {
 			if(!playerChanged[k]) {
 				playerStats[k] = null;
-				if(tpa[k] != null) {
-					tpac[k].killItWithFire();
-					tpat[k] = null;
-					tpac[k] = null;
-					tpa[k] = null;
+				if(GlobalClassSelector.getController().getPlayer(k) != null) {
+					GlobalClassSelector.getController().getPlayerControl(k).killItWithFire();
+					GlobalClassSelector.getController().removeControllerThread(k);
+					GlobalClassSelector.getController().removePlayerController(k);
+					GlobalClassSelector.getController().removePlayer(k);
 				}
 			}
 		}
 		
 		// Checkings if players in the lobby are ready.
 		boolean tempReady = true;
-		for(int i = 0; i < tpa.length; i++) {
-			if(tpa[i] != null) {
-				if(!tpa[i].isReady()) {
+		for(int i = 0; i < GlobalClassSelector.getController().getPlayers().length; i++) {
+			if(GlobalClassSelector.getController().getPlayer(i) != null) {
+				if(!GlobalClassSelector.getController().getPlayer(i).isReady()) {
 					tempReady = false;
 				}
 			}
@@ -293,10 +286,10 @@ public class SocketClient implements Runnable {
 	public String[] getPlayerNames() {
 		String[] names = new String[Constants.nbrOfPlayer];
 		
-		for(int i = 0; i < tpa.length; i++) {
+		for(int i = 0; i < GlobalClassSelector.getController().getPlayers().length; i++) {
 			names[i] = "";
-			if(tpa[i] != null) {
-				names[i] = tpa[i].getName();
+			if(GlobalClassSelector.getController().getPlayer(i) != null) {
+				names[i] = GlobalClassSelector.getController().getPlayer(i).getName();
 			}
 		}
 		return names;

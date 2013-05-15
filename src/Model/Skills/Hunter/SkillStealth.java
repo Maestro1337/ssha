@@ -12,7 +12,7 @@ public class SkillStealth extends Skill {
 				"Level 1: 5 sec\n" +
 				"Level 2: 10 sec\n" +
 				"Level 3: 15 sec\n" +
-				"Level 4: 20 sec", true);
+				"Level 4: 20 sec");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

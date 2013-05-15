@@ -14,7 +14,7 @@ public class SkillFirstAid extends Skill {
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage", true);
+						"Level 4: 45 damage");
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 10));
 				
