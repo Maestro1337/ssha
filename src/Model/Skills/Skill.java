@@ -2,6 +2,7 @@ package Model.Skills;
 
 import Model.Player;
 import Model.StatusEffect;
+import Model.StatusEffectShell;
 import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
 import Model.Timers.SkillCheckingTimer;
@@ -32,8 +33,8 @@ public class Skill{
 	private boolean affectSelf = false;
 	private boolean affectOthers = true;
 	
-	private StatusEffect offensiveSE = null;
-	private StatusEffect selfAffectingSE = null;
+	private StatusEffectShell offensiveSE = null;
+	private StatusEffectShell selfAffectingSE = null;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -176,11 +177,11 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setOffensiveStatusEffect(StatusEffect SE){
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE){
 		affectOthers = true;
 		offensiveSE = SE;
 	}
-	public void setSelfAffectingStatusEffect(StatusEffect SE){
+	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;
 		selfAffectingSE = SE;
 	}
@@ -516,10 +517,10 @@ public class Skill{
 	}
 	
 	//Methods for StatusEffect Control
-	public StatusEffect getOffensiveStatusEffect(){
+	public StatusEffectShell getOffensiveStatusEffect(){
 		return offensiveSE;
 	}
-	public StatusEffect getSelfAffectingStatusEffect(){
+	public StatusEffectShell getSelfAffectingStatusEffect(){
 		return selfAffectingSE;
 	}
 	

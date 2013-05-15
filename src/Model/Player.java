@@ -45,7 +45,7 @@ public class Player {
 	private int gold=0;
 	private Skill[] skillList = new Skill[5];
 	
-	private ArrayList<StatusEffect> passiveEffects = new ArrayList<StatusEffect>();
+	private ArrayList<StatusEffectShell> passiveEffects = new ArrayList<StatusEffectShell>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
 	
 	//Movement variables
@@ -85,7 +85,7 @@ public class Player {
 		playerListIndex = index;
 		
 		statusEffectList = new ArrayList<StatusEffect>();
-		passiveEffects = new ArrayList<StatusEffect>();
+		passiveEffects = new ArrayList<StatusEffectShell>();
 	}
 
 	public String getType(){
@@ -314,13 +314,13 @@ public class Player {
 	public Skill[] getSkillList(){
 		return skillList;
 	}
-	public ArrayList<StatusEffect> getPassiveEffects(){
+	public ArrayList<StatusEffectShell> getPassiveEffects(){
 		return passiveEffects;
 	}
-	public void addPassiveEffect(StatusEffect SE){
+	public void addPassiveEffect(StatusEffectShell SE){
 		passiveEffects.add(SE);
 	}
-	public void removePassiveEffect(StatusEffect SE){
+	public void removePassiveEffect(StatusEffectShell SE){
 		passiveEffects.remove(SE);
 	}
 	public void activatePassiveEffects(){
@@ -328,7 +328,7 @@ public class Player {
 		armor = baseArmor;
 		moveSpeed = baseMoveSpeed;
 		for(int i=0; i<passiveEffects.size(); i++){
-			StatusEffect SE = passiveEffects.get(i);
+			StatusEffectShell SE = passiveEffects.get(i);
 			armor += SE.getArmEff();
 			evasion += SE.getEvasionEff();
 			moveSpeed += SE.getMoveSpeedEff();

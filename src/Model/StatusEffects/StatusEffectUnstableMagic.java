@@ -4,9 +4,10 @@ import java.util.Random;
 
 import Model.Player;
 import Model.StatusEffect;
+import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectUnstableMagic extends StatusEffect{
+public class StatusEffectUnstableMagic extends StatusEffectShell{
 
 	public StatusEffectUnstableMagic(Skill skill, int seconds) {
 		
@@ -17,6 +18,27 @@ public class StatusEffectUnstableMagic extends StatusEffect{
 		super.setChangeModel();
 	}
 	
+	@Override
+	public StatusEffect createStatusEffectTo(Player newPlayer) {
+		//Finding the next free space in list to add player to
+		super.addPlayerGivenTo(newPlayer.getName());
+		
+		StatusEffect newSE;
+		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
+				super.getMoveXEff(), super.getMoveYEff(), getRandomSpeed(), 
+				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
+				super.hasStun(), super.getMaxCounts(), super.getDelay());
+		
+		newSE.setChangeModel();
+		
+		return newSE;
+	}
 	
+	private double getRandomSpeed(){
+		Random obsGenerator = new Random();
+		double decider = (double)obsGenerator.nextInt(30)/10 - 1;
+		
+		return decider;
+	}
 	
 }

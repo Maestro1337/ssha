@@ -308,7 +308,7 @@ public class PlayerModel implements ActionListener {
 				
 			if(currentActiveSkill.getAffectSelf()){
 				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
-					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().cloneTo(player));
+					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
 				}
 			}
 		}
@@ -337,7 +337,7 @@ public class PlayerModel implements ActionListener {
 					//And if it can affect others
 					if(playerSkills[i].getOffensiveStatusEffect() != null && !playerSkills[i].getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
-						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().cloneTo(player));
+						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
 					
 					if(!playerSkills[i].isEndState()){
