@@ -1,5 +1,6 @@
 package sshaclient;
 
+import Control.PlayerControl;
 import Model.Player;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.*;
