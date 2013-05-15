@@ -323,7 +323,7 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 
-	public void checkCollision(Skill[] playerSkills) throws SlickException{
+	public void checkCollision(Player attackingPlayer,Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
@@ -338,6 +338,10 @@ public class PlayerModel implements ActionListener {
 					if(playerSkills[i].getOffensiveStatusEffect() != null && !playerSkills[i].getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
+					}
+					if(playerSkills[i].getSelfAffectingStatusEffect() != null && !playerSkills[i].getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName()) 
+							&& playerSkills[i].getAffectSelfOnHit() && evasion > 0){
+						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(attackingPlayer));
 					}
 					
 					if(!playerSkills[i].isEndState()){
@@ -373,6 +377,7 @@ public class PlayerModel implements ActionListener {
 			}
 		}
 		if(player.getHP() <= 0){
+			attackingPlayer.incKills();
 			killPlayer();
 		}
 	}

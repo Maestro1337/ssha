@@ -90,6 +90,7 @@ public class Skill{
 	private Player guidedTarget;
 	
 	private boolean isPassive = false;
+	private boolean affectSelfOnHit = false;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
 			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
@@ -514,6 +515,13 @@ public class Skill{
 	}
 	public boolean isPassive(){
 		return isPassive;
+	}
+	public void setAffectSelfOnHit(){
+		affectSelfOnHit = true;
+		affectSelf = false;
+	}
+	public boolean getAffectSelfOnHit(){
+		return affectSelfOnHit;
 	}
 	
 	//Methods for StatusEffect Control

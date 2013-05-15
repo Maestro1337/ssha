@@ -303,10 +303,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				//Check to see it is another player
 				if(j != i && currentController.getPlayer().isAlive()){
 					checkController = players.get(j);
-					currentController.checkCollision(checkController.getPlayer().getSkillList());
-					if(!currentController.getPlayer().isAlive()){
-						checkController.getPlayer().incKills();
-					}
+					currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
 				}
 			}
 			
