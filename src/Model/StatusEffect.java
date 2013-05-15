@@ -15,7 +15,7 @@ public class StatusEffect {
 	private int dmgEff;
 	private float moveXEff;
 	private float moveYEff;
-	private int armEff;
+	private double armEff;
 	private int atkSpeedEff;
 	private int rangeEff;
 	private double moveSpeedEff;
@@ -34,7 +34,7 @@ public class StatusEffect {
 	
 	private boolean changeModel = false;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int evasion, boolean isStun, boolean isChanneling, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, double arm, int attackSpeed, int range, int evasion, boolean isStun, boolean isChanneling, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -78,7 +78,7 @@ public class StatusEffect {
 	public float getMoveYEff(){
 		return moveYEff;
 	}
-	public int getArmEff(){
+	public double getArmEff(){
 		return armEff;
 	}
 	public int getAttackSpeedEff(){
