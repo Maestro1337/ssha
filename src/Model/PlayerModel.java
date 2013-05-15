@@ -121,6 +121,7 @@ public class PlayerModel implements ActionListener {
 	//Determines action depending on what state the skill is in
 	public void isAttacking(Skill attackingSkill){
 		if(attackingSkill != null){
+			System.out.println("" + attackingSkill.getSelfAffectingStatusEffect());
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
 				//Calculates the new direction if the skill is guided
@@ -178,6 +179,10 @@ public class PlayerModel implements ActionListener {
 				System.out.println("Commencing end state with " + attackingSkill.getName());
 			
 			}else if(attackingSkill.isEndState()){
+				if(!player.getChannel() && attackingSkill.getSelfAffectingStatusEffect() != null 
+						&& attackingSkill.getSelfAffectingStatusEffect().getChannel()){
+					attackingSkill.setAttackingState(false);
+				}
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
 				//TODO have to add -90 for slash.. but turn image instead..
@@ -192,9 +197,6 @@ public class PlayerModel implements ActionListener {
 	
 	public boolean isColliding(Skill skill) throws SlickException{
 
-		//System.out.println(player.getChannel());
-		System.out.println("Run: " + player.isRunning());
-		System.out.println("Channel: " + player.getChannel());
 		if(skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()){
 			if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
 					|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
