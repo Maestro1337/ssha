@@ -63,7 +63,7 @@ public class ClassWarrior extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillSlash();
-		chosenSkills[1] = new SkillAdrenaline();
+		chosenSkills[1] = new SkillThrowingAxe();
 		chosenSkills[2] = new SkillWarstomp();
 		chosenSkills[3] = new SkillFirstAid();
 		chosenSkills[4] = new SkillLeapAttack();

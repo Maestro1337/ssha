@@ -8,8 +8,8 @@ public class StatusEffectTeleport extends StatusEffect{
 
 	public StatusEffectTeleport(Skill skill) {
 		
-		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, counts, delay
-		super(null, skill, "Teleport", 0, 1, 1, 0, 0, 0, 0, 0, false, 1, 100);
+		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, isStun, isChanneling, counts, delay
+		super(null, skill, "Teleport", 0, 1, 1, 0, 0, 0, 0, 0, false, false, 1, 100);
 	}
 
 }

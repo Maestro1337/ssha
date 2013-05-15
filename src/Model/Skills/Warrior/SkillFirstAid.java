@@ -4,15 +4,18 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectFirstAid;
 
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("First aid", 11000, 0, 0.4, 3, 50, -10, 0, 0, 0,"First Aid \n" +
+				super("First aid", 11000, 0, 0.4, 3, 50, 0, 0, 0, 0,"First Aid \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage", true);
+				
+				super.setStatusEffect(new StatusEffectFirstAid(this, 10));
 				
 				Image attackImage = null;
 				Image[] animation = new Image[5];
@@ -35,7 +38,7 @@ public class SkillFirstAid extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 5000, 500);
+				super.setEndState(animation, 3000, 500);
 				super.setSkillBarImages(skillBar);
 			}
 }
