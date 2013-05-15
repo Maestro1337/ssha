@@ -16,7 +16,7 @@ public class SkillTeleport extends Skill {
 		Image[] animation = new Image[5];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectTeleport(this));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectTeleport(this));
 		
 		try {
 			attackImage = new Image("res/animations/Teleport/Teleport1.png");

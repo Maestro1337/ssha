@@ -4,6 +4,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectBarrelRoll;
+import Model.StatusEffects.StatusEffectDodge;
 
 public class SkillPassiveDodge extends Skill {
 	public SkillPassiveDodge(){
@@ -16,6 +18,9 @@ public class SkillPassiveDodge extends Skill {
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
+		
+		super.setPassive();
+		super.setSelfAffectingStatusEffectShell(new StatusEffectDodge(this, 5, 0));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");

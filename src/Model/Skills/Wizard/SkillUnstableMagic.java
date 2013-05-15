@@ -1,5 +1,7 @@
 package Model.Skills.Wizard;
 
+import java.util.Random;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -21,7 +23,7 @@ public class SkillUnstableMagic extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectUnstableMagic(this, 20));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 20));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
@@ -48,5 +50,4 @@ public class SkillUnstableMagic extends Skill {
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
-
 }

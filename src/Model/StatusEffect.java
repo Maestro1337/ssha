@@ -87,6 +87,12 @@ public class StatusEffect {
 	public int getRangeEff(){
 		return rangeEff;
 	}
+	public int getEvasionEff(){
+		return evasionEff;
+	}
+	public double getMoveSpeedEff(){
+		return moveSpeedEff;
+	}
 	public boolean hasStun(){
 		return hasStun;
 	}
@@ -95,6 +101,12 @@ public class StatusEffect {
 	}
 	public boolean getChangeModel(){
 		return changeModel;
+	}
+	public int getMaxCounts(){
+		return maxCounts;
+	}
+	protected int getDelay(){
+		return delay;
 	}
 	
 	public void resetStatusEffect(){
@@ -183,56 +195,6 @@ public class StatusEffect {
 				player.setChannel(false);
 			}
 			player.setStunState(false);
-			resetCloning();
 		}
 	}
-	
-	public StatusEffect cloneTo(Player newPlayer){
-		//Finding the next free space in list to add player to
-		for(int i=0; i<playersGivenTo.length; i++){
-			if(playersGivenTo[i] == null){
-				playersGivenTo[i] = newPlayer.getName();
-				break;
-			}
-		}
-		
-		if(name == "Unstable Magic"){
-			moveSpeedEff = getRandomSpeed();
-		}
-		
-		StatusEffect newSE;
-		//checks if it is supposed to move the player
-		if(moveXEff != 0 || moveYEff != 0){
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, skill.getMouseXPos(), skill.getMouseYPos(), moveSpeedEff,armEff, atkSpeedEff, rangeEff, evasionEff, hasStun, isChannel, maxCounts, delay);
-		}else{
-			newSE = new StatusEffect(newPlayer, skill, name, dmgEff, moveXEff, moveYEff, moveSpeedEff, armEff, atkSpeedEff, rangeEff, evasionEff, hasStun, isChannel, maxCounts, delay);
-		}
-		if(changeModel){
-			newSE.setChangeModel();
-		}
-		return newSE;
-	}
-	
-	private double getRandomSpeed(){
-		Random obsGenerator = new Random();
-		double decider = (double)obsGenerator.nextInt(30)/10 - 1;
-		
-		return decider;
-	}
-	
-	public boolean hasBeenGivenTo(String name){
-		for(int i=0; i<playersGivenTo.length; i++){
-			if(playersGivenTo[i] == name){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void resetCloning(){
-		playersGivenTo = new String[3];
-	}
-	
-	
-	
 }
