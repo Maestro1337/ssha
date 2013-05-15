@@ -137,6 +137,9 @@ public class StatusEffect {
 		if(dmgEff>0){
 			player.dealDamage(dmgEff);
 		}
+		if(dmgEff<0){
+			player.addHP(-dmgEff);
+		}
 		if(moveXEff != 0 || moveYEff != 0){
 			player.setX(moveXEff);
 			player.setY(moveYEff);

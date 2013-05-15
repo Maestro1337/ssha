@@ -189,6 +189,9 @@ public class PlayerModel implements ActionListener {
 	
 	public boolean isColliding(Skill skill) throws SlickException{
 
+		//System.out.println(player.getChannel());
+		System.out.println("Run: " + player.isRunning());
+		System.out.println("Channel: " + player.getChannel());
 		if(skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()){
 			if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
 					|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
@@ -259,7 +262,6 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		
 		if(player.getChannel()){
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).getChanneling()){

@@ -215,6 +215,11 @@ public class Player {
 	public void setHP(int HP) {
 		this.HP = HP;
 	}
+	public void addHP(int addAmount){
+		System.out.println(addAmount);
+		this.HP += addAmount;
+		System.out.println(this.HP);
+	}
 	public void setMaxHP(int maxHP) {
 		this.maxHP = maxHP;
 	}
@@ -344,6 +349,7 @@ public class Player {
 		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
+		SE.setResetOfStatusEffect();
 		if(SE.getChangeModel()){
 			changeModel = false;
 		}
