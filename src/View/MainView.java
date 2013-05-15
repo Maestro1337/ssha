@@ -26,6 +26,9 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+
+
+import Control.*;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
@@ -33,7 +36,6 @@ import Model.Obstacles.Obstacle;
 import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
-import Control.*;
 
 public class MainView extends BasicGameState implements ActionListener {	
 	boolean shouldcalcgold;
