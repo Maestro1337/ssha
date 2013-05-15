@@ -1,4 +1,4 @@
-package control;
+package Control;
 
 /**
  * Interface used by the different controllers; User, AI and Server

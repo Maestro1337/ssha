@@ -3,8 +3,7 @@ package sshaclient;
 import java.net.*;
 import java.io.*;
 
-import control.GlobalClassSelector;
-
+import Control.GlobalClassSelector;
 import Model.Player;
 import Model.Classes.*;
 import Model.Skills.Skill;

@@ -4,7 +4,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import control.GlobalClassSelector;
 
 
 
@@ -13,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import Control.GlobalClassSelector;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.*;
