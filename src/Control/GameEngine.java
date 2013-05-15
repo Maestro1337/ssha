@@ -4,6 +4,13 @@ package Control;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+import sshaclient.Constants;
+import sshaclient.SocketClient;
+import sshaclient.TestController;
+import sshaclient.TestView;
+
+import Model.Player;
+import Model.Classes.ClassWizard;
 import View.*;
 
 public class GameEngine extends StateBasedGame {
@@ -42,6 +49,15 @@ public class GameEngine extends StateBasedGame {
 		}catch(SlickException ex){
 			ex.printStackTrace();
 		}
+		
+		TestView tv = new TestView();
+		Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
+		SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
+		Thread t2 = new Thread(sc);
+		t2.start();
+		TestController tc = new TestController(tv, tp, sc); 
+		Thread t = new Thread(tc);
+		t.start();
 	}
 
 }
