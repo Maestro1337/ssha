@@ -18,6 +18,10 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
+import Control.GlobalClassSelector;
+
+
+
 public class Menu extends BasicGameState implements ActionListener{
 
 	private String mouse = "No input yet";
@@ -30,8 +34,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	Image bg;
 
 	Image backgroundImage;
-	Image playButton;
-	Image testButton;
+	Image singleplayerButton;
+	Image multiplayerButton;
 	Image exitButton;
 	Image titleText;
 	
@@ -42,8 +46,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		backgroundImage = new Image("res/miscImages/bg.png");
-		playButton = new Image("res/buttons/playButtons.png");
-		testButton = new Image("res/buttons/testButtons.png");
+		singleplayerButton = new Image("res/buttons/singleplayer.png");
+		multiplayerButton = new Image("res/buttons/multiplayer.png");
 		exitButton = new Image("res/buttons/exitButton.png");
 		titleText = new Image("res/miscImages/title.png");
 		
@@ -66,8 +70,8 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.drawString(mouse, 500, 20);
 		
 		g.drawImage(titleText, 380, 100);
-		g.drawImage(playButton, 500, 300);
-		g.drawImage(testButton, 500, 400);
+		g.drawImage(singleplayerButton, 500, 300);
+		g.drawImage(multiplayerButton, 500, 400);
 		g.drawImage(exitButton, 500, 500);
 	}
 
@@ -84,17 +88,17 @@ public class Menu extends BasicGameState implements ActionListener{
         
 		
 		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
-			playButton = new Image("res/buttons/playButton_hover.png");
+			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				playButton = new Image("res/buttons/playButton_pressed.png");
+				GlobalClassSelector.getController().setSingleOrMulti(false);
 				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 
-			testButton = new Image("res/buttons/testButton_hover.png");
+			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				testButton = new Image("res/buttons/testButton_pressed.png");
-				sbg.enterState(2);
+				GlobalClassSelector.getController().setSingleOrMulti(true);
+				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
 			exitButton = new Image("res/buttons/exitButton.png");
@@ -102,8 +106,8 @@ public class Menu extends BasicGameState implements ActionListener{
 				System.exit(0);
 			}
 		}else{
-			playButton = new Image("res/buttons/playButtons.png");
-			testButton = new Image("res/buttons/testButtons.png");
+			singleplayerButton = new Image("res/buttons/singleplayer.png");
+			multiplayerButton = new Image("res/buttons/multiplayer.png");
 		}
 	}
 	

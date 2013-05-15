@@ -4,6 +4,9 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -166,9 +169,6 @@ public class PlayerModel implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
-						if(attackingSkill.getAffectSelfOnHit()){
-							player.addStatusEffect(attackingSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
-						}
 						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
@@ -336,7 +336,7 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 
-	public void checkCollision(Player attackingPlayer,Skill[] playerSkills) throws SlickException{
+	public void checkCollision(Player attackingPlayer, Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
@@ -357,7 +357,7 @@ public class PlayerModel implements ActionListener {
 						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(attackingPlayer));
 					}
 					
-					if(!playerSkills[i].isEndState() && playerSkills[i].isProjectile()){
+					if(!playerSkills[i].isEndState()){
 						if(evasion>=0){
 							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						}
@@ -390,7 +390,6 @@ public class PlayerModel implements ActionListener {
 			}
 		}
 		if(player.getHP() <= 0){
-			attackingPlayer.incKills();
 			killPlayer();
 		}
 	}

@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectBarrelRoll;
+import Model.StatusEffects.StatusEffectLeap;
 import Model.StatusEffects.StatusEffectDodge;
 
 public class SkillPassiveDodge extends Skill {

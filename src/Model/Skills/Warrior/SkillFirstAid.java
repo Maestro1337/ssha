@@ -39,7 +39,7 @@ public class SkillFirstAid extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 3000, 500);
+				super.setEndState(animation, 10000, 200);
 				super.setSkillBarImages(skillBar);
 			}
 }

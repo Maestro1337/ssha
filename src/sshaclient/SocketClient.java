@@ -66,7 +66,7 @@ public class SocketClient implements Runnable {
 			if(connected) {
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
-					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getKills() + " " + tp.getGold() + " skills";
+					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getKills() + " " + tp.getGold() + " skills";
 					for(int i = 0; i < tempSkills.length; i++) {
 						if(tempSkills[i] != null) {
 							process = process + " " + tempSkills[i].getSmallName() + " " + tempSkills[i].getCurrentLvl();
@@ -76,7 +76,7 @@ public class SocketClient implements Runnable {
 					}
 					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.isReady();
 				} else {
-					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
+					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
 					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " skills";
 					for(int j = 0; j < tempSkills.length; j++) {
 						if(tempSkills[j] != null) {
@@ -157,8 +157,8 @@ public class SocketClient implements Runnable {
 			
 			if(inData.length() < 999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
-					tp.setId(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
-					System.out.println(tp.getName() + "'s ID is: " + tp.getID());
+					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
+					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
 					//connected = false;
@@ -247,7 +247,7 @@ public class SocketClient implements Runnable {
 						tpa[arrPos] = new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
 					}
 					
-					tpa[arrPos].setId(arrPos);
+					tpa[arrPos].setPlayerListIndex(arrPos);
 					tpac[arrPos] = new PlayerClientController(this, tpa[arrPos]);
 					tpat[arrPos] = new Thread(tpac[arrPos]);
 					tpat[arrPos].start();

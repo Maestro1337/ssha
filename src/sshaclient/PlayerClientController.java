@@ -128,7 +128,7 @@ public class PlayerClientController implements PlayerControl {
 						tempSkills[i] = new SkillTeleport();
 						break;
 					case "unstablemagic":
-						tempSkills[i] = new SkillUnstablemagic();
+						tempSkills[i] = new SkillUnstableMagic();
 						break;
 					case "wandattack":
 						tempSkills[i] = new SkillWandattack();
@@ -150,7 +150,7 @@ public class PlayerClientController implements PlayerControl {
 				tp.setRotation(Float.parseFloat(Constants.getItem(tempStats, 5)));
 				tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
 				tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
-				tp.setMoveSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
+				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
 				
 				realSkills = tp.getSkillList();
 				

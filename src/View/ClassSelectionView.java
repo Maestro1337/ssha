@@ -8,6 +8,9 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+
+
+
 import Control.GlobalClassSelector;
 import Model.Player;
 import Model.PlayerModel;
@@ -18,6 +21,8 @@ import Model.Obstacles.ObstaclePillar;
 public class ClassSelectionView extends BasicGameState implements ActionListener{
 
 	private String mouse = "No input yet";
+	
+	private boolean isMultiplayer;
 	
 	Player player = null;
 //	private String classType = null;
@@ -75,17 +80,20 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		if((500<xPos && xPos<750) && (550<yPos && yPos<604)){
 			selectButton = new Image("res/buttons/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				selectButton = new Image("res/buttons/playButton_pressed.png");
-				GlobalClassSelector.getController().resetPlayers();
-				GlobalClassSelector.getController().addPlayer(player, 0);
-				
-				//Addition of AI player
-
-				GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
-//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
-
-				
-				sbg.enterState(1);
+					selectButton = new Image("res/buttons/playButton_pressed.png");
+					GlobalClassSelector.getController().resetPlayers();
+					GlobalClassSelector.getController().addPlayer(player, 0);
+					
+					//Addition of AI player
+	
+					GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
+	//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
+	
+				if(!(GlobalClassSelector.getController().getSingleOrMulti())){	
+					sbg.enterState(1);
+				}else{
+					sbg.enterState(2);
+				}
 			}
 		}else{
 			selectButton = new Image("res/buttons/playButtons.png");

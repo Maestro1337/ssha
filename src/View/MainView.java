@@ -26,6 +26,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+
+
+
+import Control.*;
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
@@ -33,7 +37,6 @@ import Model.Obstacles.Obstacle;
 import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
-import Control.*;
 
 public class MainView extends BasicGameState implements ActionListener {	
 	boolean shouldcalcgold;
@@ -261,6 +264,7 @@ public class MainView extends BasicGameState implements ActionListener {
 					g.drawImage(roundOverAnimationImage, 1280/2 - nextRoundBg.getWidth()/2, 200-nextRoundBg.getHeight()/2);
 			}
 		}
+		//g.drawString("Singleplayer", 640, 200);
 	}
 	public void goldreward(){
 		System.out.println("hora");
