@@ -11,6 +11,7 @@ public class GlobalClassSelector {
 
 	private static final int nbrOfPlayers = 4;
 	
+	private boolean isMultiplayer = false;
 	private static GlobalClassSelector myControl = null;
 	private Player[] players = new Player[nbrOfPlayers];
 	private PlayerControl[] playerControllers = new PlayerControl[nbrOfPlayers];
@@ -75,5 +76,11 @@ public class GlobalClassSelector {
 	}
 	public void setActivePlayerIndex(int index){
 		activePlayer = index;
+	}
+	public boolean getSingleOrMulti(){
+		return isMultiplayer;
+	}
+	public void setSingleOrMulti(boolean singleOrMulti){
+		isMultiplayer = singleOrMulti;
 	}
 }
