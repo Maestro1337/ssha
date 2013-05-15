@@ -103,6 +103,9 @@ public class Player {
 	public int getPlayerListIndex(){
 		return playerListIndex;
 	}
+	public void setPlayerListIndex(int index){
+		this.playerListIndex = index;
+	}
 	
 	//Getters for the movements
 	
