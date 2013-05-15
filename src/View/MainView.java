@@ -247,7 +247,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				goldreward();
 			}
 			shouldcalcgold=false;
-			System.out.println(player.getGold());
+		//	System.out.println(player.getGold());
 			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
@@ -303,10 +303,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				//Check to see it is another player
 				if(j != i && currentController.getPlayer().isAlive()){
 					checkController = players.get(j);
-					currentController.checkCollision(checkController.getPlayer().getSkillList());
-					if(!currentController.getPlayer().isAlive()){
-						checkController.getPlayer().incKills();
-					}
+					currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
 				}
 			}
 			
@@ -361,7 +358,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			//enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
 		}
 		//If right mousebutton is clicked, attack that point
-		if(input.isMouseButtonDown(0)){
+		if(input.isMouseButtonDown(0) && currentActiveController.getCurrentActiveSkill().checkCooldown() == currentActiveController.getCurrentActiveSkill().getCoolDown()){
 			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
 			
 		}

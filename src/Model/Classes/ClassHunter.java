@@ -16,8 +16,8 @@ public class ClassHunter extends Player {
 	Image[] changedModelWalkImages = new Image[12];
 	Image[] changedModelStandImages = new Image[12];
 
-	public ClassHunter(String name, float x, float y, int index) {
-		super(name, "Hunter", x, y, 1000, 1, 0.4, index);
+	public ClassHunter(String name, String ctrlType, float x, float y, int index) {
+		super(name, ctrlType, "Hunter", x, y, 1000, 1, 0.4, index);
 		try {
 			playerImage = new Image("res/animations/hunter_stand.png");
 			firstStep = new Image("res/animations/hunter_walk1.png");

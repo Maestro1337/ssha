@@ -166,6 +166,9 @@ public class PlayerModel implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
+						if(attackingSkill.getAffectSelfOnHit()){
+							player.addStatusEffect(attackingSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
+						}
 						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
@@ -189,6 +192,9 @@ public class PlayerModel implements ActionListener {
 	
 	public boolean isColliding(Skill skill) throws SlickException{
 
+		//System.out.println(player.getChannel());
+		System.out.println("Run: " + player.isRunning());
+		System.out.println("Channel: " + player.getChannel());
 		if(skill.getAttX() <= player.getX() && skill.getAttX()+skill.getCurrentWidth() >= player.getX()){
 			if(skill.getAttY() >= player.getY() && skill.getAttY() <= player.getY()+player.getImage().getHeight() 
 					|| skill.getAttY()+skill.getCurrentHeight() >= player.getY() && skill.getAttY()+skill.getCurrentHeight() <= player.getY()+player.getImage().getHeight() 
@@ -259,7 +265,6 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		
 		if(player.getChannel()){
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).getChanneling()){
@@ -331,7 +336,7 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 
-	public void checkCollision(Skill[] playerSkills) throws SlickException{
+	public void checkCollision(Player attackingPlayer,Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
@@ -347,8 +352,12 @@ public class PlayerModel implements ActionListener {
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
+					if(playerSkills[i].getSelfAffectingStatusEffect() != null && !playerSkills[i].getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName()) 
+							&& playerSkills[i].getAffectSelfOnHit() && evasion > 0){
+						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(attackingPlayer));
+					}
 					
-					if(!playerSkills[i].isEndState()){
+					if(!playerSkills[i].isEndState() && playerSkills[i].isProjectile()){
 						if(evasion>=0){
 							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						}
@@ -381,6 +390,7 @@ public class PlayerModel implements ActionListener {
 			}
 		}
 		if(player.getHP() <= 0){
+			attackingPlayer.incKills();
 			killPlayer();
 		}
 	}

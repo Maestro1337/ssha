@@ -28,6 +28,7 @@ public class Player {
 	private float startingPosY;
 	private boolean isReady;
 	private String mode;
+	private String ctrlType;
 	
 	private int playerListIndex;
 	private boolean isAlive = true;
@@ -69,11 +70,12 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, String type, float x, float y, int maxHP, double speed, double armor, int index){
+	public Player(String name, String ctrlType, String type, float x, float y, int maxHP, double speed, double armor, int index){
 		this.name = name;
 		this.classType = type;
 		this.isReady = false;
 		this.mode = "lobby";
+		this.ctrlType = ctrlType;
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
@@ -215,6 +217,11 @@ public class Player {
 	public void setHP(int HP) {
 		this.HP = HP;
 	}
+	public void addHP(int addAmount){
+		System.out.println(addAmount);
+		this.HP += addAmount;
+		System.out.println(this.HP);
+	}
 	public void setMaxHP(int maxHP) {
 		this.maxHP = maxHP;
 	}
@@ -229,7 +236,7 @@ public class Player {
 	public void resetHP(){
 		HP = maxHP;
 		isAlive = true;
-		System.out.println("HEALTH RESTORED");
+	//	System.out.println("HEALTH RESTORED");
 	}
 	public String getName(){
 		return name;
@@ -344,6 +351,7 @@ public class Player {
 		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
+		SE.setResetOfStatusEffect();
 		if(SE.getChangeModel()){
 			changeModel = false;
 		}
@@ -390,5 +398,11 @@ public class Player {
 	}
 	public void setReadyness(boolean ready) {
 		isReady = ready;
+	}
+	public String getControlType() {
+		return ctrlType;
+	}
+	public void setControlType(String ctrlType) {
+		this.ctrlType = ctrlType;
 	}
 }
