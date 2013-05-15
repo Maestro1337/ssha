@@ -13,7 +13,7 @@ public class StatusEffectUnstableMagic extends StatusEffectShell{
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, isStun, isChanneling, counts, delay
 		
-		super(null, skill, "Unstable Magic", 0, 0, 0, 1, 0, 0, 0, 0, false, false, seconds+1, 0);
+		super(null, skill, "Unstable Magic", 0, 0, 0, 1, 0, 0, 0, 0, false, false, false, seconds+1, 0);
 
 		super.setChangeModel();
 	}
@@ -27,7 +27,7 @@ public class StatusEffectUnstableMagic extends StatusEffectShell{
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
 				super.getMoveXEff(), super.getMoveYEff(), getRandomSpeed(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
-				super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
+				super.hasStealth(), super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
 		
 		newSE.setChangeModel();
 		

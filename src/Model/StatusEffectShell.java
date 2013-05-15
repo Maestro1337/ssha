@@ -25,6 +25,7 @@ public abstract class StatusEffectShell {
 	private int interval;
 	private boolean hasStun;
 	private boolean isChanneling;
+	private boolean hasStealth;
 	
 	private boolean commitedChange = false;
 	private String[] playersGivenTo;
@@ -34,7 +35,7 @@ public abstract class StatusEffectShell {
 	
 	private boolean changeModel = false;
 	
-	public StatusEffectShell(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, double arm, int attackSpeed, int range, int evasion, boolean isStun, boolean isChanneling, int counts, int delay){
+	public StatusEffectShell(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, double arm, int attackSpeed, int range, int evasion, boolean isStealth, boolean isStun, boolean isChanneling, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -52,6 +53,7 @@ public abstract class StatusEffectShell {
 		hasStun = isStun;
 		this.isChanneling = isChanneling;
 		evasionEff = evasion;
+		hasStealth = isStealth;
 		
 		playersGivenTo = new String[3];
 		ESIT = new StatusEffectTimer(delay);
@@ -95,6 +97,9 @@ public abstract class StatusEffectShell {
 	}
 	public boolean hasStun(){
 		return hasStun;
+	}
+	public boolean hasStealth(){
+		return hasStealth;
 	}
 	public void setChangeModel(){
 		changeModel = true;
