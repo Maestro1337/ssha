@@ -5,12 +5,13 @@ import Model.StatusEffect;
 import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectTeleport extends StatusEffectShell{
+public class StatusEffectSlow extends StatusEffectShell{
 
-	public StatusEffectTeleport(Skill skill) {
-		
-		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, isStun, isChanneling, counts, delay
-		super(null, skill, "Teleport", 0, 1, 1, 0, 0, 0, 0, 0, false, false, 1, 100);
+	public StatusEffectSlow(Skill skill, double moveEff, int seconds) {
+		//player,skill,name,damage,moveX,moveY,moveSpeed,arm,attackSpeed,range,isStun,counts,delay
+		//plus one to add a count after the first hit which is instant
+		super(null, skill, "Slow", 0, 0, 0, moveEff, 0, 0, 0, 0, false, false, seconds+1, 0);
+		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -19,12 +20,11 @@ public class StatusEffectTeleport extends StatusEffectShell{
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		//checks if it is supposed to move the player
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
-				super.getSkill().getMouseXPos(), super.getSkill().getMouseYPos(), super.getMoveSpeedEff(), 
+				super.getMoveXEff(), super.getMoveYEff(), super.getMoveSpeedEff(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
 				super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
-		
+
 		return newSE;
 	}
 

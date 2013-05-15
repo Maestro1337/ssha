@@ -5,12 +5,11 @@ import Model.StatusEffect;
 import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectTeleport extends StatusEffectShell{
+public class StatusEffectDodge extends StatusEffectShell{
 
-	public StatusEffectTeleport(Skill skill) {
+	public StatusEffectDodge(Skill skill, int evasion, int seconds) {
 		
-		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, isStun, isChanneling, counts, delay
-		super(null, skill, "Teleport", 0, 1, 1, 0, 0, 0, 0, 0, false, false, 1, 100);
+		super(null, skill, "Dodge", 50, 0, 0, 0, 0, 0, 0, evasion, false, false, seconds+1, 0);
 	}
 	
 	@Override
@@ -19,12 +18,11 @@ public class StatusEffectTeleport extends StatusEffectShell{
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		//checks if it is supposed to move the player
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
-				super.getSkill().getMouseXPos(), super.getSkill().getMouseYPos(), super.getMoveSpeedEff(), 
+				super.getMoveXEff(), super.getMoveYEff(), super.getMoveSpeedEff(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
 				super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
-		
+
 		return newSE;
 	}
 

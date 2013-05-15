@@ -4,11 +4,12 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectSlow;
 
 public class SkillBlizzard extends Skill {
 	public SkillBlizzard(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Blizzard", 11000, 400, 100.4, 3, 25, 150, 300, 300, 300,"Blizzard:\nA rain of icicles which \nslows every enemy in the \ntargeted area.\n" +
+				super("Blizzard", 11000, 400, 100.4, 3, 25, 15, 30, 30, 30,"Blizzard:\nA rain of icicles which \nslows every enemy in the \ntargeted area.\n" +
 						"\nLevel 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -17,6 +18,8 @@ public class SkillBlizzard extends Skill {
 				Image attackImage = null;
 				Image[] animation = new Image[20];
 				Image[] skillBar = new Image[3];
+				
+				super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.7, 2));
 				
 				try {
 					attackImage = new Image("res/animations/Blizzard/blizzard1.png");
@@ -52,7 +55,7 @@ public class SkillBlizzard extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 2000, 400);
+				super.setEndState(animation, 2000, 200);
 				super.setSkillBarImages(skillBar);
 			}
 }
