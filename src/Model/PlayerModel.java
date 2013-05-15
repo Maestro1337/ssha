@@ -352,7 +352,7 @@ public class PlayerModel implements ActionListener {
 						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(attackingPlayer));
 					}
 					
-					if(!playerSkills[i].isEndState()){
+					if(!playerSkills[i].isEndState() && playerSkills[i].isProjectile()){
 						if(evasion>=0){
 							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
 						}

@@ -229,7 +229,7 @@ public class Player {
 	public void resetHP(){
 		HP = maxHP;
 		isAlive = true;
-		System.out.println("HEALTH RESTORED");
+	//	System.out.println("HEALTH RESTORED");
 	}
 	public String getName(){
 		return name;

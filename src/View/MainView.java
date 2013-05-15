@@ -247,7 +247,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				goldreward();
 			}
 			shouldcalcgold=false;
-			System.out.println(player.getGold());
+		//	System.out.println(player.getGold());
 			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
