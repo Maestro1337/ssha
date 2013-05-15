@@ -44,7 +44,7 @@ public class Player {
 	private int evasion=0;
 	private int kills=0;
 	private int deaths = 0;
-	private int gold=0;
+	private int gold=500;
 	private Skill[] skillList = new Skill[5];
 	
 	private ArrayList<StatusEffectShell> passiveEffects = new ArrayList<StatusEffectShell>();
