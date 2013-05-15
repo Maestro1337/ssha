@@ -349,6 +349,10 @@ public class PlayerModel implements ActionListener {
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
+					if(playerSkills[i].getSelfAffectingStatusEffect() != null && !playerSkills[i].getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName()) 
+							&& playerSkills[i].getAffectSelfOnHit() && evasion > 0){
+						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(attackingPlayer));
+					}
 					
 					if(!playerSkills[i].isEndState()){
 						if(evasion>=0){
