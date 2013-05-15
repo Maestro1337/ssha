@@ -43,6 +43,14 @@ public class GameEngine extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer agc;
 		try{
+			
+			Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
+			SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
+			Thread t2 = new Thread(sc);
+			t2.start();
+			tp.setConnected(true);
+			sc.findConnection();
+			
 			agc = new AppGameContainer(new GameEngine(gameName));
 			agc.setDisplayMode(1280, 720, false);
 			agc.start();
