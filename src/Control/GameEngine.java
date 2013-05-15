@@ -58,6 +58,7 @@ public class GameEngine extends StateBasedGame {
 		TestController tc = new TestController(tv, tp, sc); 
 		Thread t = new Thread(tc);
 		t.start();
+		System.out.println("BAAAAA");
 	}
 
 }

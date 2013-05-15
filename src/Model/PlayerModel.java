@@ -122,7 +122,7 @@ public class PlayerModel implements ActionListener {
 	//Determines action depending on what state the skill is in
 	public void isAttacking(Skill attackingSkill){
 		if(attackingSkill != null){
-			System.out.println("" + attackingSkill.getSelfAffectingStatusEffect());
+		//	System.out.println("" + attackingSkill.getSelfAffectingStatusEffect());
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
 				//Calculates the new direction if the skill is guided
