@@ -69,6 +69,7 @@ public class ShoppingView extends BasicGameState {
 	
 	Image playerGold;
 	String playerGoldText;
+	boolean buyOneTime = false;
 	
 	
 	private String mouse = "No input yet";
@@ -283,21 +284,25 @@ public class ShoppingView extends BasicGameState {
 		
 		Input input = gc.getInput();
 		
+		buyOneTime = true;
+		
 		if(showingSkillDescription){
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
 			if((710<xPos && xPos<830) && (600<yPos && yPos<645)){
 				buyUpgradeButton = new Image("res/buttons/buyOver.png");
-				if(input.isMouseButtonDown(0)){
+				if(input.isMousePressed(0) && buyOneTime){
+					buyOneTime = false;
 					if(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()>=selectedSkill.getCost()){
 						buyString = "Succesfully bought a skill!";
 						GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].setGold(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()-selectedSkill.getCost());
+						System.out.println(selectedSkill.getCost());
 					}
 				}
 			}else{
 				buyUpgradeButton = new Image("res/buttons/buy.png");
 			}
 		}
-
+		
 		
 
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
