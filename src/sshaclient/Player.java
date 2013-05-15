@@ -15,6 +15,7 @@ public class Player {
 	private float angle = 0;
 	private String mode = "lobby";
 	private boolean connected = false;
+	private boolean isReady;
 	
 	private Skill[] skillList;
 	private boolean isAlive;
@@ -48,13 +49,6 @@ public class Player {
 		isAlive = true;
 		
 		skillList = new Skill[5];
-		/*
-		skillList[0] = new SkillAbsorb();
-		skillList[1] = new SkillAdrenaline();
-		skillList[2] = new SkillArrow();
-		skillList[3] = new SkillArrowFlurry();
-		skillList[4] = new SkillBarrelRoll();
-		*/
 		
 		this.classType = classType;
 	}
@@ -67,7 +61,6 @@ public class Player {
 		} else {
 			
 		}
-		
 		
 		return stats;
 	}
@@ -150,8 +143,6 @@ public class Player {
 	
 	public void setSkillList(Skill[] chosenSkills) {
 		
-		//System.out.println(chosenSkills[0].getName());
-		
 		if(chosenSkills != null){
 			skillList[0] = chosenSkills[0];
 			skillList[1] = chosenSkills[1];
@@ -223,6 +214,14 @@ public class Player {
 	
 	public void setMoveSpeed(double speed) {
 		this.moveSpeed = speed;
+	}
+	
+	public boolean isReady() {
+		return isReady;
+	}
+	
+	public void setReady(boolean ready) {
+		isReady = ready;
 	}
 	
 }

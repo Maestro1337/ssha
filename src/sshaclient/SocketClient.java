@@ -11,6 +11,7 @@ public class SocketClient implements Runnable {
 	private String[] playerStats;
 	private boolean[] playerChanged;
 	private Player tp;
+	private boolean allAreReady;
 	
 	private Player[] tpa;
 	private PlayerControl[] tpac;
@@ -34,6 +35,8 @@ public class SocketClient implements Runnable {
 	
 	public SocketClient(String host, int port, Player tp, Player[] tpa, PlayerControl[] tpac, Thread[] tpat) {
 		this.tp = tp;
+		
+		this.allAreReady = false;
 		
 		this.host = host;
 		this.port = port;
@@ -66,7 +69,7 @@ public class SocketClient implements Runnable {
 							process = process + " noskill 0";
 						}
 					}
-					process = process + " " + tp.getX() + " " + tp.getY();
+					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.isReady();
 				} else {
 					process = tp.getName() + " " + tp.getID() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
 					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " skills";
@@ -116,7 +119,6 @@ public class SocketClient implements Runnable {
 			bis = new BufferedInputStream(connection.getInputStream());
 			isr = new InputStreamReader(bis, "US-ASCII");
 			
-			//System.out.println("lol");
 			connected = true;
 		}
 		catch(IOException ioe) {
@@ -127,10 +129,6 @@ public class SocketClient implements Runnable {
 	}
 	
 	public synchronized void sendData(String process) {
-		
-		//System.out.println(process.substring(beginIndex, endIndex));
-		
-		//System.out.println("Din klass aer: " + Constants.getItem(process, 3));
 		
 		try {
 			osw.write(process);
@@ -146,17 +144,21 @@ public class SocketClient implements Runnable {
 		int c = 0;
 		
 		try {
-			while((c = isr.read()) != 13 && instr.length() < 500) {
+			while((c = isr.read()) != 13 && instr.length() < 1000) {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
 			System.out.println(inData);
 			
-			if(inData.length() < 499) {
+			if(inData.length() < 999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setId(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
 					System.out.println(tp.getName() + "'s ID is: " + tp.getID());
-				} else {
+				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
+					System.out.println("Name is already taken");
+					//connected = false;
+					closeConnection();
+				}else {
 					splitData(inData);
 				}
 			} else {
@@ -190,7 +192,6 @@ public class SocketClient implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	/**
@@ -221,17 +222,11 @@ public class SocketClient implements Runnable {
 		while(data.length() > 1) {
 			tempStats = data.substring(0, data.indexOf(47));
 			
-			//System.out.println("Stat: " + tempStats);
-			//System.out.println("Name: " + Constants.getItem(tempStats, 0) + " Class: " + Constants.getItem(tempStats, 3));
-			
 			if(!tempStats.equals("null") && !tempStats.equals("")) {
 				arrPos = Integer.parseInt(Constants.getItem(tempStats, 1));
 				
-				//arrPos = Integer.parseInt(tempStats.substring(tempStats.indexOf(32)+1, tempStats.indexOf(32, tempStats.indexOf(32)+1)));
 				playerStats[arrPos] = tempStats;
 				playerChanged[arrPos] = true;
-				
-				//System.out.println(tempStats.substring(0, tempStats.indexOf(32)));
 				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
@@ -239,7 +234,6 @@ public class SocketClient implements Runnable {
 					// Add method for checking class, string after id maybe? Instead of just adding "TestClass"
 					
 					//Create new player from the playerclass
-					
 					if(Constants.getItem(tempStats, 3).equals("Hunter")) {
 						tpa[arrPos] = new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
 					} else if(Constants.getItem(tempStats, 3).equals("Warrior")) {
@@ -247,9 +241,6 @@ public class SocketClient implements Runnable {
 					} else if(Constants.getItem(tempStats, 3).equals("Wizard")) {
 						tpa[arrPos] = new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1)));
 					}
-					
-					//tpa[arrPos] = new Player(Constants.getItem(tempStats, 0), "server", Constants.getItem(tempStats, 3));
-					
 					
 					tpa[arrPos].setId(arrPos);
 					tpac[arrPos] = new PlayerClientController(this, tpa[arrPos]);
@@ -273,17 +264,36 @@ public class SocketClient implements Runnable {
 			}
 		}
 		
-		// Just a test-method for checking which stats the Socket is getting.
-		for(int i = 0; i < playerStats.length; i++) {
-			//System.out.println("Stats: " + playerStats[i]);
+		// Checkings if players in the lobby are ready.
+		boolean tempReady = true;
+		for(int i = 0; i < tpa.length; i++) {
+			if(tpa[i] != null) {
+				if(!tpa[i].isReady()) {
+					tempReady = false;
+				}
+			}
 		}
-		
+		allAreReady = tempReady;
 	}
 	
 	
 	public synchronized String getPlayerStats(int pos) {
-		
 		return playerStats[pos];
 	}
-				
+	
+	public boolean allAreReady() {
+		return allAreReady;
+	}
+	
+	public String[] getPlayerNames() {
+		String[] names = new String[Constants.nbrOfPlayer];
+		
+		for(int i = 0; i < tpa.length; i++) {
+			names[i] = "";
+			if(tpa[i] != null) {
+				names[i] = tpa[i].getName();
+			}
+		}
+		return names;
+	}			
 }

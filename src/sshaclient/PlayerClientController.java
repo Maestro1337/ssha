@@ -142,15 +142,6 @@ public class PlayerClientController implements PlayerControl {
 				
 				tp.setSkillList(tempSkills);
 				
-				/*
-				System.out.println("Player " + tp.getName() + "'s Skills: ");
-				System.out.println(tempSkills[0].getName() + " lvl: " + tempSkills[0].getCurrentLvl());
-				System.out.println(tempSkills[1].getName() + " lvl: " + tempSkills[1].getCurrentLvl());
-				System.out.println(tempSkills[2].getName() + " lvl: " + tempSkills[2].getCurrentLvl());
-				System.out.println(tempSkills[3].getName() + " lvl: " + tempSkills[3].getCurrentLvl());
-				System.out.println(tempSkills[4].getName() + " lvl: " + tempSkills[4].getCurrentLvl());
-				*/
-				
 			} else {
 				tp.setX(Float.parseFloat(Constants.getItem(tempStats, 3)));
 				tp.setY(Float.parseFloat(Constants.getItem(tempStats, 4)));
@@ -169,19 +160,7 @@ public class PlayerClientController implements PlayerControl {
 						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*5+9)));
 					}
 				}
-				
-				/*
-				System.out.println("Player " + tp.getName() + "'s Skills: ");
-				System.out.println(tp.getSkillList()[0].getName() + " X: " + tp.getSkillList()[0].getAttX() + " is attacking? " + tp.getSkillList()[0].isAttacking());
-				System.out.println(tp.getSkillList()[1].getName() + " X: " + tp.getSkillList()[1].getAttX() + " is attacking? " + tp.getSkillList()[0].isAttacking());
-				System.out.println(tp.getSkillList()[2].getName() + " X: " + tp.getSkillList()[2].getAttX() + " is attacking? " + tp.getSkillList()[0].isAttacking());
-				System.out.println(tp.getSkillList()[3].getName() + " X: " + tp.getSkillList()[3].getAttX() + " is attacking? " + tp.getSkillList()[0].isAttacking());
-				System.out.println(tp.getSkillList()[4].getName() + " X: " + tp.getSkillList()[4].getAttX() + " is attacking? " + tp.getSkillList()[0].isAttacking());
-				*/
-				
 			}
-			
-			//System.out.println(tp.getName() + "'s mode is: " + Constants.getItem(tempStats, 2));
 			
 			try {
 				Thread.sleep(Constants.globalSleep);
@@ -190,7 +169,6 @@ public class PlayerClientController implements PlayerControl {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 
@@ -199,5 +177,4 @@ public class PlayerClientController implements PlayerControl {
 		System.out.println("Will terminate");
 		isAlive = false;
 	}
-	
 }

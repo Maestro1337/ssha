@@ -1,7 +1,7 @@
 package sshaclient;
 
 public class Constants {
-	public static final int port = 6666;
+	public static final int defaultPort = 6666;
 	public static final String hostName = "127.0.0.1";
 	//public static final String hostName = "83.248.107.3";
 	public static final String name = "Sebbe";
