@@ -226,7 +226,11 @@ public class PlayerModel implements ActionListener {
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
 		if(player.getChannel()){
-			player.setChannel(false);
+			for(int i=0; i<player.getStatusEffects().size();i++){
+				if(player.getStatusEffects().get(i).getChanneling()){
+					player.removeStatusEffect(player.getStatusEffects().get(i));
+				}
+			}
 		}
 		if(!player.isPushed()){
 			rotate(x, y);
@@ -257,7 +261,11 @@ public class PlayerModel implements ActionListener {
 	public void attack(int x, int y){
 		
 		if(player.getChannel()){
-			player.setChannel(false);
+			for(int i=0; i<player.getStatusEffects().size();i++){
+				if(player.getStatusEffects().get(i).getChanneling()){
+					player.removeStatusEffect(player.getStatusEffects().get(i));
+				}
+			}
 		}
 		
 		if(currentActiveSkill.isGuided()){

@@ -24,6 +24,7 @@ public abstract class StatusEffectShell {
 	private int maxCounts;
 	private int interval;
 	private boolean hasStun;
+	private boolean isChanneling;
 	
 	private boolean commitedChange = false;
 	private String[] playersGivenTo;
@@ -33,7 +34,7 @@ public abstract class StatusEffectShell {
 	
 	private boolean changeModel = false;
 	
-	public StatusEffectShell(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int evasion, boolean isStun, int counts, int delay){
+	public StatusEffectShell(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int evasion, boolean isStun, boolean isChanneling, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -49,13 +50,16 @@ public abstract class StatusEffectShell {
 		this.interval = interval;
 		this.delay = delay;
 		hasStun = isStun;
+		this.isChanneling = isChanneling;
 		evasionEff = evasion;
 		
 		playersGivenTo = new String[3];
 		ESIT = new StatusEffectTimer(delay);
 		
 	}
-	
+	public boolean getChannel(){
+		return isChanneling;
+	}
 	public Player getPlayer(){
 		return player;
 	}

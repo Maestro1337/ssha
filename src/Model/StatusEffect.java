@@ -24,6 +24,7 @@ public class StatusEffect {
 	private int maxCounts;
 	private int interval;
 	private boolean hasStun;
+	private boolean isChannel = false;
 	
 	private boolean commitedChange = false;
 	private String[] playersGivenTo;
@@ -33,7 +34,7 @@ public class StatusEffect {
 	
 	private boolean changeModel = false;
 	
-	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int evasion, boolean isStun, int counts, int delay){
+	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, int arm, int attackSpeed, int range, int evasion, boolean isStun, boolean isChanneling, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
 		this.name = name;
@@ -49,13 +50,16 @@ public class StatusEffect {
 		this.interval = interval;
 		this.delay = delay;
 		hasStun = isStun;
+		this.isChannel = isChanneling;
 		evasionEff = evasion;
 		
 		playersGivenTo = new String[3];
 		ESIT = new StatusEffectTimer(delay);
 		
 	}
-	
+	public boolean getChanneling(){
+		return isChannel;
+	}
 	public Player getPlayer(){
 		return player;
 	}
@@ -155,6 +159,12 @@ public class StatusEffect {
 		if(evasionEff!=0 && !commitedChange){
 			player.addEvasion(evasionEff);
 		}
+		if(isChannel){
+			//moveSpeedEff = player.getMoveSpeed();
+			//player.setMovementSpeed(0);
+			player.setRunningState(false);
+			player.setChannel(isChannel);
+		}
 		player.setStunState(hasStun);
 		commitedChange = true;
 	} 
@@ -179,6 +189,10 @@ public class StatusEffect {
 			}
 			if(evasionEff!=0){
 				player.addEvasion(-evasionEff);
+			}
+			if(isChannel){
+			//	player.setMovementSpeed(moveSpeedEff);
+				player.setChannel(false);
 			}
 			player.setStunState(false);
 		}
