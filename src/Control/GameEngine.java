@@ -44,29 +44,16 @@ public class GameEngine extends StateBasedGame {
 		AppGameContainer agc;
 		try{
 			
-			Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
-			SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
-			Thread t2 = new Thread(sc);
-			t2.start();
-			tp.setConnected(true);
-			sc.findConnection();
+			
 			
 			agc = new AppGameContainer(new GameEngine(gameName));
 			agc.setDisplayMode(1280, 720, false);
+			
+			System.out.println("BAAAAA1");
+			
 			agc.start();
 		}catch(SlickException ex){
 			ex.printStackTrace();
 		}
-		
-		TestView tv = new TestView();
-		Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
-		SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
-		Thread t2 = new Thread(sc);
-		t2.start();
-		TestController tc = new TestController(tv, tp, sc); 
-		Thread t = new Thread(tc);
-		t.start();
-		System.out.println("BAAAAA");
 	}
-
 }

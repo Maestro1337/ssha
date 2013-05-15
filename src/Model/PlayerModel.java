@@ -154,7 +154,7 @@ public class PlayerModel implements ActionListener {
 				}
 				
 				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
-					if(attackingSkill.getAffectSelfOnHit() && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())){
+					if(attackingSkill.getAffectSelfOnHit()/* && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
 						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
 					}
 					if(!attackingSkill.hasEndState()){
@@ -347,10 +347,10 @@ public class PlayerModel implements ActionListener {
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
-					if(playerSkills[i].getSelfAffectingOnHitStatusEffect() != null && !playerSkills[i].getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(attackingPlayer.getName()) 
+				/*	if(playerSkills[i].getSelfAffectingOnHitStatusEffect() != null && !playerSkills[i].getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(attackingPlayer.getName()) 
 							&& playerSkills[i].getAffectSelfOnHit() && evasion > 0){
 						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingOnHitStatusEffect().createStatusEffectTo(attackingPlayer));
-					}
+					}*/
 					
 					if(!playerSkills[i].isEndState()){
 						if(evasion>=0){

@@ -22,7 +22,7 @@ public class SkillLeapAttack extends Skill {
 				Image[] animation = new Image[1];
 				Image[] skillBar = new Image[3];
 				
-		//		super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
 				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1));
 				

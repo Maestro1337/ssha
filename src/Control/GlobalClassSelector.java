@@ -2,6 +2,9 @@ package Control;
 
 import java.util.ArrayList;
 
+import sshaclient.Constants;
+import sshaclient.SocketClient;
+
 import Model.Player;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
