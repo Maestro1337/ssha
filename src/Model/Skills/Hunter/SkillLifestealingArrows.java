@@ -20,12 +20,12 @@ public class SkillLifestealingArrows extends Skill {
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImages[0] = new Image("res/animations/LifestealigArrow/Arrow1.png");
-			attackImages[1] = new Image("res/animations/LifestealigArrow/Arrow2.png");
-			attackImages[2] = new Image("res/animations/LifestealigArrow/Arrow3.png");
-			attackImages[3] = new Image("res/animations/LifestealigArrow/Arrow4.png");
-			attackImages[4] = new Image("res/animations/LifestealigArrow/Arrow5.png");
-			attackImages[5] = new Image("res/animations/LifestealigArrow/Arrow6.png");
+			attackImages[0] = new Image("res/animations/LifestealingArrow/Arrow1.png");
+			attackImages[1] = new Image("res/animations/LifestealingArrow/Arrow2.png");
+			attackImages[2] = new Image("res/animations/LifestealingArrow/Arrow3.png");
+			attackImages[3] = new Image("res/animations/LifestealingArrow/Arrow4.png");
+			attackImages[4] = new Image("res/animations/LifestealingArrow/Arrow5.png");
+			attackImages[5] = new Image("res/animations/LifestealingArrow/Arrow6.png");
 			
 			animation[0] = new Image("res/animations/explode1.png");
 			

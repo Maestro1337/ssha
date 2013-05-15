@@ -16,7 +16,7 @@ public class SkillFirestorm extends Skill{
 				"Level 4: 45 damage", false);
 		
 		Image attackImage = null;
-		Image[] animation = new Image[30];
+		Image[] animation = new Image[27];
 		Image[] skillBar = new Image[3];
 		
 		
@@ -50,9 +50,6 @@ public class SkillFirestorm extends Skill{
 			animation[24] = new Image("res/animations/firestorm/firestorm25.png");
 			animation[25] = new Image("res/animations/firestorm/firestorm26.png");
 			animation[26] = new Image("res/animations/firestorm/firestorm27.png");
-			animation[27] = new Image("res/animations/firestorm/firestorm28.png");
-			animation[28] = new Image("res/animations/firestorm/firestorm29.png");
-			animation[29] = new Image("res/animations/firestorm/firestorm30.png");
 			
 			
 			skillBar[0] = new Image("res/skillIcons/firestorm.png");
@@ -63,7 +60,7 @@ public class SkillFirestorm extends Skill{
 			e.printStackTrace();
 		}
 		super.setImage(attackImage);
-		super.setEndState(animation, 1000, 30);
+		super.setEndState(animation, 1800, 30);
 		super.setSkillBarImages(skillBar);
 	}
 }
