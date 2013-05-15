@@ -28,6 +28,7 @@ public class Player {
 	private float startingPosY;
 	private boolean isReady;
 	private String mode;
+	private String ctrlType;
 	
 	private int playerListIndex;
 	private boolean isAlive = true;
@@ -69,11 +70,12 @@ public class Player {
 	
 	private boolean isRunning = false;
 	
-	public Player(String name, String type, float x, float y, int maxHP, double speed, double armor, int index){
+	public Player(String name, String ctrlType, String type, float x, float y, int maxHP, double speed, double armor, int index){
 		this.name = name;
 		this.classType = type;
 		this.isReady = false;
 		this.mode = "lobby";
+		this.ctrlType = ctrlType;
 		
 		imgX = startingPosX = x;
 		imgY = startingPosY = y;
@@ -390,5 +392,11 @@ public class Player {
 	}
 	public void setReadyness(boolean ready) {
 		isReady = ready;
+	}
+	public String getControlType() {
+		return ctrlType;
+	}
+	public void setControlType(String ctrlType) {
+		this.ctrlType = ctrlType;
 	}
 }

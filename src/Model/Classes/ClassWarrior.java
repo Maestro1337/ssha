@@ -26,8 +26,8 @@ public class ClassWarrior extends Player {
 	Image[] changedModelWalkImages = new Image[2];
 	Image[] changedModelStandImages = new Image[1];
 
-	public ClassWarrior(String name, float x, float y, int index) {
-		super(name, "Warrior", x, y, 200, 0.7, 0.7, index);
+	public ClassWarrior(String name, String ctrlType, float x, float y, int index) {
+		super(name, ctrlType, "Warrior", x, y, 200, 0.7, 0.7, index);
 		try {
 			playerImage = new Image("res/animations/warrior_stand.png");
 			firstStep = new Image("res/animations/warrior_walk1.png");
