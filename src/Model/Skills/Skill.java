@@ -441,6 +441,7 @@ public class Skill{
 		return hasEndState;
 	}
 	public void activateEndState(){
+
 		endStateStartTime = System.currentTimeMillis();
 		endStateElapsedTime = 0;
 		
