@@ -15,20 +15,17 @@ public class SkillFlamewave extends Skill{
 				"Level 3: 35 damage\n" +
 				"Level 4: 45 damage", false);
 		
-		Image attackImage = null;
-		Image[] animation = new Image[7];
+		Image[] attackImages = new Image[2];
+		Image[] animation = new Image[2];
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImages[0] = new Image("res/animations/Flamewave/Flamewave1.png");
+			attackImages[1] = new Image("res/animations/Flamewave/Flamewave2.png");
 			
-			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
+			animation[0] = new Image("res/animations/Flamewave/Flamewave1.png");
+			animation[1] = new Image("res/animations/Flamewave/Flamewave2.png");
+			
 			
 			skillBar[0] = new Image("res/skillIcons/flamewave.png");
 			skillBar[1] = new Image("res/skillIcons/flamewave_active.png");
@@ -40,7 +37,7 @@ public class SkillFlamewave extends Skill{
 		
 		
 		
-		super.setImage(attackImage);
+		super.setImage(attackImages,200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
