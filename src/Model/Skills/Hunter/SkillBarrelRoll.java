@@ -14,14 +14,14 @@ public class SkillBarrelRoll extends Skill {
 				"Level 1: 15 sec cd\n" +
 				"Level 2: 12 sec cd\n" +
 				"Level 3: 8 sec cd\n" +
-				"Level 4: 4 sec cd", true);
+				"Level 4: 4 sec cd");
 		
 		Image[] attackImages = new Image[2];
 		Image[] animation = new Image[9];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingStatusEffectShell(new StatusEffectLeap(this));
-		super.setAffectSelfOnHit();
+		super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
+		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 		
 		try {
 			attackImages[0] = new Image("res/animations/hunter_walk1.png");

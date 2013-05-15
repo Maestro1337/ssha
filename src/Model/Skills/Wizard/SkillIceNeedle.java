@@ -15,7 +15,7 @@ public class SkillIceNeedle extends Skill{
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage", false);
+				"Level 4: 45 damage");
 		
 		Image attackImage = null;
 		Image[] skillBar = new Image[3];

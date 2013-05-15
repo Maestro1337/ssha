@@ -13,7 +13,7 @@ public class SkillFlamingArrow extends Skill {
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
-				"Level 4: 300 damage", false);
+				"Level 4: 300 damage");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

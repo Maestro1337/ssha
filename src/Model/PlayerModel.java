@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 
 
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -126,28 +127,15 @@ public class PlayerModel implements ActionListener {
 				
 				//Calculates the new direction if the skill is guided
 				if(attackingSkill.isGuided()){
-					//TODO make guided just slightly influenced by target and not completely
-				/*	float xDiff = attackingSkill.getGuidedTarget().getX()-attackingSkill.getMouseXPosAtt();
-					float yDiff = attackingSkill.getGuidedTarget().getY()-attackingSkill.getMouseYPosAtt();
-					float genDiff = (float)Math.sqrt(xDiff*xDiff+yDiff*yDiff);
-					xDiff /= genDiff;
-					yDiff /= genDiff;*/
 					
 					float xDir = attackingSkill.getGuidedTarget().getX()-attackingSkill.getAttX();
 					float yDir = attackingSkill.getGuidedTarget().getY()-attackingSkill.getAttY();
-					
-			//		float xDir = attackingSkill.getXDirAtt() - xDiff;
-			//		float yDir = attackingSkill.getYDirAtt() - yDiff;
-				
 					float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
 					
 					attackingSkill.setXDirAtt(xDir/genDir);
 					attackingSkill.setYDirAtt(yDir/genDir);
 					double rotation = Math.toDegrees(Math.atan2((yDir),(xDir)));
 					attackingSkill.setRotation(90 + (float)rotation);
-					
-				//	attackingSkill.addAttX(xDir/genDir);
-				//	attackingSkill.addAttY(yDir/genDir);
 					
 				}
 				//determines which x and y the skill will have in the next render session
@@ -166,6 +154,9 @@ public class PlayerModel implements ActionListener {
 				}
 				
 				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+					if(attackingSkill.getAffectSelfOnHit() && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())){
+						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
+					}
 					if(!attackingSkill.hasEndState()){
 						attackingSkill.setAttackingState(false);
 					}else{
@@ -237,6 +228,7 @@ public class PlayerModel implements ActionListener {
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).getChanneling()){
 					player.removeStatusEffect(player.getStatusEffects().get(i));
+					player.getStatusEffects().get(i).setResetOfStatusEffect();
 				}
 			}
 		}
@@ -271,6 +263,7 @@ public class PlayerModel implements ActionListener {
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).getChanneling()){
 					player.removeStatusEffect(player.getStatusEffects().get(i));
+					player.getStatusEffects().get(i).setResetOfStatusEffect();
 				}
 			}
 		}
@@ -354,9 +347,9 @@ public class PlayerModel implements ActionListener {
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
-					if(playerSkills[i].getSelfAffectingStatusEffect() != null && !playerSkills[i].getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName()) 
+					if(playerSkills[i].getSelfAffectingOnHitStatusEffect() != null && !playerSkills[i].getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(attackingPlayer.getName()) 
 							&& playerSkills[i].getAffectSelfOnHit() && evasion > 0){
-						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(attackingPlayer));
+						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingOnHitStatusEffect().createStatusEffectTo(attackingPlayer));
 					}
 					
 					if(!playerSkills[i].isEndState()){
@@ -493,7 +486,6 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void pushPlayer(float xDir, float yDir){
-		System.out.println("PUSHES");
 		
 		float x = player.getX()+xDir*150;
 		float y = player.getY()+yDir*150;

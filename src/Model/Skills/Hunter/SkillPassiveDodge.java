@@ -13,7 +13,7 @@ public class SkillPassiveDodge extends Skill {
 				"Level 1: 5% chance\n" +
 				"Level 2: 10% chance\n" +
 				"Level 3: 15% chance\n" +
-				"Level 4: 20% chance", true);
+				"Level 4: 20% chance");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

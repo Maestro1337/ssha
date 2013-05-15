@@ -4,22 +4,27 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectLeap;
+import Model.StatusEffects.StatusEffectPreLeap;
+import Model.StatusEffects.StatusEffectStun;
 import Model.StatusEffects.StatusEffectTeleport;
 
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 5000, 500, 0.4, 8, 50, 150, 300, 300, 300,"Leap attack \n" +
+				super("Leap attack", 10000, 500, 0.4, 8, 50, 150, 300, 300, 300,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage", false);
+						"Level 4: 45 damage");
 
 				Image[] attackImages = new Image[4];
 				Image[] animation = new Image[1];
 				Image[] skillBar = new Image[3];
 				
-				
+				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
+				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
+				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1));
 				
 				try {
 					

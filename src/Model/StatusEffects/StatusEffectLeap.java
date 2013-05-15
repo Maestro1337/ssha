@@ -10,7 +10,7 @@ public class StatusEffectLeap extends StatusEffectShell{
 	public StatusEffectLeap(Skill skill) {
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, evasion, isStun, isChannel, counts, delay
-		super(null, skill, "Leap", 0, 1, 1, 0, 0, 0, 0, 100, false, false, false, 1, 0);
+		super(null, skill, "Leap", 0, 1, 1, 0, 0, 0, 0, 0, false, false, false, 1, 0);
 	}
 
 	@Override
@@ -19,7 +19,6 @@ public class StatusEffectLeap extends StatusEffectShell{
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
 				super.getSkill().getAttX(), super.getSkill().getAttY(), super.getMoveSpeedEff(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 

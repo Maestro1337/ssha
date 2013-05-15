@@ -9,7 +9,7 @@ public class StatusEffectStun extends StatusEffectShell{
 
 	public StatusEffectStun(Skill skill, int seconds) {
 		//plus one to add a count after the first hit which is instant
-		super(null, skill, "Stun", 0, 0, 0, 0, 0, 0, 0, 0, false, true, false, seconds+1, 0);
+		super(null, skill, "Stun", 0, 0, 0, -1, 0, 0, 0, 0, false, true, false, seconds+1, 0);
 		// TODO Auto-generated constructor stub
 	}
 	

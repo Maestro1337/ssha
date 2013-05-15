@@ -31,10 +31,11 @@ public class Skill{
 	
 	private String describe;
 	private boolean affectSelf = false;
-	private boolean affectOthers = true;
+	private boolean affectOthers = false;
 	
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
+	private StatusEffectShell selfAffectingOnHitSE = null;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -93,7 +94,7 @@ public class Skill{
 	private boolean affectSelfOnHit = false;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
-			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
+			int damageLvl3,int damageLvl4, String describe){
 		this.name = name;
 		this.smallName = name.toLowerCase().replaceAll("\\s", "");
 		cooldown = cd;
@@ -185,6 +186,10 @@ public class Skill{
 	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;
 		selfAffectingSE = SE;
+	}
+	public void setSelfAffectingOnHitStatusEffectShell(StatusEffectShell SE){
+		affectSelfOnHit = true;
+		selfAffectingOnHitSE = SE;
 	}
 	public void setPassive(){
 		isPassive = true;
@@ -436,6 +441,7 @@ public class Skill{
 		return hasEndState;
 	}
 	public void activateEndState(){
+
 		endStateStartTime = System.currentTimeMillis();
 		endStateElapsedTime = 0;
 		
@@ -516,10 +522,6 @@ public class Skill{
 	public boolean isPassive(){
 		return isPassive;
 	}
-	public void setAffectSelfOnHit(){
-		affectSelfOnHit = true;
-		affectSelf = false;
-	}
 	public boolean getAffectSelfOnHit(){
 		return affectSelfOnHit;
 	}
@@ -530,6 +532,9 @@ public class Skill{
 	}
 	public StatusEffectShell getSelfAffectingStatusEffect(){
 		return selfAffectingSE;
+	}
+	public StatusEffectShell getSelfAffectingOnHitStatusEffect(){
+		return selfAffectingOnHitSE;
 	}
 	
 }

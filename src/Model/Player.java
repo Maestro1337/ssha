@@ -356,7 +356,6 @@ public class Player {
 		statusEffectList.add(SE);
 	}
 	public void removeStatusEffect(StatusEffect SE){
-		SE.setResetOfStatusEffect();
 		if(SE.getChangeModel()){
 			changeModel = false;
 		}
