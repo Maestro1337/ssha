@@ -5,6 +5,7 @@ import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
 import Model.StatusEffects.StatusEffectFirstAid;
+import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
@@ -15,7 +16,7 @@ public class SkillFirstAid extends Skill {
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage", true);
 				
-				super.setStatusEffect(new StatusEffectFirstAid(this, 10));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 10));
 				
 				Image attackImage = null;
 				Image[] animation = new Image[5];
