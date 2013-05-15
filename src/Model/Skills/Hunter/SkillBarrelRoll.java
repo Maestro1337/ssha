@@ -20,7 +20,7 @@ public class SkillBarrelRoll extends Skill {
 		Image[] animation = new Image[5];
 		Image[] skillBar = new Image[3];
 		
-	//	super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
 		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 		
 		try {

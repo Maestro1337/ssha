@@ -149,6 +149,9 @@ public class PlayerModel implements ActionListener {
 				}
 				
 				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+					if(attackingSkill.getAffectSelfOnHit()){
+						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
+					}
 					if(!attackingSkill.hasEndState()){
 						attackingSkill.setAttackingState(false);
 					}else{

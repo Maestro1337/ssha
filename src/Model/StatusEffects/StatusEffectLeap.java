@@ -19,7 +19,6 @@ public class StatusEffectLeap extends StatusEffectShell{
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
 				super.getSkill().getAttX(), super.getSkill().getAttY(), super.getMoveSpeedEff(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
