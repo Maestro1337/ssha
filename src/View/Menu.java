@@ -18,6 +18,8 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
+import Control.GlobalClassSelector;
+
 public class Menu extends BasicGameState implements ActionListener{
 
 	private String mouse = "No input yet";
@@ -86,13 +88,15 @@ public class Menu extends BasicGameState implements ActionListener{
 		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				GlobalClassSelector.getController().setSingleOrMulti(false);
 				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				sbg.enterState(2);
+				GlobalClassSelector.getController().setSingleOrMulti(true);
+				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
 			exitButton = new Image("res/buttons/exitButton.png");
