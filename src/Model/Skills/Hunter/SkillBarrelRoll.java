@@ -14,7 +14,7 @@ public class SkillBarrelRoll extends Skill {
 				"Level 1: 15 sec cd\n" +
 				"Level 2: 12 sec cd\n" +
 				"Level 3: 8 sec cd\n" +
-				"Level 4: 4 sec cd", true);
+				"Level 4: 4 sec cd");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[5];

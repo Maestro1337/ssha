@@ -13,7 +13,7 @@ public class SkillArrowFlurry extends Skill {
 				"Level 1: 100 damage\n" +
 				"Level 2: 200 damage\n" +
 				"Level 3: 400 damage\n" +
-				"Level 4: 800 damage", false);
+				"Level 4: 800 damage");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[1];

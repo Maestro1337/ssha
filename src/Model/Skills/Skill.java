@@ -31,7 +31,7 @@ public class Skill{
 	
 	private String describe;
 	private boolean affectSelf = false;
-	private boolean affectOthers = true;
+	private boolean affectOthers = false;
 	
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
@@ -94,7 +94,7 @@ public class Skill{
 	private boolean affectSelfOnHit = false;
 	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
-			int damageLvl3,int damageLvl4, String describe, boolean affectSelf){
+			int damageLvl3,int damageLvl4, String describe){
 		this.name = name;
 		this.smallName = name.toLowerCase().replaceAll("\\s", "");
 		cooldown = cd;

@@ -13,7 +13,7 @@ public class SkillIceblock extends Skill {
 				"\nLevel 1: 1 second\n" +
 				"Level 2: 2 second\n" +
 				"Level 3: 3 second\n" +
-				"Level 4: 4 second", true);
+				"Level 4: 4 second");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

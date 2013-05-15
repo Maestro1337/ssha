@@ -12,7 +12,7 @@ public class SkillSprint extends Skill {
 				"Level 1: 3 sec\n" +
 				"Level 2: 5 sec\n" +
 				"Level 3: 7 sec\n" +
-				"Level 4: 9 sec", true);
+				"Level 4: 9 sec");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];

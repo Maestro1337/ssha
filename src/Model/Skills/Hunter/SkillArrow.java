@@ -14,7 +14,7 @@ public class SkillArrow extends Skill{
 				"Level 1: 10 damage\n" +
 				"Level 2: 20 damage\n" +
 				"Level 3: 30 damage\n" +
-				"Level 4: 40 damage", false);
+				"Level 4: 40 damage");
 		
 		Image[] attackImages = new Image[1];
 		Image[] skillBar = new Image[3];
