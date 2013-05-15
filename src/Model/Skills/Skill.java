@@ -35,6 +35,7 @@ public class Skill{
 	
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
+	private StatusEffectShell selfAffectingOnHitSE = null;
 	
 	private Image attackImage;
 	private float attImgX;
@@ -185,6 +186,10 @@ public class Skill{
 	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;
 		selfAffectingSE = SE;
+	}
+	public void setSelfAffectingOnHitStatusEffectShell(StatusEffectShell SE){
+		affectSelfOnHit = true;
+		selfAffectingOnHitSE = SE;
 	}
 	public void setPassive(){
 		isPassive = true;
@@ -516,10 +521,6 @@ public class Skill{
 	public boolean isPassive(){
 		return isPassive;
 	}
-	public void setAffectSelfOnHit(){
-		affectSelfOnHit = true;
-		affectSelf = false;
-	}
 	public boolean getAffectSelfOnHit(){
 		return affectSelfOnHit;
 	}
@@ -530,6 +531,9 @@ public class Skill{
 	}
 	public StatusEffectShell getSelfAffectingStatusEffect(){
 		return selfAffectingSE;
+	}
+	public StatusEffectShell getSelfAffectingOnHitStatusEffect(){
+		return selfAffectingOnHitSE;
 	}
 	
 }

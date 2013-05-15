@@ -10,7 +10,7 @@ public class StatusEffectPreLeap extends StatusEffectShell{
 	public StatusEffectPreLeap(Skill skill) {
 		
 		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, isStun, isChanneling, counts, delay
-		super(null, skill, "Pre Leap", 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, 1, 0);
+		super(null, skill, "Pre Leap", 0, 1000, -1000, 0, 0, 0, 0, 0, true, false, false, 1, 0);
 	}
 	
 	@Override
