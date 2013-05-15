@@ -46,10 +46,20 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	
 	// Adds a socket-connection it gets from SocketFinder
 	public synchronized void addSocket(Socket connection) {
+		String[] names;
 		
 		for(int j = 0; j < Constants.nbrOfClients; j++) {
 			if(theSockets[j] == null) {
-				theSockets[j] = new MultiSocketServer(connection, j);
+				names = new String[Constants.nbrOfClients];
+				for(int k = 0; k < Constants.nbrOfClients; k++) {
+					if(theSockets[k] != null) {
+						names[k] = theSockets[k].getPlayerName();
+					} else {
+						names[k] = "";
+					}
+				}
+				
+				theSockets[j] = new MultiSocketServer(connection, j, names);
 				theThreads[j] = new Thread(theSockets[j]);
 				theThreads[j].start();
 				
@@ -61,7 +71,9 @@ public class ClientSupervisor implements Runnable, ActionListener {
 						e.printStackTrace();
 					}
 				}
-				SV.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
+				if(theSockets[j].isNameFree()) {
+					SV.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
+				}
 				break;
 			}
 		}
@@ -69,7 +81,9 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		SV.clearClientsField();
 		for(int i = 0; i < Constants.nbrOfClients; i++) {
 			if(theSockets[i] != null) {
-				SV.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
+				if(theSockets[i].isNameFree()) {
+					SV.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
+				}
 			}
 		}
 	}
@@ -88,19 +102,12 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				}
 				*/
 				if(theThreads[i] != null) {
-					/*
-					//System.out.println(theThreads[i].getState());
-					if(theThreads[i].getState() == Thread.State.TERMINATED) {
-						theSockets[i] = null;
-						theThreads[i] = null;
-						System.out.println("Avslutad inkorrekt");
-					}
-					*/
-					
 					statString = statString + theSockets[i].getPlayerStats() + "/";
 					
 					if(theSockets[i].isDead()) {
-						SV.addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
+						if(theSockets[i].isNameFree()) {
+							SV.addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
+						}
 						theSockets[i].closeConnection();
 						theSockets[i] = null;
 						theThreads[i] = null;
@@ -110,21 +117,15 @@ public class ClientSupervisor implements Runnable, ActionListener {
 								SV.addClient(theSockets[j].getPlayerName() + (char)9 + theSockets[j].getPlayerID());
 							}
 						}
-					}
-					
+					}		
 				}	
 			}
-			
-			//statString = statString + "/";
-			//System.out.println(statString + " LOL");
-			
 			
 			for(int j = 0; j < Constants.nbrOfClients; j++) {
 				if(theThreads[j] != null) {
 					theSockets[j].setPlayerStats(statString);
 				}
 			}
-			
 			
 			try {
 				Thread.sleep(Constants.globalSleep);
@@ -133,7 +134,6 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	public synchronized void setAllStats(String stats) {

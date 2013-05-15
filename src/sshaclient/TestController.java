@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Model.Player;
+
 public class TestController implements Runnable, KeyListener, ActionListener {
 
 	private TestView tv;
@@ -42,7 +44,6 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 				tp.setConnected(false);
 				sc.closeConnection();
 			}
-			
 		}
 		if(action.equals("lobby") || action.equals("arena")) {
 			tv.setModeLabel(action);
@@ -83,7 +84,6 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 
 	@Override
 	public void run() {
-		
 		while(true) {
 			tv.setXyLabel(tp.getX(), tp.getY());
 			tv.setAngleLabel(tp.getRotation());
@@ -103,10 +103,5 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 				e.printStackTrace();
 			}
 		}
-		//Alla setters till vyn ska goras har.
-		//Controller kommer alltid koras, men inte alltid anvandas av anvandaren.
-		//Alltsa socketclient hamtar data och uppdaterar testplayer
-		//testcontroller hamtar sen data darifran och skickar till testview
 	}
-
 }

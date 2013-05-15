@@ -10,6 +10,7 @@ public class MultiSocketServer implements Runnable {
 	//private String TimeStamp;
 	private String returnCode;
 	private int ID;
+	private String[] names;
 	
 	private boolean isClosing;
 	public String playerName;
@@ -17,12 +18,14 @@ public class MultiSocketServer implements Runnable {
 	private int playerY;
 	private String statString;
 	private boolean isDead = false;
+	private boolean nameIsFree;
 	
 	private String otherStatsString;
 	
-	public MultiSocketServer(Socket s, int i) {
+	public MultiSocketServer(Socket s, int i, String[] names) {
 		this.connection = s;
 		this.ID = i;
+		this.names = names;
 	}
 	
 	@Override
@@ -47,12 +50,33 @@ public class MultiSocketServer implements Runnable {
 			character = 0;
 			process.delete(0, process.length());
 			
-			System.out.println("Player " + playerName + " is connected.");
-
-			// Just let the Client know it's connected and send their ID.
-			otherStatsString = "Connected " + this.ID + (char)13;
-			osw.write(otherStatsString);
-			osw.flush();
+			nameIsFree = true;
+			for(int i = 0; i < names.length; i++) {
+				if(names[i].equals(playerName)) {
+					nameIsFree = false;
+				}
+			}
+			
+			// Don't know how to fix this yet...
+			// Maybe works now
+			// nameIsFree = true;
+			
+			if(nameIsFree) {
+				// Just let the Client know it's connected and send their ID.
+				otherStatsString = "Connected " + this.ID + (char)13;
+				osw.write(otherStatsString);
+				osw.flush();
+				
+				System.out.println("Player " + playerName + " is connected.");
+			} else {
+				
+				//It still looks like the player connects and then disconnects. FIX IT!
+				otherStatsString = "NameTaken 0" + (char)13;
+				osw.write(otherStatsString);
+				osw.flush();
+				//isDead = true;
+			}
+			
 			
 			while(true) {
 				//Read from client
@@ -120,4 +144,7 @@ public class MultiSocketServer implements Runnable {
 		return isDead;
 	}
 
+	public boolean isNameFree() {
+		return nameIsFree;
+	}
 }

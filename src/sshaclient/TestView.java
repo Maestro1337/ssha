@@ -17,12 +17,11 @@ import javax.swing.JPanel;
 public class TestView extends JFrame {
 
 	private int wWidth = 550;
-	private int wHeight = 340;
+	private int wHeight = 200;
 	
 	private JButton connectBtn;
 	private JButton lobbyBtn;
 	private JButton arenaBtn;
-	//private JButton shopBtn;
 	
 	private JLabel nameLabel;
 	private JLabel coordinatesLabel;
@@ -64,15 +63,6 @@ public class TestView extends JFrame {
 		arenaBtn.setFocusable(false);
 		arenaBtn.setActionCommand("arena");
 		add(arenaBtn);
-		
-		/*
-		shopBtn = new JButton("Shop");
-		shopBtn.setLocation(405, 5);
-		shopBtn.setSize(100, 25);
-		shopBtn.setFocusable(false);
-		shopBtn.setActionCommand("shop");
-		add(shopBtn);
-		*/
 		
 		connectedLabel = new JLabel("Connected: false");
 		connectedLabel.setLocation(10, 50);
@@ -131,7 +121,6 @@ public class TestView extends JFrame {
 		connectBtn.addActionListener(tc);
 		lobbyBtn.addActionListener(tc);
 		arenaBtn.addActionListener(tc);
-		//shopBtn.addActionListener(tc);
 		
 		addKeyListener(tc);
 	}
