@@ -15,20 +15,20 @@ public class SkillLifestealingArrows extends Skill {
 				"Level 4: 300 damage", false);
 		// TODO Lifesteal StatusAffect AffectSelf
 		
-		Image attackImage = null;
-		Image[] animation = new Image[7];
+		Image[] attackImages = new Image[6];
+		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImages[0] = new Image("res/animations/LifestealigArrow/Arrow1.png");
+			attackImages[1] = new Image("res/animations/LifestealigArrow/Arrow2.png");
+			attackImages[2] = new Image("res/animations/LifestealigArrow/Arrow3.png");
+			attackImages[3] = new Image("res/animations/LifestealigArrow/Arrow4.png");
+			attackImages[4] = new Image("res/animations/LifestealigArrow/Arrow5.png");
+			attackImages[5] = new Image("res/animations/LifestealigArrow/Arrow6.png");
 			
 			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
+			
 			
 			skillBar[0] = new Image("res/skillIcons/healingarrow.png");
 			skillBar[1] = new Image("res/skillIcons/healingarrow_active.png");
@@ -40,7 +40,7 @@ public class SkillLifestealingArrows extends Skill {
 		
 		
 		
-		super.setImage(attackImage);
+		super.setImage(attackImages,500);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
