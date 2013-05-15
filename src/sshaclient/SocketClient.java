@@ -3,7 +3,11 @@ package sshaclient;
 import java.net.*;
 import java.io.*;
 
+import Model.Player;
 import Model.Classes.*;
+
+
+
 
 
 public class SocketClient implements Runnable {

@@ -1,5 +1,6 @@
 package sshaclient;
 
+import Model.Player;
 import Model.Classes.*;
 
 public class Main {

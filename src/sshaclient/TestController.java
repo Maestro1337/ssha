@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Model.Player;
+
 public class TestController implements Runnable, KeyListener, ActionListener {
 
 	private TestView tv;
