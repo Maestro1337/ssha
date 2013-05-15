@@ -18,7 +18,8 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Control.GlobalClassSelector;
+import control.GlobalClassSelector;
+
 
 
 

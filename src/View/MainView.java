@@ -26,10 +26,11 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import control.*;
 
 
 
-import Control.*;
+
 import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
