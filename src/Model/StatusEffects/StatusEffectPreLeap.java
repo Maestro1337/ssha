@@ -5,25 +5,25 @@ import Model.StatusEffect;
 import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectBarrelRoll extends StatusEffectShell{
+public class StatusEffectPreLeap extends StatusEffectShell{
 
-	public StatusEffectBarrelRoll(Skill skill) {
+	public StatusEffectPreLeap(Skill skill) {
 		
-		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, evasion, isStun, isChannel, counts, delay
-		super(null, skill, "Barrel Roll", 0, 1, 1, 0, 0, 0, 0, 100, false, false, 1, 0);
+		//player, skill, name, damage, moveX, moveY, arm, attackSpeed, range, isStun, isChanneling, counts, delay
+		super(null, skill, "Pre Leap", 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, 1, 0);
 	}
-
+	
 	@Override
 	public StatusEffect createStatusEffectTo(Player newPlayer) {
 		//Finding the next free space in list to add player to
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		
+		//checks if it is supposed to move the player
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
-				super.getSkill().getAttX(), super.getSkill().getAttY(), super.getMoveSpeedEff(), 
+				super.getMoveXEff(), super.getMoveYEff(), super.getMoveSpeedEff(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
-				super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
+				super.hasStealth(), super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
 		
 		return newSE;
 	}

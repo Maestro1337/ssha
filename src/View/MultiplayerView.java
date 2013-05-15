@@ -263,6 +263,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 					g.drawImage(roundOverAnimationImage, 1280/2 - nextRoundBg.getWidth()/2, 200-nextRoundBg.getHeight()/2);
 			}
 		}
+		//g.drawString("Multiplayer", 640, 200);
 	}
 	public void goldreward(){
 		System.out.println("hora");
@@ -469,7 +470,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 	//Returns the state of the game
 	public int getID(){
-		return 1;
+		return 2;
 	}
 	
 	
