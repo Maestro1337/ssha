@@ -4,6 +4,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectShieldstance;
+import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillShieldStance extends Skill {
 	public SkillShieldStance(){
@@ -17,6 +19,8 @@ public class SkillShieldStance extends Skill {
 				Image attackImage = null;
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
+				
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 10));
 				
 				try {
 					attackImage = new Image("res/animations/explode1.png");
