@@ -83,6 +83,12 @@ public class StatusEffect {
 	public int getRangeEff(){
 		return rangeEff;
 	}
+	public int getEvasionEff(){
+		return evasionEff;
+	}
+	public double getMoveSpeedEff(){
+		return moveSpeedEff;
+	}
 	public boolean hasStun(){
 		return hasStun;
 	}
@@ -91,6 +97,9 @@ public class StatusEffect {
 	}
 	public boolean getChangeModel(){
 		return changeModel;
+	}
+	public int getMaxCounts(){
+		return maxCounts;
 	}
 	
 	public void resetStatusEffect(){
@@ -218,7 +227,4 @@ public class StatusEffect {
 	public void resetCloning(){
 		playersGivenTo = new String[3];
 	}
-	
-	
-	
 }

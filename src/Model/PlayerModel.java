@@ -50,6 +50,7 @@ public class PlayerModel implements ActionListener {
 		player.setStunState(false);
 		player.setPushState(false);
 		player.resetStatusEffects();
+		player.activatePassiveEffects();
 		checkSpawnCollision();
 		player.resetHP();
 		player.setX(player.getStartX());
@@ -176,6 +177,8 @@ public class PlayerModel implements ActionListener {
 			}else if(attackingSkill.isEndState()){
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+				//TODO have to add -90 for slash.. but turn image instead..
+					animationImage.setRotation(attackingSkill.getRotation());
 				
 					if(animationImage != null)
 						attackingSkill.setEndStateImage(animationImage);
@@ -264,7 +267,7 @@ public class PlayerModel implements ActionListener {
 		x -= currentActiveSkill.getCurrentWidth()/2;
 		y -= currentActiveSkill.getCurrentHeight()/2;
 		rotate(x, y);
-		if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+		if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
 				currentActiveSkill.activateSkill();
 				
@@ -304,8 +307,8 @@ public class PlayerModel implements ActionListener {
 				}
 				
 			if(currentActiveSkill.getAffectSelf()){
-				if(currentActiveSkill.getStatusEffect() != null && !currentActiveSkill.getStatusEffect().hasBeenGivenTo(player.getName())){
-					player.addStatusEffect(currentActiveSkill.getStatusEffect().cloneTo(player));
+				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
+					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().cloneTo(player));
 				}
 			}
 		}
@@ -325,18 +328,16 @@ public class PlayerModel implements ActionListener {
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					int evasion = player.getEvasion();
-					System.out.println(evasion);
 					//Calculates new evasion to check if player will evade the attack in this state
 					if(evasion>=0){
 						Random generator = new Random();
 						evasion = generator.nextInt(100) - evasion;
 					}
-					System.out.println(evasion);
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
 					//And if it can affect others
-					if(playerSkills[i].getStatusEffect() != null && !playerSkills[i].getStatusEffect().hasBeenGivenTo(player.getName()) 
-							&& !playerSkills[i].getAffectSelf() && evasion > 0){
-						player.addStatusEffect(playerSkills[i].getStatusEffect().cloneTo(player));
+					if(playerSkills[i].getOffensiveStatusEffect() != null && !playerSkills[i].getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
+							&& playerSkills[i].getAffectOthers() && evasion > 0){
+						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().cloneTo(player));
 					}
 					
 					if(!playerSkills[i].isEndState()){

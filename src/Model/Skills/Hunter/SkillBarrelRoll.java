@@ -20,7 +20,7 @@ public class SkillBarrelRoll extends Skill {
 		Image[] animation = new Image[5];
 		Image[] skillBar = new Image[3];
 		
-		super.setStatusEffect(new StatusEffectBarrelRoll(this));
+		super.setSelfAffectingStatusEffect(new StatusEffectBarrelRoll(this));
 		
 		try {
 			attackImage = new Image("res/animations/hunter_walk2.png");
