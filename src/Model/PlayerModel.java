@@ -227,8 +227,8 @@ public class PlayerModel implements ActionListener {
 		if(player.getChannel()){
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).getChanneling()){
-					player.removeStatusEffect(player.getStatusEffects().get(i));
 					player.getStatusEffects().get(i).setResetOfStatusEffect();
+					player.removeStatusEffect(player.getStatusEffects().get(i));
 				}
 			}
 		}
@@ -262,8 +262,8 @@ public class PlayerModel implements ActionListener {
 		if(player.getChannel()){
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).getChanneling()){
-					player.removeStatusEffect(player.getStatusEffects().get(i));
 					player.getStatusEffects().get(i).setResetOfStatusEffect();
+					player.removeStatusEffect(player.getStatusEffects().get(i));
 				}
 			}
 		}
@@ -464,6 +464,7 @@ public class PlayerModel implements ActionListener {
 	
 	
 	public void checkStatusEffects(){
+		
 		//Goes through all the current StatusEffects player has
 		for(int i=0; i<player.getStatusEffects().size(); i++){
 			StatusEffect currentStatusEffect = player.getStatusEffects().get(i);
@@ -486,6 +487,17 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void pushPlayer(float xDir, float yDir){
+		
+		//Aborts channel if player is channeling
+		if(player.getChannel()){
+			for(int i=0; i<player.getStatusEffects().size();i++){
+				if(player.getStatusEffects().get(i).getChanneling()){
+					player.getStatusEffects().get(i).setResetOfStatusEffect();
+					player.removeStatusEffect(player.getStatusEffects().get(i));
+				}
+			}
+		}
+		
 		
 		float x = player.getX()+xDir*150;
 		float y = player.getY()+yDir*150;
