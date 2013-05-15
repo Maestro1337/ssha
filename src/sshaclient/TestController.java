@@ -13,16 +13,11 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 	private Player tp;
 	private String mode;
 	private SocketClient sc;
-	private Player[] tpa;
-	private Thread[] tpat;
 	
-	public TestController(TestView tv, Player tp, SocketClient sc, Player[] tpa, Thread[] tpat) {
+	public TestController(TestView tv, Player tp, SocketClient sc) {
 		this.tv = tv;
 		this.tp = tp;
 		this.sc = sc;
-		
-		this.tpa = tpa;
-		this.tpat = tpat;
 		
 		tv.addListeners(this);
 	}
