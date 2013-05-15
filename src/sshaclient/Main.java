@@ -16,6 +16,7 @@ public class Main {
 		Thread t = new Thread(tc);
 		t.start();
 		
+		System.out.println("Nada");
 	}
 
 }
