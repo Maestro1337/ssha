@@ -166,6 +166,9 @@ public class PlayerModel implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
+						if(attackingSkill.getAffectSelfOnHit()){
+							player.addStatusEffect(attackingSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
+						}
 						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
