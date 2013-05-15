@@ -43,6 +43,12 @@ public class GameEngine extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer agc;
 		try{
+			
+			Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
+			SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
+			Thread t2 = new Thread(sc);
+			t2.start();
+			
 			agc = new AppGameContainer(new GameEngine(gameName));
 			agc.setDisplayMode(1280, 720, false);
 			agc.start();
@@ -50,14 +56,11 @@ public class GameEngine extends StateBasedGame {
 			ex.printStackTrace();
 		}
 		
-		TestView tv = new TestView();
-		Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
-		SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
-		Thread t2 = new Thread(sc);
-		t2.start();
-		TestController tc = new TestController(tv, tp, sc); 
-		Thread t = new Thread(tc);
-		t.start();
+		//TestView tv = new TestView();
+		
+		//TestController tc = new TestController(tv, tp, sc); 
+		//Thread t = new Thread(tc);
+		//t.start();
 	}
 
 }
