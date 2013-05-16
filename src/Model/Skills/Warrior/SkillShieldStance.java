@@ -25,7 +25,7 @@ public class SkillShieldStance extends Skill {
 				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 5));
 				
 				try {
-					attackImage = new Image("res/animations/explode1.png");
+					attackImage = new Image("res/animations/Shieldstance/Shieldstance4.png");
 					
 					animation[0] = new Image("res/animations/Shieldstance/Shieldstance4.png");
 					animation[1] = new Image("res/animations/Shieldstance/Shieldstance3.png");

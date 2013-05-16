@@ -445,9 +445,12 @@ public class Skill{
 		endStateStartTime = System.currentTimeMillis();
 		endStateElapsedTime = 0;
 		
+		addAttX(currentWidth/2);
+		addAttY(currentHeight/2);
 		currentHeight = endStateImgHeight;
 		currentWidth = endStateImgWidth;
-	//	addAttX(-currentWidth/2);
+		addAttX(-currentWidth/2);
+		addAttY(-currentHeight/2);
 		isEndState = true;
     	animation.resetCounterAndTimer();
 	}
