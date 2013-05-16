@@ -137,7 +137,7 @@ public class MainView extends BasicGameState implements ActionListener {
 
 		userImage = player.getImage();
 
-		Control.checkSpawnCollision();
+		Control.checkPlayerObstacleCollision(0, 0);
 
 		enemyControl = new PlayerModel(playerList[enemyPlayer], obstacles);
 
@@ -147,7 +147,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
 
-		enemyControl.checkSpawnCollision();
+		enemyControl.checkPlayerObstacleCollision(0, 0);
 		
 		//----------------- Up until this point
 		
@@ -159,7 +159,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
 			currentController.ressurectPlayer();
-			currentController.checkSpawnCollision();
+			currentController.checkPlayerObstacleCollision(0, 0);
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");

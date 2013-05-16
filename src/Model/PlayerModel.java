@@ -55,7 +55,7 @@ public class PlayerModel implements ActionListener {
 		player.setPushState(false);
 		player.resetStatusEffects();
 		player.activatePassiveEffects();
-		checkSpawnCollision();
+		checkPlayerObstacleCollision(0, 0);
 		player.resetHP();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
@@ -402,7 +402,7 @@ public class PlayerModel implements ActionListener {
 				if(currentObstacleCheck.isSolid()){
 					player.setPushState(false);	
 					player.setRunningState(false);
-					checkSpawnCollision();
+					fixSpawnCollision(currentObstacleCheck);
 				}
 
 //				System.out.println("Target ran into " + obstacles[i].getType());
@@ -453,12 +453,30 @@ public class PlayerModel implements ActionListener {
 		return false;
 	}
 	
-	public void checkSpawnCollision() throws SlickException{
-		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null){
-				while(isCollidingWithObstacle(obstacles[i], player.getX()+1, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
-					player.addX(1);
-				}
+	public void fixSpawnCollision(Obstacle obstacle) throws SlickException{
+		int N=0,S=0,W=0,E=0;
+		if(obstacles != null){
+			while(isCollidingWithObstacle(obstacle, player.getX()+E, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
+				E++;
+			}
+			while(isCollidingWithObstacle(obstacle, player.getX()-W, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
+				W++;
+			}
+			while(isCollidingWithObstacle(obstacle, player.getX(), player.getY()+S, player.getImage().getWidth(), player.getImage().getHeight())){
+				S++;
+			}
+			while(isCollidingWithObstacle(obstacle, player.getX(), player.getY()-N, player.getImage().getWidth(), player.getImage().getHeight())){
+				N++;
+			}
+			
+			if(N<E && N<S && N<W){
+				player.addY(-N);
+			}else if(S<E && S<N && S<W){
+				player.addY(S);
+			}else if(E<N && E<S && E<W){
+				player.addX(E);
+			}else if(W<E && W<S && W<N){
+				player.addX(-W);
 			}
 		}
 	}
