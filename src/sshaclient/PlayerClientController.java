@@ -34,6 +34,9 @@ public class PlayerClientController implements PlayerControl {
 		
 		while(isAlive) {
 			
+			System.out.println("I " + tp.getName() + " is alive!!!!!");
+			
+			
 			tempStats = sc.getPlayerStats(playerID);
 			
 			// Set Player stats in lobby with info from Server
