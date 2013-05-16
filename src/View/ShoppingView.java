@@ -83,6 +83,7 @@ public class ShoppingView extends BasicGameState {
 	Skill selectedSkill;
 	
 	Image playButton;
+	Image optionsButton;
 	
 	Image classPortrait;
 	
@@ -139,6 +140,7 @@ public class ShoppingView extends BasicGameState {
 		
 		playButton = new Image("res/buttons/playButtons.png");
 		buyUpgradeButton = new Image("res/miscImages/initEmptyPic.png");
+		optionsButton = new Image ("res/buttons/options.png");
 	}
 
 	public void enter(GameContainer container, StateBasedGame game)
@@ -224,6 +226,7 @@ public class ShoppingView extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		g.drawImage(background, 0, 0);
 		g.drawImage(playButton, 1120, 670);
+		g.drawImage(optionsButton,980,670);
 		g.setColor(Color.black);
 		g.drawImage(skillDescBg, 485, 460);
 		g.setColor(Color.white);
@@ -311,8 +314,20 @@ public class ShoppingView extends BasicGameState {
 				playButton = new Image("res/buttons/Ready.png");
 				sbg.enterState(1);
 			}
+			
 		}else{
 			playButton = new Image("res/buttons/Ready.png");
+		}
+		
+		if((980<xPos && xPos<1100) && (670<yPos && yPos<715)){
+			optionsButton = new Image("res/buttons/OptionsOver.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				optionsButton = new Image("res/buttons/Options.png");
+				sbg.enterState(5);
+			}
+			
+		}else{
+			optionsButton = new Image("res/buttons/Options.png");
 		}
 		
 		//Handling clicking on offensive skills

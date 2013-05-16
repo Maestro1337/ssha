@@ -14,6 +14,7 @@ public class GameEngine extends StateBasedGame {
 	private static final int multiplayer = 2;
 	private static final int selection = 3;
 	private static final int shop = 4;
+	private static final int options = 5;
 	
 	public GameEngine(String name){
 		super(name);
@@ -22,6 +23,7 @@ public class GameEngine extends StateBasedGame {
 		this.addState(new MultiplayerView(multiplayer));
 		this.addState(new ClassSelectionView(selection));
 		this.addState(new ShoppingView(shop));
+		this.addState(new OptionsView(options));
 	}
 	
 	public void initStatesList(GameContainer gc) throws SlickException{
@@ -30,6 +32,7 @@ public class GameEngine extends StateBasedGame {
 		this.getState(multiplayer).init(gc, this);
 		this.getState(selection).init(gc, this);
 		this.getState(shop).init(gc, this);
+		this.getState(options).init(gc,this);
 		this.enterState(menu);
 	}
 	
