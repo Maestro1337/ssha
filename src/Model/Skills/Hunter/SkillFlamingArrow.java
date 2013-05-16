@@ -15,14 +15,18 @@ public class SkillFlamingArrow extends Skill {
 				"Level 3: 300 damage\n" +
 				"Level 4: 300 damage");
 		
-		Image attackImage = null;
+		Image[] attackImages = new Image[4];
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
 		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3));
 		
 		try {
-			attackImage = new Image("res/animations/arrow.png");
+			attackImages[0] = new Image("res/animations/flamingarrow/flamingarrow1.png");
+			attackImages[1] = new Image("res/animations/flamingarrow/flamingarrow2.png");
+			attackImages[2] = new Image("res/animations/flamingarrow/flamingarrow3.png");
+			attackImages[3] = new Image("res/animations/flamingarrow/flamingarrow4.png");
+			
 			
 			animation[0] = new Image("res/animations/explode1.png");
 			animation[1] = new Image("res/animations/explode2.png");
@@ -39,10 +43,7 @@ public class SkillFlamingArrow extends Skill {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		super.setImage(attackImage);
+		super.setImage(attackImages, 200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}

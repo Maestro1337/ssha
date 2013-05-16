@@ -137,7 +137,7 @@ public class MainView extends BasicGameState implements ActionListener {
 
 		userImage = player.getImage();
 
-		Control.checkSpawnCollision();
+		Control.checkPlayerObstacleCollision(0, 0);
 
 		enemyControl = new PlayerModel(playerList[enemyPlayer], obstacles);
 
@@ -147,7 +147,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
 
-		enemyControl.checkSpawnCollision();
+		enemyControl.checkPlayerObstacleCollision(0, 0);
 		
 		//----------------- Up until this point
 		
@@ -159,7 +159,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
 			currentController.ressurectPlayer();
-			currentController.checkSpawnCollision();
+			currentController.checkPlayerObstacleCollision(0, 0);
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
@@ -295,7 +295,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
-			
 			//Checking status effects
 			currentController.checkStatusEffects();
 			
@@ -439,10 +438,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		while (System.currentTimeMillis()>time+delay){
 			// if player is attacking the AI will try to dodge.
 			if(Control.getCurrentActiveSkill().isAttacking()&&Control.getCurrentActiveSkill().getRange()>distance){
-				if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+				if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
 					
 				}
-				else if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+				else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
 					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
 				}
 				

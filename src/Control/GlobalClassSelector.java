@@ -19,9 +19,12 @@ public class GlobalClassSelector {
 	private Player[] players = new Player[nbrOfPlayers];
 	private PlayerControl[] playerControllers = new PlayerControl[nbrOfPlayers];
 	private Thread[] controllerThreads = new Thread[nbrOfPlayers];
+	private SocketClient socketClient;
+	private Thread socketThread;
 	private boolean changedPlayer = false;
 	private int activePlayer = 0;
-
+	
+	
 	//Singleton
 	public static GlobalClassSelector getController() {
 	if (myControl == null) {
@@ -35,6 +38,11 @@ public class GlobalClassSelector {
 	private GlobalClassSelector() {
 	//	players.add(new ClassHunter("Tester", 120, 100));
 		players[0] = new ClassHunter("Tester", "player", 120, 100, 0);
+		
+		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort, players[0]);
+		socketThread = new Thread(socketClient);
+		socketThread.start();
+		
 	}
 	
 	public synchronized void addPlayer(Player player, int index){
@@ -95,4 +103,8 @@ public class GlobalClassSelector {
 	public void setSingleOrMulti(boolean singleOrMulti){
 		isMultiplayer = singleOrMulti;
 	}
+	public SocketClient getSocketClient() {
+		return socketClient;
+	}
+	
 }

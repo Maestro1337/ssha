@@ -55,7 +55,7 @@ public class PlayerModel implements ActionListener {
 		player.setPushState(false);
 		player.resetStatusEffects();
 		player.activatePassiveEffects();
-		checkSpawnCollision();
+		checkPlayerObstacleCollision(0, 0);
 		player.resetHP();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
@@ -81,14 +81,16 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()));
+		
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMoveSpeed() > 0 && !collided){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
 			
-		}else if(player.isAlive() && player.isPushed() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		}else if(player.isAlive() && player.isPushed() && player.getMoveSpeed() > 0 && !collided){
 			
 			double tempSpeed = player.getPushSpeed();
 			double calculateDecision = tempSpeed*player.getMoveCounter();
@@ -120,8 +122,10 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	//Determines action depending on what state the skill is in
-	public void isAttacking(Skill attackingSkill){
+	public void isAttacking(Skill attackingSkill) throws SlickException{
 		if(attackingSkill != null){
+			boolean collided = checkSkillObstacleCollision(attackingSkill, (float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()), (float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
+			
 		//	System.out.println("" + attackingSkill.getSelfAffectingStatusEffect());
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
@@ -153,7 +157,7 @@ public class PlayerModel implements ActionListener {
 					attackingSkill.setRotation(attackingSkill.getRotation());
 				}
 				
-				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt() || collided){
 					if(attackingSkill.getAffectSelfOnHit()/* && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
 						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
 					}
@@ -390,64 +394,89 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 	
-	public boolean checkObstacleCollision(float x, float y) throws SlickException{
+	public boolean checkPlayerObstacleCollision(float x, float y) throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null && isColliding(obstacles[i], x, y)){
+			Obstacle currentObstacleCheck = obstacles[i];
+			if(currentObstacleCheck != null && isCollidingWithObstacle(currentObstacleCheck, player.getX()+x, player.getY()+y, player.getImage().getWidth(), player.getImage().getHeight())){
 				
-				if(obstacles[i].isSolid()){
-					player.setPushState(false);
-					
-					
+				if(currentObstacleCheck.isSolid()){
+					player.setPushState(false);	
+					player.setRunningState(false);
+					fixSpawnCollision(currentObstacleCheck);
 				}
 
 //				System.out.println("Target ran into " + obstacles[i].getType());
-				player.dealDamage(obstacles[i].getDamage());
+				player.dealDamage(currentObstacleCheck.getDamage());
 				return true;
 
 			}
 		}
 		return false;
 	}
-	
-	public boolean isColliding(Obstacle obstacle, float x, float y) throws SlickException{
-
-		if(obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x){
-			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
-				return true;
-			}
-		}else if(obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y){
-			if(obstacle.getX() >= player.getX()+x && obstacle.getX() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
-				return true;
-			}
-		}else if(obstacle.getX() <= player.getX()+x+player.getImage().getWidth()  && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
-			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
-				return true;
-			}
-		}else if(obstacle.getY() <= player.getY()+y+player.getImage().getHeight()  && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
-			if(obstacle.getX() >= player.getX()+x && obstacle.getX() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
-				return true;
-			}
-		}
-		
-	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
-		
-		return false;
-	}
-	
-	public void checkSpawnCollision() throws SlickException{
+	public boolean checkSkillObstacleCollision(Skill skill, float x, float y) throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null){
-				while(isColliding(obstacles[i], 1, 0)){
-					player.addX(1);
-				}
+			Obstacle currentObstacleCheck = obstacles[i];
+			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isCollidingWithObstacle(Obstacle obstacle, float x, float y, int width, int height) throws SlickException{
+
+		if(obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x){
+			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 
+					|| obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+				return true;
+			}
+		}else if(obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y){
+			if(obstacle.getX() >= x && obstacle.getX() <= x+width 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= x && obstacle.getX()+obstacle.getCurrentWidth() <= x+width 
+					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+				return true;
+			}
+		}else if(obstacle.getX() <= x+width  && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 
+					|| obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+				return true;
+			}
+		}else if(obstacle.getY() <= y+height  && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+			if(obstacle.getX() >= x && obstacle.getX() <= x+width 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= x && obstacle.getX()+obstacle.getCurrentWidth() <= x+width 
+					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+				return true;
+			}
+		}	
+		return false;
+	}
+	
+	public void fixSpawnCollision(Obstacle obstacle) throws SlickException{
+		int N=0,S=0,W=0,E=0;
+		if(obstacles != null){
+			while(isCollidingWithObstacle(obstacle, player.getX()+E, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
+				E++;
+			}
+			while(isCollidingWithObstacle(obstacle, player.getX()-W, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
+				W++;
+			}
+			while(isCollidingWithObstacle(obstacle, player.getX(), player.getY()+S, player.getImage().getWidth(), player.getImage().getHeight())){
+				S++;
+			}
+			while(isCollidingWithObstacle(obstacle, player.getX(), player.getY()-N, player.getImage().getWidth(), player.getImage().getHeight())){
+				N++;
+			}
+			
+			if(N<E && N<S && N<W){
+				player.addY(-N);
+			}else if(S<E && S<N && S<W){
+				player.addY(S);
+			}else if(E<N && E<S && E<W){
+				player.addX(E);
+			}else if(W<E && W<S && W<N){
+				player.addX(-W);
 			}
 		}
 	}
@@ -455,12 +484,12 @@ public class PlayerModel implements ActionListener {
 	
 	int changeRate = 10;
 	public void checkUserImageChange(){
-		if(changeRate<=0){
+	//	if(changeRate<=0){
 			player.changeUserImage();
 			changeRate = 20;
-		}else{
+	//	}else{
 			changeRate--;
-		}
+	//	}
 	}
 	
 	

@@ -4,13 +4,6 @@ package Control;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-import sshaclient.Constants;
-import sshaclient.SocketClient;
-import sshaclient.TestController;
-import sshaclient.TestView;
-
-import Model.Player;
-import Model.Classes.ClassWizard;
 import View.*;
 
 public class GameEngine extends StateBasedGame {
@@ -46,14 +39,8 @@ public class GameEngine extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer agc;
 		try{
-			
-			
-			
 			agc = new AppGameContainer(new GameEngine(gameName));
 			agc.setDisplayMode(1280, 720, false);
-			
-			System.out.println("BAAAAA1");
-			
 			agc.start();
 		}catch(SlickException ex){
 			ex.printStackTrace();

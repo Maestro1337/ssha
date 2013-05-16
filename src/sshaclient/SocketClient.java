@@ -56,6 +56,14 @@ public class SocketClient implements Runnable {
 		
 		while(true) {
 			
+			/*
+			System.out.println("These players are/are maybe connected:");
+			System.out.println(GlobalClassSelector.getController().getPlayer(0));
+			System.out.println(GlobalClassSelector.getController().getPlayer(1));
+			System.out.println(GlobalClassSelector.getController().getPlayer(2));
+			System.out.println(GlobalClassSelector.getController().getPlayer(3));
+			*/
+			
 			if(connected) {
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
@@ -152,8 +160,10 @@ public class SocketClient implements Runnable {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
+					tp.takeName(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
+					tp.takeName(true);
 					//connected = false;
 					closeConnection();
 				}else {
@@ -293,5 +303,13 @@ public class SocketClient implements Runnable {
 			}
 		}
 		return names;
-	}			
+	}
+	
+	public void changePlayer(Player player) {
+		this.tp = player;
+	}
+	
+	public Player getPlayer() {
+		return this.tp;
+	}
 }

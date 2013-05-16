@@ -30,6 +30,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 	Image backgroundImage;
 	Image selectButton;
+	Image backButton;
 	Image classImage;
 	
 	String classDescription = "";
@@ -46,6 +47,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 		backgroundImage = new Image("res/miscImages/sakura001.png");
 		selectButton = new Image("res/buttons/playButtons.png");
+		backButton = new Image("res/buttons/playButtons.png");
 		classImage = new Image("res/classImages/classes.png");
 		title = "Choose your class!";
 		
@@ -57,11 +59,13 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		
 		g.drawString(mouse, 500, 20);
 		
-		g.drawImage(selectButton, 500, 550);
+		g.drawImage(selectButton, 700, 550);
 		g.drawImage(classImage, 336, 100);
 		
 		g.drawString(classDescription, 336, 450);
 		g.drawString(title, 550, 75);
+		
+		g.drawImage(backButton, 300, 550);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
@@ -77,8 +81,22 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		}*/
 		Input input = gc.getInput();
 	//	Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
-		
-		if((500<xPos && xPos<750) && (550<yPos && yPos<604)){
+		if((300<xPos && xPos<550) && (550<yPos && yPos<604)){
+			backButton = new Image("res/buttons/playButton_hover.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+					backButton = new Image("res/buttons/playButton_pressed.png");
+					
+					// If you're in the Multiplayer-view and click back, the connection will close.
+					if(GlobalClassSelector.getController().getSingleOrMulti()) {
+						GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(false);
+						GlobalClassSelector.getController().getSocketClient().closeConnection();
+					}
+					sbg.enterState(0);
+			}
+		}else{
+			backButton = new Image("res/buttons/playButtons.png");
+		}
+		if((700<xPos && xPos<950) && (550<yPos && yPos<604)){
 			selectButton = new Image("res/buttons/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					selectButton = new Image("res/buttons/playButton_pressed.png");
