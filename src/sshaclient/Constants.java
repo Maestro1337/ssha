@@ -8,7 +8,7 @@ public class Constants {
 	
 	public static final int nbrOfPlayer = 4;
 	
-	public static final int globalSleep = 1000;
+	public static final int globalSleep = 1;
 	
 	public static String getItem(String str, int pos) {
 		

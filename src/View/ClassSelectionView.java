@@ -85,6 +85,12 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			backButton = new Image("res/buttons/playButton_hover.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					backButton = new Image("res/buttons/playButton_pressed.png");
+					
+					// If you're in the Multiplayer-view and click back, the connection will close.
+					if(GlobalClassSelector.getController().getSingleOrMulti()) {
+						GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(false);
+						GlobalClassSelector.getController().getSocketClient().closeConnection();
+					}
 					sbg.enterState(0);
 			}
 		}else{

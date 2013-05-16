@@ -105,7 +105,23 @@ public class Menu extends BasicGameState implements ActionListener{
 				GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(true);
 				GlobalClassSelector.getController().getSocketClient().findConnection();
 				
-				sbg.enterState(3);
+				long oldTime = System.currentTimeMillis();
+				long timeDiff = 0;
+				
+				// Wait ca 3 seconds
+				while(timeDiff < 3000) {
+					timeDiff = System.currentTimeMillis() - oldTime;
+					if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
+						break;
+					}
+				}
+				
+				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
+				if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
+					sbg.enterState(3);
+				} else {
+					
+				}
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
 			exitButton = new Image("res/buttons/exitButton.png");
