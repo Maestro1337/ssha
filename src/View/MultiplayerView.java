@@ -62,9 +62,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	AnimationTimer victoryAnimation;
 	
 	private PlayerModel Control; 
-	private PlayerModel enemyControl;
 	Player player;
-	Player enemy;
 	Skill[] playerSkills;
 	Skill activeSkill;
 	
@@ -126,35 +124,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		break;
       	}
 		
-		
-		//TODO Is to be removed later (is still here because of AI methods)-------
-		
-		Control = new PlayerModel(playerList[activePlayer], obstacles);
-		player = playerList[activePlayer];
-		playerSkills = player.getSkillList();
-
-		Control.ressurectPlayer();
-
-		userImage = player.getImage();
-
-		Control.checkSpawnCollision();
-
-		enemyControl = new PlayerModel(playerList[enemyPlayer], obstacles);
-
-
-		enemy = enemyControl.getPlayer();
-		enemySkills = enemy.getSkillList();
-		enemyImage = enemy.getImage();
-		enemyControl.ressurectPlayer();
-
-		enemyControl.checkSpawnCollision();
-		
-		//----------------- Up until this point
-		
 		players.clear();
 		players.add(new PlayerModel(playerList[activePlayer], obstacles));
-		
-		players.add(enemyControl);
 		
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
@@ -381,7 +352,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			}
 		}
 		//Ends round if only 1 player is alive
-		if (endRound >= players.size() - 1){
+		//Added impossible pass for now
+		if (endRound >= players.size() - 1 && false){
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
@@ -399,75 +371,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		
-		AI();
 	}
-	
-	
-	
-	public boolean willCollide(){
-		float collitionx;
-		float collitiony;
-		boolean value=false;
-		
-		for (int i=1;i<Control.getCurrentActiveSkill().getRange();i++){
-			collitionx=player.getX()+(i*Control.getCurrentActiveSkill().getAttX());
-			collitiony=player.getY()+(i*Control.getCurrentActiveSkill().getAttY());	
-			if(collitionx>enemy.getX()&&collitionx<enemy.getX()+enemy.getImage().getWidth()&&collitiony>enemy.getY()&&collitiony<enemy.getY()+enemy.getImage().getHeight()){
-				value = true;
-			 break;
-			}
-		}
-		return value;
-	}
-	public boolean aiTimer (long delay){
-		return true;
-	}
-		
-	
-	
-	long time = 0;
-	int dodgedirX;
-	int dodgedirY;
-	
-	public void AI() throws SlickException{
-		Random generator = new Random();
-		long delay=500;
-		double dx = enemy.getX()-player.getX();
-		double dy = enemy.getY()-player.getY();
-		double distance = Math.sqrt((dx*dx)+(dy*dy));
-		while (System.currentTimeMillis()>time+delay){
-			// if player is attacking the AI will try to dodge.
-			if(Control.getCurrentActiveSkill().isAttacking()&&Control.getCurrentActiveSkill().getRange()>distance){
-				if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-					
-				}
-				else if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
-				}
-				
-			}
-				
-			
-			else if (distance>=30){
-				enemyControl.move((int)player.getX(),(int) player.getY());
-			}else if (dx<0){
-				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(719) + 1);
-			}
-			else{
-				enemyControl.move(generator.nextInt(1280-(int)player.getX())+(int)player.getX(), generator.nextInt(719) + 1);
-			}
-			time=System.currentTimeMillis();
-		}
-		for(int i=0;i<enemy.getSkillList().length;i++){
-			enemyControl.setCurrentActiveSkill(i);
-			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
-							enemyControl.getCurrentActiveSkill().checkCooldown()==enemyControl.getCurrentActiveSkill().getCoolDown()){
-				enemyControl.attack((int)player.getX(), (int)player.getY());
-			}
-		}
-		
-	}
+
 	
 		
 	//Returns the state of the game
