@@ -7,6 +7,7 @@ import Model.StatusEffect;
 public class Obstacle {
 	private String type;
 	private int damage;
+	private int maxHealth;
 	private int health;
 	private StatusEffect status;
 	private int x;
@@ -20,7 +21,7 @@ public class Obstacle {
 	public Obstacle(String type, int damage, int health, int x, int y, boolean solid){
 		this.type = type;
 		this.damage = damage;
-		this.health = health;
+		maxHealth = this.health = health;
 		this.x = x;
 		this.y = y;
 		this.solid = solid;
@@ -57,18 +58,14 @@ public class Obstacle {
 		return y;
 	}
 	public Image getCurrentImage(){
-	//	double divider = maxHealth/images.length;
-		
-	//	return images[locateCurrentImage(divider,0)];
-		return currentImage;
-	}
-	private int locateCurrentImage(double divider, int index){
-		
-		if(health<divider*index){
-			return locateCurrentImage(divider, index+1);
-		}else{
-			return index;
+		double divider = maxHealth/images.length;
+		int index=images.length-1;
+		while(divider*index > health){
+			index--;
 		}
+		System.out.println(index);
+		return images[index];
+	//	return currentImage;
 	}
 	public Image[] getAllImages(){
 		return images;

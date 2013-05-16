@@ -418,6 +418,10 @@ public class PlayerModel implements ActionListener {
 			Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
 				currentObstacleCheck.takeDamage(skill.getDamage());
+				if(currentObstacleCheck.getHealth()<=0){
+					currentObstacleCheck = null;
+					obstacles[i] = null;
+				}
 				return true;
 			}
 		}

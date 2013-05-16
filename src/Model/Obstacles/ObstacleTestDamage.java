@@ -11,11 +11,11 @@ public class ObstacleTestDamage extends Obstacle{
 		
 		Image[] images = new Image[5];
 		try {
-			images[0] = new Image("res/obstacles/testDamageObstacle/tdo1.png");
-			images[1] = new Image("res/obstacles/testDamageObstacle/tdo2.png");
+			images[0] = new Image("res/obstacles/testDamageObstacle/tdo5.png");
+			images[1] = new Image("res/obstacles/testDamageObstacle/tdo4.png");
 			images[2] = new Image("res/obstacles/testDamageObstacle/tdo3.png");
-			images[3] = new Image("res/obstacles/testDamageObstacle/tdo4.png");
-			images[4] = new Image("res/obstacles/testDamageObstacle/tdo5.png");
+			images[3] = new Image("res/obstacles/testDamageObstacle/tdo2.png");
+			images[4] = new Image("res/obstacles/testDamageObstacle/tdo1.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
