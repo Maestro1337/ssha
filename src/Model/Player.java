@@ -47,7 +47,7 @@ public class Player {
 	private int gold=500;
 	private Skill[] skillList = new Skill[5];
 	
-	private ArrayList<StatusEffectShell> passiveEffects = new ArrayList<StatusEffectShell>();
+	private ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
 	
 	//Movement variables
@@ -89,7 +89,7 @@ public class Player {
 		playerListIndex = index;
 		
 		statusEffectList = new ArrayList<StatusEffect>();
-		passiveEffects = new ArrayList<StatusEffectShell>();
+		passiveSkills = new ArrayList<Skill>();
 	}
 
 	public String getType(){
@@ -283,7 +283,7 @@ public class Player {
 		Image[] tempImages = new Image[2];
 		tempImages[0] = first;
 		tempImages[1] = second;
-		regularModelAnimation = new RepeatingAnimationTimer(200, tempImages);
+		regularModelAnimation = new RepeatingAnimationTimer(500, tempImages);
 	}
 	
 	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
@@ -308,7 +308,7 @@ public class Player {
 		setRotation(rotation);
 	}
 
-	public void setSkillList(Skill[] chosenSkills) {
+	public void setSkillList(Skill[] chosenSkills, ArrayList<Skill> passiveSkills) {
 		if(chosenSkills != null){
 			skillList[0] = chosenSkills[0];
 			skillList[1] = chosenSkills[1];
@@ -317,30 +317,26 @@ public class Player {
 			skillList[4] = chosenSkills[4];
 		}
 		
-		for(int i=0; i<skillList.length; i++){
-			if(skillList[i] != null && skillList[i].isPassive()){
-				addPassiveEffect(skillList[i].getSelfAffectingStatusEffect());
-			}
-		}
+		this.passiveSkills = passiveSkills;
 	}
 	public Skill[] getSkillList(){
 		return skillList;
 	}
-	public ArrayList<StatusEffectShell> getPassiveEffects(){
-		return passiveEffects;
+	public ArrayList<Skill> getPassiveEffects(){
+		return passiveSkills;
 	}
-	public void addPassiveEffect(StatusEffectShell SE){
-		passiveEffects.add(SE);
+	public void addPassiveSkill(Skill skill){
+		passiveSkills.add(skill);
 	}
-	public void removePassiveEffect(StatusEffectShell SE){
-		passiveEffects.remove(SE);
+	public void removePassiveSkill(Skill skill){
+		passiveSkills.remove(skill);
 	}
 	public void activatePassiveEffects(){
 		evasion = baseEvasion;
 		armor = baseArmor;
 		moveSpeed = baseMoveSpeed;
-		for(int i=0; i<passiveEffects.size(); i++){
-			StatusEffectShell SE = passiveEffects.get(i);
+		for(int i=0; i<passiveSkills.size(); i++){
+			StatusEffectShell SE = passiveSkills.get(i).getSelfAffectingStatusEffect();
 			armor += SE.getArmEff();
 			evasion += SE.getEvasionEff();
 			moveSpeed += SE.getMoveSpeedEff();

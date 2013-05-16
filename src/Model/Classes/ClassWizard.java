@@ -1,5 +1,7 @@
 package Model.Classes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -15,6 +17,7 @@ public class ClassWizard extends Player {
 	Image firstStep;
 	Image secondStep;
 	static Skill[] chosenSkills = new Skill[5];
+	ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	Image[] changedModelWalkImages = new Image[12];
 	Image[] changedModelStandImages = new Image[12];
 
@@ -63,6 +66,6 @@ public class ClassWizard extends Player {
 		
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
-		super.setSkillList(chosenSkills);
+		super.setSkillList(chosenSkills, passiveSkills);
 	}
 }

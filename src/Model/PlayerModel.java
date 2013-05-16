@@ -392,7 +392,7 @@ public class PlayerModel implements ActionListener {
 	
 	public boolean checkObstacleCollision(float x, float y) throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null && isColliding(obstacles[i], x, y)){
+			if(obstacles[i] != null && isCollidingWithObstacle(obstacles[i], player.getX()+x, player.getY()+y, player.getImage().getWidth(), player.getImage().getHeight())){
 				
 				if(obstacles[i].isSolid()){
 					player.setPushState(false);
@@ -409,43 +409,40 @@ public class PlayerModel implements ActionListener {
 		return false;
 	}
 	
-	public boolean isColliding(Obstacle obstacle, float x, float y) throws SlickException{
+	public boolean isCollidingWithObstacle(Obstacle obstacle, float x, float y, int width, int height) throws SlickException{
 
-		if(obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x){
-			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
+		if(obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x){
+			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 
+					|| obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
 				return true;
 			}
-		}else if(obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y){
-			if(obstacle.getX() >= player.getX()+x && obstacle.getX() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
+		}else if(obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y){
+			if(obstacle.getX() >= x && obstacle.getX() <= x+width 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= x && obstacle.getX()+obstacle.getCurrentWidth() <= x+width 
+					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
 				return true;
 			}
-		}else if(obstacle.getX() <= player.getX()+x+player.getImage().getWidth()  && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
-			if(obstacle.getY() >= player.getY()+y && obstacle.getY() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() <= player.getY()+y+player.getImage().getHeight() 
-					|| obstacle.getY() <= player.getY()+y && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
+		}else if(obstacle.getX() <= x+width  && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 
+					|| obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
 				return true;
 			}
-		}else if(obstacle.getY() <= player.getY()+y+player.getImage().getHeight()  && obstacle.getY()+obstacle.getCurrentHeight() >= player.getY()+y+player.getImage().getHeight() ){
-			if(obstacle.getX() >= player.getX()+x && obstacle.getX() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() <= player.getX()+x+player.getImage().getWidth() 
-					|| obstacle.getX() <= player.getX()+x && obstacle.getX()+obstacle.getCurrentWidth() >= player.getX()+x+player.getImage().getWidth() ){
+		}else if(obstacle.getY() <= y+height  && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+			if(obstacle.getX() >= x && obstacle.getX() <= x+width 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= x && obstacle.getX()+obstacle.getCurrentWidth() <= x+width 
+					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
 				return true;
 			}
-		}
-		
-	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
-		
+		}	
 		return false;
 	}
 	
 	public void checkSpawnCollision() throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
-				while(isColliding(obstacles[i], 1, 0)){
+				while(isCollidingWithObstacle(obstacles[i], player.getX()+1, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
 					player.addX(1);
 				}
 			}
@@ -455,12 +452,12 @@ public class PlayerModel implements ActionListener {
 	
 	int changeRate = 10;
 	public void checkUserImageChange(){
-		if(changeRate<=0){
+	//	if(changeRate<=0){
 			player.changeUserImage();
 			changeRate = 20;
-		}else{
+	//	}else{
 			changeRate--;
-		}
+	//	}
 	}
 	
 	

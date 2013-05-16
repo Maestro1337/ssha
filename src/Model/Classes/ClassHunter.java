@@ -1,5 +1,7 @@
 package Model.Classes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -13,6 +15,7 @@ public class ClassHunter extends Player {
 	Image firstStep;
 	Image secondStep;
 	static Skill[] chosenSkills = new Skill[5];
+	ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	Image[] changedModelWalkImages = new Image[12];
 	Image[] changedModelStandImages = new Image[12];
 
@@ -55,14 +58,15 @@ public class ClassHunter extends Player {
 		}
 		chosenSkills[0] = new SkillFlamingArrow();
 		chosenSkills[1] = new SkillBarrelRoll();
-		chosenSkills[2] = new SkillPassiveDodge();
+		chosenSkills[2] = new SkillCripplingShot();
 		chosenSkills[3] = new SkillLifestealingArrows();
 		chosenSkills[4] = new SkillArrowFlurry();
 
+		passiveSkills.add(new SkillPassiveDodge());
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
-		super.setSkillList(chosenSkills);
+		super.setSkillList(chosenSkills, passiveSkills);
 	}
 
 }
