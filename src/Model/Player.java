@@ -47,7 +47,7 @@ public class Player {
 	private int gold=500;
 	private Skill[] skillList = new Skill[5];
 	
-	private ArrayList<StatusEffectShell> passiveEffects = new ArrayList<StatusEffectShell>();
+	private ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
 	
 	//Movement variables
@@ -89,7 +89,7 @@ public class Player {
 		playerListIndex = index;
 		
 		statusEffectList = new ArrayList<StatusEffect>();
-		passiveEffects = new ArrayList<StatusEffectShell>();
+		passiveSkills = new ArrayList<Skill>();
 	}
 
 	public String getType(){
@@ -283,7 +283,7 @@ public class Player {
 		Image[] tempImages = new Image[2];
 		tempImages[0] = first;
 		tempImages[1] = second;
-		regularModelAnimation = new RepeatingAnimationTimer(200, tempImages);
+		regularModelAnimation = new RepeatingAnimationTimer(500, tempImages);
 	}
 	
 	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
@@ -316,31 +316,30 @@ public class Player {
 			skillList[3] = chosenSkills[3];
 			skillList[4] = chosenSkills[4];
 		}
-		
-		for(int i=0; i<skillList.length; i++){
-			if(skillList[i] != null && skillList[i].isPassive()){
-				addPassiveEffect(skillList[i].getSelfAffectingStatusEffect());
-			}
-		}
 	}
+	
+	public void setPassiveSkillList(ArrayList<Skill> passiveSkills) {
+		this.passiveSkills = passiveSkills;
+	}
+	
 	public Skill[] getSkillList(){
 		return skillList;
 	}
-	public ArrayList<StatusEffectShell> getPassiveEffects(){
-		return passiveEffects;
+	public ArrayList<Skill> getPassiveSkills(){
+		return passiveSkills;
 	}
-	public void addPassiveEffect(StatusEffectShell SE){
-		passiveEffects.add(SE);
+	public void addPassiveSkill(Skill skill){
+		passiveSkills.add(skill);
 	}
-	public void removePassiveEffect(StatusEffectShell SE){
-		passiveEffects.remove(SE);
+	public void removePassiveSkill(Skill skill){
+		passiveSkills.remove(skill);
 	}
 	public void activatePassiveEffects(){
 		evasion = baseEvasion;
 		armor = baseArmor;
 		moveSpeed = baseMoveSpeed;
-		for(int i=0; i<passiveEffects.size(); i++){
-			StatusEffectShell SE = passiveEffects.get(i);
+		for(int i=0; i<passiveSkills.size(); i++){
+			StatusEffectShell SE = passiveSkills.get(i).getSelfAffectingStatusEffect();
 			armor += SE.getArmEff();
 			evasion += SE.getEvasionEff();
 			moveSpeed += SE.getMoveSpeedEff();
