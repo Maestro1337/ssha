@@ -295,7 +295,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
-			
+			System.out.println(currentController.getPlayer().getEvasion());
 			//Checking status effects
 			currentController.checkStatusEffects();
 			
@@ -439,10 +439,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		while (System.currentTimeMillis()>time+delay){
 			// if player is attacking the AI will try to dodge.
 			if(Control.getCurrentActiveSkill().isAttacking()&&Control.getCurrentActiveSkill().getRange()>distance){
-				if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+				if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
 					
 				}
-				else if (enemyControl.checkObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+				else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
 					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
 				}
 				

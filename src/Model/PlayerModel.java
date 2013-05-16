@@ -81,14 +81,16 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()));
+		
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMoveSpeed() > 0 && !collided){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
 			
-		}else if(player.isAlive() && player.isPushed() && !checkObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed())) && player.getMoveSpeed() > 0){
+		}else if(player.isAlive() && player.isPushed() && player.getMoveSpeed() > 0 && !collided){
 			
 			double tempSpeed = player.getPushSpeed();
 			double calculateDecision = tempSpeed*player.getMoveCounter();
@@ -120,8 +122,10 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	//Determines action depending on what state the skill is in
-	public void isAttacking(Skill attackingSkill){
+	public void isAttacking(Skill attackingSkill) throws SlickException{
 		if(attackingSkill != null){
+			boolean collided = checkSkillObstacleCollision(attackingSkill, (float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()), (float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
+			
 		//	System.out.println("" + attackingSkill.getSelfAffectingStatusEffect());
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
@@ -153,7 +157,7 @@ public class PlayerModel implements ActionListener {
 					attackingSkill.setRotation(attackingSkill.getRotation());
 				}
 				
-				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt()){
+				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt() || collided){
 					if(attackingSkill.getAffectSelfOnHit()/* && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
 						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
 					}
@@ -390,20 +394,30 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 	
-	public boolean checkObstacleCollision(float x, float y) throws SlickException{
+	public boolean checkPlayerObstacleCollision(float x, float y) throws SlickException{
 		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null && isCollidingWithObstacle(obstacles[i], player.getX()+x, player.getY()+y, player.getImage().getWidth(), player.getImage().getHeight())){
+			Obstacle currentObstacleCheck = obstacles[i];
+			if(currentObstacleCheck != null && isCollidingWithObstacle(currentObstacleCheck, player.getX()+x, player.getY()+y, player.getImage().getWidth(), player.getImage().getHeight())){
 				
-				if(obstacles[i].isSolid()){
-					player.setPushState(false);
-					
-					
+				if(currentObstacleCheck.isSolid()){
+					player.setPushState(false);	
+					player.setRunningState(false);
+					checkSpawnCollision();
 				}
 
 //				System.out.println("Target ran into " + obstacles[i].getType());
-				player.dealDamage(obstacles[i].getDamage());
+				player.dealDamage(currentObstacleCheck.getDamage());
 				return true;
 
+			}
+		}
+		return false;
+	}
+	public boolean checkSkillObstacleCollision(Skill skill, float x, float y) throws SlickException{
+		for(int i=0; i<obstacles.length; i++){
+			Obstacle currentObstacleCheck = obstacles[i];
+			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
+				return true;
 			}
 		}
 		return false;

@@ -43,9 +43,6 @@ public class SkillFlamingArrow extends Skill {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 		super.setImage(attackImages, 200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
