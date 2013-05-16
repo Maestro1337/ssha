@@ -293,5 +293,13 @@ public class SocketClient implements Runnable {
 			}
 		}
 		return names;
-	}			
+	}
+	
+	public void changePlayer(Player player) {
+		this.tp = player;
+	}
+	
+	public Player getPlayer() {
+		return this.tp;
+	}
 }
