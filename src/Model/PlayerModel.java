@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import Control.GlobalClassSelector;
@@ -17,6 +18,7 @@ import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.*;
 import Model.Skills.*;
+import Model.Timers.SkillCheckingTimer;
 
 public class PlayerModel implements ActionListener {
 	
@@ -375,14 +377,15 @@ public class PlayerModel implements ActionListener {
 							playerSkills[i].activateCollisionEndState();
 						}
 					}else{
-						if(playerSkills[i].getESIT() != null && playerSkills[i].getESIT().checkESColTimer() == playerSkills[i].getESColInterval()){
+						
+						SkillCheckingTimer SCT = getRelevantSCT(playerSkills[i]);
+						if(SCT != null && SCT.checkESColTimer() == playerSkills[i].getESColInterval()){
+							//TODO Fix so it can hit several players and reset differently instead of one collected
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 							}
-							playerSkills[i].getESIT().resetESColTimer();
-						}else if(playerSkills[i].getESIT() == null){
-							playerSkills[i].activateESIT(player);
+							SCT.resetESColTimer();
 						}
 					}
 				}
@@ -392,6 +395,42 @@ public class PlayerModel implements ActionListener {
 			attackingPlayer.incKills();
 			killPlayer();
 		}
+	}
+	
+	private SkillCheckingTimer getRelevantSCT(Skill skill){
+		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
+		SkillCheckingTimer SCT = null;
+		int index = -1;
+		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
+				index = j;
+				SCT = SCTArray.get(j);
+			}
+		}
+		if(index == -1){
+			SCT = skill.addNewSkillCheckingTimer(player);
+		}
+		
+		return SCT;
+	}
+	private SkillCheckingTimer getRelevantSCT(Obstacle obstacle, Skill skill){
+		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
+		SkillCheckingTimer SCT = null;
+		int index = -1;
+		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getObstacle() == obstacle){
+				index = j;
+				SCT = SCTArray.get(j);
+				System.out.println("A2xRRIBA");
+			}
+		}
+		if(index == -1){
+			SCT = skill.addNewSkillCheckingTimer(obstacle);
+			System.out.println("ARRRRRRIIIIBAAA");
+		}
+		
+		System.out.println("3xARRIIIIIBA " + SCT.getObstacle().getHealth());
+		return SCT;
 	}
 	
 	public boolean checkPlayerObstacleCollision(float x, float y) throws SlickException{
@@ -417,7 +456,29 @@ public class PlayerModel implements ActionListener {
 		for(int i=0; i<obstacles.length; i++){
 			Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
-				currentObstacleCheck.takeDamage(skill.getDamage());
+				System.out.println(skill.getCurrentWidth());
+				if(!skill.isEndState()){
+					System.out.println("Obstacle hit with " + skill.getName());
+					currentObstacleCheck.takeDamage(skill.getDamage());
+				}else{
+					SkillCheckingTimer SCT = getRelevantSCT(currentObstacleCheck, skill);
+					System.out.println(SCT.checkESColTimer() + "   " + skill.getESColInterval());
+					if(SCT != null && SCT.checkESColTimer() == skill.getESColInterval()){
+						System.out.println("Obstacle hit with " + skill.getName());
+						currentObstacleCheck.takeDamage(skill.getDamage());
+						
+						SCT.resetESColTimer();
+					}
+		/*			if(skill.getESIT() != null && skill.getESIT().checkESColTimer() == skill.getESColInterval()){
+						System.out.println("Obstacle hit with " + skill.getName());
+						currentObstacleCheck.takeDamage(skill.getDamage());
+						
+						skill.getESIT().resetESColTimer();
+						
+					}else if(playerSkills[i].getESIT() == null){
+						skill.activateESIT(player);
+					}*/
+				}
 				if(currentObstacleCheck.getHealth()<=0){
 					currentObstacleCheck = null;
 					obstacles[i] = null;

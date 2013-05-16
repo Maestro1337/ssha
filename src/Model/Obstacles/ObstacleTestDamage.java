@@ -7,7 +7,7 @@ public class ObstacleTestDamage extends Obstacle{
 	
 	public ObstacleTestDamage(int x, int y){
 		//String type, int damage, int x, int y
-		super("Pillar", 0, 500, x, y, true);
+		super("Pillar", 0, 5000, x, y, true);
 		
 		Image[] images = new Image[5];
 		try {

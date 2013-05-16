@@ -3,11 +3,13 @@ package Model.Skills;
 import Model.Player;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
+import Model.Obstacles.Obstacle;
 import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
 import Model.Timers.SkillCheckingTimer;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -75,6 +77,7 @@ public class Skill{
 	private int ESColInterval;
 	
 	SkillCheckingTimer ESIT;
+	ArrayList<SkillCheckingTimer> SCTArray;
 	
 	EndStateAnimationTimer animation;
 	RepeatingAnimationTimer projectileAnimation;
@@ -124,6 +127,8 @@ public class Skill{
 		}
 		currentHeight = imgHeight = attackImage.getHeight();
 		currentWidth = imgWidth = attackImage.getWidth();
+		
+		SCTArray = new ArrayList<SkillCheckingTimer>();
 		
 	}
 	
@@ -486,12 +491,23 @@ public class Skill{
 	public int getESColInterval(){
 		return ESColInterval;
 	}
-	public void activateESIT(Player player){
-		ESIT = new SkillCheckingTimer(getESColInterval(), player, this);
+	public SkillCheckingTimer addNewSkillCheckingTimer(Player player){
+		SkillCheckingTimer timer = new SkillCheckingTimer(getESColInterval(), player.getName(), this);
+		SCTArray.add(timer);
+		return timer;
 	}
-	public SkillCheckingTimer getESIT(){
-		return ESIT;
+	public SkillCheckingTimer addNewSkillCheckingTimer(Obstacle obstacle){
+		SkillCheckingTimer timer = new SkillCheckingTimer(getESColInterval(), obstacle, this);
+		SCTArray.add(timer);
+		return timer;
 	}
+	public ArrayList<SkillCheckingTimer> getSCTArray(){
+		return SCTArray;
+	}
+	public void removeSkillCheckingTimer(SkillCheckingTimer timer){
+		SCTArray.remove(timer);
+	}
+
 	
 	public RepeatingAnimationTimer getProjectileAnimationTimer(){
 		return projectileAnimation;

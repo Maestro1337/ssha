@@ -400,7 +400,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		
-		AI();
+//		AI();
 	}
 	
 	

@@ -63,7 +63,7 @@ public class Obstacle {
 		while(divider*index > health){
 			index--;
 		}
-		System.out.println(index);
+	//	System.out.println(index);
 		return images[index];
 	//	return currentImage;
 	}
