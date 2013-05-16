@@ -35,6 +35,7 @@ import Model.*;
 import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
 import Model.Obstacles.Obstacle;
+import Model.Obstacles.ObstacleTestDamage;
 import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
@@ -110,7 +111,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
-			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+			obstacles[i] = new ObstacleTestDamage(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 		}
 		playerList = GlobalClassSelector.getController().getPlayers();
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();

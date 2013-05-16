@@ -100,7 +100,6 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			selectButton = new Image("res/buttons/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					selectButton = new Image("res/buttons/playButton_pressed.png");
-			//		GlobalClassSelector.getController().resetPlayers();
 					GlobalClassSelector.getController().addPlayer(player, 0);
 					
 					//Addition of AI player
