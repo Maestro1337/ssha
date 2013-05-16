@@ -37,7 +37,7 @@ public class ClassWarrior extends Player {
 			changedModelWalkImages[1] = new Image("res/animations/Shieldstance/Shielded_warrior_walk2.png");
 
 					
-			changedModelStandImages[0] = new Image("res/animations/UnstableMagic/UMmage_stand1.png");
+			changedModelStandImages[0] = new Image("res/animations/Shieldstance/Shielded_warrior_stand1.png");
 
 			
 		} catch (SlickException e) {
