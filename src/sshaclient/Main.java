@@ -5,6 +5,8 @@ import Model.Classes.*;
 
 public class Main {
 	
+	/*
+	
 	public static void main(String[] args) {
 		
 		TestView tv = new TestView();
@@ -18,4 +20,6 @@ public class Main {
 		
 	}
 
+	*/
+	
 }
