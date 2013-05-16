@@ -4,13 +4,6 @@ package Control;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-import sshaclient.Constants;
-import sshaclient.SocketClient;
-import sshaclient.TestController;
-import sshaclient.TestView;
-
-import Model.Player;
-import Model.Classes.ClassWizard;
 import View.*;
 
 public class GameEngine extends StateBasedGame {
