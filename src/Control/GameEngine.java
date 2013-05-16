@@ -34,7 +34,7 @@ public class GameEngine extends StateBasedGame {
 	public void initStatesList(GameContainer gc) throws SlickException{
 		this.getState(menu).init(gc, this);
 		this.getState(play).init(gc, this);
-//		this.getState(multiplayer).init(gc, this);
+		this.getState(multiplayer).init(gc, this);
 		this.getState(selection).init(gc, this);
 		this.getState(shop).init(gc, this);
 		this.enterState(menu);
