@@ -111,6 +111,9 @@ public class Menu extends BasicGameState implements ActionListener{
 				// Wait ca 3 seconds
 				while(timeDiff < 3000) {
 					timeDiff = System.currentTimeMillis() - oldTime;
+					if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
+						break;
+					}
 				}
 				
 				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
