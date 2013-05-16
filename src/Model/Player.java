@@ -322,7 +322,7 @@ public class Player {
 	public Skill[] getSkillList(){
 		return skillList;
 	}
-	public ArrayList<Skill> getPassiveEffects(){
+	public ArrayList<Skill> getPassiveSkills(){
 		return passiveSkills;
 	}
 	public void addPassiveSkill(Skill skill){
