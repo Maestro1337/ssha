@@ -58,7 +58,7 @@ public class ClassHunter extends Player {
 		}
 		chosenSkills[0] = new SkillFlamingArrow();
 		chosenSkills[1] = new SkillBarrelRoll();
-		chosenSkills[2] = new SkillCripplingShot();
+		chosenSkills[2] = new SkillGuidedArrow();
 		chosenSkills[3] = new SkillLifestealingArrows();
 		chosenSkills[4] = new SkillArrowFlurry();
 

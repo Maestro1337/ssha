@@ -20,7 +20,7 @@ public class SkillGuidedArrow extends Skill {
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/animations/arrow.png");
+			attackImage = new Image("res/animations/guidedarrow/guidedarrow.png");
 			
 			skillBar[0] = new Image("res/skillIcons/guidedarrow.png");
 			skillBar[1] = new Image("res/skillIcons/guidedarrow_active.png");
