@@ -59,7 +59,7 @@ public class ClassHunter extends Player {
 		chosenSkills[0] = new SkillFlamingArrow();
 		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillGuidedArrow();
-		chosenSkills[3] = new SkillLifestealingArrows();
+		chosenSkills[3] = new SkillStealth();
 		chosenSkills[4] = new SkillSprint();
 
 		super.setImages(playerImage, firstStep, secondStep);

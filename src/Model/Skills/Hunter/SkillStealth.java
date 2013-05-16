@@ -14,20 +14,18 @@ public class SkillStealth extends Skill {
 				"Level 3: 15 sec\n" +
 				"Level 4: 20 sec");
 		
-		Image attackImage = null;
-		Image[] animation = new Image[7];
+		Image[] attackImages = new Image[3];
+		Image[] animation = new Image[3];
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImages[0] = new Image("res/animations/stealth/hunter_stealthstand.png");
+			attackImages[1] = new Image("res/animations/stealth/hunter_stealthwalk1.png");
+			attackImages[2] = new Image("res/animations/stealth/hunter_stealthwalk2.png");
 			
-			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
+			animation[0] = new Image("res/animations/stealth/hunter_stealthstand.png");
+			animation[1] = new Image("res/animations/stealth/hunter_stealthwalk1.png");
+			animation[2] = new Image("res/animations/stealth/hunter_stealthwalk2.png");
 			
 			skillBar[0] = new Image("res/skillIcons/stealth.png");
 			skillBar[1] = new Image("res/skillIcons/stealth_active.png");
@@ -39,7 +37,7 @@ public class SkillStealth extends Skill {
 		
 		
 		
-		super.setImage(attackImage);
+		super.setImage(attackImages, 200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
