@@ -152,8 +152,10 @@ public class SocketClient implements Runnable {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
+					tp.takeName(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
+					tp.takeName(true);
 					//connected = false;
 					closeConnection();
 				}else {

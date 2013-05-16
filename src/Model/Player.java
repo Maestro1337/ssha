@@ -33,6 +33,7 @@ public class Player {
 	
 	private int playerListIndex;
 	private boolean isAlive = true;
+	private boolean nameTaken = false;
 	
 	private int HP;
 	private int maxHP;
@@ -414,5 +415,11 @@ public class Player {
 	}
 	public void setConnected(boolean connected) {
 		this.connected = connected;
+	}
+	public boolean nameTaken() {
+		return nameTaken;
+	}
+	public void takeName(boolean nameTaken) {
+		this.nameTaken = nameTaken;
 	}
 }

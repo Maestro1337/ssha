@@ -20,7 +20,7 @@ public class SkillSprint extends Skill {
 		Image[] animation = new Image[26];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingStatusEffectShell(new StatusEffectSprint(this, 3, 4));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectSprint(this, 2, 2));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
