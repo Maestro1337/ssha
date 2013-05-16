@@ -295,7 +295,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
-			System.out.println(currentController.getPlayer().getEvasion());
 			//Checking status effects
 			currentController.checkStatusEffects();
 			

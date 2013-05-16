@@ -223,9 +223,10 @@ public class Player {
 		this.HP = HP;
 	}
 	public void addHP(int addAmount){
-		System.out.println(addAmount);
 		this.HP += addAmount;
-		System.out.println(this.HP);
+		if(HP>maxHP){
+			HP = maxHP;
+		}
 	}
 	public void setMaxHP(int maxHP) {
 		this.maxHP = maxHP;
