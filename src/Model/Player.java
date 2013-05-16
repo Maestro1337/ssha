@@ -308,7 +308,7 @@ public class Player {
 		setRotation(rotation);
 	}
 
-	public void setSkillList(Skill[] chosenSkills, ArrayList<Skill> passiveSkills) {
+	public void setSkillList(Skill[] chosenSkills) {
 		if(chosenSkills != null){
 			skillList[0] = chosenSkills[0];
 			skillList[1] = chosenSkills[1];
@@ -316,9 +316,12 @@ public class Player {
 			skillList[3] = chosenSkills[3];
 			skillList[4] = chosenSkills[4];
 		}
-		
+	}
+	
+	public void setPassiveSkillList(ArrayList<Skill> passiveSkills) {
 		this.passiveSkills = passiveSkills;
 	}
+	
 	public Skill[] getSkillList(){
 		return skillList;
 	}

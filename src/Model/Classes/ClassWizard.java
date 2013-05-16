@@ -66,6 +66,7 @@ public class ClassWizard extends Player {
 		
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
-		super.setSkillList(chosenSkills, passiveSkills);
+		super.setSkillList(chosenSkills);
+		super.setPassiveSkillList(passiveSkills);
 	}
 }
