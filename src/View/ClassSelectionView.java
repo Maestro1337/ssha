@@ -108,7 +108,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 	
 				if(!(GlobalClassSelector.getController().isMulti())){
 					GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
-					sbg.enterState(1);
+					sbg.enterState(5);
 				}else{
 					sbg.enterState(2);
 				}
