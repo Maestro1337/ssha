@@ -19,7 +19,7 @@ public class SkillFirstAid extends Skill {
 				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 10));
 				
 				Image attackImage = null;
-				Image[] animation = new Image[5];
+				Image[] animation = new Image[19];
 				Image[] skillBar = new Image[3];
 				
 				try {
@@ -30,6 +30,20 @@ public class SkillFirstAid extends Skill {
 					animation[2] = new Image("res/animations/firstaid/firstAid3.png");
 					animation[3] = new Image("res/animations/firstaid/firstAid4.png");
 					animation[4] = new Image("res/animations/firstaid/firstAid5.png");
+					animation[5] = new Image("res/animations/firstaid/firstAid6.png");
+					animation[6] = new Image("res/animations/firstaid/firstAid7.png");
+					animation[7] = new Image("res/animations/firstaid/firstAid8.png");
+					animation[8] = new Image("res/animations/firstaid/firstAid9.png");
+					animation[9] = new Image("res/animations/firstaid/firstAid10.png");
+					animation[10] = new Image("res/animations/firstaid/firstAid11.png");
+					animation[11] = new Image("res/animations/firstaid/firstAid12.png");
+					animation[12] = new Image("res/animations/firstaid/firstAid13.png");
+					animation[13] = new Image("res/animations/firstaid/firstAid14.png");
+					animation[14] = new Image("res/animations/firstaid/firstAid15.png");
+					animation[15] = new Image("res/animations/firstaid/firstAid16.png");
+					animation[16] = new Image("res/animations/firstaid/firstAid17.png");
+					animation[17] = new Image("res/animations/firstaid/firstAid18.png");
+					animation[18] = new Image("res/animations/firstaid/firstAid19.png");
 					
 					skillBar[0] = new Image("res/skillIcons/firstaid.png");
 					skillBar[1] = new Image("res/skillIcons/firstaid_active.png");
@@ -39,7 +53,7 @@ public class SkillFirstAid extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 10000, 200);
+				super.setEndState(animation, 2000, 2000);
 				super.setSkillBarImages(skillBar);
 			}
 }
