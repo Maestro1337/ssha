@@ -19,7 +19,7 @@ public class SkillAdrenaline extends Skill {
 				Image[] skillBar = new Image[3];
 				
 				try {
-					attackImage = new Image("res/animations/explode1.png");
+					attackImage = new Image("res/animations/explode/explode1.png");
 					
 					animation[0] = new Image("res/animations/adrenaline/adrenaline1.png");
 					animation[1] = new Image("res/animations/adrenaline/adrenaline2.png");

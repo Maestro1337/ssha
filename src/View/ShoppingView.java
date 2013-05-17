@@ -106,8 +106,6 @@ public class ShoppingView extends BasicGameState {
 	String skillText;
 	
 	Image background;
-	Image skillsText;
-	Image shopText;
 
 	public ShoppingView (int state){
 		
@@ -123,8 +121,6 @@ public class ShoppingView extends BasicGameState {
 		selectedSkill = new SkillFireball();
 		
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
-		skillsText = new Image("res/miscImages/skillsText.png");
-		shopText = new Image("res/miscImages/shopText.png");
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");

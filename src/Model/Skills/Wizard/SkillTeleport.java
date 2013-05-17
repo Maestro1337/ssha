@@ -19,13 +19,13 @@ public class SkillTeleport extends Skill {
 		super.setSelfAffectingStatusEffectShell(new StatusEffectTeleport(this));
 		
 		try {
-			attackImage = new Image("res/animations/Teleport/Teleport1.png");
+			attackImage = new Image("res/animations/teleport/Teleport1.png");
 			
-			animation[0] = new Image("res/animations/Teleport/Teleport1.png");
-			animation[1] = new Image("res/animations/Teleport/Teleport2.png");
-			animation[2] = new Image("res/animations/Teleport/Teleport3.png");
-			animation[3] = new Image("res/animations/Teleport/Teleport4.png");
-			animation[4] = new Image("res/animations/Teleport/Teleport5.png");
+			animation[0] = new Image("res/animations/teleport/Teleport1.png");
+			animation[1] = new Image("res/animations/teleport/Teleport2.png");
+			animation[2] = new Image("res/animations/teleport/Teleport3.png");
+			animation[3] = new Image("res/animations/teleport/Teleport4.png");
+			animation[4] = new Image("res/animations/teleport/Teleport5.png");
 			
 			
 			

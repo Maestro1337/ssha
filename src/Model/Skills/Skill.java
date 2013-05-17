@@ -121,7 +121,7 @@ public class Skill{
 		
 		//Backup image if it doesn't get one set by the extended skillClass
 		try {
-			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
+			attackImage = new Image("res/animations/explode/explode1.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

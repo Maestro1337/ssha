@@ -22,7 +22,7 @@ public class SkillSprint extends Skill {
 		super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 2, 2));
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImage = new Image("res/animations/explode/explode1.png");
 			
 			animation[0] = new Image("res/animations/sprint/sprint1.png");
 			animation[1] = new Image("res/animations/sprint/sprint2.png");

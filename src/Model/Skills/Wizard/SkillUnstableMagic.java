@@ -26,15 +26,15 @@ public class SkillUnstableMagic extends Skill {
 		super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 20));
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImage = new Image("res/animations/explode/explode1.png");
 			
-			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
+			animation[0] = new Image("res/animations/explode/explode1.png");
+			animation[1] = new Image("res/animations/explode/explode2.png");
+			animation[2] = new Image("res/animations/explode/explode3.png");
+			animation[3] = new Image("res/animations/explode/explode4.png");
+			animation[4] = new Image("res/animations/explode/explode5.png");
+			animation[5] = new Image("res/animations/explode/explode6.png");
+			animation[6] = new Image("res/animations/explode/explode7.png");
 			
 			skillBar[0] = new Image("res/skillIcons/unstablemagic.png");
 			skillBar[1] = new Image("res/skillIcons/unstablemagic_active.png");

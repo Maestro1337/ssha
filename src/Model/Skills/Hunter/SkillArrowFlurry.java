@@ -22,7 +22,7 @@ public class SkillArrowFlurry extends Skill {
 		super.setOffensiveStatusEffectShell(new StatusEffectImmobilize(this, 1),false);
 		
 		try {
-			attackImage = new Image("res/animations/arrowFlurry.png");
+			attackImage = new Image("res/animations/arrowflurry/arrowflurry_end.png");
 			
 			animation[0] = new Image("res/animations/arrowflurry/arrowflurry1.png");
 			animation[1] = new Image("res/animations/arrowflurry/arrowflurry2.png");

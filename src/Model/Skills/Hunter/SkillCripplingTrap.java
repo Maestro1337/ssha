@@ -23,7 +23,7 @@ public class SkillCripplingTrap extends Skill {
 		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.3, 1),true);
 		
 		try {
-			attackImage = new Image("res/animations/arrow.png");
+			attackImage = new Image("res/animations/arrow/arrow.png");
 			
 			animation[0] = new Image("res/animations/trap/slowingtrap.png");
 			
