@@ -1,6 +1,8 @@
 package View;
 
 //import java.awt.Image;
+import java.awt.Font;
+import java.awt.font.*;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -10,6 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.UnicodeFont;
 
 
 
@@ -107,6 +110,9 @@ public class ShoppingView extends BasicGameState {
 	
 	Image background;
 
+	UnicodeFont uFont;
+	Font font;
+	
 	public ShoppingView (int state){
 		
 	}
@@ -117,6 +123,8 @@ public class ShoppingView extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
+		font = new Font("Calibri", Font.PLAIN, 20);
+		uFont = new UnicodeFont(font, font.getSize(), font.isBold(), font.isItalic());
 		
 		selectedSkill = new SkillFireball();
 		
@@ -220,6 +228,8 @@ public class ShoppingView extends BasicGameState {
 	   }
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
+		g.setFont(uFont);
+		
 		g.drawImage(background, 0, 0);
 		g.drawImage(playButton, 1120, 670);
 		g.drawImage(optionsButton,980,670);
@@ -228,7 +238,7 @@ public class ShoppingView extends BasicGameState {
 		g.setColor(Color.white);
 		g.drawString(skillText, 560, 475);
 		g.drawString(costText, 760, 475);
-		g.drawImage(buyUpgradeButton, 710, 600);
+		g.drawImage(buyUpgradeButton, 710, 610);
 		
 		if(chosenSkill != null)
 			g.drawImage(chosenSkill, 490, 470);
