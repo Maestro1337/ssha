@@ -24,7 +24,7 @@ public class SkillLeapAttack extends Skill {
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
 				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
-				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1));
+				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1),false);
 				
 				try {
 					
