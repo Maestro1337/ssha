@@ -51,7 +51,7 @@ public class SkillArrowFlurry extends Skill {
 		}
 		
 		super.setImage(attackImage);
-		super.setEndState(animation, 2000, 500);
+		super.setEndState(animation, 1000, 500);
 		super.setSkillBarImages(skillBar);
 	}
 }
