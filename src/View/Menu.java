@@ -93,7 +93,7 @@ public class Menu extends BasicGameState implements ActionListener{
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				GlobalClassSelector.getController().setSingleOrMulti(false);
-				sbg.enterState(3);
+				sbg.enterState(5);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 

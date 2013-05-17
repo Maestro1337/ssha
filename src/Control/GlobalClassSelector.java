@@ -6,6 +6,7 @@ import sshaclient.Constants;
 import sshaclient.SocketClient;
 
 import Model.Player;
+import Model.Arenas.Arena;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
 import Model.Classes.ClassWizard;
@@ -23,6 +24,8 @@ public class GlobalClassSelector {
 	private Thread socketThread;
 	private boolean changedPlayer = false;
 	private int activePlayer = 0;
+	private Arena mapSelected;
+	private int difficultySelected;
 	
 	
 	//Singleton
@@ -106,5 +109,16 @@ public class GlobalClassSelector {
 	public SocketClient getSocketClient() {
 		return socketClient;
 	}
-	
+	public Arena getMapSelected(){
+		return mapSelected;
+	}
+	public void setMapSelected(Arena map){
+		mapSelected = map;
+	}
+	public int getDiffcultySelected(){
+		return difficultySelected;
+	}
+	public void setDifficultySelected(int dif){
+		difficultySelected= dif;
+	}
 }

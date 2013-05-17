@@ -11,6 +11,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Control.GlobalClassSelector;
+import Model.Arenas.MapSlaughterField;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
@@ -45,8 +46,6 @@ import Model.Skills.Wizard.SkillWandattack;
 
 public class OptionsView extends BasicGameState {
 	
-	int mapSelected=1;
-	int difficultySelected=2;
 	
 	Image background;
 	Image readyButton;
@@ -78,6 +77,12 @@ public class OptionsView extends BasicGameState {
 		
 		readyButton = new Image ("res/buttons/Ready.png");
 		
+		GlobalClassSelector.getController().setDifficultySelected(2);
+		GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());
+		
+		Map1= new Image ("res/Maps/Map_HazardCross2.png");
+		Map2= new Image ("res/Maps/Map_SlaughterField.png");
+		Map3= new Image ("res/Maps/Map_Volcano1.png");
 	}
 
 	public void enter(GameContainer container, StateBasedGame game){
@@ -85,10 +90,18 @@ public class OptionsView extends BasicGameState {
 
 	   }
 	@Override
+	//586x67
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		g.drawImage(background, 0, 0);
 		
-		g.drawImage(readyButton, 1120, 670);
+		g.drawImage(readyButton, 1120, 670);		
+		g.drawImage(easyButton, 75,615);		
+		g.drawImage(normalButton,275,615);		
+		g.drawImage(hardButton,475,615);
+		
+		g.drawImage(Map1,57,92);
+		g.drawImage(Map2,57,161);
+		g.drawImage(Map3,57,230);
 		
 
 	
@@ -102,7 +115,7 @@ public class OptionsView extends BasicGameState {
 		
 		Input input = gc.getInput();
 		
-		
+		//Readybutton Check
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
 			readyButton = new Image("res/buttons/ReadyOver.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -110,5 +123,59 @@ public class OptionsView extends BasicGameState {
 				sbg.enterState(4);
 			}		
 		}
+		//Easybutton Check 159x38
+		if((75<xPos && xPos<234) && (615<yPos && yPos<653)&& GlobalClassSelector.getController().getDiffcultySelected()!= 1){
+			easyButton = new Image("res/buttons/Easy_2.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				easyButton = new Image("res/buttons/Easy_3.png");
+				GlobalClassSelector.getController().setDifficultySelected(1);
+			}
+		}else if (GlobalClassSelector.getController().getDiffcultySelected()!= 1){
+			easyButton = new Image("res/buttons/Easy_1.png");
+		}
+		//Normalbutton Check
+		if((275<xPos && xPos<434) && (615<yPos && yPos<653)&& GlobalClassSelector.getController().getDiffcultySelected() != 2){
+			normalButton = new Image("res/buttons/Normal_2.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				normalButton = new Image("res/buttons/Normal_3.png");
+				GlobalClassSelector.getController().setDifficultySelected(2);
+			}	
+		}else if (GlobalClassSelector.getController().getDiffcultySelected() != 2){
+			normalButton = new Image("res/buttons/Normal_1.png");
+		}
+		//Hardbutton Check
+		if((475<xPos && xPos<634) && (615<yPos && yPos<653)&& GlobalClassSelector.getController().getDiffcultySelected() != 3){
+			hardButton = new Image("res/buttons/Hard_2.png");
+			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+				hardButton = new Image("res/buttons/Hard_3.png");
+				GlobalClassSelector.getController().setDifficultySelected(3);
+			}
+		}else if (GlobalClassSelector.getController().getDiffcultySelected() != 3){
+			hardButton = new Image("res/buttons/Hard_1.png");
+		}	
+		
+		//586x67
+		//Map checks
+		if((57<xPos && xPos<643) && (92<yPos && yPos<159)&& input.isMousePressed(0)){			
+			Map1 = new Image("res/Maps/Map_HazardCross2.png");
+			Map2 = new Image("res/Maps/Map_SlaughterField.png");
+			Map3 = new Image("res/Maps/Map_Volcano1.png");
+			GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());	
+		}	
+		if((57<xPos && xPos<643) && (161<yPos && yPos<228) && input.isMousePressed(0)){
+			Map1 = new Image("res/Maps/Map_HazardCross.png");
+			Map2 = new Image("res/Maps/Map_SlaughterField2.png");
+			Map3 = new Image("res/Maps/Map_Volcano1.png");
+			GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());
+		}
+		if((57<xPos && xPos<643) && (230<yPos && yPos<297)&& input.isMousePressed(0)){
+			Map1 = new Image("res/Maps/Map_HazardCross.png");
+			Map2 = new Image("res/Maps/Map_SlaughterField.png");
+			Map3 = new Image("res/Maps/Map_Volcano2.png");
+			GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());
+		}	
+		
 	}
+	
+	
 }

@@ -32,6 +32,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import Control.*;
 import Model.*;
+import Model.Arenas.Arena;
 import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
 import Model.Obstacles.Obstacle;
@@ -108,10 +109,16 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void initRound() throws SlickException{
 		TimeRoundStart = System.currentTimeMillis();
 		shouldcalcgold=true;
-		
-		Random obsGenerator = new Random();
-		for(int i=0; i<obsGenerator.nextInt(50); i++){
-			obstacles[i] = new ObstacleTestDamage(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+
+		Arena arena = GlobalClassSelector.getController().getMapSelected();
+		if(arena != null){
+			obstacles = arena.getObstacles();
+		}else{
+			Random obsGenerator = new Random();
+			for(int i=0; i<obsGenerator.nextInt(50); i++){
+				obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+			}
+
 		}
 		playerList = GlobalClassSelector.getController().getPlayers();
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
@@ -193,6 +200,18 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		map.render(0,0);
+		
+		switch(GlobalClassSelector.getController().getDiffcultySelected()){
+		case 1:
+			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
+		break;
+		case 2:
+			playerPortrait = new Image("res/classImages/Portrait_Hunter.png");
+		break;
+		case 3:
+			playerPortrait = new Image("res/classImages/Portrait_Warrior.png");
+		break;
+      	}
 		
 		//Show the coodinates of the mouse
 		g.drawString(mouse, 900, 10);
