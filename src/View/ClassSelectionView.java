@@ -35,9 +35,6 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 	
 	String classDescription = "";
 	String title = "";
-
-	Obstacle[] obstacles = new Obstacle[100];
-	
 	
 	public ClassSelectionView (int state){
 
@@ -74,11 +71,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		int yPos = 720 - Mouse.getY();
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
-		
-		/*Random obsGenerator = new Random();
-		for(int i=0; i<obsGenerator.nextInt(50); i++){
-			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
-		}*/
+
 		Input input = gc.getInput();
 	//	Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 		if((300<xPos && xPos<550) && (550<yPos && yPos<604)){
@@ -87,7 +80,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					backButton = new Image("res/buttons/playButton_pressed.png");
 					
 					// If you're in the Multiplayer-view and click back, the connection will close.
-					if(GlobalClassSelector.getController().getSingleOrMulti()) {
+					if(GlobalClassSelector.getController().isMulti()) {
 						GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(false);
 						GlobalClassSelector.getController().getSocketClient().closeConnection();
 					}
@@ -101,7 +94,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					selectButton = new Image("res/buttons/playButton_pressed.png");
 					
-					if(!GlobalClassSelector.getController().getSingleOrMulti()) {
+					if(!GlobalClassSelector.getController().isMulti()) {
 						GlobalClassSelector.getController().addPlayer(player, 0);
 					} else {
 						// Sets the player array-position to their server-id.
@@ -113,7 +106,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					
 	//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
 	
-				if(!(GlobalClassSelector.getController().getSingleOrMulti())){	
+				if(!(GlobalClassSelector.getController().isMulti())){
 					GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
 					sbg.enterState(1);
 				}else{
