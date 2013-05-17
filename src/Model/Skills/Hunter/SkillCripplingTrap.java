@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectSlow;
+import Model.StatusEffects.StatusEffectMovement;
 import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillCripplingTrap extends Skill {
@@ -20,7 +20,7 @@ public class SkillCripplingTrap extends Skill {
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.3, 4),true);
+		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.3, 1),true);
 		
 		try {
 			attackImage = new Image("res/animations/arrow.png");
@@ -38,7 +38,7 @@ public class SkillCripplingTrap extends Skill {
 		
 		
 		super.setImage(attackImage);
-		super.setEndState(animation, 20000, 400);
+		super.setEndState(animation, 20000, 1010);
 		super.setSkillBarImages(skillBar);
 	}
 }
