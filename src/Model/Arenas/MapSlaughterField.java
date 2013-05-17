@@ -7,51 +7,39 @@ import Model.Obstacles.ObstaclePillar;
 
 public class MapSlaughterField extends Arena {
 
-	private Obstacle [] Trees;
-	private Obstacle [] Barricade;
-	private Obstacle [] TNT;
+
 	private Obstacle[] obstacles = new Obstacle[100];
 	
 	public MapSlaughterField(){
+		super("Slaughter Field");
+		obstacles = new Obstacle [100];
 		
-		Trees = new Obstacle[100];
-		Barricade = new Obstacle[100];
-		TNT = new Obstacle[100];
+		//Creates 6 TNTBarrels
+		obstacles [1] = new ObstacleExplosiveBarrel(1050,530);
+		obstacles [2] = new ObstacleExplosiveBarrel(1050,350);
+		obstacles [3] = new ObstacleExplosiveBarrel(250,350);
+		obstacles [4] = new ObstacleExplosiveBarrel(250,530);
+		obstacles [5] = new ObstacleExplosiveBarrel(850,440);
+		obstacles [6] = new ObstacleExplosiveBarrel(400,440);
+		//Creats 12 Barricades
+		obstacles [7] = new ObstacleBarricade(1100,350,1);
+		obstacles [8] = new ObstacleBarricade(200,350,1);
+		obstacles [9] = new ObstacleBarricade(1100,500,1);
+		obstacles [10] = new ObstacleBarricade(200,500,1);
 		
-		//Creates 28 Trees
-		Trees[1] = new ObstaclePillar(50,100);
-		Trees[2] = new ObstaclePillar(55,100);
-		Trees[3] = new ObstaclePillar(55,100);
-		Trees[4] = new ObstaclePillar(5,100);
-		Trees[5] = new ObstaclePillar(50,100);
-		Trees[6] = new ObstaclePillar(50,100);
-		Trees[7] = new ObstaclePillar(50,100);
-		Trees[8] = new ObstaclePillar(50,100);
-		Trees[9] = new ObstaclePillar(50,100);
-		Trees[10] = new ObstaclePillar(50,100);
-		Trees[11] = new ObstaclePillar(50,100);
-		Trees[12] = new ObstaclePillar(50,100);
-		Trees[13] = new ObstaclePillar(50,100);
-		Trees[14] = new ObstaclePillar(50,100);
-		Trees[15] = new ObstaclePillar(50,100);
-		Trees[16] = new ObstaclePillar(50,100);
-		Trees[17] = new ObstaclePillar(50,100);
-		Trees[18] = new ObstaclePillar(50,100);
-		Trees[19] = new ObstaclePillar(50,100);
-		Trees[20] = new ObstaclePillar(50,100);
+		obstacles [11] = new ObstacleBarricade(1020,300,0);
+		obstacles [12] = new ObstacleBarricade(250,300,0);
 		
-		Barricade [1] = new ObstacleBarricade(1,1);
-		Barricade [2] = new ObstacleBarricade(1,1);
-		Barricade [3] = new ObstacleBarricade(1,1);
-		Barricade [4] = new ObstacleBarricade(1,1);
-		Barricade [5] = new ObstacleBarricade(1,1);
-		Barricade [6] = new ObstacleBarricade(1,1);
-		Barricade [7] = new ObstacleBarricade(1,1);
-		Barricade [8] = new ObstacleBarricade(1,1);
+		obstacles [13] = new ObstacleBarricade(608,300,0);
+		obstacles [14] = new ObstacleBarricade(608,580,0);
 		
-		TNT [1] = new ObstacleExplosiveBarrel(500,500);
+		obstacles [15] = new ObstacleBarricade(250,580,0);
+		obstacles [16] = new ObstacleBarricade(1020,580,0);
 		
-		super.setObstacles(Trees);
+		//Creates 1 Tree
+		obstacles[17] = new ObstaclePillar(630,446);
+
+		super.setObstacles(obstacles);
 	}
 	
 }

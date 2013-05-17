@@ -11,6 +11,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Control.GlobalClassSelector;
+import Model.Arenas.MapHazardCross;
 import Model.Arenas.MapSlaughterField;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
@@ -58,6 +59,8 @@ public class OptionsView extends BasicGameState {
 	Image Map2;
 	Image Map3;
 
+	Image MapView;
+	
 	public OptionsView (int state){
 			
 	}
@@ -71,6 +74,8 @@ public class OptionsView extends BasicGameState {
 		
 		background = new Image("res/miscImages/OptionsBackground.png");
 		
+				
+		
 		easyButton = new Image("res/buttons/Easy_1.png");
 		normalButton = new Image("res/buttons/Normal_3.png");
 		hardButton = new Image("res/buttons/Hard_1.png");
@@ -78,7 +83,7 @@ public class OptionsView extends BasicGameState {
 		readyButton = new Image ("res/buttons/Ready.png");
 		
 		GlobalClassSelector.getController().setDifficultySelected(2);
-		GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());
+		GlobalClassSelector.getController().setMapSelected(new MapHazardCross());
 		
 		Map1= new Image ("res/Maps/Map_HazardCross2.png");
 		Map2= new Image ("res/Maps/Map_SlaughterField.png");
@@ -103,7 +108,12 @@ public class OptionsView extends BasicGameState {
 		g.drawImage(Map2,57,161);
 		g.drawImage(Map3,57,230);
 		
+		g.drawImage(MapView,703,66);
+		
+		
 
+		
+	
 	
 	}
 
@@ -160,7 +170,7 @@ public class OptionsView extends BasicGameState {
 			Map1 = new Image("res/Maps/Map_HazardCross2.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField.png");
 			Map3 = new Image("res/Maps/Map_Volcano1.png");
-			GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());	
+			GlobalClassSelector.getController().setMapSelected(new MapHazardCross());	
 		}	
 		if((57<xPos && xPos<643) && (161<yPos && yPos<228) && input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
@@ -172,9 +182,15 @@ public class OptionsView extends BasicGameState {
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField.png");
 			Map3 = new Image("res/Maps/Map_Volcano2.png");
-			GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());
+			GlobalClassSelector.getController().setMapSelected(new MapHazardCross());
 		}	
-		
+		if(GlobalClassSelector.getController().getMapSelected().getName()== "Hazard Cross"){
+			MapView = new Image ("res/Maps/MapHazardCross.png");
+		}else if(GlobalClassSelector.getController().getMapSelected().getName()== "Slaughter Field"){
+			MapView = new Image ("res/Maps/MapSlaughterField.png");
+		//}else if(){
+			//MapView = new Image ("res/Maps/MapHazardCross.png");
+		}
 	}
 	
 	
