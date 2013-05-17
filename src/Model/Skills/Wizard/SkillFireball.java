@@ -24,7 +24,7 @@ String description;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 4));
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 4),false);
 		
 		try {
 			attackImages[0] = new Image("res/animations/fireball1.png");

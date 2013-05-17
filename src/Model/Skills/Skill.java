@@ -184,9 +184,14 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setOffensiveStatusEffectShell(StatusEffectShell SE){
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingSE){
 		affectOthers = true;
 		offensiveSE = SE;
+	}
+	public void resetOffensiveStatusGivenTo(){
+		if(affectOthers){
+			offensiveSE.resetCloning();
+		}
 	}
 	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;
