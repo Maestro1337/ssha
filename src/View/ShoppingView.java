@@ -25,7 +25,7 @@ import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
-import Model.Skills.Hunter.SkillCripplingTrap;
+import Model.Skills.Hunter.SkillCripplingShot;
 import Model.Skills.Hunter.SkillFlamingArrow;
 import Model.Skills.Hunter.SkillGuidedArrow;
 import Model.Skills.Hunter.SkillLifestealingArrows;
@@ -109,6 +109,8 @@ public class ShoppingView extends BasicGameState {
 	String skillText;
 	
 	Image background;
+	Image skillsText;
+	Image shopText;
 
 	UnicodeFont uFont;
 	Font font;
@@ -129,6 +131,8 @@ public class ShoppingView extends BasicGameState {
 		selectedSkill = new SkillFireball();
 		
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
+		skillsText = new Image("res/miscImages/skillsText.png");
+		shopText = new Image("res/miscImages/shopText.png");
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");
@@ -187,7 +191,7 @@ public class ShoppingView extends BasicGameState {
 				defSkills[2] = new SkillStealth();
 				
 				mobSkills[0] = new SkillSprint();
-				mobSkills[1] = new SkillCripplingTrap();
+				mobSkills[1] = new SkillCripplingShot();
 				mobSkills[2] = new SkillBarrelRoll();
 			break;
 			case "Warrior":

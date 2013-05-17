@@ -46,6 +46,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
+	Image treetop;
 	private String mouse = "No input yet";
 	
 	String test;
@@ -86,6 +87,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image move1;
 	Image move2;
 	
+	
 	float mouseXPosMove;
 	float mouseYPosMove;
 	
@@ -109,6 +111,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void initRound() throws SlickException{
 		TimeRoundStart = System.currentTimeMillis();
 		shouldcalcgold=true;
+		treetop = new Image ("res/tileset/Treetop2.png");
 
 		Arena arena = GlobalClassSelector.getController().getMapSelected();
 		if(arena != null){
@@ -214,36 +217,8 @@ public class MainView extends BasicGameState implements ActionListener {
       	}
 		
 		//Show the coodinates of the mouse
-		g.drawString(mouse, 900, 10);
+		//g.drawString(mouse, 900, 10);
 		
-		
-		//Draw Obstacles
-		for(int i=0; i<obstacles.length; i++){
-			if(obstacles[i] != null){
-				g.drawImage(obstacles[i].getCurrentImage(), obstacles[i].getX(), obstacles[i].getY());
-			}
-		}
-		
-		//Attempt to draw oval around player which displays max range (Currently not working correctly)
-//		g.drawOval(player.getX()-Control.getCurrentActiveSkill().getAttackRange()/2, player.getY()-Control.getCurrentActiveSkill().getAttackRange()/2, Control.getCurrentActiveSkill().getAttackRange(), Control.getCurrentActiveSkill().getAttackRange());
-//		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
-		g.drawImage(playerPortrait, 20, 585);
-		//Draw the actionbar
-		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
-		for(int j=0; j<activePlayerSkills.length; j++){
-			g.setColor(Color.white);
-			g.fillRect(140 + j*64, 640, 64, 64);
-			g.setColor(Color.black);
-			
-			if(activePlayerSkills[j] != null){
-				
-			//	if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
-					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
-			//	}
-				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
-				
-			}
-		}
 		
 		
 		//Draw player stats and image
@@ -251,21 +226,53 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<players.size(); i++){
 			Player currentPlayer = players.get(i).getPlayer();
 			Skill[] currentSkillset = currentPlayer.getSkillList();
-			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
+			//g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
+				//	+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
 			
 			
 			for(int j=0; j<currentSkillset.length; j++){
 				if(currentSkillset[j] != null){
 					if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
-						g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						//g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 					}else if(currentSkillset[j].isEndState()){
-						g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						//g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 					}
 				}
 			}
-			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
+			//g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 		}
+		//Draw Obstacles
+		for(int i=0; i<obstacles.length; i++){
+			if(obstacles[i] != null){
+				g.drawImage(obstacles[i].getCurrentImage(), obstacles[i].getX(), obstacles[i].getY());
+				if(obstacles[i].getType()== "TreePillar"){
+					g.drawImage(treetop,obstacles[i].getX()-25, obstacles[i].getY()-21);
+				}
+			}
+		}
+		
+		//Attempt to draw oval around player which displays max range (Currently not working correctly)
+//		g.drawOval(player.getX()-Control.getCurrentActiveSkill().getAttackRange()/2, player.getY()-Control.getCurrentActiveSkill().getAttackRange()/2, Control.getCurrentActiveSkill().getAttackRange(), Control.getCurrentActiveSkill().getAttackRange());
+//		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
+		//g.drawImage(playerPortrait, 20, 585);
+		//Draw the actionbar
+		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
+		for(int j=0; j<activePlayerSkills.length; j++){
+			//g.setColor(Color.white);
+			//g.fillRect(140 + j*64, 640, 64, 64);
+			//g.setColor(Color.black);
+			
+			if(activePlayerSkills[j] != null){
+				
+			//	if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
+					//g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
+			//	}
+				//g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
+				
+			}
+		}
+		
+	
 		if(roundOver){
 			if (shouldcalcgold){
 				goldreward();

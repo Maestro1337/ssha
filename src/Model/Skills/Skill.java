@@ -35,7 +35,6 @@ public class Skill{
 	private boolean affectSelf = false;
 	private boolean affectOthers = false;
 	
-	private boolean repeatingOSE = false;
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
 	private StatusEffectShell selfAffectingOnHitSE = null;
@@ -121,7 +120,7 @@ public class Skill{
 		
 		//Backup image if it doesn't get one set by the extended skillClass
 		try {
-			attackImage = new Image("res/animations/explode/explode1.png");
+			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,15 +184,9 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingOSE){
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE){
 		affectOthers = true;
-		this.repeatingOSE = repeatingOSE;
 		offensiveSE = SE;
-	}
-	public void resetOffensiveStatusGivenTo(){
-		if(affectOthers && repeatingOSE){
-			offensiveSE.resetCloning();
-		}
 	}
 	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;

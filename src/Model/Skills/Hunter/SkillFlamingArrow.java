@@ -19,7 +19,7 @@ public class SkillFlamingArrow extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3),false);
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3));
 		
 		try {
 			attackImages[0] = new Image("res/animations/flamingarrow/flamingarrow1.png");
@@ -28,13 +28,13 @@ public class SkillFlamingArrow extends Skill {
 			attackImages[3] = new Image("res/animations/flamingarrow/flamingarrow4.png");
 			
 			
-			animation[0] = new Image("res/animations/explode/explode1.png");
-			animation[1] = new Image("res/animations/explode/explode2.png");
-			animation[2] = new Image("res/animations/explode/explode3.png");
-			animation[3] = new Image("res/animations/explode/explode4.png");
-			animation[4] = new Image("res/animations/explode/explode5.png");
-			animation[5] = new Image("res/animations/explode/explode6.png");
-			animation[6] = new Image("res/animations/explode/explode7.png");
+			animation[0] = new Image("res/animations/explode1.png");
+			animation[1] = new Image("res/animations/explode2.png");
+			animation[2] = new Image("res/animations/explode3.png");
+			animation[3] = new Image("res/animations/explode4.png");
+			animation[4] = new Image("res/animations/explode5.png");
+			animation[5] = new Image("res/animations/explode6.png");
+			animation[6] = new Image("res/animations/explode7.png");
 			
 			skillBar[0] = new Image("res/skillIcons/flamingarrow.png");
 			skillBar[1] = new Image("res/skillIcons/flamingarrow_active.png");

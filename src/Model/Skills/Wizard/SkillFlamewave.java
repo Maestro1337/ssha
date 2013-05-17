@@ -20,11 +20,11 @@ public class SkillFlamewave extends Skill{
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImages[0] = new Image("res/animations/flamewave/Flamewave1.png");
-			attackImages[1] = new Image("res/animations/flamewave/Flamewave2.png");
+			attackImages[0] = new Image("res/animations/Flamewave/Flamewave1.png");
+			attackImages[1] = new Image("res/animations/Flamewave/Flamewave2.png");
 			
-			animation[0] = new Image("res/animations/flamewave/Flamewave1.png");
-			animation[1] = new Image("res/animations/flamewave/Flamewave2.png");
+			animation[0] = new Image("res/animations/Flamewave/Flamewave1.png");
+			animation[1] = new Image("res/animations/Flamewave/Flamewave2.png");
 			
 			
 			skillBar[0] = new Image("res/skillIcons/flamewave.png");

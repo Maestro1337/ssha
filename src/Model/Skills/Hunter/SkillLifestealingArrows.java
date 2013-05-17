@@ -4,7 +4,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectLifesteal;
 
 public class SkillLifestealingArrows extends Skill {
 	public SkillLifestealingArrows(){
@@ -20,17 +19,15 @@ public class SkillLifestealingArrows extends Skill {
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLifesteal(this));
-		
 		try {
-			attackImages[0] = new Image("res/animations/lifestealarrow/Arrow1.png");
-			attackImages[1] = new Image("res/animations/lifestealarrow/Arrow2.png");
-			attackImages[2] = new Image("res/animations/lifestealarrow/Arrow3.png");
-			attackImages[3] = new Image("res/animations/lifestealarrow/Arrow4.png");
-			attackImages[4] = new Image("res/animations/lifestealarrow/Arrow5.png");
-			attackImages[5] = new Image("res/animations/lifestealarrow/Arrow6.png");
+			attackImages[0] = new Image("res/animations/LifestealingArrow/Arrow1.png");
+			attackImages[1] = new Image("res/animations/LifestealingArrow/Arrow2.png");
+			attackImages[2] = new Image("res/animations/LifestealingArrow/Arrow3.png");
+			attackImages[3] = new Image("res/animations/LifestealingArrow/Arrow4.png");
+			attackImages[4] = new Image("res/animations/LifestealingArrow/Arrow5.png");
+			attackImages[5] = new Image("res/animations/LifestealingArrow/Arrow6.png");
 			
-			animation[0] = new Image("res/animations/explode/explode1.png");
+			animation[0] = new Image("res/animations/explode1.png");
 			
 			
 			skillBar[0] = new Image("res/skillIcons/healingarrow.png");

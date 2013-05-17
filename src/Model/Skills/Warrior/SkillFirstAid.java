@@ -23,7 +23,7 @@ public class SkillFirstAid extends Skill {
 				Image[] skillBar = new Image[3];
 				
 				try {
-					attackImage = new Image("res/animations/explode/explode1.png");
+					attackImage = new Image("res/animations/explode1.png");
 					
 					animation[0] = new Image("res/animations/firstaid/firstAid1.png");
 					animation[1] = new Image("res/animations/firstaid/firstAid2.png");
@@ -53,7 +53,7 @@ public class SkillFirstAid extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 10000, 10000);
+				super.setEndState(animation, 2000, 2000);
 				super.setSkillBarImages(skillBar);
 			}
 }

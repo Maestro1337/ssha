@@ -19,8 +19,11 @@ public class Arena {
 	private Image[] images;
 	private int[][] mask;
 	
+	private String name;
 	
-	public Arena(){
+	
+	public Arena(String name){
+		this.name = name;
 		try {
 			background = new TiledMap("res/tileset/bg.tmx");
 		} catch (SlickException e) {
@@ -46,5 +49,8 @@ public class Arena {
 	}
 	public void setObstacles(Obstacle[] obs){
 		obstacles = obs;
+	}
+	public String getName(){
+		return name;
 	}
 }

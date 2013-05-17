@@ -92,16 +92,14 @@ public class Menu extends BasicGameState implements ActionListener{
 		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-
-				GlobalClassSelector.getController().setMulti(false);
+				GlobalClassSelector.getController().setSingleOrMulti(false);
 				sbg.enterState(3);
-
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				GlobalClassSelector.getController().setMulti(true);
+				GlobalClassSelector.getController().setSingleOrMulti(true);
 				
 				// Try to connect to server.
 				GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(true);

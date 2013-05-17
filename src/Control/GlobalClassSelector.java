@@ -100,11 +100,11 @@ public class GlobalClassSelector {
 	public void setActivePlayerIndex(int index){
 		activePlayer = index;
 	}
-	public boolean isMulti(){
+	public boolean getSingleOrMulti(){
 		return isMultiplayer;
 	}
-	public void setMulti(boolean isMulti){
-		isMultiplayer = isMulti;
+	public void setSingleOrMulti(boolean singleOrMulti){
+		isMultiplayer = singleOrMulti;
 	}
 	public SocketClient getSocketClient() {
 		return socketClient;

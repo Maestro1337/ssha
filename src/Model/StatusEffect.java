@@ -169,6 +169,8 @@ public class StatusEffect {
 			player.addEvasion(evasionEff);
 		}
 		if(isChannel){
+			//moveSpeedEff = player.getMoveSpeed();
+			//player.setMovementSpeed(0);
 			player.setRunningState(false);
 			player.setChannel(isChannel);
 		}
@@ -199,6 +201,7 @@ public class StatusEffect {
 				player.addEvasion(-evasionEff);
 			}
 			if(isChannel){
+			//	player.setMovementSpeed(moveSpeedEff);
 				player.setChannel(false);
 			}
 			player.setStunState(false);
