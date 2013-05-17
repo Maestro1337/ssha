@@ -105,6 +105,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						GlobalClassSelector.getController().addPlayer(player, 0);
 					} else {
 						// Sets the player array-position to thier server-id.
+		
 						GlobalClassSelector.getController().addPlayer(player, GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
 					}
 					//Addition of AI player
