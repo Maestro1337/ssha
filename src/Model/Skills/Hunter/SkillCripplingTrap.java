@@ -27,9 +27,9 @@ public class SkillCripplingTrap extends Skill {
 			
 			animation[0] = new Image("res/animations/trap/slowingtrap.png");
 			
-			skillBar[0] = new Image("res/skillIcons/cripplingshot.png");
-			skillBar[1] = new Image("res/skillIcons/cripplingshot_active.png");
-			skillBar[2] = new Image("res/skillIcons/cripplingshot_disabled.png");
+			skillBar[0] = new Image("res/skillIcons/cripplingtrap.png");
+			skillBar[1] = new Image("res/skillIcons/cripplingtrap_active.png");
+			skillBar[2] = new Image("res/skillIcons/cripplingtrap_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
