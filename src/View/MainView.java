@@ -36,6 +36,7 @@ import Model.Arenas.Arena;
 import Model.Classes.*;
 import Model.Obstacles.ObstaclePillar;
 import Model.Obstacles.Obstacle;
+import Model.Obstacles.ObstacleTestDamage;
 import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
@@ -108,6 +109,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void initRound() throws SlickException{
 		TimeRoundStart = System.currentTimeMillis();
 		shouldcalcgold=true;
+
 		Arena arena = GlobalClassSelector.getController().getMapSelected();
 		if(arena != null){
 			obstacles = arena.getObstacles();
@@ -116,6 +118,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			for(int i=0; i<obsGenerator.nextInt(50); i++){
 				obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
 			}
+
 		}
 		playerList = GlobalClassSelector.getController().getPlayers();
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
@@ -217,7 +220,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Draw Obstacles
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
-				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
+				g.drawImage(obstacles[i].getCurrentImage(), obstacles[i].getX(), obstacles[i].getY());
 			}
 		}
 		
@@ -416,7 +419,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		
-		AI();
+//		AI();
 	}
 	
 	

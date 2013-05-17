@@ -7,29 +7,35 @@ import Model.StatusEffect;
 public class Obstacle {
 	private String type;
 	private int damage;
-	private int areaOfEffect;
+	private int maxHealth;
+	private int health;
 	private StatusEffect status;
 	private int x;
 	private int y;
-	private Image image;
+	private Image[] images;
+	private Image currentImage;
 	private int currentHeight;
 	private int currentWidth;
 	private boolean solid;
 	
-	public Obstacle(String type, int damage, int x, int y, boolean solid){
+	public Obstacle(String type, int damage, int health, int x, int y, boolean solid){
 		this.type = type;
 		this.damage = damage;
+		maxHealth = this.health = health;
 		this.x = x;
 		this.y = y;
 		this.solid = solid;
 	}
 	
-	public void setImage(Image image, int height, int width){
-		if(image != null)
-			this.image = image;
+	public void setImage(Image[] images){
+		if(images != null)
+			this.images = images;
 		
-		currentHeight = height;
-		currentWidth = width;
+		if(images[0] != null){
+			currentImage = images[0];
+			currentHeight = images[0].getHeight();
+			currentWidth = images[0].getWidth();
+		}
 	}
 	
 	
@@ -39,14 +45,30 @@ public class Obstacle {
 	public int getDamage(){
 		return damage;
 	}
+	public int getHealth(){
+		return health;
+	}
+	public void takeDamage(int damage){
+		health -= damage;
+	}
 	public int getX(){
 		return x;
 	}
 	public int getY(){
 		return y;
 	}
-	public Image getImage(){
-		return image;
+	public Image getCurrentImage(){
+		double divider = maxHealth/images.length;
+		int index=images.length-1;
+		while(divider*index > health){
+			index--;
+		}
+	//	System.out.println(index);
+		return images[index];
+	//	return currentImage;
+	}
+	public Image[] getAllImages(){
+		return images;
 	}
 	public int getCurrentHeight(){
 		return currentHeight;

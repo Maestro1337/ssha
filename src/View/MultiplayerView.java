@@ -171,7 +171,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		//Draw Obstacles
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
-				g.drawImage(obstacles[i].getImage(), obstacles[i].getX(), obstacles[i].getY());
+				g.drawImage(obstacles[i].getCurrentImage(), obstacles[i].getX(), obstacles[i].getY());
 			}
 		}
 		

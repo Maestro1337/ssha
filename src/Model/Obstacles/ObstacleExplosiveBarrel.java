@@ -7,16 +7,16 @@ public class ObstacleExplosiveBarrel extends Obstacle{
 	
 	public ObstacleExplosiveBarrel(int x, int y){
 		//String type, int damage, int x, int y
-		super("Explosive Barrel", 0, x, y, true);
+		super("Explosive Barrel", 0,500, x, y, true);
 		
-		Image image = null;
+		Image[] images = new Image[1];
 		try {
-			image = new Image("res/tileset/firebarrel.png");
+			images[0] = new Image("res/tileset/firebarrel.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		super.setImage(image, image.getHeight(), image.getWidth());
+		super.setImage(images);
 	}
 }
