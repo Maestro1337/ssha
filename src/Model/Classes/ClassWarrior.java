@@ -39,7 +39,7 @@ public class ClassWarrior extends Player {
 		}
 		chosenSkills[0] = new SkillSlash();
 		chosenSkills[1] = new SkillThrowingAxe();
-		chosenSkills[2] = new SkillFirstAid();
+		chosenSkills[2] = new SkillAdrenaline();
 		chosenSkills[3] = new SkillShieldStance();
 		chosenSkills[4] = new SkillLeapAttack();
 

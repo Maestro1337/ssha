@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillThrowingAxe extends Skill {
 	public SkillThrowingAxe(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Throwing axe", 3000, 800, 0.4, 6, 10, 450, 300, 300, 300,"Throwing axe \n" +
+				super("Throwing axe", 3000, 800, 0.7, 6, 10, 450, 300, 300, 300,"Throwing axe \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +

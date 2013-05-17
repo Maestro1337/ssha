@@ -24,9 +24,9 @@ public class SkillArrow extends Skill{
 		try {
 			attackImages[0] = new Image("res/animations/arrow/arrow.png");
 			
-			skillBar[0] = new Image("res/skillIcons/guidedarrow.png");
-			skillBar[1] = new Image("res/skillIcons/guidedarrow_active.png");
-			skillBar[2] = new Image("res/skillIcons/guidedarrow_disabled.png");
+			skillBar[0] = new Image("res/skillIcons/arrow.png");
+			skillBar[1] = new Image("res/skillIcons/arrow_active.png");
+			skillBar[2] = new Image("res/skillIcons/arrow_disabled.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
