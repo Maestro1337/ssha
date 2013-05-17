@@ -27,7 +27,7 @@ public class SkillLifestealingArrows extends Skill {
 			attackImages[4] = new Image("res/animations/LifestealingArrow/Arrow5.png");
 			attackImages[5] = new Image("res/animations/LifestealingArrow/Arrow6.png");
 			
-			animation[0] = new Image("res/animations/explode1.png");
+			animation[0] = new Image("res/animations/explode/explode1.png");
 			
 			
 			skillBar[0] = new Image("res/skillIcons/healingarrow.png");

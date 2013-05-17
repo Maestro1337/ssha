@@ -22,7 +22,7 @@ public class SkillArrow extends Skill{
 	//	super.setStatusEffect(new StatusEffectStun(this, 5));
 		
 		try {
-			attackImages[0] = new Image("res/animations/arrow.png");
+			attackImages[0] = new Image("res/animations/arrow/arrow.png");
 			
 			skillBar[0] = new Image("res/skillIcons/guidedarrow.png");
 			skillBar[1] = new Image("res/skillIcons/guidedarrow_active.png");

@@ -22,7 +22,7 @@ public class SkillCripplingShot extends Skill {
 		super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.3, 4));
 		
 		try {
-			attackImage = new Image("res/animations/arrow.png");
+			attackImage = new Image("res/animations/arrow/arrow.png");
 			skillBar[0] = new Image("res/skillIcons/cripplingshot.png");
 			skillBar[1] = new Image("res/skillIcons/cripplingshot_active.png");
 			skillBar[2] = new Image("res/skillIcons/cripplingshot_disabled.png");

@@ -24,8 +24,8 @@ public class SkillBarrelRoll extends Skill {
 		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 		
 		try {
-			attackImages[0] = new Image("res/animations/hunter_walk1.png");
-			attackImages[1] = new Image("res/animations/hunter_walk2.png");
+			attackImages[0] = new Image("res/animations/characters/hunter_walk1.png");
+			attackImages[1] = new Image("res/animations/characters/hunter_walk2.png");
 			
 			animation[0] = new Image("res/animations/barrelroll/roll1.png");
 			animation[1] = new Image("res/animations/barrelroll/roll2.png");

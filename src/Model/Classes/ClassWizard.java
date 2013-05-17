@@ -7,8 +7,6 @@ import org.newdawn.slick.SlickException;
 
 import Model.Player;
 import Model.Skills.Skill;
-import Model.Skills.Hunter.SkillArrow;
-import Model.Skills.Warrior.SkillSlash;
 import Model.Skills.Wizard.*;
 
 public class ClassWizard extends Player {
@@ -24,9 +22,9 @@ public class ClassWizard extends Player {
 	public ClassWizard(String name, String ctrlType, float x, float y, int index) {
 		super(name, ctrlType, "Wizard", x, y, 900, 0.5, 0.2, index);
 		try {
-			playerImage = new Image("res/animations/mage_stand.png");
-			firstStep = new Image("res/animations/mage_walk1.png");
-			secondStep = new Image("res/animations/mage_walk2.png");
+			playerImage = new Image("res/animations/characters/mage_stand.png");
+			firstStep = new Image("res/animations/characters/mage_walk1.png");
+			secondStep = new Image("res/animations/characters/mage_walk2.png");
 			
 			changedModelWalkImages[0] = new Image("res/animations/UnstableMagic/UMmage_walk1_1.png");
 			changedModelWalkImages[1] = new Image("res/animations/UnstableMagic/UMmage_walk2_2.png");

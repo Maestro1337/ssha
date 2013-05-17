@@ -112,8 +112,8 @@ public class ShoppingView extends BasicGameState {
 	Image skillsText;
 	Image shopText;
 
-	UnicodeFont uFont;
-	Font font;
+	//UnicodeFont uFont;
+	//Font font;
 	
 	public ShoppingView (int state){
 		
@@ -125,8 +125,8 @@ public class ShoppingView extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
-		font = new Font("Calibri", Font.PLAIN, 20);
-		uFont = new UnicodeFont(font, font.getSize(), font.isBold(), font.isItalic());
+		//font = new Font("Calibri", Font.PLAIN, 20);
+		//uFont = new UnicodeFont(font, font.getSize(), font.isBold(), font.isItalic());
 		
 		selectedSkill = new SkillFireball();
 		
@@ -232,7 +232,7 @@ public class ShoppingView extends BasicGameState {
 	   }
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
-		g.setFont(uFont);
+		//g.setFont(uFont);
 		
 		g.drawImage(background, 0, 0);
 		g.drawImage(playButton, 1120, 670);
