@@ -35,6 +35,7 @@ public class Skill{
 	private boolean affectSelf = false;
 	private boolean affectOthers = false;
 	
+	private boolean repeatingOSE = false;
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
 	private StatusEffectShell selfAffectingOnHitSE = null;
@@ -184,12 +185,13 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingSE){
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingOSE){
 		affectOthers = true;
+		this.repeatingOSE = repeatingOSE;
 		offensiveSE = SE;
 	}
 	public void resetOffensiveStatusGivenTo(){
-		if(affectOthers){
+		if(affectOthers && repeatingOSE){
 			offensiveSE.resetCloning();
 		}
 	}

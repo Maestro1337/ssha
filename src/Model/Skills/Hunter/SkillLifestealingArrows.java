@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectLifesteal;
 
 public class SkillLifestealingArrows extends Skill {
 	public SkillLifestealingArrows(){
@@ -18,6 +19,8 @@ public class SkillLifestealingArrows extends Skill {
 		Image[] attackImages = new Image[6];
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
+		
+		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLifesteal(this));
 		
 		try {
 			attackImages[0] = new Image("res/animations/LifestealingArrow/Arrow1.png");

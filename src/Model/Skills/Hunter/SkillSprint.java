@@ -4,8 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectDodge;
-import Model.StatusEffects.StatusEffectSprint;
+import Model.StatusEffects.StatusEffectMovement;
 
 public class SkillSprint extends Skill {
 	public SkillSprint(){
@@ -20,7 +19,7 @@ public class SkillSprint extends Skill {
 		Image[] animation = new Image[26];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingStatusEffectShell(new StatusEffectSprint(this, 2, 2));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 2, 2));
 		
 		try {
 			attackImage = new Image("res/animations/explode1.png");
