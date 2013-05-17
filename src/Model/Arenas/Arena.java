@@ -1,8 +1,10 @@
-package Model;
+package Model.Arenas;
 import java.awt.Image;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+
+import Model.Obstacles.Obstacle;
 
 
 public class Arena {
@@ -10,11 +12,13 @@ public class Arena {
 	private int width;
 	private int height;
 	private String terrain;
+	private Obstacle[] obstacles;
 	
 	private TiledMap background;
 	
 	private Image[] images;
 	private int[][] mask;
+	
 	
 	public Arena(){
 		try {
@@ -36,5 +40,11 @@ public class Arena {
 	}
 	public String getTerrain(){
 		return terrain;
+	}
+	public Obstacle[] getObstacles(){
+		return obstacles;
+	}
+	public void setObstacles(Obstacle[] obs){
+		obstacles = obs;
 	}
 }
