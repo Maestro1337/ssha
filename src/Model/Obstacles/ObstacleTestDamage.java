@@ -17,7 +17,6 @@ public class ObstacleTestDamage extends Obstacle{
 			images[3] = new Image("res/obstacles/testDamageObstacle/tdo2.png");
 			images[4] = new Image("res/obstacles/testDamageObstacle/tdo1.png");
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

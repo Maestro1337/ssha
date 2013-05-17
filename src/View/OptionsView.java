@@ -16,7 +16,7 @@ import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
-import Model.Skills.Hunter.SkillCripplingShot;
+import Model.Skills.Hunter.SkillCripplingTrap;
 import Model.Skills.Hunter.SkillFlamingArrow;
 import Model.Skills.Hunter.SkillGuidedArrow;
 import Model.Skills.Hunter.SkillLifestealingArrows;

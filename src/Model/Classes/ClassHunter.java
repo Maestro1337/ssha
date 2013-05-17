@@ -56,7 +56,7 @@ public class ClassHunter extends Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		chosenSkills[0] = new SkillArrow();
+		chosenSkills[0] = new SkillCripplingTrap();
 		chosenSkills[1] = new SkillBarrelRoll();
 		chosenSkills[2] = new SkillArrowFlurry();
 		chosenSkills[3] = new SkillStealth();
