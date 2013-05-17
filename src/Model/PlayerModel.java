@@ -421,15 +421,13 @@ public class PlayerModel implements ActionListener {
 			if(SCTArray.get(j) != null && SCTArray.get(j).getObstacle() == obstacle){
 				index = j;
 				SCT = SCTArray.get(j);
-				System.out.println("A2xRRIBA");
 			}
 		}
 		if(index == -1){
 			SCT = skill.addNewSkillCheckingTimer(obstacle);
-			System.out.println("ARRRRRRIIIIBAAA");
 		}
 		
-		System.out.println("3xARRIIIIIBA " + SCT.getObstacle().getHealth());
+		System.out.println("Obstacle HP: " + SCT.getObstacle().getHealth());
 		return SCT;
 	}
 	
@@ -453,6 +451,7 @@ public class PlayerModel implements ActionListener {
 		return false;
 	}
 	public boolean checkSkillObstacleCollision(Skill skill, float x, float y) throws SlickException{
+		boolean collision = false;
 		for(int i=0; i<obstacles.length; i++){
 			Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
@@ -483,10 +482,10 @@ public class PlayerModel implements ActionListener {
 					currentObstacleCheck = null;
 					obstacles[i] = null;
 				}
-				return true;
+				collision = true;
 			}
 		}
-		return false;
+		return collision;
 	}
 	
 	public boolean isCollidingWithObstacle(Obstacle obstacle, float x, float y, int width, int height) throws SlickException{
@@ -515,7 +514,10 @@ public class PlayerModel implements ActionListener {
 					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
 				return true;
 			}
-		}	
+		}else if(x <= obstacle.getX() && x+width >= obstacle.getX()+obstacle.getCurrentWidth()
+				&& y <= obstacle.getY() && y+width >= obstacle.getY()+obstacle.getCurrentHeight()){
+			return true;
+		}
 		return false;
 	}
 	
