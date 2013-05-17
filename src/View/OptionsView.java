@@ -13,37 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import Control.GlobalClassSelector;
 import Model.Arenas.MapHazardCross;
 import Model.Arenas.MapSlaughterField;
-import Model.Skills.Skill;
-import Model.Skills.Hunter.SkillArrow;
-import Model.Skills.Hunter.SkillArrowFlurry;
-import Model.Skills.Hunter.SkillBarrelRoll;
-import Model.Skills.Hunter.SkillCripplingShot;
-import Model.Skills.Hunter.SkillFlamingArrow;
-import Model.Skills.Hunter.SkillGuidedArrow;
-import Model.Skills.Hunter.SkillLifestealingArrows;
-import Model.Skills.Hunter.SkillPassiveDodge;
-import Model.Skills.Hunter.SkillSprint;
-import Model.Skills.Hunter.SkillStealth;
-import Model.Skills.Warrior.SkillAdrenaline;
-import Model.Skills.Warrior.SkillFirstAid;
-import Model.Skills.Warrior.SkillGrapplingHook;
-import Model.Skills.Warrior.SkillImprovedArmor;
-import Model.Skills.Warrior.SkillIncreasedMovement;
-import Model.Skills.Warrior.SkillLeapAttack;
-import Model.Skills.Warrior.SkillShieldStance;
-import Model.Skills.Warrior.SkillSlash;
-import Model.Skills.Warrior.SkillThrowingAxe;
-import Model.Skills.Warrior.SkillWarstomp;
-import Model.Skills.Wizard.SkillAbsorb;
-import Model.Skills.Wizard.SkillBlizzard;
-import Model.Skills.Wizard.SkillFireball;
-import Model.Skills.Wizard.SkillFirestorm;
-import Model.Skills.Wizard.SkillFlamewave;
-import Model.Skills.Wizard.SkillIceblock;
-import Model.Skills.Wizard.SkillIroncloak;
-import Model.Skills.Wizard.SkillTeleport;
-import Model.Skills.Wizard.SkillUnstableMagic;
-import Model.Skills.Wizard.SkillWandattack;
+
 
 public class OptionsView extends BasicGameState {
 	

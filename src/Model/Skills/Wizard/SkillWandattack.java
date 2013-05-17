@@ -20,14 +20,14 @@ public class SkillWandattack extends Skill {
 		Image[] skillBar = new Image[3];
 		
 		try {
-			attackImage = new Image("res/animations/WandAttack/WandAttack.png");
+			attackImage = new Image("res/animations/wandattack/WandAttack.png");
 			
-			animation[0] = new Image("res/animations/WandAttack/Wandexplode1.png");
-			animation[1] = new Image("res/animations/WandAttack/Wandexplode2.png");
-			animation[2] = new Image("res/animations/WandAttack/Wandexplode3.png");
-			animation[3] = new Image("res/animations/WandAttack/Wandexplode4.png");
-			animation[4] = new Image("res/animations/WandAttack/Wandexplode5.png");
-			animation[5] = new Image("res/animations/WandAttack/Wandexplode6.png");
+			animation[0] = new Image("res/animations/wandattack/Wandexplode1.png");
+			animation[1] = new Image("res/animations/wandattack/Wandexplode2.png");
+			animation[2] = new Image("res/animations/wandattack/Wandexplode3.png");
+			animation[3] = new Image("res/animations/wandattack/Wandexplode4.png");
+			animation[4] = new Image("res/animations/wandattack/Wandexplode5.png");
+			animation[5] = new Image("res/animations/wandattack/Wandexplode6.png");
 			
 			
 			skillBar[0] = new Image("res/skillIcons/wandattack.png");
