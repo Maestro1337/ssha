@@ -125,7 +125,12 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
       	}
 		
 		players.clear();
-		players.add(new PlayerModel(playerList[activePlayer], obstacles));
+	//	players.add(new PlayerModel(playerList[activePlayer], obstacles));
+		for(int i=0; i<GlobalClassSelector.getController().getPlayers().length; i++){
+			if(GlobalClassSelector.getController().getPlayer(i) != null)
+				players.add(new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles));
+		}
+		
 		
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);

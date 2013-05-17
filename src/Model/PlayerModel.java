@@ -468,15 +468,6 @@ public class PlayerModel implements ActionListener {
 						
 						SCT.resetESColTimer();
 					}
-		/*			if(skill.getESIT() != null && skill.getESIT().checkESColTimer() == skill.getESColInterval()){
-						System.out.println("Obstacle hit with " + skill.getName());
-						currentObstacleCheck.takeDamage(skill.getDamage());
-						
-						skill.getESIT().resetESColTimer();
-						
-					}else if(playerSkills[i].getESIT() == null){
-						skill.activateESIT(player);
-					}*/
 				}
 				if(currentObstacleCheck.getHealth()<=0){
 					currentObstacleCheck = null;

@@ -92,6 +92,10 @@ public class Player {
 		statusEffectList = new ArrayList<StatusEffect>();
 		passiveSkills = new ArrayList<Skill>();
 	}
+	
+	public void setIndex(int index){
+		playerListIndex = index;
+	}
 
 	public String getType(){
 		return classType;
