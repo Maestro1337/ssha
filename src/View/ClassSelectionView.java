@@ -100,8 +100,13 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			selectButton = new Image("res/buttons/playButton_hover.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					selectButton = new Image("res/buttons/playButton_pressed.png");
-					GlobalClassSelector.getController().addPlayer(player, 0);
 					
+					if(!GlobalClassSelector.getController().getSingleOrMulti()) {
+						GlobalClassSelector.getController().addPlayer(player, 0);
+					} else {
+						// Sets the player array-position to thier server-id.
+						GlobalClassSelector.getController().addPlayer(player, GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+					}
 					//Addition of AI player
 	
 					
