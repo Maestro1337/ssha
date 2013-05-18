@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectSlow;
+import Model.StatusEffects.StatusEffectMovement;
 
 public class SkillBlizzard extends Skill {
 	public SkillBlizzard(){
@@ -19,7 +19,7 @@ public class SkillBlizzard extends Skill {
 				Image[] animation = new Image[20];
 				Image[] skillBar = new Image[3];
 				
-				super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.7, 1),true);
+				super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.7, 1),true);
 				
 				try {
 					attackImage = new Image("res/animations/Blizzard/blizzard1.png");

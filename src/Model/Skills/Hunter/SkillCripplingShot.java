@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectSlow;
+import Model.StatusEffects.StatusEffectMovement;
 import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillCripplingShot extends Skill {
@@ -19,7 +19,7 @@ public class SkillCripplingShot extends Skill {
 		Image attackImage = null;
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.3, 4), false);
+		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.3, 4), false);
 		
 		try {
 			attackImage = new Image("res/animations/arrow/arrow.png");

@@ -7,9 +7,9 @@ import Model.StatusEffect;
 import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectLifestealingArrow extends StatusEffectShell{
+public class StatusEffectLifesteal extends StatusEffectShell{
 
-	public StatusEffectLifestealingArrow(Skill skill, int seconds) {
+	public StatusEffectLifesteal(Skill skill, int seconds) {
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, isStun, isChanneling, counts, delay
 		
