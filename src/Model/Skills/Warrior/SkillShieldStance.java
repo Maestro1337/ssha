@@ -11,7 +11,7 @@ public class SkillShieldStance extends Skill {
 	public SkillShieldStance(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-				super("Shield stance", 11000, 0, 0.4, 3, 25, 0, 0, 0, 0,"Shieldstance \n" +
+				super("Shield stance", 11000, 0, 0.4, 3, 25, 0,"Shieldstance \n" +
 
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
@@ -45,9 +45,26 @@ public class SkillShieldStance extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

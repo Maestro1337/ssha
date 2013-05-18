@@ -10,7 +10,7 @@ import Model.StatusEffects.StatusEffectUnstableMagic;
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("First aid", 11000, 0, 0.4, 3, 50, 0, 0, 0, 0,"First Aid \n" +
+				super("First aid", 11000, 0, 0.4, 3, 50, 0,"First Aid \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -57,9 +57,26 @@ public class SkillFirstAid extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }
