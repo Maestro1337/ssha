@@ -14,7 +14,7 @@ String description;
 
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage lvl1, int damage lvl2,  int damage lvl3, int damage lvl4,  StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Fireball:\nA fireball that burns the \nenemy to oblivion.\n" +
+		super("Fireball", 11000, 400, 0.4, 3, 10, 150,"Fireball:\nA fireball that burns the \nenemy to oblivion.\n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -53,10 +53,27 @@ String description;
 		super.setSkillBarImages(skillBar);
 	}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 
 	

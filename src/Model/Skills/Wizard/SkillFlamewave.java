@@ -9,7 +9,7 @@ public class SkillFlamewave extends Skill{
 
 	public SkillFlamewave() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flamewave", 11000, 400, 0.4, 3, 50, 150, 300, 300, 300,"Flame wave:\nA majestic shot of flames that \ntakes the form of a phoenix \nwhile scorching your enemies.\n" +
+		super("Flamewave", 11000, 400, 0.4, 3, 50, 150,"Flame wave:\nA majestic shot of flames that \ntakes the form of a phoenix \nwhile scorching your enemies.\n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -42,9 +42,26 @@ public class SkillFlamewave extends Skill{
 		super.setSkillBarImages(skillBar);
 	}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }
