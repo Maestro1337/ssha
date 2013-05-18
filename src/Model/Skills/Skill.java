@@ -25,10 +25,6 @@ public abstract class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
-	private int damageLvl1;
-	private int damageLvl2;
-	private int damageLvl3;
-	private int damageLvl4;
 	private int lvlOfSkill;
 	
 	private String describe;
@@ -98,15 +94,14 @@ public abstract class Skill{
 	private boolean isPassive = false;
 	private boolean affectSelfOnHit = false;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
-			int damageLvl3,int damageLvl4, String describe){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe){
 		this.name = name;
 		this.smallName = name.toLowerCase().replaceAll("\\s", "");
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
 		this.cost = cost;
-		damage = this.damageLvl1 = damageLvl1;
+		this.damage = damage;
 		lvlOfSkill = 1;
 		
 		attackRange = range;
@@ -249,53 +244,33 @@ public abstract class Skill{
 	public int getDamage(){
 		return damage;
 	}
-	public int getDamageLvl1(){
-		return damageLvl1;
-	}
-	public int getDamageLvl2(){
-		return damageLvl2;
-	}
-	public int getDamageLvl3(){
-		return damageLvl3;
-	}
-	public int getDamageLvl4(){
-		return damageLvl4;
-	}
-	public void upgradeSkillzz(){
-		if(lvlOfSkill <= 4){
-			lvlOfSkill++;
-			
-			switch(damage){
-			case 2:
-				damage = damageLvl2;
-				break;
-			case 3:
-				damage = damageLvl3;
-				break;
-			case 4:
-				damage = damageLvl4;
-				break;
-			}
-		}
-		
+	public void setDamage(int damage){
+		this.damage = damage;
 	}
 	public int getCurrentLvl(){
 		return lvlOfSkill;
 	}
+	public void incCurrentLvl(){
+		lvlOfSkill++;
+	}
+	
+	//TODO Make a lot better
 	public void setCurrentLvl(int lvl) {
 		lvlOfSkill = lvl;
 		switch(lvl) {
 		case 1:
-			damage = damageLvl1;
 			break;
 		case 2:
-			damage = damageLvl2;
+			upgradeSkill();
 			break;
 		case 3:
-			damage = damageLvl3;
+			upgradeSkill();
+			upgradeSkill();
 			break;
 		case 4:
-			damage = damageLvl4;
+			upgradeSkill();
+			upgradeSkill();
+			upgradeSkill();
 			break;
 		}
 	}

@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillSprint extends Skill {
 	public SkillSprint(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Sprint", 11000, 0, 0.4, 3, 10, 0, 0, 0, 0,"Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
+		super("Sprint", 11000, 0, 0.4, 3, 10, 0, "Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
 				"Level 1: 3 sec\n" +
 				"Level 2: 5 sec\n" +
 				"Level 3: 7 sec\n" +
@@ -66,9 +66,26 @@ public class SkillSprint extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

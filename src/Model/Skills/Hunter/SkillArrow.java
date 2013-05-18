@@ -10,7 +10,7 @@ public class SkillArrow extends Skill{
 	
 	public SkillArrow(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow", 1000, 500, 0.5, 3, 0, 100, 300, 300, 300,"Arrow: \nShoots a plain arrow.\n" +
+		super("Arrow", 1000, 500, 0.5, 3, 0, 100, "Arrow: \nShoots a plain arrow.\n" +
 				"Level 1: 10 damage\n" +
 				"Level 2: 20 damage\n" +
 				"Level 3: 30 damage\n" +
@@ -36,10 +36,27 @@ public class SkillArrow extends Skill{
 		super.setSkillBarImages(skillBar);
 	}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 
 }

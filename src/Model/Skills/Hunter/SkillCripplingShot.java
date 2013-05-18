@@ -10,7 +10,7 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillCripplingShot extends Skill {
 	public SkillCripplingShot(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Crippling shot: \nA shot which slows the enemy.\n" +
+		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150,"Crippling shot: \nA shot which slows the enemy.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -37,9 +37,26 @@ public class SkillCripplingShot extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

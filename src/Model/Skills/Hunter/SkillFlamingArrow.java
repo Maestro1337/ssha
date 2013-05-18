@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectBurning;
 public class SkillFlamingArrow extends Skill {
 	public SkillFlamingArrow(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flaming Arrow", 11000, 400, 0.4, 3, 10, 150, 300, 300, 300,"Flaming arrow: \nAn arrow which burns \nthe enemies over time.\n" +
+		super("Flaming Arrow", 11000, 400, 0.4, 3, 10, 150, "Flaming arrow: \nAn arrow which burns \nthe enemies over time.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -48,9 +48,26 @@ public class SkillFlamingArrow extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
 	@Override
 	public void upgradeSkill() {
-		// TODO Auto-generated method stub
-		
+		if(super.getCurrentLvl() <= 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }
