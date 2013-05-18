@@ -62,6 +62,11 @@ public class ClassWizard extends Player {
 		chosenSkills[3] = new SkillUnstableMagic();
 		chosenSkills[4] = new SkillTeleport();
 		
+		for(int i=0; i<chosenSkills.length; i++){
+			if(chosenSkills[i] != null)
+				super.addSkillAsOwned(chosenSkills[i]);
+		}
+		
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
 		super.setSkillList(chosenSkills);

@@ -32,6 +32,11 @@ public class StatusEffectLifesteal extends StatusEffectShell{
 		
 		return newSE;
 	}
+	
+	private int calculateLifesteal(){
+		//damage *= (1-armor);
+		return 0;
+	}
 }
 
 

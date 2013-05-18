@@ -42,6 +42,11 @@ public class ClassWarrior extends Player {
 		chosenSkills[2] = new SkillFirstAid();
 		chosenSkills[3] = new SkillShieldStance();
 		chosenSkills[4] = new SkillLeapAttack();
+		
+		for(int i=0; i<chosenSkills.length; i++){
+			if(chosenSkills[i] != null)
+				super.addSkillAsOwned(chosenSkills[i]);
+		}
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);

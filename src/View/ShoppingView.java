@@ -3,6 +3,8 @@ package View;
 //import java.awt.Image;
 import java.awt.Font;
 import java.awt.font.*;
+import java.util.ArrayList;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -56,6 +58,9 @@ import Model.Skills.Wizard.SkillWandattack;
 
 
 public class ShoppingView extends BasicGameState {
+	
+	Player activePlayer;
+	ArrayList<Skill> ownedSkillList;
 	
 	String buyString = " ";
 	
@@ -151,11 +156,13 @@ public class ShoppingView extends BasicGameState {
 		optionsButton = new Image ("res/buttons/options.png");
 	}
 
-	public void enter(GameContainer container, StateBasedGame game)
-	         throws SlickException {
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      chosenSkills = GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getSkillList();
+	      activePlayer = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex());
+	      chosenSkills = activePlayer.getSkillList();
+	      setCurrentOwnedSkillList();
+	      
 	      
 	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
 			case "Wizard":
@@ -230,6 +237,16 @@ public class ShoppingView extends BasicGameState {
 			
 
 	   }
+	
+	private void setCurrentOwnedSkillList(){
+		ownedSkillList = activePlayer.getOwnedSkills();
+	}
+	
+	private void buySkill(Skill skill){
+		activePlayer.addSkillAsOwned(skill);
+		setCurrentOwnedSkillList();
+	}
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		//g.setFont(uFont);
@@ -268,6 +285,21 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 275);
 		g.drawString("5", 377, 250);
 		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
+		
+		
+		//Drawing the skills the player already owns
+		int row = 0;
+		int col = 0;
+		for(int i=0; i<ownedSkillList.size(); i++){
+			g.drawImage(ownedSkillList.get(i).getSkillBarImage(), 475+col*64, 40+row*64);
+			col++;
+			if(i != 0 && col%6 == 0){
+				row++;
+				col = 0;
+			}else if(i==0){
+				
+			}
+		}
 		
 		//Offensive skills
 		g.drawImage(firstOffSkill, 60, 440);
@@ -309,6 +341,7 @@ public class ShoppingView extends BasicGameState {
 						buyString = "Succesfully bought a skill!";
 						GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].setGold(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()-selectedSkill.getCost());
 						System.out.println(selectedSkill.getCost());
+						buySkill(selectedSkill);
 					}
 				}
 			}else{

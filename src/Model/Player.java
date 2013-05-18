@@ -47,6 +47,7 @@ public class Player {
 	private int deaths = 0;
 	private int gold=500;
 	private Skill[] skillList = new Skill[5];
+	private ArrayList<Skill> ownedSkills = new ArrayList<Skill>();
 	
 	private ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
@@ -330,6 +331,12 @@ public class Player {
 	
 	public Skill[] getSkillList(){
 		return skillList;
+	}
+	public ArrayList<Skill> getOwnedSkills(){
+		return ownedSkills;
+	}
+	public void addSkillAsOwned(Skill skill){
+		ownedSkills.add(skill);
 	}
 	public ArrayList<Skill> getPassiveSkills(){
 		return passiveSkills;
