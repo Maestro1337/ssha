@@ -384,6 +384,7 @@ public class PlayerModel implements ActionListener {
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								playerSkills[i].resetOffensiveStatusGivenTo();
 							}
 							SCT.resetESColTimer();
 						}

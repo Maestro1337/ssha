@@ -19,7 +19,7 @@ public class SkillBlizzard extends Skill {
 				Image[] animation = new Image[20];
 				Image[] skillBar = new Image[3];
 				
-				super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.7, 2),true);
+				super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.7, 1),true);
 				
 				try {
 					attackImage = new Image("res/animations/Blizzard/blizzard1.png");
@@ -55,7 +55,7 @@ public class SkillBlizzard extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 2000, 200);
+				super.setEndState(animation, 2000, 1010);
 				super.setSkillBarImages(skillBar);
 			}
 
