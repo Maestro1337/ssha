@@ -56,4 +56,10 @@ public class SkillFirstAid extends Skill {
 				super.setEndState(animation, 2000, 2000);
 				super.setSkillBarImages(skillBar);
 			}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -44,4 +44,10 @@ public class SkillShieldStance extends Skill {
 				super.setEndState(animation, 200, 50);
 				super.setSkillBarImages(skillBar);
 			}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -19,7 +19,7 @@ public class SkillFlamingArrow extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3));
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3),false);
 		
 		try {
 			attackImages[0] = new Image("res/animations/flamingarrow/flamingarrow1.png");
@@ -46,5 +46,11 @@ public class SkillFlamingArrow extends Skill {
 		super.setImage(attackImages, 200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
+	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
 	}
 }

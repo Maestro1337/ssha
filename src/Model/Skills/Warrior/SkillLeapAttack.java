@@ -24,7 +24,7 @@ public class SkillLeapAttack extends Skill {
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
 				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
-				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1));
+				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1),false);
 				
 				try {
 					
@@ -46,4 +46,10 @@ public class SkillLeapAttack extends Skill {
 				super.setEndState(animation, 2000, 2000);
 				super.setSkillBarImages(skillBar);
 			}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

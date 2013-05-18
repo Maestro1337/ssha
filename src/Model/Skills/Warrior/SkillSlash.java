@@ -42,4 +42,10 @@ public class SkillSlash extends Skill{
 		super.setSkillBarImages(skillBar);
 		
 	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -49,4 +49,10 @@ public class SkillThrowingAxe extends Skill {
 				super.setImage(animation, 200);
 				super.setSkillBarImages(skillBar);
 			}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -46,4 +46,10 @@ public class SkillPassiveDodge extends Skill {
 		super.setImage(attackImage);
 		super.setSkillBarImages(skillBar);
 	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

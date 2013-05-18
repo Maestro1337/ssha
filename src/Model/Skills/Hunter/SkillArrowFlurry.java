@@ -19,7 +19,7 @@ public class SkillArrowFlurry extends Skill {
 		Image[] animation = new Image[17];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectImmobilize(this, 1));
+		super.setOffensiveStatusEffectShell(new StatusEffectImmobilize(this, 1),true);
 		
 		try {
 			attackImage = new Image("res/animations/arrowflurry/arrowflurry_end.png");
@@ -54,5 +54,11 @@ public class SkillArrowFlurry extends Skill {
 		super.setImage(attackImage);
 		super.setEndState(animation, 500, 200);
 		super.setSkillBarImages(skillBar);
+	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
 	}
 }

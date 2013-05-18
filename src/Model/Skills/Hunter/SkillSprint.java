@@ -66,4 +66,10 @@ public class SkillSprint extends Skill {
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

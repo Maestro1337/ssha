@@ -44,4 +44,10 @@ public class SkillTeleport extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

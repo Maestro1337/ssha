@@ -16,7 +16,7 @@ import java.util.TimerTask;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Skill{
+public abstract class Skill{
 
 	private String name;
 	private String smallName;
@@ -35,6 +35,8 @@ public class Skill{
 	private boolean affectSelf = false;
 	private boolean affectOthers = false;
 	
+	private boolean repeatingOSE = false;
+	private double armorFromTarget = 1;
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
 	private StatusEffectShell selfAffectingOnHitSE = null;
@@ -132,6 +134,8 @@ public class Skill{
 		
 	}
 	
+	public abstract void upgradeSkill();
+	
 	//Set new image for projectile
 	public void setImage(Image image){
 		if(image != null){
@@ -184,9 +188,15 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setOffensiveStatusEffectShell(StatusEffectShell SE){
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingOSE){
 		affectOthers = true;
+		this.repeatingOSE = repeatingOSE;
 		offensiveSE = SE;
+	}
+	public void resetOffensiveStatusGivenTo(){
+		if(affectOthers && repeatingOSE){
+			offensiveSE.resetCloning();
+		}
 	}
 	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;
@@ -195,6 +205,9 @@ public class Skill{
 	public void setSelfAffectingOnHitStatusEffectShell(StatusEffectShell SE){
 		affectSelfOnHit = true;
 		selfAffectingOnHitSE = SE;
+	}
+	public double getArmorFromTarget(){
+		return armorFromTarget;
 	}
 	public void setPassive(){
 		isPassive = true;
@@ -248,7 +261,7 @@ public class Skill{
 	public int getDamageLvl4(){
 		return damageLvl4;
 	}
-	public void upgradeSkill(){
+	public void upgradeSkillzz(){
 		if(lvlOfSkill <= 4){
 			lvlOfSkill++;
 			

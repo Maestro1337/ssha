@@ -19,7 +19,7 @@ public class SkillCripplingShot extends Skill {
 		Image attackImage = null;
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.3, 4));
+		super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.3, 4), false);
 		
 		try {
 			attackImage = new Image("res/animations/arrow/arrow.png");
@@ -35,5 +35,11 @@ public class SkillCripplingShot extends Skill {
 		
 		super.setImage(attackImage);
 		super.setSkillBarImages(skillBar);
+	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
 	}
 }

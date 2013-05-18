@@ -21,7 +21,7 @@ public class SkillWarstomp extends Skill {
 				Image[] skillBar = new Image[3];
 
 				
-				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 2));
+				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 2),false);
 				
 				try {
 					attackImage = new Image("res/animations/warstomp/warstompGround.png");
@@ -38,4 +38,10 @@ public class SkillWarstomp extends Skill {
 				super.setEndState(animation, 5000, 5000);
 				super.setSkillBarImages(skillBar);
 			}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

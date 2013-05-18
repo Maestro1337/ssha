@@ -38,4 +38,10 @@ public class SkillAdrenaline extends Skill {
 				super.setEndState(animation, 1000, 1000);
 				super.setSkillBarImages(skillBar);
 			}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }

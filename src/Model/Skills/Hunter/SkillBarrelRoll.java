@@ -51,4 +51,10 @@ public class SkillBarrelRoll extends Skill {
 		super.setEndState(attackImages, 20, 200);
 		super.setSkillBarImages(skillBar);
 	}
+
+	@Override
+	public void upgradeSkill() {
+		// TODO Auto-generated method stub
+		
+	}
 }
