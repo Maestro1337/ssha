@@ -75,8 +75,6 @@ public class ShoppingView extends BasicGameState {
 	int yPos = 0;
 	
 	Image buyUpgradeButton;
-
-	Image chosenSkill = null;
 	
 	Image playerGold;
 	String playerGoldText;
@@ -89,7 +87,7 @@ public class ShoppingView extends BasicGameState {
 	Skill[] chosenSkills = new Skill[5];
 	Skill[] allSkills = new Skill[9];
 	Skill basicSkill;
-	Skill selectedSkill;
+	Skill selectedSkill = null;
 	
 	Image playButton;
 	Image optionsButton;
@@ -117,8 +115,6 @@ public class ShoppingView extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
 		//font = new Font("Calibri", Font.PLAIN, 20);
 		//uFont = new UnicodeFont(font, font.getSize(), font.isBold(), font.isItalic());
-		
-		selectedSkill = new SkillFireball();
 		
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
 		skillsText = new Image("res/miscImages/skillsText.png");
@@ -214,8 +210,8 @@ public class ShoppingView extends BasicGameState {
 		g.drawString(costText, 760, 475);
 		g.drawImage(buyUpgradeButton, 710, 610);
 		
-		if(chosenSkill != null)
-			g.drawImage(chosenSkill, 490, 470);
+		if(selectedSkill != null)
+			g.drawImage(selectedSkill.getSkillBarImage(), 490, 470);
 
 		g.drawString(mouse, 900, 10);
 		
@@ -228,7 +224,8 @@ public class ShoppingView extends BasicGameState {
 
 		for(int j=0; j<chosenSkills.length; j++){
 			g.drawString("" + (j+1), 100 + 69*j, 250);
-			g.drawImage(chosenSkills[j].getSkillBarImage(), 70 + 69*j, 275);
+			if(chosenSkills[j] != null)
+				g.drawImage(chosenSkills[j].getSkillBarImage(), 70 + 69*j, 275);
 		}
 		
 		
@@ -246,8 +243,6 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		
-		
-		
 		//Offensive skills
 		g.drawImage(allSkills[0].getSkillBarImage(), 60, 440);
 		g.drawImage(allSkills[3].getSkillBarImage(), 60, 515);
@@ -264,7 +259,6 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(allSkills[8].getSkillBarImage(), 335, 590);
 		
 		g.drawString(buyString, 640, 200);
-		
 		
 		if(dragMouse){
 			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
@@ -389,9 +383,21 @@ public class ShoppingView extends BasicGameState {
 					xRange -= 69;
 				}
 			}
-			if(xIndex >= 0){
-				activePlayer.setSkill(selectedSkill, xIndex);
-				updateSkillLists();
+			if(xIndex == 0){
+				buyString = "You can not change that skill";
+			}else if(xIndex >= 1){
+				boolean alreadyInChosenSkills = false;
+				for(int i=0; i<chosenSkills.length; i++){
+					
+					if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
+						alreadyInChosenSkills = true;
+				}
+				if(alreadyInChosenSkills){
+					buyString = "Already got that skill in your skillbar";
+				}else{
+					activePlayer.setSkill(selectedSkill, xIndex);
+					updateSkillLists();
+				}
 			}
 			dragMouse = false;
 		}
@@ -441,7 +447,6 @@ public class ShoppingView extends BasicGameState {
 	}
 	
 	private void setChosenSkill(Skill skill){
-		chosenSkill = skill.getSkillBarImage();
 		skillText = "Level " + skill.getCurrentLvl() + " " + skill.getDescription();
 		costText = "Cost : " + skill.getCost();
 		showingSkillDescription = true;

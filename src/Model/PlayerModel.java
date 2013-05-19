@@ -62,8 +62,10 @@ public class PlayerModel implements ActionListener {
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
 		for(int i=0; i<playerSkills.length; i++){
-			playerSkills[i].resetCooldown();
-			playerSkills[i].collidedShot();
+			if(playerSkills[i] != null){
+				playerSkills[i].resetCooldown();
+				playerSkills[i].collidedShot();
+			}
 		}
 	}
 	
@@ -73,11 +75,13 @@ public class PlayerModel implements ActionListener {
 	public void setCurrentActiveSkill(int index){
 		
 		for(int i=0; i<playerSkills.length; i++){
-			if(i == index){
-				currentActiveSkill = playerSkills[i];
-				playerSkills[i].setChosenState(true);
-			}else{
-				playerSkills[i].setChosenState(false);
+			if(playerSkills[i] != null){
+				if(i == index){
+					currentActiveSkill = playerSkills[i];
+					playerSkills[i].setChosenState(true);
+				}else{
+					playerSkills[i].setChosenState(false);
+				}
 			}
 		}
 	}

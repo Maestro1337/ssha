@@ -57,15 +57,7 @@ public class ClassHunter extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillArrow();
-		chosenSkills[1] = new SkillBarrelRoll();
-		chosenSkills[2] = new SkillArrowFlurry();
-		chosenSkills[3] = new SkillStealth();
-		chosenSkills[4] = new SkillSprint();
-		
-		for(int i=0; i<chosenSkills.length; i++){
-			if(chosenSkills[i] != null)
-				super.addSkillAsOwned(chosenSkills[i]);
-		}
+		super.addSkillAsOwned(chosenSkills[0]);
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
