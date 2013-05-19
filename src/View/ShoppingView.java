@@ -238,15 +238,6 @@ public class ShoppingView extends BasicGameState {
 
 	   }
 	
-	private void setCurrentOwnedSkillList(){
-		ownedSkillList = activePlayer.getOwnedSkills();
-	}
-	
-	private void buySkill(Skill skill){
-		activePlayer.addSkillAsOwned(skill);
-		setCurrentOwnedSkillList();
-	}
-	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		//g.setFont(uFont);
@@ -291,7 +282,7 @@ public class ShoppingView extends BasicGameState {
 		int row = 0;
 		int col = 0;
 		for(int i=0; i<ownedSkillList.size(); i++){
-			g.drawImage(ownedSkillList.get(i).getSkillBarImage(), 475+col*64, 40+row*64);
+			g.drawImage(ownedSkillList.get(i).getSkillBarImage(), 475+col*64, 50+row*64);
 			col++;
 			if(i != 0 && col%6 == 0){
 				row++;
@@ -300,6 +291,8 @@ public class ShoppingView extends BasicGameState {
 				
 			}
 		}
+		
+		
 		
 		//Offensive skills
 		g.drawImage(firstOffSkill, 60, 440);
@@ -325,6 +318,8 @@ public class ShoppingView extends BasicGameState {
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
 		
+		
+		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();
@@ -337,10 +332,7 @@ public class ShoppingView extends BasicGameState {
 				buyUpgradeButton = new Image("res/buttons/buyOver.png");
 				if(input.isMousePressed(0) && buyOneTime){
 					buyOneTime = false;
-					if(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()>=selectedSkill.getCost()){
-						buyString = "Succesfully bought a skill!";
-						GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].setGold(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold()-selectedSkill.getCost());
-						System.out.println(selectedSkill.getCost());
+					if(activePlayer.getGold()>=selectedSkill.getCost()){					
 						buySkill(selectedSkill);
 					}
 				}
@@ -373,88 +365,95 @@ public class ShoppingView extends BasicGameState {
 			optionsButton = new Image("res/buttons/Options.png");
 		}
 		
-		//Handling clicking on offensive skills
 		
-		if((60<xPos && xPos<124) && (440<yPos && yPos<504)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = firstOffSkill;
-				skillText = offSkills[0].getDescription();
-				costText = "Cost: " + offSkills[0].getCost();
-				showingSkillDescription = true;
-				selectedSkill = offSkills[0];
+		if(input.isMousePressed(0)){
+			
+			//Calculating where the x and y index are in the list that is shown by owned skills
+			if(xPos >= 475 && xPos <= 859 && yPos < 400){
+				int xRange = xPos - 475;
+				int yRange = yPos - 50;
+				int xIndex = 0;
+				int yIndex = 0;
+				
+				while(xRange > 64){
+					xIndex++;
+					xRange -= 64;
+				}
+				while(yRange > 64){
+					yIndex++;
+					yRange -= 64;
+				}
+				int index = xIndex + 6*yIndex;
+				if(ownedSkillList.size() > index){
+					setChosenSkill(ownedSkillList.get(index));
+				}
+				
 			}
-		}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = secondOffSkill;
-				skillText = offSkills[1].getDescription();
-				costText = "Cost: " + offSkills[1].getCost();
-				showingSkillDescription = true;
-				selectedSkill = offSkills[1];
+			
+			//Handling clicking on offensive skills
+			if((60<xPos && xPos<124) && (440<yPos && yPos<504)){
+					setChosenSkill(offSkills[0]);
+			}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
+					setChosenSkill(offSkills[1]);
+			}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
+					setChosenSkill(offSkills[2]);
 			}
-		}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = thirdOffSkill;
-				skillText = offSkills[2].getDescription();
-				costText = "Cost: " + offSkills[2].getCost();
-				showingSkillDescription = true;
-				selectedSkill = offSkills[2];
+			
+			//Handling clicking on defensive skills
+			else if((200<xPos && xPos<264) && (440<yPos && yPos<504)){
+					setChosenSkill(defSkills[0]);
+			}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
+					setChosenSkill(defSkills[1]);
+			}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
+				setChosenSkill(defSkills[2]);
+			}
+			
+			//Handling clicking on mobility skills
+			else if((335<xPos && xPos<399) && (440<yPos && yPos<504)){
+				setChosenSkill(mobSkills[0]);
+			}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
+				setChosenSkill(mobSkills[1]);
+			}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
+				setChosenSkill(mobSkills[2]);
 			}
 		}
-		
-		//Handling clicking on defensive skills
-		
-		else if((200<xPos && xPos<264) && (440<yPos && yPos<504)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = firstDefSkill;
-				skillText = defSkills[0].getDescription();
-				costText = "Cost: " + defSkills[0].getCost();
-				showingSkillDescription = true;
-				selectedSkill = defSkills[0];
-			}
-		}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = secondDefSkill;
-				skillText = defSkills[1].getDescription();
-				costText = "Cost: " + defSkills[1].getCost();
-				showingSkillDescription = true;
-				selectedSkill = defSkills[1];
-			}
-		}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = thirdDefSkill;
-				skillText = defSkills[2].getDescription();
-				costText = "Cost: " + defSkills[2].getCost();
-				showingSkillDescription = true;
-				selectedSkill = defSkills[2];
+	}
+	
+	private void setCurrentOwnedSkillList(){
+		ownedSkillList = activePlayer.getOwnedSkills();
+	}
+	
+	private void buySkill(Skill skill){
+		boolean alreadyOwnSkill = false;
+		for(int i=0; i<ownedSkillList.size(); i++){
+			if(ownedSkillList.get(i).getName() == skill.getName()){
+				buyString = "You can not buy skills you already own";
+				alreadyOwnSkill = true;
+				break;
 			}
 		}
-		
-		//Handling clicking on mobility skills
-		
-		else if((335<xPos && xPos<399) && (440<yPos && yPos<504)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = firstMobSkill;
-				skillText = mobSkills[0].getDescription();
-				costText = "Cost: " + mobSkills[0].getCost();
-				showingSkillDescription = true;
-				selectedSkill = mobSkills[0];
-			}
-		}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = secondMobSkill;
-				skillText = mobSkills[1].getDescription();
-				costText = "Cost: " + mobSkills[1].getCost();
-				showingSkillDescription = true;
-				selectedSkill = mobSkills[1];
-			}
-		}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				chosenSkill = thirdMobSkill;
-				skillText = mobSkills[2].getDescription();
-				costText = "Cost: " + mobSkills[2].getCost();
-				showingSkillDescription = true;
-				selectedSkill = mobSkills[2];
-			}
+		if(!alreadyOwnSkill){
+			buyString = "Succesfully bought a skill for " + skill.getCost() + "!";
+			activePlayer.addGold(-skill.getCost());
+			activePlayer.addSkillAsOwned(skill);
+			setCurrentOwnedSkillList();
+		}else{
+			Skill ownedSkill = findOwnedSkill(skill.getName());
+			ownedSkill.upgradeSkill();
 		}
+	}
+	
+	private Skill findOwnedSkill(String skillName){
+		
+		
+		return null;
+	}
+	
+	private void setChosenSkill(Skill skill){
+		chosenSkill = skill.getSkillBarImage();
+		skillText = "Level " + skill.getCurrentLvl() + " " + skill.getDescription();
+		costText = "Cost : " + skill.getCost();
+		showingSkillDescription = true;
+		selectedSkill = skill;
 	}
 }
