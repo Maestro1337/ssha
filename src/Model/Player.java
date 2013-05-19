@@ -324,7 +324,11 @@ public class Player {
 			skillList[4] = chosenSkills[4];
 		}
 	}
-	
+	public void setSkill(Skill skill, int index){
+		if(index <= 4 && index >= 0){
+			skillList[index] = skill;
+		}	
+	}
 	public void setPassiveSkillList(ArrayList<Skill> passiveSkills) {
 		this.passiveSkills = passiveSkills;
 	}

@@ -83,10 +83,8 @@ public class ShoppingView extends BasicGameState {
 	private String mouse = "No input yet";
 	Image menuTab;
 	
-	Skill[] offSkills = new Skill[3];
-	Skill[] defSkills = new Skill[3];
-	Skill[] mobSkills = new Skill[3];
 	Skill[] chosenSkills = new Skill[5];
+	Skill[] allSkills = new Skill[9];
 	Skill basicSkill;
 	Skill selectedSkill;
 	
@@ -94,22 +92,6 @@ public class ShoppingView extends BasicGameState {
 	Image optionsButton;
 	
 	Image classPortrait;
-	
-	//Player skillicons
-	Image firstOffSkill;
-	Image secondOffSkill;
-	Image thirdOffSkill; 
-	
-	Image firstDefSkill;
-	Image secondDefSkill;
-	Image thirdDefSkill;
-	
-	Image firstMobSkill;
-	Image secondMobSkill;
-	Image thirdMobSkill;
-	
-	Image wandAttackSkill;
-	String wandattackDesc;
 
 	String skillText;
 	
@@ -171,71 +153,49 @@ public class ShoppingView extends BasicGameState {
 				
 				basicSkill = new SkillWandattack();
 				
-				offSkills[0] = new SkillFireball();
-				offSkills[1] = new SkillFirestorm();
-				offSkills[2] = new SkillFlamewave();
-				
-				defSkills[0] = new SkillIroncloak();
-				defSkills[1] = new SkillAbsorb();
-				defSkills[2] = new SkillIceblock();
-				
-				mobSkills[0] = new SkillUnstableMagic();
-				mobSkills[1] = new SkillBlizzard();
-				mobSkills[2] = new SkillTeleport();
-			break;
+				allSkills[0] = new SkillFireball();
+				allSkills[1] = new SkillIroncloak();
+				allSkills[2] = new SkillUnstableMagic();
+				allSkills[3] = new SkillFirestorm();
+				allSkills[4] = new SkillAbsorb();
+				allSkills[5] = new SkillBlizzard();
+				allSkills[6] = new SkillFlamewave();
+				allSkills[7] = new SkillIceblock();
+				allSkills[8] = new SkillTeleport();
+				break;
 			case "Hunter":
 				classPortrait = new Image("res/classImages/hunter_portrait.png");
 				//Init Hunter basic, offensive, defensive and mobility skillists
 				
 				basicSkill = new SkillArrow();
 				
-				offSkills[0] = new SkillFlamingArrow();
-				offSkills[1] = new SkillGuidedArrow();
-				offSkills[2] = new SkillArrowFlurry();
-				
-				defSkills[0] = new SkillPassiveDodge();
-				defSkills[1] = new SkillLifestealingArrows();
-				defSkills[2] = new SkillStealth();
-				
-				mobSkills[0] = new SkillSprint();
-				mobSkills[1] = new SkillCripplingShot();
-				mobSkills[2] = new SkillBarrelRoll();
-			break;
+				allSkills[0] = new SkillFlamingArrow();
+				allSkills[1] = new SkillPassiveDodge();
+				allSkills[2] = new SkillSprint();
+				allSkills[3] = new SkillGuidedArrow();
+				allSkills[4] = new SkillLifestealingArrows();
+				allSkills[5] = new SkillCripplingShot();
+				allSkills[6] = new SkillArrowFlurry();
+				allSkills[7] = new SkillStealth();
+				allSkills[8] = new SkillBarrelRoll();
+				break;
 			case "Warrior":
 				classPortrait = new Image("res/classImages/warrior_portrait.png");
 				//Init warrior basic, offensive, defensive and mobility skillists
 				
 				basicSkill = new SkillSlash();
-				
-				offSkills[0] = new SkillThrowingAxe();
-				offSkills[1] = new SkillWarstomp();
-				offSkills[2] = new SkillAdrenaline();
-				
-				defSkills[0] = new SkillImprovedArmor();
-				defSkills[1] = new SkillShieldStance();
-				defSkills[2] = new SkillFirstAid();
-				
-				mobSkills[0] = new SkillIncreasedMovement();
-				mobSkills[1] = new SkillGrapplingHook();
-				mobSkills[2] = new SkillLeapAttack();
-			break;
+
+				allSkills[0] = new SkillThrowingAxe();
+				allSkills[1] = new SkillImprovedArmor();
+				allSkills[2] = new SkillIncreasedMovement();
+				allSkills[3] = new SkillWarstomp();
+				allSkills[4] = new SkillShieldStance();
+				allSkills[5] = new SkillGrapplingHook();
+				allSkills[6] = new SkillAdrenaline();
+				allSkills[7] = new SkillFirstAid();
+				allSkills[8] = new SkillLeapAttack();
+				break;
 	      	}
-
-			//Init skillicons
-			//Offensive
-			firstOffSkill = offSkills[0].getSkillBarImage();
-			secondOffSkill = offSkills[1].getSkillBarImage();
-			thirdOffSkill = offSkills[2].getSkillBarImage();
-			//Defensive
-			firstDefSkill = defSkills[0].getSkillBarImage();
-			secondDefSkill = defSkills[1].getSkillBarImage();
-			thirdDefSkill = defSkills[2].getSkillBarImage();
-			//Mobility
-			firstMobSkill = mobSkills[0].getSkillBarImage();
-			secondMobSkill = mobSkills[1].getSkillBarImage();
-			thirdMobSkill = mobSkills[2].getSkillBarImage();
-			
-
 	   }
 	
 	@Override
@@ -295,19 +255,19 @@ public class ShoppingView extends BasicGameState {
 		
 		
 		//Offensive skills
-		g.drawImage(firstOffSkill, 60, 440);
-		g.drawImage(secondOffSkill, 60, 515);
-		g.drawImage(thirdOffSkill, 60, 590);
+		g.drawImage(allSkills[0].getSkillBarImage(), 60, 440);
+		g.drawImage(allSkills[3].getSkillBarImage(), 60, 515);
+		g.drawImage(allSkills[6].getSkillBarImage(), 60, 590);
 			
 		//Defensive skills
-		g.drawImage(firstDefSkill, 200, 440);
-		g.drawImage(secondDefSkill, 200, 515);
-		g.drawImage(thirdDefSkill, 200, 590);
+		g.drawImage(allSkills[1].getSkillBarImage(), 200, 440);
+		g.drawImage(allSkills[4].getSkillBarImage(), 200, 515);
+		g.drawImage(allSkills[7].getSkillBarImage(), 200, 590);
 			
 		//Mobility skills
-		g.drawImage(firstMobSkill, 335, 440);
-		g.drawImage(secondMobSkill, 335, 515);
-		g.drawImage(thirdMobSkill, 335, 590);
+		g.drawImage(allSkills[2].getSkillBarImage(), 335, 440);
+		g.drawImage(allSkills[5].getSkillBarImage(), 335, 515);
+		g.drawImage(allSkills[8].getSkillBarImage(), 335, 590);
 		
 		g.drawString(buyString, 640, 200);
 	}
@@ -390,6 +350,24 @@ public class ShoppingView extends BasicGameState {
 				
 			}
 			
+	/*		int xPosIndex = -1;
+			int yPosIndex = -1;
+			if(60<=xPos && xPos<=124){
+				xPosIndex = 0;
+			}else if(200<=xPos && xPos<=264){
+				xPosIndex = 1;
+			}else if(335<=xPos && xPos<=399){
+				xPosIndex = 2;
+			}
+			
+			if(yPos >= 440 && yPos <= 504){
+				yPosIndex = 0;
+			}else if(yPos >= 515 && yPos <= 579){
+				yPosIndex = 1;
+			}else if(yPos >= 590 && yPos <= 654){
+				yPosIndex = 2;
+			}*/
+			
 			int xPosIndex = -1;
 			int yPosIndex = -1;
 			if(60<=xPos && xPos<=124){
@@ -408,15 +386,42 @@ public class ShoppingView extends BasicGameState {
 				yPosIndex = 2;
 			}
 			
-			if(yPosIndex != -1 && xPosIndex != -1){
-				if(xPosIndex == 0){
-					setChosenSkill(offSkills[yPosIndex]);
-				}else if(xPosIndex == 1){
-					setChosenSkill(defSkills[yPosIndex]);
-				}else if(xPosIndex == 2){
-					setChosenSkill(mobSkills[yPosIndex]);
+			int totalIndex = xPosIndex + 3*yPosIndex;
+			
+			if(totalIndex >= 0){
+				Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
+				if(newChosenSkill != null){
+					setChosenSkill(newChosenSkill);
+				}else{
+					setChosenSkill(allSkills[totalIndex]);
 				}
 			}
+			
+		/*	if(yPosIndex != -1 && xPosIndex != -1){
+				Skill newChosenSkill = null;
+				if(xPosIndex == 0){
+					newChosenSkill = findOwnedSkill(offSkills[yPosIndex].getName());
+					if(newChosenSkill != null){
+						setChosenSkill(newChosenSkill);
+					}else{
+						setChosenSkill(offSkills[yPosIndex]);
+					}
+				}else if(xPosIndex == 1){
+					newChosenSkill = findOwnedSkill(defSkills[yPosIndex].getName());
+					if(newChosenSkill != null){
+						setChosenSkill(newChosenSkill);
+					}else{
+						setChosenSkill(defSkills[yPosIndex]);
+					}
+				}else if(xPosIndex == 2){
+					newChosenSkill = findOwnedSkill(mobSkills[yPosIndex].getName());
+					if(newChosenSkill != null){
+						setChosenSkill(newChosenSkill);
+					}else{
+						setChosenSkill(mobSkills[yPosIndex]);
+					}
+				}
+			}*/
 		}
 	}
 	
