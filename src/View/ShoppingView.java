@@ -369,7 +369,7 @@ public class ShoppingView extends BasicGameState {
 		if(input.isMousePressed(0)){
 			
 			//Calculating where the x and y index are in the list that is shown by owned skills
-			if(xPos >= 475 && xPos <= 859 && yPos < 400){
+			if(xPos >= 475 && xPos <= 859 && yPos >= 50 && yPos <= 400){
 				int xRange = xPos - 475;
 				int yRange = yPos - 50;
 				int xIndex = 0;
@@ -390,31 +390,32 @@ public class ShoppingView extends BasicGameState {
 				
 			}
 			
-			//Handling clicking on offensive skills
-			if((60<xPos && xPos<124) && (440<yPos && yPos<504)){
-					setChosenSkill(offSkills[0]);
-			}else if((60<xPos && xPos<124) && (515<yPos && yPos<579)){
-					setChosenSkill(offSkills[1]);
-			}else if((60<xPos && xPos<124) && (590<yPos && yPos<654)){
-					setChosenSkill(offSkills[2]);
+			int xPosIndex = -1;
+			int yPosIndex = -1;
+			if(60<=xPos && xPos<=124){
+				xPosIndex = 0;
+			}else if(200<=xPos && xPos<=264){
+				xPosIndex = 1;
+			}else if(335<=xPos && xPos<=399){
+				xPosIndex = 2;
 			}
 			
-			//Handling clicking on defensive skills
-			else if((200<xPos && xPos<264) && (440<yPos && yPos<504)){
-					setChosenSkill(defSkills[0]);
-			}else if((200<xPos && xPos<264) && (515<yPos && yPos<579)){
-					setChosenSkill(defSkills[1]);
-			}else if((60<xPos && xPos<264) && (590<yPos && yPos<654)){
-				setChosenSkill(defSkills[2]);
+			if(yPos >= 440 && yPos <= 504){
+				yPosIndex = 0;
+			}else if(yPos >= 515 && yPos <= 579){
+				yPosIndex = 1;
+			}else if(yPos >= 590 && yPos <= 654){
+				yPosIndex = 2;
 			}
 			
-			//Handling clicking on mobility skills
-			else if((335<xPos && xPos<399) && (440<yPos && yPos<504)){
-				setChosenSkill(mobSkills[0]);
-			}else if((335<xPos && xPos<399) && (515<yPos && yPos<579)){
-				setChosenSkill(mobSkills[1]);
-			}else if((335<xPos && xPos<399) && (590<yPos && yPos<654)){
-				setChosenSkill(mobSkills[2]);
+			if(yPosIndex != -1 && xPosIndex != -1){
+				if(xPosIndex == 0){
+					setChosenSkill(offSkills[yPosIndex]);
+				}else if(xPosIndex == 1){
+					setChosenSkill(defSkills[yPosIndex]);
+				}else if(xPosIndex == 2){
+					setChosenSkill(mobSkills[yPosIndex]);
+				}
 			}
 		}
 	}
@@ -436,11 +437,19 @@ public class ShoppingView extends BasicGameState {
 			buyString = "Succesfully bought a skill for " + skill.getCost() + "!";
 			activePlayer.addGold(-skill.getCost());
 			activePlayer.addSkillAsOwned(skill);
-			setCurrentOwnedSkillList();
 		}else{
 			Skill ownedSkill = findOwnedSkill(skill.getName());
-			ownedSkill.upgradeSkill();
+			if(ownedSkill.getCurrentLvl() < 4){
+				buyString = "Succesfully upgraded a skill for " + skill.getCost() + "!";
+				activePlayer.addGold(-skill.getCost());
+				ownedSkill.upgradeSkill();
+			}else{
+				buyString = "Skill already max level!";
+			}
+			
 		}
+		setCurrentOwnedSkillList();
+		updateSkillInformation();
 	}
 	
 	private Skill findOwnedSkill(String skillName){
@@ -459,5 +468,9 @@ public class ShoppingView extends BasicGameState {
 		costText = "Cost : " + skill.getCost();
 		showingSkillDescription = true;
 		selectedSkill = skill;
+	}
+	
+	private void updateSkillInformation(){
+		setChosenSkill(selectedSkill);
 	}
 }
