@@ -444,7 +444,11 @@ public class ShoppingView extends BasicGameState {
 	}
 	
 	private Skill findOwnedSkill(String skillName){
-		
+		for(int i=0; i<ownedSkillList.size(); i++){
+			if(ownedSkillList.get(i).getName() == skillName){
+				return ownedSkillList.get(i);
+			}
+		}
 		
 		return null;
 	}

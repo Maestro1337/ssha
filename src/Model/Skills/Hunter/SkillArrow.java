@@ -42,7 +42,7 @@ public class SkillArrow extends Skill{
 	
 	@Override
 	public void upgradeSkill() {
-		if(super.getCurrentLvl() <= 4){
+		if(super.getCurrentLvl() < 4){
 			super.incCurrentLvl();
 			
 			switch(super.getCurrentLvl()){
