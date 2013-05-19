@@ -70,6 +70,9 @@ public class ShoppingView extends BasicGameState {
 	String costText;
 	
 	boolean showingSkillDescription = false;
+	boolean dragMouse = false;
+	int xPos = 0;
+	int yPos = 0;
 	
 	Image buyUpgradeButton;
 
@@ -142,8 +145,7 @@ public class ShoppingView extends BasicGameState {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
 	      activePlayer = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex());
-	      chosenSkills = activePlayer.getSkillList();
-	      setCurrentOwnedSkillList();
+	      updateSkillLists();
 	      
 	      
 	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
@@ -219,23 +221,15 @@ public class ShoppingView extends BasicGameState {
 		
 		g.drawImage(classPortrait, 70, 30);
 		g.drawImage(playerGold,70,185);
-		g.drawString(""+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold(), 140, 198);
-		g.drawString(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getName() + 
-				"\nHP: "+GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getHP() + 
-				"\nArmor: " + (int)(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getArmor()*100) 
-				+ "%\nKills: " + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getKills()
-				 , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
+		g.drawString(""+activePlayer.getGold(), 140, 198);
+		g.drawString(activePlayer.getName() + "\nHP: "+activePlayer.getHP() + "\nArmor: " + (int)(activePlayer.getArmor()*100) 
+				+ "%\nKills: " + activePlayer.getKills() , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
 
-		g.drawString("1", 102, 250);
-		g.drawImage(chosenSkills[0].getSkillBarImage(), 70, 275);
-		g.drawString("2", 170, 250);
-		g.drawImage(chosenSkills[1].getSkillBarImage(), 139, 275);
-		g.drawString("3", 239, 250);
-		g.drawImage(chosenSkills[2].getSkillBarImage(), 208, 275);
-		g.drawString("4", 308, 252);
-		g.drawImage(chosenSkills[3].getSkillBarImage(), 277, 275);
-		g.drawString("5", 377, 250);
-		g.drawImage(chosenSkills[4].getSkillBarImage(), 346, 275);
+
+		for(int j=0; j<chosenSkills.length; j++){
+			g.drawString("" + (j+1), 100 + 69*j, 250);
+			g.drawImage(chosenSkills[j].getSkillBarImage(), 70 + 69*j, 275);
+		}
 		
 		
 		//Drawing the skills the player already owns
@@ -270,13 +264,18 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(allSkills[8].getSkillBarImage(), 335, 590);
 		
 		g.drawString(buyString, 640, 200);
+		
+		
+		if(dragMouse){
+			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
+		}
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
 		
-		int xPos = Mouse.getX();
-		int yPos = 720 - Mouse.getY();
+		xPos = Mouse.getX();
+		yPos = 720 - Mouse.getY();
 		
 		
 		
@@ -346,28 +345,11 @@ public class ShoppingView extends BasicGameState {
 				int index = xIndex + 6*yIndex;
 				if(ownedSkillList.size() > index){
 					setChosenSkill(ownedSkillList.get(index));
+					dragMouse = true;
 				}
 				
 			}
-			
-	/*		int xPosIndex = -1;
-			int yPosIndex = -1;
-			if(60<=xPos && xPos<=124){
-				xPosIndex = 0;
-			}else if(200<=xPos && xPos<=264){
-				xPosIndex = 1;
-			}else if(335<=xPos && xPos<=399){
-				xPosIndex = 2;
-			}
-			
-			if(yPos >= 440 && yPos <= 504){
-				yPosIndex = 0;
-			}else if(yPos >= 515 && yPos <= 579){
-				yPosIndex = 1;
-			}else if(yPos >= 590 && yPos <= 654){
-				yPosIndex = 2;
-			}*/
-			
+
 			int xPosIndex = -1;
 			int yPosIndex = -1;
 			if(60<=xPos && xPos<=124){
@@ -396,36 +378,27 @@ public class ShoppingView extends BasicGameState {
 					setChosenSkill(allSkills[totalIndex]);
 				}
 			}
-			
-		/*	if(yPosIndex != -1 && xPosIndex != -1){
-				Skill newChosenSkill = null;
-				if(xPosIndex == 0){
-					newChosenSkill = findOwnedSkill(offSkills[yPosIndex].getName());
-					if(newChosenSkill != null){
-						setChosenSkill(newChosenSkill);
-					}else{
-						setChosenSkill(offSkills[yPosIndex]);
-					}
-				}else if(xPosIndex == 1){
-					newChosenSkill = findOwnedSkill(defSkills[yPosIndex].getName());
-					if(newChosenSkill != null){
-						setChosenSkill(newChosenSkill);
-					}else{
-						setChosenSkill(defSkills[yPosIndex]);
-					}
-				}else if(xPosIndex == 2){
-					newChosenSkill = findOwnedSkill(mobSkills[yPosIndex].getName());
-					if(newChosenSkill != null){
-						setChosenSkill(newChosenSkill);
-					}else{
-						setChosenSkill(mobSkills[yPosIndex]);
-					}
+		}
+		
+		if(dragMouse && !input.isMouseButtonDown(0)){
+			int xRange = xPos - 70;
+			int xIndex = -1;
+			if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
+				while(xRange > 0){
+					xIndex++;
+					xRange -= 69;
 				}
-			}*/
+			}
+			if(xIndex >= 0){
+				activePlayer.setSkill(selectedSkill, xIndex);
+				updateSkillLists();
+			}
+			dragMouse = false;
 		}
 	}
 	
-	private void setCurrentOwnedSkillList(){
+	private void updateSkillLists(){
+		chosenSkills = activePlayer.getSkillList();
 		ownedSkillList = activePlayer.getOwnedSkills();
 	}
 	
@@ -453,7 +426,7 @@ public class ShoppingView extends BasicGameState {
 			}
 			
 		}
-		setCurrentOwnedSkillList();
+		updateSkillLists();
 		updateSkillInformation();
 	}
 	
