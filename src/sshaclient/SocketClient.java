@@ -162,7 +162,7 @@ public class SocketClient implements Runnable {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
 					GlobalClassSelector.getController().removePlayer(0);
 					GlobalClassSelector.getController().addPlayer(tp, tp.getPlayerListIndex());
-					
+					GlobalClassSelector.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
 					tp.takeName(false);
