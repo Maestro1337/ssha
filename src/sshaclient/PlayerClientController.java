@@ -34,7 +34,7 @@ public class PlayerClientController implements PlayerControl {
 		
 		while(isAlive) {
 			
-			//System.out.println("I " + tp.getName() + " is alive!!!!!");
+			System.out.println("I " + tp.getName() + " is alive!!!!!");
 			
 			
 			tempStats = sc.getPlayerStats(playerID);
@@ -183,4 +183,12 @@ public class PlayerClientController implements PlayerControl {
 		System.out.println("Will terminate");
 		isAlive = false;
 	}
+
+
+	@Override
+	public void changePlayer(Player player) {
+		this.tp = player;
+		
+	}
+	
 }

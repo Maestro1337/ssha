@@ -25,6 +25,20 @@ public class PlayerModel implements ActionListener {
 	Skill currentActiveSkill;
 	
 	Obstacle[] obstacles;
+	
+	private long globalCDStart = 0;
+	private long globalCDElapsed = 0;
+	
+	public void resetGlobalTimer(){
+		globalCDStart = System.currentTimeMillis();
+	}
+	public long checkGlobalCooldown(){
+		globalCDElapsed = System.currentTimeMillis() - globalCDStart;
+		if(globalCDElapsed >= 1000){
+			return 0;
+		}
+		return (1000-globalCDElapsed);
+	}
 
 	public PlayerModel(Player player, Obstacle[] obstacles){
 		
@@ -58,6 +72,7 @@ public class PlayerModel implements ActionListener {
 		player.resetHP();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
+		resetGlobalTimer();
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
 				playerSkills[i].resetCooldown();
@@ -266,64 +281,67 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		if(player.getChannel()){
-			for(int i=0; i<player.getStatusEffects().size();i++){
-				if(player.getStatusEffects().get(i).getChanneling()){
-					player.getStatusEffects().get(i).setResetOfStatusEffect();
-					player.removeStatusEffect(player.getStatusEffects().get(i));
+		if(checkGlobalCooldown() == 0){
+			resetGlobalTimer();
+			if(player.getChannel()){
+				for(int i=0; i<player.getStatusEffects().size();i++){
+					if(player.getStatusEffects().get(i).getChanneling()){
+						player.getStatusEffects().get(i).setResetOfStatusEffect();
+						player.removeStatusEffect(player.getStatusEffects().get(i));
+					}
 				}
 			}
-		}
-		
-		if(currentActiveSkill.isGuided()){
-			findAndSetGuidedTarget(currentActiveSkill);
-		}
-		//Setting x and y to be in middle of mouse click
-		x -= currentActiveSkill.getCurrentWidth()/2;
-		y -= currentActiveSkill.getCurrentHeight()/2;
-		rotate(x, y);
-		if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			
-				currentActiveSkill.activateSkill();
+			if(currentActiveSkill.isGuided()){
+				findAndSetGuidedTarget(currentActiveSkill);
+			}
+			//Setting x and y to be in middle of mouse click
+			x -= currentActiveSkill.getCurrentWidth()/2;
+			y -= currentActiveSkill.getCurrentHeight()/2;
+			rotate(x, y);
+			if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 				
-				currentActiveSkill.setMouseXPos(x);
-				currentActiveSkill.setMouseYPos(y);
-				
-				
-				currentActiveSkill.resetShot(player);
-				
-				float xDir = x - currentActiveSkill.getAttX();
-				float yDir = y - currentActiveSkill.getAttY();
-				float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-				
-				
-				Double findNaN = (double)genDir;
-				if(!findNaN.isNaN() && !findNaN.isInfinite()){
-				
-					currentActiveSkill.setRotation(player.getRotation());
+					currentActiveSkill.activateSkill();
 					
-					currentActiveSkill.setGenDirAtt(genDir);
-					currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
-					currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
+					currentActiveSkill.setMouseXPos(x);
+					currentActiveSkill.setMouseYPos(y);
 					
-					if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-						currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+					
+					currentActiveSkill.resetShot(player);
+					
+					float xDir = x - currentActiveSkill.getAttX();
+					float yDir = y - currentActiveSkill.getAttY();
+					float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+					
+					
+					Double findNaN = (double)genDir;
+					if(!findNaN.isNaN() && !findNaN.isInfinite()){
+					
+						currentActiveSkill.setRotation(player.getRotation());
+						
+						currentActiveSkill.setGenDirAtt(genDir);
+						currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
+						currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
+						
+						if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
+							currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+						}
+						currentActiveSkill.resetAttCounter();
+						if(!currentActiveSkill.isProjectile()){
+							currentActiveSkill.setNonProjectileShot();
+						}
+						System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
+						currentActiveSkill.setAttackingState(true);
+						
+						currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
+						currentActiveSkill.setMouseYPos(player.getY()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getGenDirAtt());
+						
 					}
-					currentActiveSkill.resetAttCounter();
-					if(!currentActiveSkill.isProjectile()){
-						currentActiveSkill.setNonProjectileShot();
+					
+				if(currentActiveSkill.getAffectSelf()){
+					if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
+						player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
 					}
-					System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
-					currentActiveSkill.setAttackingState(true);
-					
-					currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
-					currentActiveSkill.setMouseYPos(player.getY()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getGenDirAtt());
-					
-				}
-				
-			if(currentActiveSkill.getAffectSelf()){
-				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
-					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
 				}
 			}
 		}
