@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectBurning;
 public class SkillFlamingArrow extends Skill {
 	public SkillFlamingArrow(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flaming Arrow", 11000, 400, 0.4, 3, 10, 150, "Flaming arrow: \nAn arrow which burns \nthe enemies over time.\n" +
+		super("Flaming Arrow", 11000, 400, 1.5, 3, 10, 150, "Flaming arrow: \nAn arrow which burns \nthe enemies over time.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
