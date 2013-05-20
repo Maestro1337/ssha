@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="40" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="grass" tilewidth="32" tileheight="32">
+  <image source="grass-tiles-2-small.png" width="384" height="192"/>
+ </tileset>
+ <tileset firstgid="73" name="Sands" tilewidth="32" tileheight="32">
+  <image source="Sands.jpg" width="2048" height="1024"/>
+ </tileset>
+ <tileset firstgid="2121" name="Castle_2" tilewidth="32" tileheight="32">
+  <image source="Castle_2.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="2377" name="paving 3" tilewidth="32" tileheight="32">
+  <image source="paving 3.png" width="480" height="480"/>
+ </tileset>
+ <layer name="Background" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENACAMA8FAD/uPC0sgS+EK63vfqKp5Nz7putsfNf03X758+fLly7d/03/z5cuXL1++fPs3/Tdfvnz58uXLt3/Tf/Ply5cvX758+zf9N9+3PfJ0RlE=
+  </data>
+ </layer>
+ <layer name="roads" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztmMFugzAQRE1PASk50fxM7s3//1Gx1FEnw6xRJTCUeKRVpNgNfp7dtWlKdXWZop9iqPzcvTRO8TnFfe+FVFLz99xq/p5b7+bvu/GeMZ+7KT7ok8X+dgtzj64uvTLkuMkc9vf6Ezfzd0eW4wSr8kb1C/YuzX/vKIr8zPGVXtk0Liae6Zf7an57T+V1YE1YT2Z0XH2ac44SEb/b09pyucuska+5ZsfCuEaeC8/3YNZeivwFq3LcJZbGNXj/2OtazPo8cDoeeIl+HLFqDnP/Zm54XZOZn6X5iwATr3s04xjDXK7jPs25a/usrOqJq0vlV+Yozzk/Ssyopy3OLeVlT7Am12Pdvrh81XrGHPUazI807ydr8zIre8I5uBTMqtw8zn47n9ljd49bg7czvPrpzhWXq7x+7VM61/mc45G2q2Hm5X6rNenOGV0/9yuX565/a80PxLu2t3/h5RqLalV9dfMwpnvJewLeLeR43Tk0mO9c/fE5hDH13OXNXrx67+Xepd5G56l+VzrbtJ/V5nV55/JT71vak/hOEt3HXE/L8dyQF+9o6M9une481jwvnUmRr3o3BWut92Nl1jujO6OW7scuSr2vJm9WxOy49Y6sdbz0nuS8zcL/gmrJMUf3f+1Prl+rp64fgHUvOWbmXnrX0zgqpyriLvUy937l5h6NlRVxl/YA8/8TZ1NTU1PTuvoG16g1rg==
+  </data>
+ </layer>
+ <layer name="road vertical" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztlssKwjAQRQM+Nq7qRuxeP0IXRRD9/z8ysxgIgyamZB5N58AgJWDmcNN0QpDjRp7vgntr8CLPb5Uu5KC+vedLz/Pa8u0dv6/6xvP9zkTqwNkUIzX5oitw4mmHndr3dyqsW+MZ65LUkawPZP0h2l0bcn4lrPj/c19AlrV+JcBfw7l0X3C4Ipi5hbMOntfA55qilTXCmekvap1bfbc1XJEa56V+tymSZ1sz2zUzNPiPpc7lc+nl/XYcx7HELtZGYJ9trL3APpbQdpbKNkXLmds1N3NJOoPnOfDnWpq5wHkMvN65TLVmYA5vzDSH9gwM3tDj2OBX+k5yHMexxAep3BGL
+  </data>
+ </layer>
+ <layer name="Stuff" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztz7ERQEAQhtELr1hUgApQARpQguZsBRdcwJl5b+YPNvs2JaBWl1PqY0P+uuQdY/w5xeaKf69cvlu0ROMa2ypa71y+W7RH4xE7f9AKAAAAAAAAAK14AHC5CYk=
+  </data>
+ </layer>
+ <layer name="Walls" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2bENgDAQA8CUmZURGIER6NiUCglF0YsmXzx3kmvLtVuDmra+Ptl9Uf/e1ye7L+o/+vpk90X9Z1+f7L6oHwAAAAAA4KvrBz/De6O99cz2jn9wBc+m2d7xD64g2jT+wRVEmyr+weOmG+/nfrI=
+  </data>
+ </layer>
+ <layer name="towers" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztmbkNwkAABB3SnYEGeBoA3ACG0AlPAzwNYKiQRbpLtgGk1Yw0BYw23HbSNFM5k3OZzkKNS7mS68De1vbcyK3cyS6w1/fcy14e5DGw1/c8ybO8y2tgr+95K60/n4G9dc9L2fMlx+InsLfu+Qjd06l7vkP3BAAAAAAAAAAAAAD4B/6PpuF96X+396X/3d6X/nd7X/1Hh9C/2//8+o8Oof+o//npf7f3fQHnbzu0
+  </data>
+ </layer>
+ <layer name="towerwall" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztz6ERgDAUBNHIq5USKAEXi6NTLIP5Lpls9s2cv21N0sp6Zj8Y67EXbYfeb6O9PPay2ctmL5u9bPay2ctmL5u9bPay2ctmL9vOvRLVEdYqZ1irXGGtcoe1vxf2TpRg
+  </data>
+ </layer>
+</map>

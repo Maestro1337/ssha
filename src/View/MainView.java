@@ -98,6 +98,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	float mouseXPosAtt;
 	float mouseYPosAtt;
 	
+	private boolean start = true;
+	
 	public MainView(int state) {
 		
 	}
@@ -125,6 +127,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		playerList = GlobalClassSelector.getController().getPlayers();
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
+		
 		switch(playerList[activePlayer].getType()){
 		case "Wizard":
 			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
@@ -204,18 +207,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		map.render(0,0);
 		
-		switch(GlobalClassSelector.getController().getDiffcultySelected()){
-		case 1:
-			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
-		break;
-		case 2:
-			playerPortrait = new Image("res/classImages/Portrait_Hunter.png");
-		break;
-		case 3:
-			playerPortrait = new Image("res/classImages/Portrait_Warrior.png");
-		break;
-      	}
-		
 		//Show the coodinates of the mouse
 		g.drawString(mouse, 900, 10);
 		
@@ -292,7 +283,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		//g.drawString("Singleplayer", 640, 200);
 	}
 	public void goldreward(){
-		System.out.println("hora");
 		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
 			player.setGold(player.getGold()+1);
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)

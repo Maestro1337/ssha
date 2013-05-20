@@ -20,7 +20,8 @@ public class ClassWizard extends Player {
 	Image[] changedModelStandImages = new Image[12];
 
 	public ClassWizard(String name, String ctrlType, float x, float y, int index) {
-		super(name, ctrlType, "Wizard", x, y, 900, 0.5, 0.2, index);
+		//name, ctrlType, String class, x, y , HP, movespeed , armor, index
+		super(name, ctrlType, "Wizard", x, y, 1000, 0.65, 0.2, index);
 		try {
 			playerImage = new Image("res/animations/characters/mage_stand.png");
 			firstStep = new Image("res/animations/characters/mage_walk1.png");

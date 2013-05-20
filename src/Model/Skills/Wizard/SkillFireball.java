@@ -24,7 +24,7 @@ String description;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 4),false);
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 2),false);
 		
 		try {
 			attackImages[0] = new Image("res/animations/fireball/fireball1.png");
@@ -53,9 +53,9 @@ String description;
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 30;
+	private int lvl3 = 45;
+	private int lvl4 = 60;
 	
 	@Override
 	public void upgradeSkill() {
@@ -64,12 +64,15 @@ String description;
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3),false);
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 4),false);
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 5),false);
 				super.setDamage(lvl4);
 				break;
 			}
