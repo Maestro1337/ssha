@@ -264,6 +264,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			if(activePlayerSkills[j] != null){
 
 
+
 				//if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
 					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
 				//}
