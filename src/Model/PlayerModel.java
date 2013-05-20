@@ -29,9 +29,16 @@ public class PlayerModel implements ActionListener {
 	private long globalCDStart = 0;
 	private long globalCDElapsed = 0;
 	
+	/**
+	 * Resets the global cooldown so the PlayerModel can not use more skills within one second
+	 */
 	public void resetGlobalTimer(){
 		globalCDStart = System.currentTimeMillis();
 	}
+	/**
+	 * Check if the global cooldown for skills is done and will return 0 if it is
+	 * @return a long depending on how long ago it was the reset was called
+	 */
 	public long checkGlobalCooldown(){
 		globalCDElapsed = System.currentTimeMillis() - globalCDStart;
 		if(globalCDElapsed >= 1000){

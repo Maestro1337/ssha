@@ -64,7 +64,7 @@ public class SocketClient implements Runnable {
 			
 			
 			if(connected) {
-				this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+			//	this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
 				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
@@ -160,8 +160,9 @@ public class SocketClient implements Runnable {
 			if(inData.length() < 999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
-					GlobalClassSelector.getController().addPlayer(tp, tp.getPlayerListIndex());
 					GlobalClassSelector.getController().removePlayer(0);
+					GlobalClassSelector.getController().addPlayer(tp, tp.getPlayerListIndex());
+					GlobalClassSelector.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
 					tp.takeName(false);
