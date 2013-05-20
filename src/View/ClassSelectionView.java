@@ -111,16 +111,6 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						GlobalClassSelector.getController().addPlayer(player, GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
 						GlobalClassSelector.getController().getSocketClient().changePlayer(player);
 						
-						for(int lol = 0; lol < GlobalClassSelector.getController().getPlayers().length; lol++) {
-							if(GlobalClassSelector.getController().getPlayers()[lol] != null && GlobalClassSelector.getController().getPlayerControllers()[lol] != null) {
-								if(GlobalClassSelector.getController().getPlayers()[lol].getType().equals("server")) {
-									GlobalClassSelector.getController().getPlayerControllers()[lol].changePlayer(player);
-								}
-							}
-						}
-						
-						
-						
 					}
 					//Addition of AI player
 	
