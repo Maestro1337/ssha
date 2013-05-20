@@ -140,8 +140,10 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
-			currentController.ressurectPlayer();
-			currentController.checkPlayerObstacleCollision(0, 0);
+			if(currentController != null){
+				currentController.ressurectPlayer();
+				currentController.checkPlayerObstacleCollision(0, 0);
+			}
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
@@ -230,22 +232,24 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<players.length; i++){
 			Player currentPlayer = players[i].getPlayer();
-			Skill[] currentSkillset = currentPlayer.getSkillList();
-			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed() 
-					+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY(),900+150*i,25);
-			
-			
-			for(int j=0; j<currentSkillset.length; j++){
-				if(currentSkillset[j] != null){
-					if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
-						g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
-					}else if(currentSkillset[j].isEndState()){
-						g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+			if(currentPlayer != null){
+				Skill[] currentSkillset = currentPlayer.getSkillList();
+				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
+						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed() 
+						+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY(),900+150*i,25);
+				
+				
+				for(int j=0; j<currentSkillset.length; j++){
+					if(currentSkillset[j] != null){
+						if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
+							g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						}else if(currentSkillset[j].isEndState()){
+							g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						}
 					}
 				}
+				g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 			}
-			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 		}
 		if(roundOver){
 			if (shouldcalcgold){
@@ -296,37 +300,38 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
 			
-			//Checking status effects
-			currentController.checkStatusEffects();
-			
-			//Checking userImageChange
-			currentController.checkUserImageChange();
-			
-			//Checking collision from other players
-			for(int j=0; j<players.length; j++){
-				PlayerModel checkController;
-				//Check to see it is another player
-				if(j != i && currentController.getPlayer().isAlive()){
-					checkController = players[j];
-					currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+			if(currentController != null){
+				//Checking status effects
+				currentController.checkStatusEffects();
+				
+				//Checking userImageChange
+				currentController.checkUserImageChange();
+				
+				//Checking collision from other players
+				for(int j=0; j<players.length; j++){
+					PlayerModel checkController;
+					//Check to see it is another player
+					if(j != i && currentController.getPlayer().isAlive()){
+						checkController = players[j];
+						currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+					}
 				}
-			}
-			
-			//Check if player is running to update positioning
-			if(currentController.getPlayer().isRunning()){
-				currentController.isRunning();
-			}
-			
-			
-			Skill[] currentSkillList = currentController.getPlayer().getSkillList();
-			for(int j=0; j<currentSkillList.length; j++){
-				//Check if players skills are in use to update positioning
-				if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
-					currentController.isAttacking(currentSkillList[j]);
+				
+				//Check if player is running to update positioning
+				if(currentController.getPlayer().isRunning()){
+					currentController.isRunning();
 				}
+				
+				
+				Skill[] currentSkillList = currentController.getPlayer().getSkillList();
+				for(int j=0; j<currentSkillList.length; j++){
+					//Check if players skills are in use to update positioning
+					if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
+						currentController.isAttacking(currentSkillList[j]);
+					}
+				}
+			
 			}
-			
-			
 		}
 		
 		Input input = gc.getInput();
@@ -373,11 +378,13 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		int endRound = 0;
 		String winningPlayer = null;
 		for(int i=0; i<players.length; i++){
-			if(!players[i].getPlayer().isAlive()){
-				endRound++;
-				
-			}else{
-				winningPlayer = players[i].getPlayer().getName();
+			if(players[i] != null){
+				if(!players[i].getPlayer().isAlive()){
+					endRound++;
+					
+				}else{
+					winningPlayer = players[i].getPlayer().getName();
+				}
 			}
 		}
 		//Ends round if only 1 player is alive
