@@ -314,6 +314,9 @@ public abstract class Skill{
 	public void resetCooldown(){
 		CDstartTime = System.currentTimeMillis() - cooldown;
 	}
+	public void setCooldown(int cooldown){
+		this.cooldown = cooldown;
+	}
 	
 	public void setNonProjectileShot(){
 		animation.resetCounterAndTimer();
