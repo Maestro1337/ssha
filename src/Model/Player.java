@@ -247,7 +247,9 @@ public class Player {
 		damage *= (1-armor);
 		if(damage >= 0){
 			HP -= damage;
-			playSound("res/sounds/takingDamage.wav");
+			if(damage != 0){
+				playSound("res/sounds/takingDamage.wav");
+			}
 		}
 	//	System.out.println("DAMAGE DEALT!");
 	}
