@@ -142,16 +142,16 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		Image[] victoryanimation = new Image[10];
 		
-		victoryanimation[0] = new Image("res/animations/victory10.png");
-		victoryanimation[1] = new Image("res/animations/victory9.png");
-		victoryanimation[2] = new Image("res/animations/victory8.png");
-		victoryanimation[3] = new Image("res/animations/victory7.png");
-		victoryanimation[4] = new Image("res/animations/victory6.png");
-		victoryanimation[5] = new Image("res/animations/victory5.png");
-		victoryanimation[6] = new Image("res/animations/victory4.png");
-		victoryanimation[7] = new Image("res/animations/victory3.png");
-		victoryanimation[8] = new Image("res/animations/victory2.png");
-		victoryanimation[9] = new Image("res/animations/victory1.png");
+		victoryanimation[0] = new Image("res/animations/victory/victory10.png");
+		victoryanimation[1] = new Image("res/animations/victory/victory9.png");
+		victoryanimation[2] = new Image("res/animations/victory/victory8.png");
+		victoryanimation[3] = new Image("res/animations/victory/victory7.png");
+		victoryanimation[4] = new Image("res/animations/victory/victory6.png");
+		victoryanimation[5] = new Image("res/animations/victory/victory5.png");
+		victoryanimation[6] = new Image("res/animations/victory/victory4.png");
+		victoryanimation[7] = new Image("res/animations/victory/victory3.png");
+		victoryanimation[8] = new Image("res/animations/victory/victory2.png");
+		victoryanimation[9] = new Image("res/animations/victory/victory1.png");
 		
 		victoryAnimation = new AnimationTimer(500,victoryanimation);
 		firstTimeRoundOver = true;
@@ -189,9 +189,9 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		//Draw the actionbar
 		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
-			g.setColor(Color.white);
-			g.fillRect(140 + j*64, 640, 64, 64);
-			g.setColor(Color.black);
+		//	g.setColor(Color.white);
+		//	g.fillRect(140 + j*64, 640, 64, 64);
+		//	g.setColor(Color.black);
 			
 			if(activePlayerSkills[j] != null){
 				

@@ -1,6 +1,5 @@
 package Model;
 
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Control.GlobalClassSelector;
-import Model.*;
-import Model.Classes.*;
 import Model.Obstacles.*;
 import Model.Skills.*;
 import Model.Timers.SkillCheckingTimer;
