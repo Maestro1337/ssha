@@ -157,6 +157,16 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		firstTimeRoundOver = true;
 		
 		GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()).setMode("arena");
+		for(int lol = 0; lol < GlobalClassSelector.getController().getPlayers().length; lol++) {
+			if(GlobalClassSelector.getController().getPlayers()[lol] != null) {
+				if(GlobalClassSelector.getController().getPlayers()[lol].getControlType().equals("server")) {
+					GlobalClassSelector.getController().getPlayerControllers()[lol].changePlayer(GlobalClassSelector.getController().getPlayers()[lol]);
+					System.out.println("Player " + lol + " is now changed.");
+				}
+				
+			
+			}
+		}
 	}
 	
 	@Override

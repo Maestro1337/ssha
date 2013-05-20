@@ -61,7 +61,10 @@ public class SocketClient implements Runnable {
 			System.out.println(GlobalClassSelector.getController().getPlayer(1));
 			System.out.println(GlobalClassSelector.getController().getPlayer(2));
 			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-		*/	
+		*/
+			
+			
+			
 			
 			if(connected) {
 			//	this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());

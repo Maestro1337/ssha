@@ -12,7 +12,6 @@ public class PlayerClientController implements PlayerControl {
 	private SocketClient sc;
 	private Player tp; 
 
-	private int playerID;
 	private boolean isAlive = false;
 	
 	public PlayerClientController(SocketClient sc, Player tp) {
@@ -37,7 +36,8 @@ public class PlayerClientController implements PlayerControl {
 	//		System.out.println("I " + tp.getName() + " is alive!!!!!");
 			
 			
-			tempStats = sc.getPlayerStats(playerID);
+			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
+			System.out.println(tp.getPlayerListIndex());
 			
 			// Set Player stats in lobby with info from Server
 			if(Constants.getItem(tempStats, 2).equals("lobby")) {
