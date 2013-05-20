@@ -133,7 +133,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"Your skills with weapons in close combat makes you a powerful \n" +
 						"force on the battlefield and a durable opponent for all who dares \n" +
 						"cross your way.";
-				player = new ClassWarrior("Player", "player", 120, 100, 0);
+				player = new ClassWarrior(GlobalClassSelector.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 			}
 		}
@@ -144,7 +144,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"their opponents. Able to take down tyrants without blinking an eye \n" +
 						"or breaking a bowstring, you'll range far and wide with this class.";
 		//		classType = "Hunter";
-				player = new ClassHunter("Player", "player", 120, 100, 0);
+				player = new ClassHunter(GlobalClassSelector.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
 			}
 		}
@@ -155,7 +155,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"a distance, able to cause great harm or restrict a targets actions using \n" +
 						"their supreme knowledge of the elements.";
 		//		classType = "Wizard";
-				player = new ClassWizard("Player", "player", 120, 100, 0);
+				player = new ClassWizard(GlobalClassSelector.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
 			}
 		}
