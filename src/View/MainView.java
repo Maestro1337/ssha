@@ -217,7 +217,7 @@ public class MainView extends BasicGameState implements ActionListener {
       	}
 		
 		//Show the coodinates of the mouse
-		//g.drawString(mouse, 900, 10);
+		g.drawString(mouse, 900, 10);
 		
 		
 		
@@ -226,20 +226,20 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<players.size(); i++){
 			Player currentPlayer = players.get(i).getPlayer();
 			Skill[] currentSkillset = currentPlayer.getSkillList();
-			//g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-				//	+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
+			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
+					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
 			
 			
 			for(int j=0; j<currentSkillset.length; j++){
 				if(currentSkillset[j] != null){
 					if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
-						//g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 					}else if(currentSkillset[j].isEndState()){
-						//g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 					}
 				}
 			}
-			//g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
+			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 		}
 		//Draw Obstacles
 		for(int i=0; i<obstacles.length; i++){
@@ -254,7 +254,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Attempt to draw oval around player which displays max range (Currently not working correctly)
 //		g.drawOval(player.getX()-Control.getCurrentActiveSkill().getAttackRange()/2, player.getY()-Control.getCurrentActiveSkill().getAttackRange()/2, Control.getCurrentActiveSkill().getAttackRange(), Control.getCurrentActiveSkill().getAttackRange());
 //		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
-		//g.drawImage(playerPortrait, 20, 585);
+		g.drawImage(playerPortrait, 20, 585);
 		//Draw the actionbar
 		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
@@ -264,10 +264,10 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			if(activePlayerSkills[j] != null){
 				
-			//	if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
-					//g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
-			//	}
-				//g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
+				if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
+					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
+				}
+				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
 				
 			}
 		}
