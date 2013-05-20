@@ -26,7 +26,7 @@ public class GlobalClassSelector {
 	private int activePlayer = 0;
 	private Arena mapSelected;
 	private int difficultySelected;
-	private String playerName = "SirNotMolester";
+	private String playerName = "LordDasViolator";
 	
 	
 	//Singleton

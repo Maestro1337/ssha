@@ -237,7 +237,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		
 		//Draw player stats and image
-		
 		for(int i=0; i<playerList.length; i++){
 			if(playerList[i] != null){
 				Player currentPlayer = playerList[i];
@@ -297,8 +296,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
-		
-		
 		
 		//Update current mouse position
 		int xPos = Mouse.getX();
