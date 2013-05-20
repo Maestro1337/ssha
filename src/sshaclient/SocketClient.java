@@ -64,6 +64,8 @@ public class SocketClient implements Runnable {
 			
 			
 			if(connected) {
+				this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getKills() + " " + tp.getGold() + " skills";
