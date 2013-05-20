@@ -183,4 +183,12 @@ public class PlayerClientController implements PlayerControl {
 		System.out.println("Will terminate");
 		isAlive = false;
 	}
+
+
+	@Override
+	public void changePlayer(Player player) {
+		this.tp = player;
+		
+	}
+	
 }
