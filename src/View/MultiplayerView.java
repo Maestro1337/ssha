@@ -74,6 +74,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	private int enemyPlayer = 1;
 	
 	private int activePlayer;
+	Skill[] activeSkillList;
+	PlayerModel currentActiveController;
 	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
 	private Obstacle[] obstacles = new Obstacle[100];
 	
@@ -124,11 +126,14 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		break;
       	}
 		
-		players.clear();
+		players = new ArrayList<PlayerModel>();
 	//	players.add(new PlayerModel(playerList[activePlayer], obstacles));
 		for(int i=0; i<GlobalClassSelector.getController().getPlayers().length; i++){
-			if(GlobalClassSelector.getController().getPlayer(i) != null)
+			
+			if(GlobalClassSelector.getController().getPlayer(i) != null){
+				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName());
 				players.add(new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles));
+			}
 		}
 		
 		
@@ -167,6 +172,12 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			
 			}
 		}
+		
+		for(int i=0; i<players.size(); i++){
+			System.out.println(players.get(i).getPlayer().getName() + " " + players.get(i).getPlayer().getPlayerListIndex() + " " + i);
+		}
+		currentActiveController = players.get(activePlayer);
+		activeSkillList = currentActiveController.getPlayer().getSkillList();
 	}
 	
 	@Override
@@ -274,8 +285,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
-		PlayerModel currentActiveController = players.get(activePlayer);
-		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
+		
 		
 		//Update current mouse position
 		int xPos = Mouse.getX();
