@@ -118,15 +118,16 @@ public abstract class Skill{
 		this.affectSelf = affectSelf;
 		
 		//Backup image if it doesn't get one set by the extended skillClass
-		try {
+		/*try {
 			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
+			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		currentHeight = imgHeight = attackImage.getHeight();
 		currentWidth = imgWidth = attackImage.getWidth();
-		
+		*/
 		SCTArray = new ArrayList<SkillCheckingTimer>();
 		
 	}
