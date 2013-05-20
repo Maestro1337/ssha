@@ -32,12 +32,12 @@ public class PlayerModel implements ActionListener {
 	public void resetGlobalTimer(){
 		globalCDStart = System.currentTimeMillis();
 	}
-	public long isOffGlobalCooldown(){
+	public long checkGlobalCooldown(){
 		globalCDElapsed = System.currentTimeMillis() - globalCDStart;
 		if(globalCDElapsed >= 1000){
-			return 1000;
+			return 0;
 		}
-		return globalCDElapsed;
+		return (1000-globalCDElapsed);
 	}
 
 	public PlayerModel(Player player, Obstacle[] obstacles){
@@ -281,7 +281,7 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		if(isOffGlobalCooldown() == 1000){
+		if(checkGlobalCooldown() == 0){
 			resetGlobalTimer();
 			if(player.getChannel()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
