@@ -296,9 +296,10 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		int yPos = 720 - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		for(int i=0; i<players.length; i++){
-			PlayerModel currentController = players[i];
+//		for(int i=0; i<players.length; i++){
+//			PlayerModel currentController = players[i];
 			
+			PlayerModel currentController = players[activePlayer];
 			if(currentController != null){
 				//Checking status effects
 				currentController.checkStatusEffects();
@@ -307,14 +308,20 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				currentController.checkUserImageChange();
 				
 				//Checking collision from other players
-				for(int j=0; j<players.length; j++){
-					PlayerModel checkController;
+				for(int j=0; j<playerList.length; j++){
+					
 					//Check to see it is another player
 					
-					if(j != i && currentController.getPlayer().isAlive()){
+		/*			if(j != i && currentController.getPlayer().isAlive()){
 						checkController = players[j];
 						if(checkController != null){
 							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+						}
+					}*/
+					if(j != activePlayer && currentController.getPlayer().isAlive()){
+						Player checkController = playerList[j];
+						if(checkController != null){
+							currentController.checkCollision(checkController, checkController.getSkillList());
 						}
 					}
 				}
@@ -334,7 +341,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				}
 			
 			}
-		}
+	//	}
 		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
