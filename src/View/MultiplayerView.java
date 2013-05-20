@@ -177,7 +177,9 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		}
 		
 		for(int i=0; i<players.length; i++){
-			System.out.println(players[i].getPlayer().getName() + " " + players[i].getPlayer().getPlayerListIndex() + " " + i);
+			if(players[i] != null){
+				System.out.println(players[i].getPlayer().getName() + " " + players[i].getPlayer().getPlayerListIndex() + " " + i);
+			}
 		}
 		currentActiveController = players[activePlayer];
 		activeSkillList = currentActiveController.getPlayer().getSkillList();
@@ -231,8 +233,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		//Draw player stats and image
 		
 		for(int i=0; i<players.length; i++){
-			Player currentPlayer = players[i].getPlayer();
-			if(currentPlayer != null){
+			if(players[i] != null){
+				Player currentPlayer = players[i].getPlayer();
 				Skill[] currentSkillset = currentPlayer.getSkillList();
 				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
 						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed() 
@@ -311,7 +313,9 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 					//Check to see it is another player
 					if(j != i && currentController.getPlayer().isAlive()){
 						checkController = players[j];
-						currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+						if(checkController != null){
+							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+						}
 					}
 				}
 				
