@@ -213,7 +213,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 //		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
 		g.drawImage(playerPortrait, 20, 585);
 		//Draw the actionbar
-		Skill[] activePlayerSkills = players[activePlayer].getPlayer().getSkillList();
+		Skill[] activePlayerSkills = playerList[activePlayer].getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
 		//	g.setColor(Color.white);
 		//	g.fillRect(140 + j*64, 640, 64, 64);
@@ -231,10 +231,9 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		
 		//Draw player stats and image
-		
-		for(int i=0; i<players.length; i++){
-			if(players[i] != null){
-				Player currentPlayer = players[i].getPlayer();
+		for(int i=0; i<playerList.length; i++){
+			if(playerList[i] != null){
+				Player currentPlayer = playerList[i];
 				Skill[] currentSkillset = currentPlayer.getSkillList();
 				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
 						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed() 
@@ -311,6 +310,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				for(int j=0; j<players.length; j++){
 					PlayerModel checkController;
 					//Check to see it is another player
+					
 					if(j != i && currentController.getPlayer().isAlive()){
 						checkController = players[j];
 						if(checkController != null){
