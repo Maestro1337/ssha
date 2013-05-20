@@ -9,7 +9,7 @@ public class SkillIceblock extends Skill {
 
 	public SkillIceblock() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, String skillDescription
-		super("Ice block", 11000, 0, 0, 20, 50, 0, 300, 300, 300,"Ice block:\nEncapsule yourself inside \nan iceblock to escape from \nharms way.\n" +
+		super("Ice block", 11000, 0, 0, 20, 50, 0,"Ice block:\nEncapsule yourself inside \nan iceblock to escape from \nharms way.\n" +
 				"\nLevel 1: 1 second\n" +
 				"Level 2: 2 second\n" +
 				"Level 3: 3 second\n" +
@@ -37,6 +37,29 @@ public class SkillIceblock extends Skill {
 		super.setImage(attackImage);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
+	}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 
 }

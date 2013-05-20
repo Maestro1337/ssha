@@ -22,9 +22,9 @@ public class ClassHunter extends Player {
 	public ClassHunter(String name, String ctrlType, float x, float y, int index) {
 		super(name, ctrlType, "Hunter", x, y, 1000, 1, 0.4, index);
 		try {
-			playerImage = new Image("res/animations/hunter_stand.png");
-			firstStep = new Image("res/animations/hunter_walk1.png");
-			secondStep = new Image("res/animations/hunter_walk2.png");
+			playerImage = new Image("res/animations/characters/hunter_stand.png");
+			firstStep = new Image("res/animations/characters/hunter_walk1.png");
+			secondStep = new Image("res/animations/characters/hunter_walk2.png");
 			
 			changedModelWalkImages[0] = new Image("res/animations/UnstableMagic/UMmage_walk1_1.png");
 			changedModelWalkImages[1] = new Image("res/animations/UnstableMagic/UMmage_walk2_2.png");
@@ -57,10 +57,7 @@ public class ClassHunter extends Player {
 			e.printStackTrace();
 		}
 		chosenSkills[0] = new SkillArrow();
-		chosenSkills[1] = new SkillBarrelRoll();
-		chosenSkills[2] = new SkillArrowFlurry();
-		chosenSkills[3] = new SkillStealth();
-		chosenSkills[4] = new SkillSprint();
+		super.addSkillAsOwned(chosenSkills[0]);
 
 		super.setImages(playerImage, firstStep, secondStep);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);

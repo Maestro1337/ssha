@@ -4,13 +4,12 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectDodge;
-import Model.StatusEffects.StatusEffectSprint;
+import Model.StatusEffects.StatusEffectMovement;
 
 public class SkillSprint extends Skill {
 	public SkillSprint(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Sprint", 11000, 0, 0.4, 3, 10, 0, 0, 0, 0,"Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
+		super("Sprint", 11000, 0, 0.4, 3, 10, 0, "Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
 				"Level 1: 3 sec\n" +
 				"Level 2: 5 sec\n" +
 				"Level 3: 7 sec\n" +
@@ -20,10 +19,10 @@ public class SkillSprint extends Skill {
 		Image[] animation = new Image[26];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingStatusEffectShell(new StatusEffectSprint(this, 2, 2));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 2, 2));
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImage = new Image("res/animations/explode/explode1.png");
 			
 			animation[0] = new Image("res/animations/sprint/sprint1.png");
 			animation[1] = new Image("res/animations/sprint/sprint2.png");
@@ -65,5 +64,28 @@ public class SkillSprint extends Skill {
 		super.setImage(attackImage);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
+	}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

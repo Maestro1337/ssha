@@ -4,13 +4,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectSlow;
+import Model.StatusEffects.StatusEffectMovement;
 import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillCripplingShot extends Skill {
 	public SkillCripplingShot(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150, 300, 300, 300,"Crippling shot: \nA shot which slows the enemy.\n" +
+		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150,"Crippling shot: \nA shot which slows the enemy.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -19,10 +19,10 @@ public class SkillCripplingShot extends Skill {
 		Image attackImage = null;
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectSlow(this, -0.3, 4));
+		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.3, 4), false);
 		
 		try {
-			attackImage = new Image("res/animations/arrow.png");
+			attackImage = new Image("res/animations/arrow/arrow.png");
 			skillBar[0] = new Image("res/skillIcons/cripplingshot.png");
 			skillBar[1] = new Image("res/skillIcons/cripplingshot_active.png");
 			skillBar[2] = new Image("res/skillIcons/cripplingshot_disabled.png");
@@ -35,5 +35,28 @@ public class SkillCripplingShot extends Skill {
 		
 		super.setImage(attackImage);
 		super.setSkillBarImages(skillBar);
+	}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

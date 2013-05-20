@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectDodge;
 
 public class SkillPassiveDodge extends Skill {
 	public SkillPassiveDodge(){
-		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 5, 10, 15, 20,"Dodge: \nGives the chance to avoid \nincoming damage.\n" +
+		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 0, "Dodge: \nGives the chance to avoid \nincoming damage.\n" +
 				"Level 1: 5% chance\n" +
 				"Level 2: 10% chance\n" +
 				"Level 3: 15% chance\n" +
@@ -23,15 +23,15 @@ public class SkillPassiveDodge extends Skill {
 		super.setSelfAffectingStatusEffectShell(new StatusEffectDodge(this, 5, 0));
 		
 		try {
-			attackImage = new Image("res/animations/explode1.png");
+			attackImage = new Image("res/animations/explode/explode1.png");
 			
-			animation[0] = new Image("res/animations/explode1.png");
-			animation[1] = new Image("res/animations/explode2.png");
-			animation[2] = new Image("res/animations/explode3.png");
-			animation[3] = new Image("res/animations/explode4.png");
-			animation[4] = new Image("res/animations/explode5.png");
-			animation[5] = new Image("res/animations/explode6.png");
-			animation[6] = new Image("res/animations/explode7.png");
+			animation[0] = new Image("res/animations/explode/explode1.png");
+			animation[1] = new Image("res/animations/explode/explode2.png");
+			animation[2] = new Image("res/animations/explode/explode3.png");
+			animation[3] = new Image("res/animations/explode/explode4.png");
+			animation[4] = new Image("res/animations/explode/explode5.png");
+			animation[5] = new Image("res/animations/explode/explode6.png");
+			animation[6] = new Image("res/animations/explode/explode7.png");
 			
 			skillBar[0] = new Image("res/skillIcons/dodge.png");
 			skillBar[1] = new Image("res/skillIcons/dodge_active.png");
@@ -45,5 +45,28 @@ public class SkillPassiveDodge extends Skill {
 		
 		super.setImage(attackImage);
 		super.setSkillBarImages(skillBar);
+	}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

@@ -10,7 +10,7 @@ public class SkillBarrelRoll extends Skill {
 	public SkillBarrelRoll(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-		super("Barrel Roll", 4000, 150, 0.4, 3, 50, 0, 0, 0, 0,"Barrel roll: \nRoll out of the fray... \nor into it.\n" +
+		super("Barrel Roll", 4000, 150, 0.4, 3, 50, 0,"Barrel roll: \nRoll out of the fray... \nor into it.\n" +
 				"Level 1: 15 sec cd\n" +
 				"Level 2: 12 sec cd\n" +
 				"Level 3: 8 sec cd\n" +
@@ -24,8 +24,8 @@ public class SkillBarrelRoll extends Skill {
 		super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 		
 		try {
-			attackImages[0] = new Image("res/animations/hunter_walk1.png");
-			attackImages[1] = new Image("res/animations/hunter_walk2.png");
+			attackImages[0] = new Image("res/animations/characters/hunter_walk1.png");
+			attackImages[1] = new Image("res/animations/characters/hunter_walk2.png");
 			
 			animation[0] = new Image("res/animations/barrelroll/roll1.png");
 			animation[1] = new Image("res/animations/barrelroll/roll2.png");
@@ -50,5 +50,28 @@ public class SkillBarrelRoll extends Skill {
 		super.setImage(animation, 1000);
 		super.setEndState(attackImages, 20, 200);
 		super.setSkillBarImages(skillBar);
+	}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }

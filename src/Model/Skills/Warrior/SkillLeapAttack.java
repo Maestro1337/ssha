@@ -12,7 +12,7 @@ import Model.StatusEffects.StatusEffectTeleport;
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 10000, 200, 0.4, 8, 50, 150, 300, 300, 300,"Leap attack \n" +
+				super("Leap attack", 10000, 200, 0.4, 8, 50, 150,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -24,7 +24,7 @@ public class SkillLeapAttack extends Skill {
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
 				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
-				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1));
+				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 1),false);
 				
 				try {
 					
@@ -46,4 +46,27 @@ public class SkillLeapAttack extends Skill {
 				super.setEndState(animation, 2000, 2000);
 				super.setSkillBarImages(skillBar);
 			}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
+	}
 }

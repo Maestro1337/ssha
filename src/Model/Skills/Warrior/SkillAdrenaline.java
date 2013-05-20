@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillAdrenaline extends Skill {
 	public SkillAdrenaline(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Adrenaline", 5000, 0, 0.4, 3, 50, 0, 0, 0, 0,"Adrenaline \n" +
+				super("Adrenaline", 5000, 0, 0.4, 3, 50, 0,"Adrenaline \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -19,7 +19,7 @@ public class SkillAdrenaline extends Skill {
 				Image[] skillBar = new Image[3];
 				
 				try {
-					attackImage = new Image("res/animations/explode1.png");
+					attackImage = new Image("res/animations/explode/explode1.png");
 					
 					animation[0] = new Image("res/animations/adrenaline/adrenaline1.png");
 					animation[1] = new Image("res/animations/adrenaline/adrenaline2.png");
@@ -38,4 +38,27 @@ public class SkillAdrenaline extends Skill {
 				super.setEndState(animation, 1000, 1000);
 				super.setSkillBarImages(skillBar);
 			}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
+	}
 }

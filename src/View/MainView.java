@@ -260,15 +260,14 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int j=0; j<activePlayerSkills.length; j++){
 			//g.setColor(Color.white);
 			//g.fillRect(140 + j*64, 640, 64, 64);
-			//g.setColor(Color.black);
-			
+			g.setColor(Color.black);
 			if(activePlayerSkills[j] != null){
-				
-				if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
+
+				//if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
 					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
-				}
+				//}
 				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
-				
+
 			}
 		}
 		

@@ -16,7 +16,7 @@ import java.util.TimerTask;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Skill{
+public abstract class Skill{
 
 	private String name;
 	private String smallName;
@@ -25,16 +25,14 @@ public class Skill{
 	private int areaOfEffect;
 	private int cost;
 	private int damage;
-	private int damageLvl1;
-	private int damageLvl2;
-	private int damageLvl3;
-	private int damageLvl4;
 	private int lvlOfSkill;
 	
 	private String describe;
 	private boolean affectSelf = false;
 	private boolean affectOthers = false;
 	
+	private boolean repeatingOSE = false;
+	private double armorFromTarget = 1;
 	private StatusEffectShell offensiveSE = null;
 	private StatusEffectShell selfAffectingSE = null;
 	private StatusEffectShell selfAffectingOnHitSE = null;
@@ -96,15 +94,14 @@ public class Skill{
 	private boolean isPassive = false;
 	private boolean affectSelfOnHit = false;
 	
-	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damageLvl1,int damageLvl2,
-			int damageLvl3,int damageLvl4, String describe){
+	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe){
 		this.name = name;
 		this.smallName = name.toLowerCase().replaceAll("\\s", "");
 		cooldown = cd;
 		this.range = range;
 		areaOfEffect = aoe;
 		this.cost = cost;
-		damage = this.damageLvl1 = damageLvl1;
+		this.damage = damage;
 		lvlOfSkill = 1;
 		
 		attackRange = range;
@@ -131,6 +128,8 @@ public class Skill{
 		SCTArray = new ArrayList<SkillCheckingTimer>();
 		
 	}
+	
+	public abstract void upgradeSkill();
 	
 	//Set new image for projectile
 	public void setImage(Image image){
@@ -184,9 +183,15 @@ public class Skill{
 			animation = new EndStateAnimationTimer(duration, images, this);
 		}
 	}
-	public void setOffensiveStatusEffectShell(StatusEffectShell SE){
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingOSE){
 		affectOthers = true;
+		this.repeatingOSE = repeatingOSE;
 		offensiveSE = SE;
+	}
+	public void resetOffensiveStatusGivenTo(){
+		if(affectOthers && repeatingOSE){
+			offensiveSE.resetCloning();
+		}
 	}
 	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
 		affectSelf = true;
@@ -195,6 +200,9 @@ public class Skill{
 	public void setSelfAffectingOnHitStatusEffectShell(StatusEffectShell SE){
 		affectSelfOnHit = true;
 		selfAffectingOnHitSE = SE;
+	}
+	public double getArmorFromTarget(){
+		return armorFromTarget;
 	}
 	public void setPassive(){
 		isPassive = true;
@@ -236,53 +244,33 @@ public class Skill{
 	public int getDamage(){
 		return damage;
 	}
-	public int getDamageLvl1(){
-		return damageLvl1;
-	}
-	public int getDamageLvl2(){
-		return damageLvl2;
-	}
-	public int getDamageLvl3(){
-		return damageLvl3;
-	}
-	public int getDamageLvl4(){
-		return damageLvl4;
-	}
-	public void upgradeSkill(){
-		if(lvlOfSkill <= 4){
-			lvlOfSkill++;
-			
-			switch(damage){
-			case 2:
-				damage = damageLvl2;
-				break;
-			case 3:
-				damage = damageLvl3;
-				break;
-			case 4:
-				damage = damageLvl4;
-				break;
-			}
-		}
-		
+	public void setDamage(int damage){
+		this.damage = damage;
 	}
 	public int getCurrentLvl(){
 		return lvlOfSkill;
 	}
+	public void incCurrentLvl(){
+		lvlOfSkill++;
+	}
+	
+	//TODO Make a lot better
 	public void setCurrentLvl(int lvl) {
 		lvlOfSkill = lvl;
 		switch(lvl) {
 		case 1:
-			damage = damageLvl1;
 			break;
 		case 2:
-			damage = damageLvl2;
+			upgradeSkill();
 			break;
 		case 3:
-			damage = damageLvl3;
+			upgradeSkill();
+			upgradeSkill();
 			break;
 		case 4:
-			damage = damageLvl4;
+			upgradeSkill();
+			upgradeSkill();
+			upgradeSkill();
 			break;
 		}
 	}

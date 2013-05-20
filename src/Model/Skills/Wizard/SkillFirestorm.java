@@ -9,7 +9,7 @@ public class SkillFirestorm extends Skill{
 
 	public SkillFirestorm(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 5000, 350, 100, 8, 25, 10, 15, 20, 300,"Firestorm:\nA dangerous explosion that \ndeals damage to an area for a limited \ntime." +
+		super("Firestorm", 5000, 350, 100, 8, 25, 10,"Firestorm:\nA dangerous explosion that \ndeals damage to an area for a limited \ntime." +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -62,5 +62,28 @@ public class SkillFirestorm extends Skill{
 		super.setImage(attackImage);
 		super.setEndState(animation, 1800, 30);
 		super.setSkillBarImages(skillBar);
+	}
+
+	private int lvl2 = 300;
+	private int lvl3 = 300;
+	private int lvl4 = 300;
+	
+	@Override
+	public void upgradeSkill() {
+		if(super.getCurrentLvl() < 4){
+			super.incCurrentLvl();
+			
+			switch(super.getCurrentLvl()){
+			case 2:
+				super.setDamage(lvl2);
+				break;
+			case 3:
+				super.setDamage(lvl3);
+				break;
+			case 4:
+				super.setDamage(lvl4);
+				break;
+			}
+		}
 	}
 }
