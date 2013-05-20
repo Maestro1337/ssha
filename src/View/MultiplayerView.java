@@ -379,21 +379,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		
-		for(int fo = 0; fo < GlobalClassSelector.getController().getPlayers().length; fo++) {
-			
-			System.out.println("You say:");
-			if(GlobalClassSelector.getController().getPlayer(fo) != null) {
-				System.out.println("Name: " + GlobalClassSelector.getController().getPlayer(fo).getName());
-			}
-			System.out.println("Server say:");
-			if(GlobalClassSelector.getController().getPlayer(fo) != null) {
-				System.out.println("Name: " + GlobalClassSelector.getController().getSocketClient().getPlayerNames()[fo]);
-			}
-			
-		}
-		
-		
 	}
 
 	
