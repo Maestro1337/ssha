@@ -26,6 +26,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import sshaclient.Constants;
+
 
 
 
@@ -76,7 +78,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	private int activePlayer;
 	Skill[] activeSkillList;
 	PlayerModel currentActiveController;
-	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
+	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
 	private Obstacle[] obstacles = new Obstacle[100];
 	
 	Image userImage;
@@ -126,19 +128,18 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		break;
       	}
 		
-		players = new ArrayList<PlayerModel>();
 	//	players.add(new PlayerModel(playerList[activePlayer], obstacles));
 		for(int i=0; i<GlobalClassSelector.getController().getPlayers().length; i++){
 			
 			if(GlobalClassSelector.getController().getPlayer(i) != null){
 				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName());
-				players.add(new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles));
+				players[i] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
 			}
 		}
 		
 		
-		for(int i=0; i<players.size(); i++){
-			PlayerModel currentController = players.get(i);
+		for(int i=0; i<players.length; i++){
+			PlayerModel currentController = players[i];
 			currentController.ressurectPlayer();
 			currentController.checkPlayerObstacleCollision(0, 0);
 		}
@@ -173,10 +174,10 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		for(int i=0; i<players.size(); i++){
-			System.out.println(players.get(i).getPlayer().getName() + " " + players.get(i).getPlayer().getPlayerListIndex() + " " + i);
+		for(int i=0; i<players.length; i++){
+			System.out.println(players[i].getPlayer().getName() + " " + players[i].getPlayer().getPlayerListIndex() + " " + i);
 		}
-		currentActiveController = players.get(activePlayer);
+		currentActiveController = players[activePlayer];
 		activeSkillList = currentActiveController.getPlayer().getSkillList();
 	}
 	
@@ -208,7 +209,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 //		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
 		g.drawImage(playerPortrait, 20, 585);
 		//Draw the actionbar
-		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
+		Skill[] activePlayerSkills = players[activePlayer].getPlayer().getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
 		//	g.setColor(Color.white);
 		//	g.fillRect(140 + j*64, 640, 64, 64);
@@ -227,8 +228,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		//Draw player stats and image
 		
-		for(int i=0; i<players.size(); i++){
-			Player currentPlayer = players.get(i).getPlayer();
+		for(int i=0; i<players.length; i++){
+			Player currentPlayer = players[i].getPlayer();
 			Skill[] currentSkillset = currentPlayer.getSkillList();
 			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
 					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed() 
@@ -292,8 +293,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		int yPos = 720 - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		for(int i=0; i<players.size(); i++){
-			PlayerModel currentController = players.get(i);
+		for(int i=0; i<players.length; i++){
+			PlayerModel currentController = players[i];
 			
 			//Checking status effects
 			currentController.checkStatusEffects();
@@ -302,11 +303,11 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			currentController.checkUserImageChange();
 			
 			//Checking collision from other players
-			for(int j=0; j<players.size(); j++){
+			for(int j=0; j<players.length; j++){
 				PlayerModel checkController;
 				//Check to see it is another player
 				if(j != i && currentController.getPlayer().isAlive()){
-					checkController = players.get(j);
+					checkController = players[j];
 					currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
 				}
 			}
@@ -371,17 +372,17 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		//Checks if round should be ended
 		int endRound = 0;
 		String winningPlayer = null;
-		for(int i=0; i<players.size(); i++){
-			if(!players.get(i).getPlayer().isAlive()){
+		for(int i=0; i<players.length; i++){
+			if(!players[i].getPlayer().isAlive()){
 				endRound++;
 				
 			}else{
-				winningPlayer = players.get(i).getPlayer().getName();
+				winningPlayer = players[i].getPlayer().getName();
 			}
 		}
 		//Ends round if only 1 player is alive
 		//Added impossible pass for now
-		if (endRound >= players.size() - 1 && false){
+		if (endRound >= players.length - 1 && false){
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
