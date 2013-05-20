@@ -361,7 +361,7 @@ public class PlayerModel implements ActionListener {
 					
 					if(!playerSkills[i].isEndState()){
 						if(evasion>=0){
-							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt());
+							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt(), playerSkills[i].getPushDistance());
 						}
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
@@ -577,7 +577,7 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 
-	public void pushPlayer(float xDir, float yDir){
+	public void pushPlayer(float xDir, float yDir, int pushRange){
 		
 		//Aborts channel if player is channeling
 		if(player.getChannel()){
@@ -590,8 +590,8 @@ public class PlayerModel implements ActionListener {
 		}
 		
 		
-		float x = player.getX()+xDir*150;
-		float y = player.getY()+yDir*150;
+		float x = player.getX()+xDir*pushRange;
+		float y = player.getY()+yDir*pushRange;
 		
 		
 

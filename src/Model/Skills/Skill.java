@@ -26,6 +26,7 @@ public abstract class Skill{
 	private int cost;
 	private int damage;
 	private int lvlOfSkill;
+	private int pushDistance = 100;
 	
 	private String describe;
 	private boolean affectSelf = false;
@@ -106,7 +107,8 @@ public abstract class Skill{
 		
 		attackRange = range;
 		if(speed < 100){
-			attSpeed = 3*speed;
+			attSpeed = speed;
+			pushDistance *= speed;
 		}else{
 			isProjectile = false;
 		}
@@ -237,6 +239,9 @@ public abstract class Skill{
 	}
 	public int getAOE(){
 		return areaOfEffect;
+	}
+	public int getPushDistance(){
+		return pushDistance;
 	}
 	public int getCost(){
 		return cost;
