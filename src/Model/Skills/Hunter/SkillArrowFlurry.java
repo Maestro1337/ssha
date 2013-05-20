@@ -56,9 +56,9 @@ public class SkillArrowFlurry extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
+	private int lvl2 = 200;
 	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl4 = 400;
 	
 	@Override
 	public void upgradeSkill() {

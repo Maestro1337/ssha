@@ -14,7 +14,7 @@ String description;
 
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage lvl1, int damage lvl2,  int damage lvl3, int damage lvl4,  StatusEffect SE
-		super("Fireball", 11000, 400, 0.4, 3, 10, 150,"Fireball:\nA fireball that burns the \nenemy to oblivion.\n" +
+		super("Fireball", 11000, 400, 1.5, 3, 10, 150,"Fireball:\nA fireball that burns the \nenemy to oblivion.\n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +

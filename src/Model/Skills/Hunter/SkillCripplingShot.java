@@ -10,7 +10,7 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillCripplingShot extends Skill {
 	public SkillCripplingShot(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Crippling shot", 11000, 400, 0.4, 3, 25, 150,"Crippling shot: \nA shot which slows the enemy.\n" +
+		super("Crippling shot", 11000, 0, 0.4, 5, 25, 200,"Crippling shot: \nA shot which slows the enemy.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -22,10 +22,10 @@ public class SkillCripplingShot extends Skill {
 		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.3, 4), false);
 		
 		try {
-			attackImage = new Image("res/animations/arrow/arrow.png");
-			skillBar[0] = new Image("res/skillIcons/cripplingshot.png");
-			skillBar[1] = new Image("res/skillIcons/cripplingshot_active.png");
-			skillBar[2] = new Image("res/skillIcons/cripplingshot_disabled.png");
+			attackImage = new Image("res/animations/trap/trap.png");
+			skillBar[0] = new Image("res/skillIcons/cripplingtrap.png");
+			skillBar[1] = new Image("res/skillIcons/cripplingtrap_active.png");
+			skillBar[2] = new Image("res/skillIcons/cripplingtrap_disabled.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,9 +37,9 @@ public class SkillCripplingShot extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
+	private int lvl2 = 250;
 	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl4 = 350;
 	
 	@Override
 	public void upgradeSkill() {

@@ -8,7 +8,7 @@ import Model.Skills.Skill;
 public class SkillStealth extends Skill {
 	public SkillStealth(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Stealth", 11000, 400, 0.4, 3, 50, 150,"Stealth: \nFades into the shadows \nrendering the hunter invisible.\n" +
+		super("Stealth", 11000, 400, 0.4, 3, 50, 0,"Stealth: \nFades into the shadows \nrendering the hunter invisible.\n" +
 				"Level 1: 5 sec\n" +
 				"Level 2: 10 sec\n" +
 				"Level 3: 15 sec\n" +
@@ -42,9 +42,9 @@ public class SkillStealth extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 0;
+	private int lvl3 = 0;
+	private int lvl4 = 0;
 	
 	@Override
 	public void upgradeSkill() {
