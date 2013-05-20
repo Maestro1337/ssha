@@ -91,6 +91,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	float mouseXPosAtt;
 	float mouseYPosAtt;
+	Skill[] activeSkillList;
+	PlayerModel currentActiveController;
 	
 	public MultiplayerView(int state) {
 		
@@ -167,6 +169,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			
 			}
 		}
+		currentActiveController = players.get(activePlayer);
+		activeSkillList = currentActiveController.getPlayer().getSkillList();
 	}
 	
 	@Override
@@ -273,9 +277,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
-		
-		PlayerModel currentActiveController = players.get(activePlayer);
-		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
 		
 		//Update current mouse position
 		int xPos = Mouse.getX();
