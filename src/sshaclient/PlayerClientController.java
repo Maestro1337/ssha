@@ -37,7 +37,7 @@ public class PlayerClientController implements PlayerControl {
 			
 			
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
-			System.out.println(tp.getPlayerListIndex());
+	//		System.out.println(tp.getPlayerListIndex());
 			
 			// Set Player stats in lobby with info from Server
 			if(Constants.getItem(tempStats, 2).equals("lobby")) {
