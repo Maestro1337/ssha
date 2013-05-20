@@ -2,7 +2,6 @@ package View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -14,10 +13,8 @@ import org.newdawn.slick.state.*;
 
 import Control.GlobalClassSelector;
 import Model.Player;
-import Model.PlayerModel;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
-import Model.Obstacles.ObstaclePillar;
 
 public class ClassSelectionView extends BasicGameState implements ActionListener{
 

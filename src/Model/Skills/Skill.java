@@ -8,13 +8,9 @@ import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
 import Model.Timers.SkillCheckingTimer;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public abstract class Skill{
 

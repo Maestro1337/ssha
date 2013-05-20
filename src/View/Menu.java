@@ -1,21 +1,14 @@
 package View;
 
-import java.awt.GraphicsDevice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
-
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
-import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
 import Control.GlobalClassSelector;
@@ -124,13 +117,14 @@ public class Menu extends BasicGameState implements ActionListener{
 				}
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
-			exitButton = new Image("res/buttons/exitButton.png");
+			exitButton = new Image("res/buttons/exitButton_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				System.exit(0);
 			}
 		}else{
 			singleplayerButton = new Image("res/buttons/singleplayer.png");
 			multiplayerButton = new Image("res/buttons/multiplayer.png");
+			exitButton = new Image("res/buttons/exitButton.png");
 		}
 	}
 	
