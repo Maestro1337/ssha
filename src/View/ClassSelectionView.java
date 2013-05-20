@@ -124,7 +124,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					
 					for(int lol = 0; lol < GlobalClassSelector.getController().getPlayers().length; lol++) {
 						if(GlobalClassSelector.getController().getPlayers()[lol] != null) {
-							System.out.println("Player " + lol + " is " + GlobalClassSelector.getController().getPlayers()[lol].getMode() + "-controlled");
+							System.out.println("Player " + lol + " is " + GlobalClassSelector.getController().getPlayers()[lol].getControlType() + "-controlled");
 						}
 					}
 					
