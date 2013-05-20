@@ -78,7 +78,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	private int activePlayer;
 	Skill[] activeSkillList;
 	PlayerModel currentActiveController;
-//	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
+	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
 	private Obstacle[] obstacles = new Obstacle[100];
 	
 	Image userImage;
@@ -133,24 +133,18 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			
 			if(GlobalClassSelector.getController().getPlayer(i) != null){
 				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName());
-				currentActiveController = new PlayerModel(GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()), obstacles);
+				players[GlobalClassSelector.getController().getActivePlayerIndex()] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
 			}
 		}
 		
 		
-	/*	for(int i=0; i<players.length; i++){
+		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
 			if(currentController != null){
 				currentController.ressurectPlayer();
 				currentController.checkPlayerObstacleCollision(0, 0);
 			}
-		}*/
-		
-		if(currentActiveController != null){
-			currentActiveController.ressurectPlayer();
-			currentActiveController.checkPlayerObstacleCollision(0, 0);
 		}
-		
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
 		
@@ -182,12 +176,12 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		for(int i=0; i<playerList.length; i++){
-			if(playerList[i] != null){
-				System.out.println(playerList[i].getName() + " " + playerList[i].getPlayerListIndex() + " " + i);
+		for(int i=0; i<players.length; i++){
+			if(players[i] != null){
+				System.out.println(players[i].getPlayer().getName() + " " + players[i].getPlayer().getPlayerListIndex() + " " + i);
 			}
 		}
-	//	currentActiveController = players[activePlayer];
+		currentActiveController = players[activePlayer];
 		activeSkillList = currentActiveController.getPlayer().getSkillList();
 	}
 	
@@ -237,6 +231,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		
 		//Draw player stats and image
+		
 		for(int i=0; i<playerList.length; i++){
 			if(playerList[i] != null){
 				Player currentPlayer = playerList[i];
@@ -297,16 +292,16 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
+		
+		
 		//Update current mouse position
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-//		for(int i=0; i<players.length; i++){
-//			PlayerModel currentController = players[i];
+		for(int i=0; i<players.length; i++){
+			PlayerModel currentController = players[i];
 			
-//			PlayerModel currentController = players[activePlayer];
-		PlayerModel currentController = currentActiveController;
 			if(currentController != null){
 				//Checking status effects
 				currentController.checkStatusEffects();
@@ -315,20 +310,14 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				currentController.checkUserImageChange();
 				
 				//Checking collision from other players
-				for(int j=0; j<playerList.length; j++){
-					
+				for(int j=0; j<players.length; j++){
+					PlayerModel checkController;
 					//Check to see it is another player
 					
-		/*			if(j != i && currentController.getPlayer().isAlive()){
+					if(j != i && currentController.getPlayer().isAlive()){
 						checkController = players[j];
 						if(checkController != null){
 							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
-						}
-					}*/
-					if(j != activePlayer && currentController.getPlayer().isAlive()){
-						Player checkController = playerList[j];
-						if(checkController != null){
-							currentController.checkCollision(checkController, checkController.getSkillList());
 						}
 					}
 				}
@@ -348,7 +337,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				}
 			
 			}
-	//	}
+		}
 		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
@@ -393,19 +382,19 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		//Checks if round should be ended
 		int endRound = 0;
 		String winningPlayer = null;
-		for(int i=0; i<playerList.length; i++){
-			if(playerList[i] != null){
-				if(!playerList[i].isAlive()){
+		for(int i=0; i<players.length; i++){
+			if(players[i] != null){
+				if(!players[i].getPlayer().isAlive()){
 					endRound++;
 					
 				}else{
-					winningPlayer = playerList[i].getName();
+					winningPlayer = players[i].getPlayer().getName();
 				}
 			}
 		}
 		//Ends round if only 1 player is alive
 		//Added impossible pass for now
-		if (endRound >= playerList.length - 1 && false){
+		if (endRound >= players.length - 1 && false){
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
