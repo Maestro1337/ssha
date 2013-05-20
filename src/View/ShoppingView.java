@@ -122,7 +122,8 @@ public class ShoppingView extends BasicGameState {
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");
-		playerGoldText = "" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
+		if(GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()) != null)
+			playerGoldText = "" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
 		
 
 		skillText = " ";
