@@ -78,7 +78,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	private int activePlayer;
 	Skill[] activeSkillList;
 	PlayerModel currentActiveController;
-	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
+//	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
 	private Obstacle[] obstacles = new Obstacle[100];
 	
 	Image userImage;
@@ -133,18 +133,24 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			
 			if(GlobalClassSelector.getController().getPlayer(i) != null){
 				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName());
-				players[GlobalClassSelector.getController().getActivePlayerIndex()] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
+				currentActiveController = new PlayerModel(GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()), obstacles);
 			}
 		}
 		
 		
-		for(int i=0; i<players.length; i++){
+	/*	for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
 			if(currentController != null){
 				currentController.ressurectPlayer();
 				currentController.checkPlayerObstacleCollision(0, 0);
 			}
+		}*/
+		
+		if(currentActiveController != null){
+			currentActiveController.ressurectPlayer();
+			currentActiveController.checkPlayerObstacleCollision(0, 0);
 		}
+		
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
 		
@@ -176,12 +182,12 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		for(int i=0; i<players.length; i++){
-			if(players[i] != null){
-				System.out.println(players[i].getPlayer().getName() + " " + players[i].getPlayer().getPlayerListIndex() + " " + i);
+		for(int i=0; i<playerList.length; i++){
+			if(playerList[i] != null){
+				System.out.println(playerList[i].getName() + " " + playerList[i].getPlayerListIndex() + " " + i);
 			}
 		}
-		currentActiveController = players[activePlayer];
+	//	currentActiveController = players[activePlayer];
 		activeSkillList = currentActiveController.getPlayer().getSkillList();
 	}
 	
@@ -302,7 +308,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 //		for(int i=0; i<players.length; i++){
 //			PlayerModel currentController = players[i];
 			
-			PlayerModel currentController = players[activePlayer];
+//			PlayerModel currentController = players[activePlayer];
+		PlayerModel currentController = currentActiveController;
 			if(currentController != null){
 				//Checking status effects
 				currentController.checkStatusEffects();
@@ -389,19 +396,19 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		//Checks if round should be ended
 		int endRound = 0;
 		String winningPlayer = null;
-		for(int i=0; i<players.length; i++){
-			if(players[i] != null){
-				if(!players[i].getPlayer().isAlive()){
+		for(int i=0; i<playerList.length; i++){
+			if(playerList[i] != null){
+				if(!playerList[i].isAlive()){
 					endRound++;
 					
 				}else{
-					winningPlayer = players[i].getPlayer().getName();
+					winningPlayer = playerList[i].getName();
 				}
 			}
 		}
 		//Ends round if only 1 player is alive
 		//Added impossible pass for now
-		if (endRound >= players.length - 1 && false){
+		if (endRound >= playerList.length - 1 && false){
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
