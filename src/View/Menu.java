@@ -102,6 +102,7 @@ public class Menu extends BasicGameState implements ActionListener{
 				GlobalClassSelector.getController().setSingleOrMulti(true);
 				
 				// Try to connect to server.
+				GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(true);
 				GlobalClassSelector.getController().getSocketClient().findConnection();
 				
 				long oldTime = System.currentTimeMillis();
@@ -110,13 +111,13 @@ public class Menu extends BasicGameState implements ActionListener{
 				// Wait ca 3 seconds
 				while(timeDiff < 3000) {
 					timeDiff = System.currentTimeMillis() - oldTime;
-					if(GlobalClassSelector.getController().getSocketClient().isConnected()) {
+					if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
 						break;
 					}
 				}
 				
 				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
-				if(GlobalClassSelector.getController().getSocketClient().isConnected()) {
+				if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
 					sbg.enterState(3);
 				} else {
 					
