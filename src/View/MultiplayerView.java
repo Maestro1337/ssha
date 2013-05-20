@@ -155,6 +155,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		victoryAnimation = new AnimationTimer(500,victoryanimation);
 		firstTimeRoundOver = true;
+		
+		GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()).setMode("arena");
 	}
 	
 	@Override
@@ -362,6 +364,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
+				GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()).setMode("lobby");
 			}
 			roundOver = true;
 			endRoundText = winningPlayer + " " + "wins!";
