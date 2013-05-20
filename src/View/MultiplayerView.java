@@ -133,7 +133,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			
 			if(GlobalClassSelector.getController().getPlayer(i) != null){
 				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName());
-				players[i] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
+				players[GlobalClassSelector.getController().getActivePlayerIndex()] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
 			}
 		}
 		
