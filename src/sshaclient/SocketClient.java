@@ -158,7 +158,7 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-	//		System.out.println(inData);
+			System.out.println(inData);
 			
 			if(inData.length() < 999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
