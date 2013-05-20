@@ -121,19 +121,6 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
 					sbg.enterState(5);
 				}else{
-					
-					for(int lol = 0; lol < GlobalClassSelector.getController().getPlayers().length; lol++) {
-						if(GlobalClassSelector.getController().getPlayers()[lol] != null) {
-							if(GlobalClassSelector.getController().getPlayers()[lol].getControlType().equals("server")) {
-								GlobalClassSelector.getController().getPlayerControllers()[lol].changePlayer(GlobalClassSelector.getController().getPlayers()[lol]);
-								System.out.println("Player " + lol + " is now changed.");
-							}
-							
-						
-						}
-					}
-					
-					
 					sbg.enterState(2);
 				}
 			}
