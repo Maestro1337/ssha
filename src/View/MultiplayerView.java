@@ -353,14 +353,22 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 					Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 					for(int j=0; j<currentSkillList.length; j++){
 						Skill attackingSkill = currentSkillList[j];
-						if(currentSkillList[j] != null && currentSkillList[j].isEndState()){
-						if(attackingSkill.getAnimationTimer() != null){
-							Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-						//TODO have to add -90 for slash.. but turn image instead..
-							animationImage.setRotation(attackingSkill.getRotation());
 						
-							if(animationImage != null)
-								attackingSkill.setEndStateImage(animationImage);
+						if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
+							float xDir = currentController.getPlayer().getX() - attackingSkill.getAttX();
+							float yDir = currentController.getPlayer().getY() - attackingSkill.getAttY();
+							float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+							attackingSkill.setXDirAtt(xDir/genDir);
+							attackingSkill.setYDirAtt(yDir/genDir);
+							
+						}else if(currentSkillList[j] != null && currentSkillList[j].isEndState()){
+							if(attackingSkill.getAnimationTimer() != null){
+								Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+							//TODO have to add -90 for slash.. but turn image instead..
+								animationImage.setRotation(attackingSkill.getRotation());
+							
+								if(animationImage != null)
+									attackingSkill.setEndStateImage(animationImage);
 							}
 						}
 					}
