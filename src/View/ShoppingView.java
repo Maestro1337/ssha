@@ -374,7 +374,7 @@ public class ShoppingView extends BasicGameState {
 				//LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
 				
 				if(activePlayer.isReady()){
-					sbg.enterState(1);
+					pressedReadyOrGo(sbg);
 				}
 				activePlayer.setReady(true);
 				
@@ -581,13 +581,13 @@ public class ShoppingView extends BasicGameState {
 		setSelectedSkill(selectedSkill);
 	}
 	
-	private void pushedReadyOrGo(){
-		// Sets the player array-position to their server-id.
-		//		GlobalClassSelector.getController().resetPlayers();
-
-		//		GlobalClassSelector.getController().removePlayer(0)
-			//	if(GlobalClassSelector.getController()){
-					
-			//	}
+	private void pressedReadyOrGo(StateBasedGame sbg){
+		if(GlobalClassSelector.getController().isMulti()){
+			sbg.enterState(2);
+		}else{
+			sbg.enterState(1);
+		}
+		
+		
 	}
 }

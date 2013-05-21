@@ -28,7 +28,6 @@ public class GlobalClassSelector {
 	private int difficultySelected;
 	private String playerName = "PushDatPizzaInMyAnalaSårskorpaLickItLikeThereIsNoTomorrow";
 	
-	
 	//Singleton
 	public static GlobalClassSelector getController() {
 	if (myControl == null) {
@@ -106,7 +105,7 @@ public class GlobalClassSelector {
 	public void setActivePlayerIndex(int index){
 		activePlayer = index;
 	}
-	public boolean getSingleOrMulti(){
+	public boolean isMulti(){
 		return isMultiplayer;
 	}
 	public void setSingleOrMulti(boolean singleOrMulti){
