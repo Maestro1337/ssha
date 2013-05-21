@@ -15,6 +15,7 @@ public class GameEngine extends StateBasedGame {
 	private static final int selection = 3;
 	private static final int shop = 4;
 	private static final int options = 5;
+	private static final int maxFPS = 60;
 	
 	public GameEngine(String name){
 		super(name);
@@ -40,6 +41,7 @@ public class GameEngine extends StateBasedGame {
 		AppGameContainer agc;
 		try{
 			agc = new AppGameContainer(new GameEngine(gameName));
+			agc.setTargetFrameRate(maxFPS);
 			agc.setDisplayMode(1280, 720, false);
 			agc.start();
 		}catch(SlickException ex){

@@ -56,15 +56,19 @@ public class SocketClient implements Runnable {
 		
 		while(true) {
 			
-			/*
-			System.out.println("These players are/are maybe connected:");
+		/*	System.out.println("These players are/are maybe connected:");
 			System.out.println(GlobalClassSelector.getController().getPlayer(0));
 			System.out.println(GlobalClassSelector.getController().getPlayer(1));
 			System.out.println(GlobalClassSelector.getController().getPlayer(2));
 			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-			*/
+		*/
+			
+			
+			
 			
 			if(connected) {
+			//	this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getKills() + " " + tp.getGold() + " skills";
@@ -154,12 +158,14 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-		//	System.out.println(inData);
+			System.out.println(inData);
 			
 			if(inData.length() < 999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
+					GlobalClassSelector.getController().removePlayer(0);
 					GlobalClassSelector.getController().addPlayer(tp, tp.getPlayerListIndex());
+					GlobalClassSelector.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
 					tp.takeName(false);
@@ -252,10 +258,13 @@ public class SocketClient implements Runnable {
 						GlobalClassSelector.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					}
 					
-					GlobalClassSelector.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
-					GlobalClassSelector.getController().addPlayerController(new PlayerClientController(this, GlobalClassSelector.getController().getPlayer(arrPos)), arrPos);
-					GlobalClassSelector.getController().addControllerThread(new Thread(GlobalClassSelector.getController().getPlayerControl(arrPos)), arrPos);
-					GlobalClassSelector.getController().getControllerThread(arrPos).start();
+					System.out.println(arrPos);
+					if(GlobalClassSelector.getController().getPlayer(arrPos) != null){
+						GlobalClassSelector.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
+						GlobalClassSelector.getController().addPlayerController(new PlayerClientController(this, GlobalClassSelector.getController().getPlayer(arrPos)), arrPos);
+						GlobalClassSelector.getController().addControllerThread(new Thread(GlobalClassSelector.getController().getPlayerControl(arrPos)), arrPos);
+						GlobalClassSelector.getController().getControllerThread(arrPos).start();
+					}
 				}
 			}
 			data = data.substring(data.indexOf(47)+1, data.length());
@@ -265,7 +274,7 @@ public class SocketClient implements Runnable {
 		for(int k = 0; k < playerChanged.length; k++) {
 			if(!playerChanged[k]) {
 				playerStats[k] = null;
-				if(GlobalClassSelector.getController().getPlayer(k) != null) {
+				if(GlobalClassSelector.getController().getPlayer(k) != null && GlobalClassSelector.getController().getPlayerControl(k) != null) {
 					GlobalClassSelector.getController().getPlayerControl(k).killItWithFire();
 					GlobalClassSelector.getController().removeControllerThread(k);
 					GlobalClassSelector.getController().removePlayerController(k);
@@ -274,7 +283,7 @@ public class SocketClient implements Runnable {
 			}
 		}
 		
-		// Checkings if players in the lobby are ready.
+		// Checking if players in the lobby are ready.
 		boolean tempReady = true;
 		for(int i = 0; i < GlobalClassSelector.getController().getPlayers().length; i++) {
 			if(GlobalClassSelector.getController().getPlayer(i) != null) {

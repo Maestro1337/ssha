@@ -12,7 +12,6 @@ public class PlayerClientController implements PlayerControl {
 	private SocketClient sc;
 	private Player tp; 
 
-	private int playerID;
 	private boolean isAlive = false;
 	
 	public PlayerClientController(SocketClient sc, Player tp) {
@@ -34,10 +33,11 @@ public class PlayerClientController implements PlayerControl {
 		
 		while(isAlive) {
 			
-			//System.out.println("I " + tp.getName() + " is alive!!!!!");
+	//		System.out.println("I " + tp.getName() + " is alive!!!!!");
 			
 			
-			tempStats = sc.getPlayerStats(playerID);
+			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
+	//		System.out.println(tp.getPlayerListIndex());
 			
 			// Set Player stats in lobby with info from Server
 			if(Constants.getItem(tempStats, 2).equals("lobby")) {
@@ -183,4 +183,12 @@ public class PlayerClientController implements PlayerControl {
 		System.out.println("Will terminate");
 		isAlive = false;
 	}
+
+
+	@Override
+	public void changePlayer(Player player) {
+		this.tp = player;
+		
+	}
+	
 }

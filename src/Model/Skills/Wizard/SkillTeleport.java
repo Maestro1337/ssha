@@ -10,7 +10,7 @@ public class SkillTeleport extends Skill {
 
 	public SkillTeleport() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Teleport", 2000, 500, 100, 8, 50, 0, "Teleport:\nTAFLEPoRT!");
+		super("Teleport", 20000, 500, 100, 8, 50, 0, "Teleport:\nTAFLEPoRT!");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[5];
@@ -44,9 +44,9 @@ public class SkillTeleport extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 15000;
+	private int lvl3 = 10000;
+	private int lvl4 = 5000;
 	
 	@Override
 	public void upgradeSkill() {
@@ -55,13 +55,13 @@ public class SkillTeleport extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setDamage(lvl2);
+				super.setCooldown(lvl2);
 				break;
 			case 3:
-				super.setDamage(lvl3);
+				super.setCooldown(lvl3);
 				break;
 			case 4:
-				super.setDamage(lvl4);
+				super.setCooldown(lvl4);
 				break;
 			}
 		}

@@ -26,6 +26,7 @@ public class GlobalClassSelector {
 	private int activePlayer = 0;
 	private Arena mapSelected;
 	private int difficultySelected;
+	private String playerName = "NICHTSNICTHSSSSSs";
 	
 	
 	//Singleton
@@ -39,8 +40,7 @@ public class GlobalClassSelector {
 
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
-	//	players.add(new ClassHunter("Tester", 120, 100));
-		players[0] = new ClassHunter("Tester", "player", 120, 100, 0);
+		players[0] = new ClassHunter(getActivePlayerName(), "player", 120, 100, 0);
 		
 		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort, players[0]);
 		socketThread = new Thread(socketClient);
@@ -94,6 +94,12 @@ public class GlobalClassSelector {
 		return controllerThreads[index];
 	}
 	
+	public String getActivePlayerName(){
+		return playerName;
+	}
+	public void setActivePlayerName(String name){
+		playerName = name;
+	}
 	public int getActivePlayerIndex(){
 		return activePlayer;
 	}

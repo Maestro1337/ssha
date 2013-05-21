@@ -12,7 +12,7 @@ import Model.StatusEffects.StatusEffectTeleport;
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 10000, 200, 0.4, 8, 50, 150,"Leap attack \n" +
+				super("Leap attack", 10000, 200, 2, 8, 50, 150,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +

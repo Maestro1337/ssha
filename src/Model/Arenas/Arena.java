@@ -25,7 +25,7 @@ public class Arena {
 	public Arena(String name){
 		this.name = name;
 		try {
-			background = new TiledMap("res/tileset/bg.tmx");
+			background = new TiledMap("res/tileset/defaultMap.tmx");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

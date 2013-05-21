@@ -10,7 +10,7 @@ public class StatusEffectCripple extends StatusEffectShell{
 	public StatusEffectCripple(Skill skill, double moveEff, int seconds) {
 		//player,skill,name,damage,moveX,moveY,moveSpeed,arm,attackSpeed,range,isStun,isChanneling,counts,delay
 		//plus one to add a count after the first hit which is instant
-		super(null, skill, "Immobilize", 0, 0, 0, moveEff, 0, 0, 0, 0, false, false, false, seconds+1, 0);
+		super(null, skill, "Cripple", 0, 0, 0, moveEff, 0, 0, 0, 0, false, false, false, seconds+1, 0);
 		// TODO Auto-generated constructor stub
 	}
 

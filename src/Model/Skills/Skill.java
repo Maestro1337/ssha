@@ -8,13 +8,9 @@ import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
 import Model.Timers.SkillCheckingTimer;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public abstract class Skill{
 
@@ -26,6 +22,7 @@ public abstract class Skill{
 	private int cost;
 	private int damage;
 	private int lvlOfSkill;
+	private int pushDistance = 100;
 	
 	private String describe;
 	private boolean affectSelf = false;
@@ -106,7 +103,8 @@ public abstract class Skill{
 		
 		attackRange = range;
 		if(speed < 100){
-			attSpeed = 3*speed;
+			attSpeed = speed;
+			pushDistance *= speed;
 		}else{
 			isProjectile = false;
 		}
@@ -116,15 +114,16 @@ public abstract class Skill{
 		this.affectSelf = affectSelf;
 		
 		//Backup image if it doesn't get one set by the extended skillClass
-		try {
+		/*try {
 			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
+			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		currentHeight = imgHeight = attackImage.getHeight();
 		currentWidth = imgWidth = attackImage.getWidth();
-		
+		*/
 		SCTArray = new ArrayList<SkillCheckingTimer>();
 		
 	}
@@ -238,6 +237,9 @@ public abstract class Skill{
 	public int getAOE(){
 		return areaOfEffect;
 	}
+	public int getPushDistance(){
+		return pushDistance;
+	}
 	public int getCost(){
 		return cost;
 	}
@@ -313,6 +315,9 @@ public abstract class Skill{
 	}
 	public void resetCooldown(){
 		CDstartTime = System.currentTimeMillis() - cooldown;
+	}
+	public void setCooldown(int cooldown){
+		this.cooldown = cooldown;
 	}
 	
 	public void setNonProjectileShot(){

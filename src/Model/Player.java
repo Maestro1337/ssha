@@ -1,7 +1,12 @@
 package Model;
 
 import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -242,6 +247,9 @@ public class Player {
 		damage *= (1-armor);
 		if(damage >= 0){
 			HP -= damage;
+			if(damage != 0){
+				playSound("res/sounds/takingDamage.wav");
+			}
 		}
 	//	System.out.println("DAMAGE DEALT!");
 	}
@@ -436,5 +444,15 @@ public class Player {
 	}
 	public void takeName(boolean nameTaken) {
 		this.nameTaken = nameTaken;
+	}
+	//Handling the soundfiles
+	public static synchronized void playSound(String filename) {
+		try{
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+			clip.start();
+		}catch (Exception exc){
+				exc.printStackTrace(System.out);
+		}	
 	}
 }

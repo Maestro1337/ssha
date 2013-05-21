@@ -10,7 +10,7 @@ public class SkillArrow extends Skill{
 	
 	public SkillArrow(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow", 1000, 500, 0.5, 3, 0, 100, "Arrow: \nShoots a plain arrow.\n" +
+		super("Arrow", 1000, 500, 1.7, 3, 0, 100, "Arrow: \nShoots a plain arrow.\n" +
 				"Level 1: 10 damage\n" +
 				"Level 2: 20 damage\n" +
 				"Level 3: 30 damage\n" +
@@ -20,14 +20,12 @@ public class SkillArrow extends Skill{
 		Image[] skillBar = new Image[3];
 		super.setPassive();
 		
-	//	super.setStatusEffect(new StatusEffectStun(this, 5));
-		
 		try {
 			attackImages[0] = new Image("res/animations/arrow/arrow.png");
 			
-			skillBar[0] = new Image("res/skillIcons/guidedarrow.png");
-			skillBar[1] = new Image("res/skillIcons/guidedarrow_active.png");
-			skillBar[2] = new Image("res/skillIcons/guidedarrow_disabled.png");
+			skillBar[0] = new Image("res/skillIcons/arrow.png");
+			skillBar[1] = new Image("res/skillIcons/arrow_active.png");
+			skillBar[2] = new Image("res/skillIcons/arrow_disabled.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -37,9 +35,9 @@ public class SkillArrow extends Skill{
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 150;
+	private int lvl3 = 200;
+	private int lvl4 = 250;
 	
 	@Override
 	public void upgradeSkill() {
