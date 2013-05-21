@@ -174,8 +174,9 @@ public class PlayerClientController implements PlayerControl {
 						boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7));
 						
 						if(canActivateSkill[j] && isAttacking){
-							realSkills[j].setMouseXPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
-							realSkills[j].setMouseYPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
+						//	realSkills[j].setMouseXPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
+						//	realSkills[j].setMouseYPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
+							model.attack(Integer.parseInt(Constants.getItem(tempStats, (j+1)*8+4)), Integer.parseInt(Constants.getItem(tempStats, (j+1)*8+5)));
 						}else if(!isAttacking){
 							canActivateSkill[j] = false;
 						}
