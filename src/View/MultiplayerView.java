@@ -346,7 +346,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 					Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 					for(int j=0; j<currentSkillList.length; j++){
 						Skill attackingSkill = currentSkillList[j];
-						if(currentSkillList[j].isEndState()){
+						if(currentSkillList[j] != null && currentSkillList[j].isEndState()){
 	/*					if(!player.getChannel() && attackingSkill.getSelfAffectingStatusEffect() != null 
 								&& attackingSkill.getSelfAffectingStatusEffect().getChannel()){
 							attackingSkill.setAttackingState(false);
