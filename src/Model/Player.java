@@ -365,7 +365,7 @@ public class Player {
 		moveSpeed = baseMoveSpeed;
 		for(int i=0; i<passiveSkills.size(); i++){
 			StatusEffectShell SE = passiveSkills.get(i).getSelfAffectingStatusEffect();
-			armor += SE.getArmEff();
+			armor *= SE.getArmEff();
 			evasion += SE.getEvasionEff();
 			moveSpeed += SE.getMoveSpeedEff();
 		}
