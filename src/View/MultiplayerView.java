@@ -295,7 +295,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		System.out.println("GCS ID: " + GlobalClassSelector.getController().getActivePlayerIndex());
 		System.out.println("Multiplayer ActivePlayer ID: " + activePlayer);
 		System.out.println("Socket Player Active ID: " + GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
-		
+		System.out.println("CurrentController ID: " + currentActiveController.getPlayer().getPlayerListIndex());
 		
 		
 		//Update current mouse position
