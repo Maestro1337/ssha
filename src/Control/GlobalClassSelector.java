@@ -27,7 +27,6 @@ public class GlobalClassSelector {
 	private int difficultySelected;
 	private String playerName = "StjärtSkvätt";
 
-
 	
 	//Singleton
 	public static GlobalClassSelector getController() {
