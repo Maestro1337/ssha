@@ -20,7 +20,7 @@ public class SkillFlamewave extends Skill{
 		Image[] animation = new Image[2];
 		Image[] skillBar = new Image[3];
 		
-		super.setSelfAffectingStatusEffectShell(new StatusEffectBurning(this, 50, 1));
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 50, 1), false);
 		
 		try {
 			attackImages[0] = new Image("res/animations/Flamewave/Flamewave1.png");

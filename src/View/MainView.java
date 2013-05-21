@@ -299,7 +299,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
 			player.setGold(player.getGold()+50);
 		if(!enemy.isAlive()){
-			player.addGold(50);
+			player.addGold(25);
 		}
 	}
 	
