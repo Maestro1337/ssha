@@ -324,7 +324,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				currentController.checkUserImageChange();
 				
 				//Checking collision from other players
-		/*		for(int j=0; j<players.length; j++){
+				for(int j=0; j<players.length; j++){
 					PlayerModel checkController;
 					//Check to see it is another player
 					
@@ -334,7 +334,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
 						}
 					}
-				}*/
+				}
 				
 				//Check if player is running to update positioning
 		/*		if(currentController.getPlayer().isRunning()){
