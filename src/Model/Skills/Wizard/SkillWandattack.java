@@ -44,28 +44,9 @@ public class SkillWandattack extends Skill {
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
-
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
 	
 	@Override
 	public void upgradeSkill() {
-		if(super.getCurrentLvl() < 4){
-			super.incCurrentLvl();
-			
-			switch(super.getCurrentLvl()){
-			case 2:
-				super.setDamage(lvl2);
-				break;
-			case 3:
-				super.setDamage(lvl3);
-				break;
-			case 4:
-				super.setDamage(lvl4);
-				break;
-			}
-		}
 	}
 
 }

@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillArrowFlurry extends Skill {
 	public SkillArrowFlurry(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow flurry", 1000, 400, 100, 3, 50, 100,"Arrow flurry: \nA rain of arrows on a targetted \narea. Immobilizes enemies in  \nthe area and damages over time.\n" +
+		super("Arrow flurry", 11000, 400, 100, 3, 50, 150,"Arrow flurry: \nA rain of arrows on a targetted \narea. Immobilizes enemies in  \nthe area and damages over time.\n" +
 				"Level 1: 100 damage\n" +
 				"Level 2: 200 damage\n" +
 				"Level 3: 400 damage\n" +
@@ -52,13 +52,13 @@ public class SkillArrowFlurry extends Skill {
 		}
 		
 		super.setImage(attackImage);
-		super.setEndState(animation, 500, 200);
+		super.setEndState(animation, 1000, 500);
 		super.setSkillBarImages(skillBar);
 	}
 
 	private int lvl2 = 200;
-	private int lvl3 = 300;
-	private int lvl4 = 400;
+	private int lvl3 = 250;
+	private int lvl4 = 300;
 	
 	@Override
 	public void upgradeSkill() {
@@ -67,12 +67,15 @@ public class SkillArrowFlurry extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setOffensiveStatusEffectShell(new StatusEffectImmobilize(this, 1),true);
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setOffensiveStatusEffectShell(new StatusEffectImmobilize(this, 2),true);
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setOffensiveStatusEffectShell(new StatusEffectImmobilize(this, 2),true);
 				super.setDamage(lvl4);
 				break;
 			}

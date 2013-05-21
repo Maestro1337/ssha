@@ -33,28 +33,9 @@ public class SkillArrow extends Skill{
 		super.setImage(attackImages, 200);
 		super.setSkillBarImages(skillBar);
 	}
-
-	private int lvl2 = 150;
-	private int lvl3 = 200;
-	private int lvl4 = 250;
 	
 	@Override
 	public void upgradeSkill() {
-		if(super.getCurrentLvl() < 4){
-			super.incCurrentLvl();
-			
-			switch(super.getCurrentLvl()){
-			case 2:
-				super.setDamage(lvl2);
-				break;
-			case 3:
-				super.setDamage(lvl3);
-				break;
-			case 4:
-				super.setDamage(lvl4);
-				break;
-			}
-		}
 	}
 
 }

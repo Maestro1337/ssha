@@ -27,7 +27,7 @@ import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
 import Model.Skills.Hunter.SkillBarrelRoll;
-import Model.Skills.Hunter.SkillCripplingShot;
+import Model.Skills.Hunter.SkillCripplingTrap;
 import Model.Skills.Hunter.SkillFlamingArrow;
 import Model.Skills.Hunter.SkillGuidedArrow;
 import Model.Skills.Hunter.SkillLifestealingArrows;
@@ -194,7 +194,7 @@ public class ShoppingView extends BasicGameState {
 				allSkills[2] = new SkillSprint();
 				allSkills[3] = new SkillGuidedArrow();
 				allSkills[4] = new SkillLifestealingArrows();
-				allSkills[5] = new SkillCripplingShot();
+				allSkills[5] = new SkillCripplingTrap();
 				allSkills[6] = new SkillArrowFlurry();
 				allSkills[7] = new SkillStealth();
 				allSkills[8] = new SkillBarrelRoll();

@@ -7,8 +7,8 @@ import Model.Skills.Skill;
 import Model.StatusEffects.StatusEffectMovement;
 import Model.StatusEffects.StatusEffectImmobilize;
 
-public class SkillCripplingShot extends Skill {
-	public SkillCripplingShot(){
+public class SkillCripplingTrap extends Skill {
+	public SkillCripplingTrap(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 		super("Crippling shot", 11000, 0, 0.4, 5, 25, 200,"Crippling trap: \nA trap which slows the enemy.\n" +
 				"Level 1: 150 damage\n" +

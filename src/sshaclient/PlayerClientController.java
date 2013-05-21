@@ -53,7 +53,7 @@ public class PlayerClientController implements PlayerControl {
 						tempSkills[i] = new SkillBarrelRoll();
 						break;
 					case "cripplingshot":
-						tempSkills[i] = new SkillCripplingShot();
+						tempSkills[i] = new SkillCripplingTrap();
 						break;
 					case "flamingarrow":
 						tempSkills[i] = new SkillFlamingArrow();
