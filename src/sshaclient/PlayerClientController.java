@@ -11,7 +11,7 @@ public class PlayerClientController implements PlayerControl {
 
 	private SocketClient sc;
 	private Player tp; 
-
+	
 	private boolean isAlive = false;
 	
 	public PlayerClientController(SocketClient sc, Player tp) {
@@ -33,11 +33,10 @@ public class PlayerClientController implements PlayerControl {
 		
 		while(isAlive) {
 			
-	//		System.out.println("I " + tp.getName() + " is alive!!!!!");
+			System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
 			
 			
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
-	//		System.out.println(tp.getPlayerListIndex());
 			
 			// Set Player stats in lobby with info from Server
 			if(Constants.getItem(tempStats, 2).equals("lobby")) {
@@ -149,23 +148,21 @@ public class PlayerClientController implements PlayerControl {
 				tp.setSkillList(tempSkills);
 				
 			} else {
-				if(tp != null){
-					tp.setX(Float.parseFloat(Constants.getItem(tempStats, 3)));
-					tp.setY(Float.parseFloat(Constants.getItem(tempStats, 4)));
-					tp.setRotation(Float.parseFloat(Constants.getItem(tempStats, 5)));
-					tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
-					tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
-					tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
-					
-					realSkills = tp.getSkillList();
-					
-					for(int j = 0; j < realSkills.length; j++) {
-						if(realSkills[j] != null) {
-							realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+6)));
-							realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+7)));
-							realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+8)));
-							realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*5+9)));
-						}
+				tp.setX(Float.parseFloat(Constants.getItem(tempStats, 3)));
+				tp.setY(Float.parseFloat(Constants.getItem(tempStats, 4)));
+				tp.setRotation(Float.parseFloat(Constants.getItem(tempStats, 5)));
+				tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
+				tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
+				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
+				
+				realSkills = tp.getSkillList();
+				
+				for(int j = 0; j < realSkills.length; j++) {
+					if(realSkills[j] != null) {
+						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+6)));
+						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+7)));
+						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+8)));
+						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*5+9)));
 					}
 				}
 			}
