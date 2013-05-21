@@ -344,7 +344,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				}*/
 				
 				//Check for servers endstate
-				if(currentController.getPlayer().getControlType() == "server"){
+		/*		if(currentController.getPlayer().getControlType() == "server"){
 					//Check if player is running to update positioning
 					if(currentController.getPlayer().isRunning()){
 						currentController.isRunning();
@@ -355,11 +355,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 						Skill attackingSkill = currentSkillList[j];
 						
 						if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
-							float xDir = currentController.getPlayer().getX() - attackingSkill.getAttX();
-							float yDir = currentController.getPlayer().getY() - attackingSkill.getAttY();
-							float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-							attackingSkill.setXDirAtt(xDir/genDir);
-							attackingSkill.setYDirAtt(yDir/genDir);
+	
 							
 						}else if(currentSkillList[j] != null && currentSkillList[j].isEndState()){
 							if(attackingSkill.getAnimationTimer() != null){
@@ -373,7 +369,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 						}
 					}
 				}
-				
+				*/
 				
 			/*	Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 				for(int j=0; j<currentSkillList.length; j++){
