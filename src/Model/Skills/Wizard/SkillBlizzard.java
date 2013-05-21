@@ -22,28 +22,28 @@ public class SkillBlizzard extends Skill {
 		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.7, 1, 0),true);
 		
 		try {
-			attackImage = new Image("res/animations/Blizzard/Blizzard1.png");
+			attackImage = new Image("res/animations/blizzard/Blizzard1.png");
 			
-			animation[0] = new Image("res/animations/Blizzard/Blizzard1.png");
-			animation[1] = new Image("res/animations/Blizzard/Blizzard2.png");
-			animation[2] = new Image("res/animations/Blizzard/Blizzard3.png");
-			animation[3] = new Image("res/animations/Blizzard/Blizzard4.png");
-			animation[4] = new Image("res/animations/Blizzard/Blizzard5.png");
-			animation[5] = new Image("res/animations/Blizzard/Blizzard6.png");
-			animation[6] = new Image("res/animations/Blizzard/Blizzard7.png");
-			animation[7] = new Image("res/animations/Blizzard/Blizzard8.png");
-			animation[8] = new Image("res/animations/Blizzard/Blizzard9.png");
-			animation[9] = new Image("res/animations/Blizzard/Blizzard10.png");
-			animation[10] = new Image("res/animations/Blizzard/Blizzard11.png");
-			animation[11] = new Image("res/animations/Blizzard/Blizzard12.png");
-			animation[12] = new Image("res/animations/Blizzard/Blizzard13.png");
-			animation[13] = new Image("res/animations/Blizzard/Blizzard14.png");
-			animation[14] = new Image("res/animations/Blizzard/Blizzard15.png");
-			animation[15] = new Image("res/animations/Blizzard/Blizzard16.png");
-			animation[16] = new Image("res/animations/Blizzard/Blizzard17.png");
-			animation[17] = new Image("res/animations/Blizzard/Blizzard18.png");
-			animation[18] = new Image("res/animations/Blizzard/Blizzard19.png");
-			animation[19] = new Image("res/animations/Blizzard/Blizzard20.png");
+			animation[0] = new Image("res/animations/blizzard/Blizzard1.png");
+			animation[1] = new Image("res/animations/blizzard/Blizzard2.png");
+			animation[2] = new Image("res/animations/blizzard/Blizzard3.png");
+			animation[3] = new Image("res/animations/blizzard/Blizzard4.png");
+			animation[4] = new Image("res/animations/blizzard/Blizzard5.png");
+			animation[5] = new Image("res/animations/blizzard/Blizzard6.png");
+			animation[6] = new Image("res/animations/blizzard/Blizzard7.png");
+			animation[7] = new Image("res/animations/blizzard/Blizzard8.png");
+			animation[8] = new Image("res/animations/blizzard/Blizzard9.png");
+			animation[9] = new Image("res/animations/blizzard/Blizzard10.png");
+			animation[10] = new Image("res/animations/blizzard/Blizzard11.png");
+			animation[11] = new Image("res/animations/blizzard/Blizzard12.png");
+			animation[12] = new Image("res/animations/blizzard/Blizzard13.png");
+			animation[13] = new Image("res/animations/blizzard/Blizzard14.png");
+			animation[14] = new Image("res/animations/blizzard/Blizzard15.png");
+			animation[15] = new Image("res/animations/blizzard/Blizzard16.png");
+			animation[16] = new Image("res/animations/blizzard/Blizzard17.png");
+			animation[17] = new Image("res/animations/blizzard/Blizzard18.png");
+			animation[18] = new Image("res/animations/blizzard/Blizzard19.png");
+			animation[19] = new Image("res/animations/blizzard/Blizzard20.png");
 			
 			
 			
