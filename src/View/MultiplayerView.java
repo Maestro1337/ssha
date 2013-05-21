@@ -303,6 +303,16 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		int yPos = 720 - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
+		currentActiveController.isRunning();
+		
+		Skill[] currentPlayerSkillList = currentActiveController.getPlayer().getSkillList();
+		for(int j=0; j<currentPlayerSkillList.length; j++){
+			//Check if players skills are in use to update positioning
+			if(currentPlayerSkillList[j] != null && currentPlayerSkillList[j].isAttacking()){
+				currentActiveController.isAttacking(currentPlayerSkillList[j]);
+			}
+		}
+		
 		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
 			
@@ -314,7 +324,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				currentController.checkUserImageChange();
 				
 				//Checking collision from other players
-				for(int j=0; j<players.length; j++){
+		/*		for(int j=0; j<players.length; j++){
 					PlayerModel checkController;
 					//Check to see it is another player
 					
@@ -324,21 +334,43 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
 						}
 					}
-				}
+				}*/
 				
 				//Check if player is running to update positioning
-				if(currentController.getPlayer().isRunning()){
+		/*		if(currentController.getPlayer().isRunning()){
 					currentController.isRunning();
+				}*/
+				
+				//Check for servers endstate
+				if(currentController.getPlayer().getControlType() == "server"){
+					Skill[] currentSkillList = currentController.getPlayer().getSkillList();
+					for(int j=0; j<currentSkillList.length; j++){
+						Skill attackingSkill = currentSkillList[j];
+						if(currentSkillList[j].isEndState()){
+	/*					if(!player.getChannel() && attackingSkill.getSelfAffectingStatusEffect() != null 
+								&& attackingSkill.getSelfAffectingStatusEffect().getChannel()){
+							attackingSkill.setAttackingState(false);
+						}*/
+						if(attackingSkill.getAnimationTimer() != null){
+							Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
+						//TODO have to add -90 for slash.. but turn image instead..
+							animationImage.setRotation(attackingSkill.getRotation());
+						
+							if(animationImage != null)
+								attackingSkill.setEndStateImage(animationImage);
+							}
+						}
+					}
 				}
 				
 				
-				Skill[] currentSkillList = currentController.getPlayer().getSkillList();
+			/*	Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 				for(int j=0; j<currentSkillList.length; j++){
 					//Check if players skills are in use to update positioning
 					if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
 						currentController.isAttacking(currentSkillList[j]);
 					}
-				}
+				}*/
 			
 			}
 		}

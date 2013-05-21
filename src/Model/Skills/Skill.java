@@ -488,6 +488,12 @@ public abstract class Skill{
 	public boolean isEndState(){
 		return isEndState;
 	}
+	public void setEndstate(boolean state) {
+		this.isEndState = state;
+		if(state) {
+			animation.resetCounterAndTimer();
+		}
+	}
 	public int getESColInterval(){
 		return ESColInterval;
 	}

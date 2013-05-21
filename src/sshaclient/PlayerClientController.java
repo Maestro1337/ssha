@@ -31,6 +31,11 @@ public class PlayerClientController implements PlayerControl {
 		String currentSkill;
 		int currentSkillLvl;
 		
+		boolean[] canActivateEndState = new boolean[5];
+		for(int i=0; i<canActivateEndState.length; i++){
+			canActivateEndState[i] = true;
+		}
+		
 		while(isAlive) {
 			
 			System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
@@ -154,15 +159,23 @@ public class PlayerClientController implements PlayerControl {
 				tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
 				tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
 				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
+				tp.setHP(Integer.parseInt(Constants.getItem(tempStats, 9)));
 				
 				realSkills = tp.getSkillList();
 				
 				for(int j = 0; j < realSkills.length; j++) {
 					if(realSkills[j] != null) {
-						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+6)));
-						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+7)));
-						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+8)));
-						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*5+9)));
+						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*6+6)));
+						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*6+7)));
+						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*6+8)));
+						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*6+9)));
+						boolean isEndState = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*6+10));
+						if(canActivateEndState[j] && isEndState){
+							realSkills[j].setEndstate(true);
+							canActivateEndState[j] = false;
+						}else if(!isEndState){
+							canActivateEndState[j] = true;
+						}
 					}
 				}
 			}

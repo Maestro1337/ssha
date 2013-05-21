@@ -36,7 +36,6 @@ public class GameEngine extends StateBasedGame {
 		this.getState(options).init(gc,this);
 		this.enterState(menu);
 	}
-	
 	public static void main(String[] args) {
 		AppGameContainer agc;
 		try{
