@@ -55,12 +55,12 @@ public class SocketClient implements Runnable {
 		
 		while(true) {
 			
-		/*	System.out.println("These players are/are maybe connected:");
+			System.out.println("These players are/are maybe connected:");
 			System.out.println(GlobalClassSelector.getController().getPlayer(0));
 			System.out.println(GlobalClassSelector.getController().getPlayer(1));
 			System.out.println(GlobalClassSelector.getController().getPlayer(2));
 			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-		*/	
+			
 			
 			if(connected) {
 				
@@ -79,11 +79,11 @@ public class SocketClient implements Runnable {
 					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.isReady();
 				} else {
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
-					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " skills";
+					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " " + tp.getHP() + " skills";
 					for(int j = 0; j < tempSkills.length; j++) {
 						if(tempSkills[j] != null) {
 							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getAttX() + " " + tempSkills[j].getAttY() + " ";
-							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking();
+							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState();
 						} else {
 							process = process + " noskill 0 0 0 0 false";
 						}
@@ -151,13 +151,13 @@ public class SocketClient implements Runnable {
 		int c = 0;
 		
 		try {
-			while((c = isr.read()) != 13 && instr.length() < 1000) {
+			while((c = isr.read()) != 13 && instr.length() < 5000) {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
 			System.out.println(inData);
 			
-			if(inData.length() < 999) {
+			if(inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
 					GlobalClassSelector.getController().removePlayer(0);
@@ -226,7 +226,6 @@ public class SocketClient implements Runnable {
 		for(int j = 0; j < playerChanged.length; j++) {
 			playerChanged[j] = false;
 		}
-		
 		
 		if(data.substring(0, 1).equals("/")) {
 			data = data.substring(1, data.length()-1);
