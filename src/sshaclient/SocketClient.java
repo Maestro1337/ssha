@@ -82,9 +82,15 @@ public class SocketClient implements Runnable {
 					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " " + tp.getHP() + " skills";
 					for(int j = 0; j < tempSkills.length; j++) {
 						if(tempSkills[j] != null) {
+							/*
 							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getAttX() + " " + tempSkills[j].getAttY() + " ";
 							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
 							process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
+							*/
+							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getMouseXPos() + " " + tempSkills[j].getMouseYPos() + " ";
+							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
+							process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
+							
 						} else {
 							process = process + " noskill 0 0 0 0 false";
 						}

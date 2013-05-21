@@ -2,6 +2,8 @@ package sshaclient;
 
 import Control.PlayerControl;
 import Model.Player;
+import Model.PlayerModel;
+import Model.Obstacles.Obstacle;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.*;
 import Model.Skills.Warrior.*;
@@ -32,8 +34,10 @@ public class PlayerClientController implements PlayerControl {
 		int currentSkillLvl;
 		
 		boolean[] canActivateEndState = new boolean[5];
+		boolean[] canActivateSkill = new boolean[5];
 		for(int i=0; i<canActivateEndState.length; i++){
 			canActivateEndState[i] = true;
+			canActivateSkill[i] = true;
 		}
 		
 		while(isAlive) {
@@ -163,21 +167,32 @@ public class PlayerClientController implements PlayerControl {
 				
 				realSkills = tp.getSkillList();
 				
+				PlayerModel model = new PlayerModel(tp, new Obstacle[0]);
 				for(int j = 0; j < realSkills.length; j++) {
 					if(realSkills[j] != null) {
-						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
-						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
-						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+6)));
-						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7)));
-						boolean isEndState = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+8));
+						
+						boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7));
+						
+						if(canActivateSkill[j] && isAttacking){
+							realSkills[j].setMouseXPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
+							realSkills[j].setMouseYPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
+						}else if(!isAttacking){
+							canActivateSkill[j] = false;
+						}
+						
+						//realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
+						//realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
+						//realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+6)));
+						//realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7)));
+						/*boolean isEndState = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+8));
 						if(canActivateEndState[j] && isEndState){
 							realSkills[j].setEndstate(true);
 							canActivateEndState[j] = false;
 						}else if(!isEndState){
 							canActivateEndState[j] = true;
-						}
-						realSkills[j].setXDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+9)));
-						realSkills[j].setYDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+10)));
+						}*/
+						//realSkills[j].setXDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+9)));
+						//realSkills[j].setYDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+10)));
 					}
 				}
 			}
