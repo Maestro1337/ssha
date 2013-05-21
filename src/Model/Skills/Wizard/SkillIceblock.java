@@ -39,9 +39,9 @@ public class SkillIceblock extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 0;
+	private int lvl3 = 0;
+	private int lvl4 = 0;
 	
 	@Override
 	public void upgradeSkill() {

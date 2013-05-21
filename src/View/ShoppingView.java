@@ -549,6 +549,9 @@ public class ShoppingView extends BasicGameState {
 			buyString = "Succesfully bought a skill for " + skill.getCost() + "!";
 			activePlayer.addGold(-skill.getCost());
 			activePlayer.addSkillAsOwned(skill);
+			if(skill.isPassive()){
+				activePlayer.addPassiveSkill(skill);
+			}
 		}else{
 			Skill ownedSkill = findOwnedSkill(skill.getName());
 			if(ownedSkill.getCurrentLvl() < 4){

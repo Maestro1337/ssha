@@ -39,9 +39,9 @@ public class SkillWarstomp extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 250;
-	private int lvl3 = 450;
-	private int lvl4 = 550;
+	private int lvl2 = 200;
+	private int lvl3 = 250;
+	private int lvl4 = 350;
 	
 	@Override
 	public void upgradeSkill() {
@@ -50,6 +50,7 @@ public class SkillWarstomp extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 2),false);
 				super.setDamage(lvl2);
 				break;
 			case 3:

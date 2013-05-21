@@ -7,9 +7,9 @@ import Model.Skills.Skill;
 
 public class StatusEffectArmor extends StatusEffectShell{
 
-	public StatusEffectArmor(Skill skill, int armor, int seconds) {
+	public StatusEffectArmor(Skill skill, double armor, int seconds) {
 		
-		super(null, skill, "Armor", 50, 0, 0, 0, 0, armor, 0, 0, false, false, false, seconds+1, 0);
+		super(null, skill, "Armor", 50, 0, 0, 0, armor, 0, 0, 0, false, false, false, seconds+1, 0);
 	}
 	
 	@Override

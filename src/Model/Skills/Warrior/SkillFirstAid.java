@@ -16,7 +16,7 @@ public class SkillFirstAid extends Skill {
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage");
 				
-				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 10));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 15));
 				
 				Image attackImage = null;
 				Image[] animation = new Image[19];
@@ -57,9 +57,9 @@ public class SkillFirstAid extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 0;
+	private int lvl3 = 0;
+	private int lvl4 = 0;
 	
 	@Override
 	public void upgradeSkill() {
@@ -68,12 +68,15 @@ public class SkillFirstAid extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 30));
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 50));
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 100));
 				super.setDamage(lvl4);
 				break;
 			}

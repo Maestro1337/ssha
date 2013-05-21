@@ -298,11 +298,16 @@ public class MainView extends BasicGameState implements ActionListener {
 			player.setGold(player.getGold()+25);
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
 			player.setGold(player.getGold()+50);
+		if(!enemy.isAlive()){
+			player.addGold(50);
+		}
 	}
 	
 	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+		
+		System.out.println(players.get(activePlayer).getPlayer().getArmor());
 		
 		PlayerModel currentActiveController = players.get(activePlayer);
 		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();

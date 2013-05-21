@@ -27,6 +27,7 @@ public class GlobalClassSelector {
 	private int difficultySelected;
 	private String playerName = "StjärtSkvätt";
 
+
 	
 	//Singleton
 	public static GlobalClassSelector getController() {
@@ -44,7 +45,6 @@ public class GlobalClassSelector {
 		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort, players[0]);
 		socketThread = new Thread(socketClient);
 		socketThread.start();
-		
 	}
 	
 	public synchronized void addPlayer(Player player, int index){

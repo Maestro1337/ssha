@@ -45,9 +45,9 @@ public class SkillShieldStance extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 0;
+	private int lvl3 = 0;
+	private int lvl4 = 0;
 	
 	@Override
 	public void upgradeSkill() {
@@ -56,12 +56,15 @@ public class SkillShieldStance extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 7));
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 9));
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 11));
 				super.setDamage(lvl4);
 				break;
 			}

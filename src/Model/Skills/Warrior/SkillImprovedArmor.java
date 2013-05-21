@@ -55,12 +55,15 @@ public class SkillImprovedArmor extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 10, 0));
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 20, 0));
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 30, 0));
 				super.setDamage(lvl4);
 				break;
 			}
