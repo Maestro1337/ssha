@@ -102,7 +102,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-		map = new TiledMap("res/tileset/bg.tmx");
+		map = new TiledMap("res/tileset/grassBackground.tmx");
 	//	initRound();
 	}
 	

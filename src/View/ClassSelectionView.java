@@ -103,6 +103,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					} else {
 						// Sets the player array-position to their server-id.
 				//		GlobalClassSelector.getController().resetPlayers();
+
 				//		GlobalClassSelector.getController().removePlayer(0)
 					//	if(GlobalClassSelector.getController()){
 							player.setIndex(GlobalClassSelector.getController().getActivePlayerIndex());

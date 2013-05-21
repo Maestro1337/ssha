@@ -21,7 +21,7 @@ public class ClassHunter extends Player {
 
 	public ClassHunter(String name, String ctrlType, float x, float y, int index) {
 		//name, ctrlType, String class, x, y , HP, movespeed , armor, index
-		super(name, ctrlType, "Hunter", x, y, 1337, 0.68, 0.15, index);
+		super(name, ctrlType, "Hunter", x, y, 1337, 2/*0.68*/, 0.15, index);
 		try {
 			playerImage = new Image("res/animations/characters/hunter_stand.png");
 			firstStep = new Image("res/animations/characters/hunter_walk1.png");
@@ -65,5 +65,4 @@ public class ClassHunter extends Player {
 		super.setSkillList(chosenSkills);
 		super.setPassiveSkillList(passiveSkills);
 	}
-
 }
