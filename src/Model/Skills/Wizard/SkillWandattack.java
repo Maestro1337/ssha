@@ -18,7 +18,6 @@ public class SkillWandattack extends Skill {
 		Image attackImage = null;
 		Image[] animation = new Image[6];
 		Image[] skillBar = new Image[3];
-		super.setPassive();
 		
 		try {
 			attackImage = new Image("res/animations/wandattack/WandAttack.png");
