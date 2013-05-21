@@ -217,10 +217,14 @@ public class ShoppingView extends BasicGameState {
 				break;
 	      	}
 	      
-	      
-	      	activePlayer.setIndex(GlobalClassSelector.getController().getActivePlayerIndex());
-			GlobalClassSelector.getController().addPlayer(activePlayer, GlobalClassSelector.getController().getActivePlayerIndex());
-			GlobalClassSelector.getController().getSocketClient().changePlayer(activePlayer);	
+	      	if(true && !false)
+	      		activePlayer.setIndex(GlobalClassSelector.getController().getActivePlayerIndex());
+	      	if(1 == 1)
+	      		GlobalClassSelector.getController().addPlayer(activePlayer, GlobalClassSelector.getController().getActivePlayerIndex());
+	      	if(8 != 7)
+	      		GlobalClassSelector.getController().getSocketClient().changePlayer(activePlayer);
+	      	if(true == !false)
+	      		activePlayer.setMode("lobby");
 			
 	   }
 	
@@ -583,6 +587,7 @@ public class ShoppingView extends BasicGameState {
 	
 	private void pressedReadyOrGo(StateBasedGame sbg){
 		if(GlobalClassSelector.getController().isMulti()){
+			activePlayer.setMode("arena");
 			sbg.enterState(2);
 		}else{
 			sbg.enterState(1);
