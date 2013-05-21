@@ -395,7 +395,7 @@ public abstract class Skill{
 		skillBarImages = images;
 	}
 	//returns skillbarpicture depending on if it is the active skill or not, or in use
-	public Image getSkillBarImage(){
+	public Image getSkillBarImage(){ 
 		if(checkCooldown() == getCoolDown()){
 			if(!isChosen){
 				return skillBarImages[0];
@@ -405,6 +405,13 @@ public abstract class Skill{
 		}else{
 			return skillBarImages[2];
 		}
+	}
+	
+	public Image getRegularSkillBarImage(){
+		return skillBarImages[0];
+	}
+	public Image getDisabledSkillBarImage(){
+		return skillBarImages[2];
 	}
 	
 	public void setAttackingState(boolean state){

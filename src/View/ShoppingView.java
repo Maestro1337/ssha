@@ -91,6 +91,7 @@ public class ShoppingView extends BasicGameState {
 	
 	Image playButton;
 	Image optionsButton;
+	Image goButton;
 	
 	Image classPortrait;
 
@@ -99,6 +100,9 @@ public class ShoppingView extends BasicGameState {
 	Image background;
 	Image skillsText;
 	Image shopText;
+	
+	Image [] LevelofSkills = new Image [9];
+	Image [] LobbyPlayers = new Image [100];
 
 	//UnicodeFont uFont;
 	//Font font;
@@ -116,6 +120,21 @@ public class ShoppingView extends BasicGameState {
 		//font = new Font("Calibri", Font.PLAIN, 20);
 		//uFont = new UnicodeFont(font, font.getSize(), font.isBold(), font.isItalic());
 		
+		LevelofSkills [0] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [1] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [2] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [3] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [4] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [5] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [6] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [7] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills [8] = new Image ("res/skillIcons/Level 0.png");
+		
+		for (int i=0;i<GlobalClassSelector.getController().getPlayerControllers().length;i++){
+			LobbyPlayers[i] = new Image ("res/miscImages/LobbyPlayer.png");
+		}
+		
+				
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
 		skillsText = new Image("res/miscImages/skillsText.png");
 		shopText = new Image("res/miscImages/shopText.png");
@@ -136,6 +155,7 @@ public class ShoppingView extends BasicGameState {
 		playButton = new Image("res/buttons/playButtons.png");
 		buyUpgradeButton = new Image("res/miscImages/initEmptyPic.png");
 		optionsButton = new Image ("res/buttons/options.png");
+		goButton = new Image ("res/buttons/Ready.png");
 	}
 
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
@@ -244,20 +264,39 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		
-		//Offensive skills
-		g.drawImage(allSkills[0].getSkillBarImage(), 60, 440);
-		g.drawImage(allSkills[3].getSkillBarImage(), 60, 515);
-		g.drawImage(allSkills[6].getSkillBarImage(), 60, 590);
+		//Draw the Connected players in lobby (not done)
+		//for (int i=0;i<LobbyPlayers.length;i++){
+			//if(GlobalClassSelector.getController().getPlayer(i).isConnected()){
+				g.drawImage(LobbyPlayers[0],898,400+59);
+				//if(GlobalClassSelector.getController().getPlayer(i).isReady()){
+					LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
+				//}
+			//}	
+		//}
+		
+		//Offensive skills	
+		g.drawImage((findOwnedSkill(allSkills[0].getName())) != null ? allSkills[0].getRegularSkillBarImage() : allSkills[0].getDisabledSkillBarImage(), 60, 440);
+		g.drawImage(LevelofSkills[0],114,494);
+		g.drawImage((findOwnedSkill(allSkills[3].getName())) != null ? allSkills[3].getRegularSkillBarImage() : allSkills[3].getDisabledSkillBarImage(), 60, 515);
+		g.drawImage(LevelofSkills[3],114,569);
+		g.drawImage((findOwnedSkill(allSkills[6].getName())) != null ? allSkills[6].getRegularSkillBarImage() : allSkills[6].getDisabledSkillBarImage(), 60, 590);
+		g.drawImage(LevelofSkills[6],114,644);
 			
 		//Defensive skills
-		g.drawImage(allSkills[1].getSkillBarImage(), 200, 440);
-		g.drawImage(allSkills[4].getSkillBarImage(), 200, 515);
-		g.drawImage(allSkills[7].getSkillBarImage(), 200, 590);
+		g.drawImage((findOwnedSkill(allSkills[1].getName())) != null ? allSkills[1].getRegularSkillBarImage() : allSkills[1].getDisabledSkillBarImage(), 200, 440);
+		g.drawImage(LevelofSkills[1],254,494);
+		g.drawImage((findOwnedSkill(allSkills[4].getName())) != null ? allSkills[4].getRegularSkillBarImage() : allSkills[4].getDisabledSkillBarImage(), 200, 515);
+		g.drawImage(LevelofSkills[4],254,569);
+		g.drawImage((findOwnedSkill(allSkills[7].getName())) != null ? allSkills[7].getRegularSkillBarImage() : allSkills[7].getDisabledSkillBarImage(), 200, 590);
+		g.drawImage(LevelofSkills[7],254,644);
 			
 		//Mobility skills
-		g.drawImage(allSkills[2].getSkillBarImage(), 335, 440);
-		g.drawImage(allSkills[5].getSkillBarImage(), 335, 515);
-		g.drawImage(allSkills[8].getSkillBarImage(), 335, 590);
+		g.drawImage((findOwnedSkill(allSkills[2].getName())) != null ? allSkills[2].getRegularSkillBarImage() : allSkills[2].getDisabledSkillBarImage(), 335, 440);
+		g.drawImage(LevelofSkills[2],389,494);
+		g.drawImage((findOwnedSkill(allSkills[5].getName())) != null ? allSkills[5].getRegularSkillBarImage() : allSkills[5].getDisabledSkillBarImage(), 335, 515);
+		g.drawImage(LevelofSkills[5],389,569);
+		g.drawImage((findOwnedSkill(allSkills[8].getName())) != null ? allSkills[8].getRegularSkillBarImage() : allSkills[8].getDisabledSkillBarImage(), 335, 590);
+		g.drawImage(LevelofSkills[8],389,644);
 		
 		g.drawString(buyString, 640, 200);
 		
@@ -272,13 +311,33 @@ public class ShoppingView extends BasicGameState {
 		xPos = Mouse.getX();
 		yPos = 720 - Mouse.getY();
 		
-		
+		for(int i=0;i<9;i++){
+			if (findOwnedSkill(allSkills[i].getName()) != null){
+				switch (allSkills[i].getCurrentLvl()){	
+					case 1:
+						LevelofSkills [i] = new Image ("res/skillIcons/Level 1.png");
+						break;
+					case 2:
+						LevelofSkills [i] = new Image ("res/skillIcons/Level 2.png");
+						break;
+					case 3:
+						LevelofSkills [i] = new Image ("res/skillIcons/Level 3.png");
+						break;
+					case 4:
+						LevelofSkills [i] = new Image ("res/skillIcons/Level 4.png");
+						break;
+				}
+			
+			}
+		}
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
 		Input input = gc.getInput();
 		
 		buyOneTime = true;
+		
+		
 		
 		if(showingSkillDescription){
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
@@ -298,14 +357,26 @@ public class ShoppingView extends BasicGameState {
 		
 
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
-			playButton = new Image("res/buttons/ReadyOver.png");
+			if (!activePlayer.isReady()){
+				playButton = new Image("res/buttons/ReadyOver.png");
+			}else{
+				playButton = new Image("res/buttons/GoButtonOver.png");
+			}
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				playButton = new Image("res/buttons/Ready.png");
-				sbg.enterState(1);
+				playButton = new Image("res/buttons/GoButton.png");
+				//LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
+				
+				if(activePlayer.isReady()){
+					sbg.enterState(1);
+				}
+				activePlayer.setReady(true);
+				
 			}
 			
-		}else{
+		}else if(!activePlayer.isReady()){
 			playButton = new Image("res/buttons/Ready.png");
+		}else{
+			playButton = new Image("res/buttons/GoButton.png");
 		}
 		
 		if((980<xPos && xPos<1100) && (670<yPos && yPos<715)){
@@ -319,6 +390,70 @@ public class ShoppingView extends BasicGameState {
 			optionsButton = new Image("res/buttons/Options.png");
 		}
 		
+		
+		if(input.isMousePressed(0)){
+			int xPosIndex = -1;
+			int yPosIndex = -1;
+			if(60<=xPos && xPos<=124){
+				xPosIndex = 0;
+			}else if(200<=xPos && xPos<=264){
+				xPosIndex = 1;
+			}else if(335<=xPos && xPos<=399){
+				xPosIndex = 2;
+			}
+			
+			if(yPos >= 440 && yPos <= 504){
+				yPosIndex = 0;
+			}else if(yPos >= 515 && yPos <= 579){
+				yPosIndex = 1;
+			}else if(yPos >= 590 && yPos <= 654){
+				yPosIndex = 2;
+			}
+			
+			int totalIndex = xPosIndex + 3*yPosIndex;
+			
+			if(totalIndex >= 0){		
+				Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
+				if(newChosenSkill != null){
+					setChosenSkill(newChosenSkill);
+					if (!allSkills[totalIndex].isPassive()){
+						dragMouse=true;		
+					}
+				}else{
+					setChosenSkill(allSkills[totalIndex]);
+					dragMouse=false;
+				}
+				
+			}
+
+			if(dragMouse && !input.isMouseButtonDown(0)){
+				int xRange = xPos - 70;
+				int xIndex = -1;
+				if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
+					while(xRange > 0){
+						xIndex++;
+						xRange -= 69;
+					}
+				}
+				if(xIndex == 0){
+					buyString = "You can not change that skill";
+				}else if(xIndex >= 1){
+					boolean alreadyInChosenSkills = false;
+					for(int i=0; i<chosenSkills.length; i++){
+						
+						if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
+							alreadyInChosenSkills = true;
+					}
+					if(alreadyInChosenSkills){
+						buyString = "Already got that skill in your skillbar";
+					}else{
+						activePlayer.setSkill(selectedSkill, xIndex);
+						updateSkillLists();
+					}
+				}
+				dragMouse = false;
+			}
+		}
 		
 		if(input.isMousePressed(0)){
 			
