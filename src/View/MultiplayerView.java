@@ -132,7 +132,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		for(int i=0; i<GlobalClassSelector.getController().getPlayers().length; i++){
 			
 			if(GlobalClassSelector.getController().getPlayer(i) != null){
-				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName());
+				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName() + " " + GlobalClassSelector.getController().getPlayer(i).getPlayerListIndex() + " " + i);
 				players[GlobalClassSelector.getController().getActivePlayerIndex()] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
 			}
 		}
@@ -292,10 +292,10 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
-		System.out.println("GCS ID: " + GlobalClassSelector.getController().getActivePlayerIndex());
-		System.out.println("Multiplayer ActivePlayer ID: " + activePlayer);
-		System.out.println("Socket Player Active ID: " + GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
-		System.out.println("CurrentController ID: " + currentActiveController.getPlayer().getPlayerListIndex());
+	//	System.out.println("GCS ID: " + GlobalClassSelector.getController().getActivePlayerIndex());
+	//	System.out.println("Multiplayer ActivePlayer ID: " + activePlayer);
+	//	System.out.println("Socket Player Active ID: " + GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+	//	System.out.println("CurrentController ID: " + currentActiveController.getPlayer().getPlayerListIndex());
 		
 		
 		//Update current mouse position
