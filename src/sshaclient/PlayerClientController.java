@@ -165,17 +165,19 @@ public class PlayerClientController implements PlayerControl {
 				
 				for(int j = 0; j < realSkills.length; j++) {
 					if(realSkills[j] != null) {
-						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*6+6)));
-						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*6+7)));
-						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*6+8)));
-						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*6+9)));
-						boolean isEndState = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*6+10));
+						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
+						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
+						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+6)));
+						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7)));
+						boolean isEndState = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+8));
 						if(canActivateEndState[j] && isEndState){
 							realSkills[j].setEndstate(true);
 							canActivateEndState[j] = false;
 						}else if(!isEndState){
 							canActivateEndState[j] = true;
 						}
+						realSkills[j].setXDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+9)));
+						realSkills[j].setYDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+10)));
 					}
 				}
 			}
