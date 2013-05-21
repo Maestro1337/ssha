@@ -22,7 +22,6 @@ public class GlobalClassSelector {
 	private Thread[] controllerThreads = new Thread[nbrOfPlayers];
 	private SocketClient socketClient;
 	private Thread socketThread;
-	private boolean changedPlayer = false;
 	private int activePlayer = 0;
 	private Arena mapSelected;
 	private int difficultySelected;
