@@ -58,6 +58,11 @@ public class ClassWizard extends Player {
 		}
 
 		chosenSkills[0] = new SkillWandattack();
+		chosenSkills[1] = new SkillFirestorm();
+		chosenSkills[2] = new SkillBlizzard();
+		chosenSkills[3] = new SkillTeleport();
+		chosenSkills[4] = new SkillFlamewave();
+		
 		super.addSkillAsOwned(chosenSkills[0]);
 		
 		super.setImages(playerImage, firstStep, secondStep);

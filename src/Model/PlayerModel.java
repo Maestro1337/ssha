@@ -108,7 +108,7 @@ public class PlayerModel implements ActionListener {
 	public void isRunning() throws SlickException{
 		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()));
 		
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMoveSpeed() > 0 && !collided){
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMoveSpeed() > 0 && !collided && player.getControlType() != "server"){
 			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
 			player.incMoveCounter();
