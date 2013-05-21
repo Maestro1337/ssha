@@ -18,6 +18,7 @@ public class SkillArrow extends Skill{
 		
 		Image[] attackImages = new Image[1];
 		Image[] skillBar = new Image[3];
+		super.setPassive();
 		
 		try {
 			attackImages[0] = new Image("res/animations/arrow/arrow.png");

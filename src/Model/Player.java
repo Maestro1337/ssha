@@ -424,7 +424,7 @@ public class Player {
 	public boolean isReady() {
 		return isReady;
 	}
-	public void setReadyness(boolean ready) {
+	public void setReady(boolean ready) {
 		isReady = ready;
 	}
 	public String getControlType() {

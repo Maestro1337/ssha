@@ -17,6 +17,7 @@ public class SkillImprovedArmor extends Skill {
 				Image attackImage = null;
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
+				super.setPassive();
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");

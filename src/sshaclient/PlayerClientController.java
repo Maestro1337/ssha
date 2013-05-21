@@ -149,21 +149,23 @@ public class PlayerClientController implements PlayerControl {
 				tp.setSkillList(tempSkills);
 				
 			} else {
-				tp.setX(Float.parseFloat(Constants.getItem(tempStats, 3)));
-				tp.setY(Float.parseFloat(Constants.getItem(tempStats, 4)));
-				tp.setRotation(Float.parseFloat(Constants.getItem(tempStats, 5)));
-				tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
-				tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
-				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
-				
-				realSkills = tp.getSkillList();
-				
-				for(int j = 0; j < realSkills.length; j++) {
-					if(realSkills[j] != null) {
-						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+6)));
-						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+7)));
-						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+8)));
-						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*5+9)));
+				if(tp != null){
+					tp.setX(Float.parseFloat(Constants.getItem(tempStats, 3)));
+					tp.setY(Float.parseFloat(Constants.getItem(tempStats, 4)));
+					tp.setRotation(Float.parseFloat(Constants.getItem(tempStats, 5)));
+					tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
+					tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
+					tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
+					
+					realSkills = tp.getSkillList();
+					
+					for(int j = 0; j < realSkills.length; j++) {
+						if(realSkills[j] != null) {
+							realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+6)));
+							realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+7)));
+							realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*5+8)));
+							realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*5+9)));
+						}
 					}
 				}
 			}

@@ -20,6 +20,7 @@ public class SkillSlash extends Skill{
 		Image attackImage = null;
 		Image[] animation = new Image[4];
 		Image[] skillBar = new Image[3];
+		super.setPassive();
 		
 		try {
 			attackImage = new Image("res/animations/slash/slash1.png");
