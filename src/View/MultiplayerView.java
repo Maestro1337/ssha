@@ -292,6 +292,10 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
+		System.out.println("GCS ID: " + GlobalClassSelector.getController().getActivePlayerIndex());
+		System.out.println("Multiplayer ActivePlayer ID: " + activePlayer);
+		System.out.println("Socket Player Active ID: " + GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+		
 		
 		
 		//Update current mouse position
