@@ -51,23 +51,20 @@ public class SocketClient implements Runnable {
 	
 	@Override
 	public void run() {
-		
 		Skill[] tempSkills;
 		
 		while(true) {
 			
-		/*	System.out.println("These players are/are maybe connected:");
+			System.out.println("These players are/are maybe connected:");
 			System.out.println(GlobalClassSelector.getController().getPlayer(0));
 			System.out.println(GlobalClassSelector.getController().getPlayer(1));
 			System.out.println(GlobalClassSelector.getController().getPlayer(2));
 			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-		*/
-			
-			
 			
 			
 			if(connected) {
-			//	this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
+				
+				//this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
 				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
@@ -258,13 +255,10 @@ public class SocketClient implements Runnable {
 						GlobalClassSelector.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					}
 					
-					System.out.println(arrPos);
-					if(GlobalClassSelector.getController().getPlayer(arrPos) != null){
-						GlobalClassSelector.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
-						GlobalClassSelector.getController().addPlayerController(new PlayerClientController(this, GlobalClassSelector.getController().getPlayer(arrPos)), arrPos);
-						GlobalClassSelector.getController().addControllerThread(new Thread(GlobalClassSelector.getController().getPlayerControl(arrPos)), arrPos);
-						GlobalClassSelector.getController().getControllerThread(arrPos).start();
-					}
+					GlobalClassSelector.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
+					GlobalClassSelector.getController().addPlayerController(new PlayerClientController(this, GlobalClassSelector.getController().getPlayer(arrPos)), arrPos);
+					GlobalClassSelector.getController().addControllerThread(new Thread(GlobalClassSelector.getController().getPlayerControl(arrPos)), arrPos);
+					GlobalClassSelector.getController().getControllerThread(arrPos).start();
 				}
 			}
 			data = data.substring(data.indexOf(47)+1, data.length());

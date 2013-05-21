@@ -12,15 +12,13 @@ public class Constants {
 	public static final int globalSleep = 1;
 	
 	public static String getItem(String str, int pos) {
-		if(str != null){
-			String[] splitString = str.split(" ");
-			
-			if(pos < splitString.length) {
-				return splitString[pos];
-			} else {
-				return "nada";
-			}
+		
+		String[] splitString = str.split(" ");
+		
+		if(pos < splitString.length) {
+			return splitString[pos];
+		} else {
+			return "nada";
 		}
-		return "nadapoopoo";
 	}
 }

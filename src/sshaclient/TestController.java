@@ -54,16 +54,16 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 		int theKey = e.getKeyCode();
 		
 		if(theKey == KeyEvent.VK_LEFT && tp.getX() > 0) {
-			tp.setX(tp.getX()-1);
+			tp.setX(tp.getX()-100);
 		}
 		if(theKey == KeyEvent.VK_RIGHT && tp.getX() < 9999) {
-			tp.setX(tp.getX()+1);
+			tp.setX(tp.getX()+100);
 		}
 		if(theKey == KeyEvent.VK_UP && tp.getY() > 0) {
-			tp.setY(tp.getY()-1);
+			tp.setY(tp.getY()-100);
 		}
 		if(theKey == KeyEvent.VK_DOWN && tp.getY() < 9999) {
-			tp.setY(tp.getY()+1);
+			tp.setY(tp.getY()+100);
 		}
 		if(theKey == KeyEvent.VK_A && tp.getRotation() > 0 ) {
 			tp.setRotation(tp.getRotation()-1);
