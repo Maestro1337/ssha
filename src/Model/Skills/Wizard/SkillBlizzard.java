@@ -59,8 +59,8 @@ public class SkillBlizzard extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
+	private int lvl2 = 200;
+	private int lvl3 = 250;
 	private int lvl4 = 300;
 	
 	@Override
@@ -70,12 +70,15 @@ public class SkillBlizzard extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.7, 1, 0),true);
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.8, 1, 0),true);
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.9, 1, 0),true);
 				super.setDamage(lvl4);
 				break;
 			}

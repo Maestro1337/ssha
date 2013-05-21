@@ -50,9 +50,9 @@ public class SkillUnstableMagic extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 16000;
+	private int lvl3 = 12000;
+	private int lvl4 = 8000;
 	
 	@Override
 	public void upgradeSkill() {
@@ -61,13 +61,13 @@ public class SkillUnstableMagic extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setDamage(lvl2);
+				super.setCooldown(lvl2);
 				break;
 			case 3:
-				super.setDamage(lvl3);
+				super.setCooldown(lvl3);
 				break;
 			case 4:
-				super.setDamage(lvl4);
+				super.setCooldown(lvl4);
 				break;
 			}
 		}

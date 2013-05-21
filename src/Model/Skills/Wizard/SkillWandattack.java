@@ -9,7 +9,7 @@ public class SkillWandattack extends Skill {
 
 	public SkillWandattack() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Wand attack", 1000, 400, 1.5, 3, 0, 150,"Wand attack \n" +
+		super("Wand attack", 1000, 400, 1.5, 3, 0, 50,"Wand attack \n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +

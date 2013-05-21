@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectDodge;
 
 public class SkillPassiveDodge extends Skill {
 	public SkillPassiveDodge(){
-		super("Passive Dodge", 11000, 400, 0.4, 3, 10, 0, "Dodge: \nGives the chance to avoid \nincoming damage.\n" +
+		super("Passive Dodge", 11000, 0, 0.4, 3, 10, 0, "Dodge: \nGives the chance to avoid \nincoming damage.\n" +
 				"Level 1: 5% chance\n" +
 				"Level 2: 10% chance\n" +
 				"Level 3: 15% chance\n" +

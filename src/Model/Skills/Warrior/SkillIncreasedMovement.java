@@ -55,12 +55,15 @@ public class SkillIncreasedMovement extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.5, 0, 0));
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 1, 0, 0));
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 1.5, 0, 0));
 				super.setDamage(lvl4);
 				break;
 			}

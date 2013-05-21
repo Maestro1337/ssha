@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectBurning;
 public class SkillFlamingArrow extends Skill {
 	public SkillFlamingArrow(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flaming Arrow", 11000, 400, 1.5, 3, 10, 150, "Flaming arrow: \nAn arrow which burns \nthe enemies over time.\n" +
+		super("Flaming Arrow", 8000, 400, 1.5, 3, 10, 100, "Flaming arrow: \nAn arrow which burns \nthe enemies over time.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -19,7 +19,7 @@ public class SkillFlamingArrow extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 1000, 3),false);
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 20, 3),false);
 		
 		try {
 			attackImages[0] = new Image("res/animations/flamingarrow/flamingarrow1.png");
@@ -48,9 +48,9 @@ public class SkillFlamingArrow extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 150;
+	private int lvl3 = 200;
+	private int lvl4 = 250;
 	
 	@Override
 	public void upgradeSkill() {
@@ -59,12 +59,15 @@ public class SkillFlamingArrow extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 20, 4),false);
 				super.setDamage(lvl2);
 				break;
 			case 3:
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 20, 5),false);
 				super.setDamage(lvl3);
 				break;
 			case 4:
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 20, 7),false);
 				super.setDamage(lvl4);
 				break;
 			}

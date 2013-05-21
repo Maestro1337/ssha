@@ -10,7 +10,7 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillCripplingTrap extends Skill {
 	public SkillCripplingTrap(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Crippling shot", 11000, 0, 0.4, 5, 25, 100,"Crippling trap: \nA trap which slows the enemy.\n" +
+		super("Crippling shot", 20000, 0, 0.4, 5, 25, 200,"Crippling trap: \nA trap which slows the enemy.\n" +
 				"Level 1: 150 damage\n" +
 				"Level 2: 300 damage\n" +
 				"Level 3: 300 damage\n" +
@@ -19,7 +19,7 @@ public class SkillCripplingTrap extends Skill {
 		Image[] attackImage = new Image[1];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.3, 4, 1), false);
+		super.setOffensiveStatusEffectShell(new StatusEffectMovement(this, -0.4, 4, 0), false);
 		
 		try {
 			attackImage[0] = new Image("res/animations/trap/trap.png");
@@ -31,9 +31,8 @@ public class SkillCripplingTrap extends Skill {
 			e.printStackTrace();
 		}
 		
-		
-		
-		super.setEndState(attackImage, 30000, 1000);
+		super.setImage(attackImage, 200);
+		super.setEndState(attackImage, 20000, 1000);
 		super.setSkillBarImages(skillBar);
 	}
 
