@@ -70,15 +70,16 @@ public class ShoppingView extends BasicGameState {
 	String costText;
 	
 	boolean showingSkillDescription = false;
-	boolean dragMouse = false;
-	int xPos = 0;
-	int yPos = 0;
+	private int xPos = 0;
+	private int yPos = 0;
 	
 	Image buyUpgradeButton;
 	
-	Image playerGold;
-	String playerGoldText;
-	boolean buyOneTime = false;
+	private Image playerGold;
+	private String playerGoldText;
+	private boolean buyOneTime = false;
+	private int grabbedFromChosenIndex = -1;
+	private boolean dragMouse = false;
 	
 	
 	private String mouse = "No input yet";
@@ -389,71 +390,88 @@ public class ShoppingView extends BasicGameState {
 		}else{
 			optionsButton = new Image("res/buttons/Options.png");
 		}
-
-		
 		//Checking if mouse is pressed down
-		if(input.isMousePressed(0)){
-			int xPosIndex = -1;
-			int yPosIndex = -1;
-			if(60<=xPos && xPos<=124){
-				xPosIndex = 0;
-			}else if(200<=xPos && xPos<=264){
-				xPosIndex = 1;
-			}else if(335<=xPos && xPos<=399){
-				xPosIndex = 2;
-			}
-			
-			if(yPos >= 440 && yPos <= 504){
-				yPosIndex = 0;
-			}else if(yPos >= 515 && yPos <= 579){
-				yPosIndex = 1;
-			}else if(yPos >= 590 && yPos <= 654){
-				yPosIndex = 2;
-			}
-			
-			int totalIndex = xPosIndex + 3*yPosIndex;
-			
-			if(totalIndex >= 0){		
-				Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
-				if(newChosenSkill != null){
-					setChosenSkill(newChosenSkill);
-					if (!allSkills[totalIndex].isPassive()){
-						dragMouse=true;		
-					}
-				}else{
-					setChosenSkill(allSkills[totalIndex]);
-					dragMouse=false;
+		if(input.isMousePressed(0) && !dragMouse){
+			int chosenIndex;
+			if(xPos >= 60 && xPos <= 399 && yPos >= 440 && yPos <= 654){
+				int xAllIndex = -1;
+				int yAllIndex = -1;
+				int totalIndex = -1;
+				if(60<=xPos && xPos<=124){
+					xAllIndex = 0;
+				}else if(200<=xPos && xPos<=264){
+					xAllIndex = 1;
+				}else if(335<=xPos && xPos<=399){
+					xAllIndex = 2;
 				}
 				
+				if(yPos >= 440 && yPos <= 504){
+					yAllIndex = 0;
+				}else if(yPos >= 515 && yPos <= 579){
+					yAllIndex = 1;
+				}else if(yPos >= 590 && yPos <= 654){
+					yAllIndex = 2;
+				}
+				
+				if(xAllIndex != -1 && yAllIndex != -1)
+					totalIndex = xAllIndex + 3*yAllIndex;
+				
+				if(totalIndex >= 0){		
+					Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
+					if(newChosenSkill != null){
+						setSelectedSkill(newChosenSkill);
+						if (!allSkills[totalIndex].isPassive()){
+							dragMouse=true;	
+							grabbedFromChosenIndex = -1;
+						}
+					}else{
+						setSelectedSkill(allSkills[totalIndex]);
+						dragMouse=false;
+					}
+					
+				}
+			}else if((chosenIndex = getChosenSkillIndex()) > 0){
+				if(chosenSkills[chosenIndex] != null){
+					setSelectedSkill(chosenSkills[chosenIndex]);
+					dragMouse = true;
+					grabbedFromChosenIndex = chosenIndex;
+				}
 			}
+			
+			
+			
+			
 		}
 
 		//Checking if mouse is released
 		if(dragMouse && !input.isMouseButtonDown(0)){
-			int xRange = xPos - 70;
-			int xIndex = -1;
-			if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
-				while(xRange > 0){
-					xIndex++;
-					xRange -= 69;
-				}
-			}
+			int xIndex = getChosenSkillIndex();
 			if(xIndex == 0){
 				buyString = "You can not change that skill";
 			}else if(xIndex >= 1){
 				boolean alreadyInChosenSkills = false;
 				for(int i=0; i<chosenSkills.length; i++){
-					
 					if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
 						alreadyInChosenSkills = true;
 				}
 				if(alreadyInChosenSkills){
-					buyString = "Already got that skill in your skillbar";
+					if(grabbedFromChosenIndex != -1){
+						Skill tempSkill = chosenSkills[xIndex];
+						activePlayer.setSkill(selectedSkill, xIndex);
+						activePlayer.setSkill(tempSkill, grabbedFromChosenIndex);
+					}else{
+						buyString = "Already got that skill in your skillbar";
+					}
 				}else{
 					activePlayer.setSkill(selectedSkill, xIndex);
 					updateSkillLists();
 				}
+			}else{
+				if(grabbedFromChosenIndex != -1){
+					activePlayer.setSkill(null, grabbedFromChosenIndex);
+				}
 			}
+			grabbedFromChosenIndex = -1;
 			dragMouse = false;
 		}
 		
@@ -482,64 +500,25 @@ public class ShoppingView extends BasicGameState {
 				}
 				
 			}
+		}*/
+	}
+	
 
-			int xPosIndex = -1;
-			int yPosIndex = -1;
-			if(60<=xPos && xPos<=124){
-				xPosIndex = 0;
-			}else if(200<=xPos && xPos<=264){
-				xPosIndex = 1;
-			}else if(335<=xPos && xPos<=399){
-				xPosIndex = 2;
-			}
-				
-			if(yPos >= 440 && yPos <= 504){
-				yPosIndex = 0;
-			}else if(yPos >= 515 && yPos <= 579){
-				yPosIndex = 1;
-			}else if(yPos >= 590 && yPos <= 654){
-				yPosIndex = 2;
-			}
-				
-			int totalIndex = xPosIndex + 3*yPosIndex;
-			
-			if(totalIndex >= 0){
-				Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
-				if(newChosenSkill != null){
-					setChosenSkill(newChosenSkill);
-				}else{
-					setChosenSkill(allSkills[totalIndex]);
-				}
-			}
-		}
-		
-		if(dragMouse && !input.isMouseButtonDown(0)){
+	/**
+	 * Returns the index in chosen skills that the mouse is above
+	 * @return the index of chosen skills and -1 if mouse is not over
+	 */
+	private int getChosenSkillIndex(){
+		if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
 			int xRange = xPos - 70;
 			int xIndex = -1;
-			if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
-				while(xRange > 0){
-					xIndex++;
-					xRange -= 69;
-				}
+			while(xRange > 0){
+				xIndex++;
+				xRange -= 69;
 			}
-			if(xIndex == 0){
-				buyString = "You can not change that skill";
-			}else if(xIndex >= 1){
-				boolean alreadyInChosenSkills = false;
-				for(int i=0; i<chosenSkills.length; i++){
-					
-					if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
-						alreadyInChosenSkills = true;
-				}
-				if(alreadyInChosenSkills){
-					buyString = "Already got that skill in your skillbar";
-				}else{
-					activePlayer.setSkill(selectedSkill, xIndex);
-					updateSkillLists();
-				}
-			}
-			dragMouse = false;
-		}*/
+			return xIndex;
+		}
+		return -1;
 	}
 	
 	private void updateSkillLists(){
@@ -585,7 +564,7 @@ public class ShoppingView extends BasicGameState {
 		return null;
 	}
 	
-	private void setChosenSkill(Skill skill){
+	private void setSelectedSkill(Skill skill){
 		skillText = "Level " + skill.getCurrentLvl() + " " + skill.getDescription();
 		costText = "Cost : " + skill.getCost();
 		showingSkillDescription = true;
@@ -593,6 +572,6 @@ public class ShoppingView extends BasicGameState {
 	}
 	
 	private void updateSkillInformation(){
-		setChosenSkill(selectedSkill);
+		setSelectedSkill(selectedSkill);
 	}
 }
