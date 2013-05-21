@@ -4,11 +4,12 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectMovement;
 
 public class SkillIncreasedMovement extends Skill {
 	public SkillIncreasedMovement(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Increased movement", 11000, 400, 0.4, 3, 10, 150,"Increased movement \n" +
+				super("Increased movement", 11000, 400, 0.4, 3, 10, 0,"Increased movement \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
@@ -18,6 +19,7 @@ public class SkillIncreasedMovement extends Skill {
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
 				super.setPassive();
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.5, 0));
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");
@@ -42,9 +44,9 @@ public class SkillIncreasedMovement extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 0;
+	private int lvl3 = 0;
+	private int lvl4 = 0;
 	
 	@Override
 	public void upgradeSkill() {

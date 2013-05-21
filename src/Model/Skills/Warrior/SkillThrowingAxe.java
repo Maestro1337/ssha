@@ -8,13 +8,12 @@ import Model.Skills.Skill;
 public class SkillThrowingAxe extends Skill {
 	public SkillThrowingAxe(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Throwing axe", 3000, 800, 2.2, 6, 10, 450,"Throwing axe \n" +
+		super("Throwing axe", 3000, 800, 2.2, 6, 10, 250,"Throwing axe \n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
 				"Level 4: 45 damage");
 		
-		Image attackImage = null;
 		Image[] animation = new Image[18];
 		Image[] skillBar = new Image[3];
 		
@@ -50,9 +49,9 @@ public class SkillThrowingAxe extends Skill {
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl2 = 350;
+	private int lvl3 = 450;
+	private int lvl4 = 550;
 	
 	@Override
 	public void upgradeSkill() {

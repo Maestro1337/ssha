@@ -14,7 +14,7 @@ String description;
 
 	public SkillFireball(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage lvl1, int damage lvl2,  int damage lvl3, int damage lvl4,  StatusEffect SE
-		super("Fireball", 11000, 400, 1.5, 3, 10, 150,"Fireball:\nA fireball that burns the \nenemy to oblivion.\n" +
+		super("Fireball", 11000, 400, 1.5, 3, 10, 100,"Fireball:\nA fireball that burns the \nenemy to oblivion.\n" +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +
@@ -24,7 +24,7 @@ String description;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
-		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 2),false);
+		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 25, 2),false);
 		
 		try {
 			attackImages[0] = new Image("res/animations/fireball/fireball1.png");
@@ -53,9 +53,9 @@ String description;
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 30;
-	private int lvl3 = 45;
-	private int lvl4 = 60;
+	private int lvl2 = 120;
+	private int lvl3 = 140;
+	private int lvl4 = 180;
 	
 	@Override
 	public void upgradeSkill() {
@@ -64,15 +64,15 @@ String description;
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 3),false);
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 25, 3),false);
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 4),false);
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 25, 4),false);
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 5),false);
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 25, 5),false);
 				super.setDamage(lvl4);
 				break;
 			}

@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectArmor;
 
 public class SkillIroncloak extends Skill {
 
@@ -19,6 +20,7 @@ public class SkillIroncloak extends Skill {
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		super.setPassive();
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 100, 0));
 		
 		try {
 			attackImage = new Image("res/animations/explode/explode1.png");

@@ -5,11 +5,11 @@ import Model.StatusEffect;
 import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectBurning extends StatusEffectShell{
+public class StatusEffectArmor extends StatusEffectShell{
 
-	public StatusEffectBurning(Skill skill, int damage, int seconds) {
+	public StatusEffectArmor(Skill skill, int armor, int seconds) {
 		
-		super(null, skill, "Burning", damage, 0, 0, 0, 0, 0, 0,  0, false, false, false, seconds+1, 1);
+		super(null, skill, "Armor", 50, 0, 0, 0, 0, armor, 0, 0, false, false, false, seconds+1, 0);
 	}
 	
 	@Override
@@ -18,7 +18,6 @@ public class StatusEffectBurning extends StatusEffectShell{
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-
 		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
 				super.getMoveXEff(), super.getMoveYEff(), super.getMoveSpeedEff(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
