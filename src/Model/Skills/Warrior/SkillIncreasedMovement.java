@@ -19,7 +19,7 @@ public class SkillIncreasedMovement extends Skill {
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
 				super.setPassive();
-				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.5, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.5, 0, 0));
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");

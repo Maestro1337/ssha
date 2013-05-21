@@ -7,10 +7,10 @@ import Model.Skills.Skill;
 
 public class StatusEffectMovement extends StatusEffectShell{
 
-	public StatusEffectMovement(Skill skill, double moveEff, int seconds) {
+	public StatusEffectMovement(Skill skill, double moveEff, int seconds, int delay) {
 		//player,skill,name,damage,moveX,moveY,moveSpeed,arm,attackSpeed,range,isStun,counts,delay
 		//plus one to add a count after the first hit which is instant
-		super(null, skill, "Slow", 0, 0, 0, moveEff, 0, 0, 0, 0, false, false, false, seconds+1, 0);
+		super(null, skill, "Slow", 0, 0, 0, moveEff, 0, 0, 0, 0, false, false, false, seconds+1, delay);
 		// TODO Auto-generated constructor stub
 	}
 	
