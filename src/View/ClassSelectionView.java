@@ -84,7 +84,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					backButton = new Image("res/buttons/playButton_pressed.png");
 					
 					// If you're in the Multiplayer-view and click back, the connection will close.
-					if(GlobalClassSelector.getController().getSingleOrMulti()) {
+					if(GlobalClassSelector.getController().isMulti()) {
 						GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(false);
 						GlobalClassSelector.getController().getSocketClient().closeConnection();
 					}
@@ -98,7 +98,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					selectButton = new Image("res/buttons/playButton_pressed.png");
 					
-					if(!GlobalClassSelector.getController().getSingleOrMulti()) {
+					if(!GlobalClassSelector.getController().isMulti()) {
 						GlobalClassSelector.getController().addPlayer(player, 0);
 					} else {
 						// Sets the player array-position to their server-id.
@@ -116,7 +116,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					
 	//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
 	
-				if(!(GlobalClassSelector.getController().getSingleOrMulti())){	
+				if(!(GlobalClassSelector.getController().isMulti())){	
 					GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
 					sbg.enterState(5);
 				}else{
