@@ -389,8 +389,9 @@ public class ShoppingView extends BasicGameState {
 		}else{
 			optionsButton = new Image("res/buttons/Options.png");
 		}
+
 		
-		
+		//Checking if mouse is pressed down
 		if(input.isMousePressed(0)){
 			int xPosIndex = -1;
 			int yPosIndex = -1;
@@ -425,36 +426,38 @@ public class ShoppingView extends BasicGameState {
 				}
 				
 			}
+		}
 
-			if(dragMouse && !input.isMouseButtonDown(0)){
-				int xRange = xPos - 70;
-				int xIndex = -1;
-				if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
-					while(xRange > 0){
-						xIndex++;
-						xRange -= 69;
-					}
+		//Checking if mouse is released
+		if(dragMouse && !input.isMouseButtonDown(0)){
+			int xRange = xPos - 70;
+			int xIndex = -1;
+			if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
+				while(xRange > 0){
+					xIndex++;
+					xRange -= 69;
 				}
-				if(xIndex == 0){
-					buyString = "You can not change that skill";
-				}else if(xIndex >= 1){
-					boolean alreadyInChosenSkills = false;
-					for(int i=0; i<chosenSkills.length; i++){
-						
-						if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
-							alreadyInChosenSkills = true;
-					}
-					if(alreadyInChosenSkills){
-						buyString = "Already got that skill in your skillbar";
-					}else{
-						activePlayer.setSkill(selectedSkill, xIndex);
-						updateSkillLists();
-					}
-				}
-				dragMouse = false;
 			}
+			if(xIndex == 0){
+				buyString = "You can not change that skill";
+			}else if(xIndex >= 1){
+				boolean alreadyInChosenSkills = false;
+				for(int i=0; i<chosenSkills.length; i++){
+					
+					if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
+						alreadyInChosenSkills = true;
+				}
+				if(alreadyInChosenSkills){
+					buyString = "Already got that skill in your skillbar";
+				}else{
+					activePlayer.setSkill(selectedSkill, xIndex);
+					updateSkillLists();
+				}
+			}
+			dragMouse = false;
 		}
 		
+		/*
 		if(input.isMousePressed(0)){
 			
 			//Calculating where the x and y index are in the list that is shown by owned skills
@@ -489,7 +492,7 @@ public class ShoppingView extends BasicGameState {
 			}else if(335<=xPos && xPos<=399){
 				xPosIndex = 2;
 			}
-			
+				
 			if(yPos >= 440 && yPos <= 504){
 				yPosIndex = 0;
 			}else if(yPos >= 515 && yPos <= 579){
@@ -497,7 +500,7 @@ public class ShoppingView extends BasicGameState {
 			}else if(yPos >= 590 && yPos <= 654){
 				yPosIndex = 2;
 			}
-			
+				
 			int totalIndex = xPosIndex + 3*yPosIndex;
 			
 			if(totalIndex >= 0){
@@ -536,7 +539,7 @@ public class ShoppingView extends BasicGameState {
 				}
 			}
 			dragMouse = false;
-		}
+		}*/
 	}
 	
 	private void updateSkillLists(){
