@@ -10,7 +10,7 @@ public class SkillArrow extends Skill{
 	
 	public SkillArrow(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow", 10, 1000, 10, 3, 0, 10000, "Arrow: \nShoots a plain arrow.\n" +
+		super("Arrow", 1000, 1000, 10, 3, 0, 10000, "Arrow: \nShoots a plain arrow.\n" +
 				"Level 1: 10 damage\n" +
 				"Level 2: 20 damage\n" +
 				"Level 3: 30 damage\n" +
