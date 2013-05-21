@@ -216,6 +216,12 @@ public class ShoppingView extends BasicGameState {
 				allSkills[8] = new SkillLeapAttack();
 				break;
 	      	}
+	      
+	      
+	      	activePlayer.setIndex(GlobalClassSelector.getController().getActivePlayerIndex());
+			GlobalClassSelector.getController().addPlayer(activePlayer, GlobalClassSelector.getController().getActivePlayerIndex());
+			GlobalClassSelector.getController().getSocketClient().changePlayer(activePlayer);	
+			
 	   }
 	
 	@Override
@@ -573,5 +579,15 @@ public class ShoppingView extends BasicGameState {
 	
 	private void updateSkillInformation(){
 		setSelectedSkill(selectedSkill);
+	}
+	
+	private void pushedReadyOrGo(){
+		// Sets the player array-position to their server-id.
+		//		GlobalClassSelector.getController().resetPlayers();
+
+		//		GlobalClassSelector.getController().removePlayer(0)
+			//	if(GlobalClassSelector.getController()){
+					
+			//	}
 	}
 }
