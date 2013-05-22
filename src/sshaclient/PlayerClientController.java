@@ -181,7 +181,7 @@ public class PlayerClientController implements PlayerControl {
 				if(canActivateAttack && isAttacking){
 					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
 					canActivateAttack = false;
-				}else if(!isAttacking || tp.getSkillList()[skillIndex].isAttacking()){
+				}else if(!isAttacking || !tp.getSkillList()[skillIndex].isAttacking()){
 					canActivateAttack = true;
 				}
 				
