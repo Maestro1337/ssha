@@ -77,25 +77,36 @@ public class SocketClient implements Runnable {
 							process = process + " noskill 0";
 						}
 					}
-					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.isReady();
+					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + tp.isReady();
 				} else {
+					
+					int skillIndex = tp.getCurrentActiveSkillIndex();
+					
+					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " ";
+					process = process + tp.getHP() + " " + tp.canWalk() + " " + tp.isRunning() + " " + tp.getMouseXPosMove() + " " + tp.getMouseYPosMove() + " ";
+					process = process + tp.canAttack() + " " + skillIndex + " " + tp.getSkillList()[skillIndex].isAttacking() + " ";
+					process = process + tp.getSkillList()[skillIndex].getMouseXPos() + " " + tp.getSkillList()[skillIndex].getMouseYPos();
+					
+					/*
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
-					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMovementSpeed() + " " + tp.getHP() + " skills";
+					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " " + tp.getHP() + " skills";
 					for(int j = 0; j < tempSkills.length; j++) {
 						if(tempSkills[j] != null) {
-							/*
+							
 							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getAttX() + " " + tempSkills[j].getAttY() + " ";
 							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
 							process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
-							*/
-							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getMouseXPos() + " " + tempSkills[j].getMouseYPos() + " ";
-							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
-							process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
+							
+							//process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getMouseXPos() + " " + tempSkills[j].getMouseYPos() + " ";
+							//process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
+							//process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
 							
 						} else {
 							process = process + " noskill 0 0 0 0 false";
 						}
 					}
+					*/
+					
 				}
 				
 				process = process + (char)13;
@@ -163,7 +174,7 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-			//System.out.println(inData);
+			System.out.println(inData);
 			
 			if(inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
