@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Items.Item;
 import Model.Skills.Skill;
 
 public class Shop {

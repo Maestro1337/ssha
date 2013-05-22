@@ -25,6 +25,7 @@ public class GlobalClassSelector {
 	private SocketClient socketClient;
 	private Thread socketThread;
 	private int activePlayer = 0;
+
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
