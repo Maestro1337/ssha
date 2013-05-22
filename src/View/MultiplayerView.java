@@ -337,8 +337,8 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 					}
 				}
 				
-				if(currentController.getPlayer().getControlType() == "server")
-					System.out.println(currentController.getPlayer().isRunning());
+				//if(currentController.getPlayer().getControlType() == "server")
+				//	System.out.println(currentController.getPlayer().isRunning());
 				//Check if player is running to update positioning
 				if(currentController.getPlayer().isRunning()){
 					currentController.isRunning();

@@ -156,7 +156,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"a distance, able to cause great harm or restrict a targets actions using \n" +
 						"their supreme knowledge of the elements.";
 		//		classType = "Wizard";
-				player = new ClassWizard(GlobalClassSelector.getController().getActivePlayerName(), "player", 120, 100, 0);
+				player = new ClassWizard(GlobalClassSelector.getController().getActivePlayerName(), "player", 160, 300, 0);
 		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
 			}
 		}

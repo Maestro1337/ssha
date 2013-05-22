@@ -90,10 +90,10 @@ public class PlayerModel implements ActionListener {
 		player.setPushState(false);
 		player.resetStatusEffects();
 		player.activatePassiveEffects();
+		player.setX(player.getStartX());
+		player.setY(player.getStartY());
 		checkPlayerObstacleCollision(0, 0);
 		player.resetHP();
-		player.addStatusEffect(new SpawnTeleport().createStatusEffectTo(player));
-		move((int)player.getX()+1,(int)player.getY()+1);
 		resetGlobalAttackTimer();
 		resetGlobalWalkTimer();
 		for(int i=0; i<playerSkills.length; i++){
@@ -102,6 +102,11 @@ public class PlayerModel implements ActionListener {
 				playerSkills[i].collidedShot();
 			}
 		}
+	}
+	public void fixSpawn(){
+		player.setX(player.getStartX());
+		player.setY(player.getStartY());
+		move((int)player.getX()+1,(int)player.getY()+1);
 	}
 	
 	public Skill getCurrentActiveSkill(){
@@ -303,6 +308,9 @@ public class PlayerModel implements ActionListener {
 					
 				//	System.out.println("Running " + player.getGenDirMove() + " pixels");
 					player.setRunningState(true);
+				}else{
+					System.out.println("NaN BUG");
+					fixSpawn();
 				}
 			}
 			resetGlobalWalkTimer();

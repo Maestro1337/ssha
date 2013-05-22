@@ -30,6 +30,7 @@ public class GlobalClassSelector {
 	private int difficultySelected;
 	private Arena[] maps;
 	private String playerName = "Stjärtskvätt";
+
 	
 	//Singleton
 	public static GlobalClassSelector getController() {
