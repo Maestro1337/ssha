@@ -77,7 +77,7 @@ public class SocketClient implements Runnable {
 							process = process + " noskill 0";
 						}
 					}
-					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + tp.isReady();
+					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + GlobalClassSelector.getController().getMapIndex() + " " + tp.isReady();
 				} else {
 					
 					int skillIndex = tp.getCurrentActiveSkillIndex();
@@ -174,7 +174,7 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-		//	System.out.println(inData);
+			System.out.println(inData);
 			
 			if(inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
