@@ -42,11 +42,11 @@ public class PlayerClientController implements PlayerControl {
 	//		canActivateSkill[i] = true;
 	//	}
 		boolean canActivateAttack = false;
-		boolean canActivateMovement = false;
+		boolean canActivateMovement = true;
 		
 		while(isAlive) {
 			
-			System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
+		//	System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
 			
 			
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
@@ -170,10 +170,21 @@ public class PlayerClientController implements PlayerControl {
 				
 				float checkX = Float.parseFloat(Constants.getItem(tempStats, 3));
 				float checkY = Float.parseFloat(Constants.getItem(tempStats, 4));
-				tp.setX(checkX);
-				tp.setY(checkY);
+			//	tp.setX(checkX);
+			//	tp.setY(checkY);
 				realSkills = tp.getSkillList();
 				int skillIndex = tp.getCurrentActiveSkillIndex();
+				boolean isRunning = Boolean.valueOf(Constants.getItem(tempStats, 7));
+				boolean canWalk = Boolean.valueOf(Constants.getItem(tempStats, 6));
+				
+
+				
+				if(isRunning){
+					model.move((int)Double.parseDouble(Constants.getItem(tempStats, 8)), (int)Double.parseDouble(Constants.getItem(tempStats, 9)));
+				//	canActivateMovement = false;
+				}//else if(canWalk){
+			//		canActivateMovement = true;
+			//	}
 				
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
 				
