@@ -37,6 +37,7 @@ public class Player {
 	private boolean connected;
 	
 	private int playerListIndex;
+	private int currentActiveSkillIndex;
 	private boolean isAlive = true;
 	private boolean nameTaken = false;
 	
@@ -77,6 +78,8 @@ public class Player {
 	private double pushSpeed = 1.5;
 	
 	private boolean isRunning = false;
+	private boolean canAttack = true;
+	private boolean canWalk = true;
 	
 	public Player(String name, String ctrlType, String type, float x, float y, int maxHP, double speed, double armor, int index){
 		this.name = name;
@@ -151,6 +154,24 @@ public class Player {
 	public void setY(float y){
 		imgY = y;
 	}
+	public void setCanAttackState(boolean state){
+		canAttack = state;
+	}
+	public boolean canAttack(){
+		return canAttack;
+	}
+	public int getCurrentActiveSkillIndex(){
+		return currentActiveSkillIndex;
+	}
+	public void setCurrentActiveSkillIndex(int index){
+		currentActiveSkillIndex = index;
+	}
+	public void setCanWalkState(boolean state){
+		canWalk = state;
+	}
+	public boolean canWalk(){
+		return canWalk;
+	}
 	
 	public void setMouseXPosMove(float x){
 		mouseXPosMove = x;
@@ -165,7 +186,7 @@ public class Player {
 	public float getMouseYPosMove(){
 		return mouseYPosMove;
 	}
-	public double getMoveSpeed(){
+	public double getMovementSpeed(){
 		return moveSpeed;
 	}
 	public int getMoveCounter(){
@@ -264,8 +285,14 @@ public class Player {
 	public double getArmor(){
 		return armor;
 	}
+	public void setArmor(double armor){
+		this.armor = armor;
+	}
 	public int getEvasion(){
 		return evasion;
+	}
+	public void setEvasion(int evasion){
+		this.evasion = evasion;
 	}
 	public void addEvasion(int evasion){
 		this.evasion += evasion;

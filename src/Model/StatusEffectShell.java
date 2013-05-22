@@ -155,7 +155,7 @@ public abstract class StatusEffectShell {
 		}
 		if(moveSpeedEff!=0 && !commitedChange){
 			//Calculating how the moveSpeed will be changed to know how much to change it back after return of statusEffect
-			moveSpeedEff = moveSpeedEff*player.getMoveSpeed();
+			moveSpeedEff = moveSpeedEff*player.getMovementSpeed();
 			player.addMovementSpeed(moveSpeedEff);
 		}
 		if(atkSpeedEff!=0 && !commitedChange){
