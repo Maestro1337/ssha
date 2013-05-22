@@ -320,6 +320,9 @@ public class PlayerModel implements ActionListener {
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
+			if(currentActiveSkill.isGrapplingHook()){
+				
+			}
 			//Setting x and y to be in middle of mouse click
 			x -= currentActiveSkill.getCurrentWidth()/2;
 			y -= currentActiveSkill.getCurrentHeight()/2;

@@ -23,8 +23,6 @@ public class SkillGrapplingHook extends Skill {
 				Image[] skillBar = new Image[3];
 				
 				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 2), false);
-				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
-				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 				
 				try {
 					attackImage[0] = new Image("res/animations/grapplingHook/grapp1.png");
@@ -72,6 +70,7 @@ public class SkillGrapplingHook extends Skill {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				super.setGrapplingHook();
 				super.setImage(attackImage, 1000);
 				super.setEndState(animation, 1000, 400);
 				super.setSkillBarImages(skillBar);

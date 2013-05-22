@@ -392,7 +392,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0) && currentActiveController.getCurrentActiveSkill().checkCooldown() == currentActiveController.getCurrentActiveSkill().getCoolDown()){
 			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
-			
 		}
 		
 		

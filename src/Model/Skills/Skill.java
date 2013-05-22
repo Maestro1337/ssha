@@ -88,6 +88,8 @@ public abstract class Skill{
 	private boolean isGuided = false;
 	private Player guidedTarget;
 	
+	private boolean isGrapplingHook;
+	
 	private boolean isPassive = false;
 	private boolean affectSelfOnHit = false;
 	
@@ -534,6 +536,12 @@ public abstract class Skill{
 	
 	public boolean isGuided(){
 		return isGuided;
+	}
+	public boolean isGrapplingHook(){
+		return isGrapplingHook;
+	}
+	public void setGrapplingHook(){
+		isGrapplingHook = true;
 	}
 	public void setGuided(){
 		isGuided = true;
