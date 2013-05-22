@@ -15,6 +15,7 @@ import java.util.Random;
 import Control.GlobalClassSelector;
 import Model.Obstacles.*;
 import Model.Skills.*;
+import Model.StatusEffects.SpawnTeleport;
 import Model.Timers.SkillCheckingTimer;
 
 public class PlayerModel implements ActionListener {
@@ -91,8 +92,8 @@ public class PlayerModel implements ActionListener {
 		player.activatePassiveEffects();
 		checkPlayerObstacleCollision(0, 0);
 		player.resetHP();
-		player.setX(player.getStartX());
-		player.setY(player.getStartY());
+		player.addStatusEffect(new SpawnTeleport().createStatusEffectTo(player));
+		move((int)player.getX()+1,(int)player.getY()+1);
 		resetGlobalAttackTimer();
 		resetGlobalWalkTimer();
 		for(int i=0; i<playerSkills.length; i++){
