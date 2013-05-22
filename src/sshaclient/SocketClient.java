@@ -55,12 +55,13 @@ public class SocketClient implements Runnable {
 		
 		while(true) {
 			
+			/*
 			System.out.println("These players are/are maybe connected:");
 			System.out.println(GlobalClassSelector.getController().getPlayer(0));
 			System.out.println(GlobalClassSelector.getController().getPlayer(1));
 			System.out.println(GlobalClassSelector.getController().getPlayer(2));
 			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-			
+			*/
 			
 			if(connected) {
 				
@@ -162,7 +163,7 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-			System.out.println(inData);
+			//System.out.println(inData);
 			
 			if(inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
