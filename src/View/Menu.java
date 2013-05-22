@@ -58,10 +58,10 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.setColor(Color.black);
 		g.drawImage(backgroundImage, 0, 0);
 
-		if(startMusic){
+		/*if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
 			startMusic = false;
-		}
+		}*/
 		g.drawString(mouse, 500, 20);
 		
 		g.drawImage(titleText, 380, 100);

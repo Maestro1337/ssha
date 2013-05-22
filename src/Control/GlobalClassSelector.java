@@ -25,7 +25,7 @@ public class GlobalClassSelector {
 	private int activePlayer = 0;
 	private Arena mapSelected;
 	private int difficultySelected;
-	private String playerName = "MyNameIsSebbzorZandIloveDemSupahDupahBigAssNegroWhaleWomen^!";
+	private String playerName = "SebastianIstEinPenitZPung^!";
 	
 	//Singleton
 	public static GlobalClassSelector getController() {
