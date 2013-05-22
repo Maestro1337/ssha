@@ -9,8 +9,8 @@ public class ItemWarriorHelmet extends Item {
 	public ItemWarriorHelmet(){
 		
 		
-		//Price, Name, Description, Bonus,
-		super (400,"The Crusaders Defence","hej");
+		//Price, Name, Description, Slot,
+		super (400,"The Crusaders Defence","hej","Headwear");
 		try{
 			Image = new Image("res/items/Hunters Cap.png");
 		} catch (SlickException e) {

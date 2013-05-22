@@ -9,8 +9,8 @@ public class ItemHunterCap extends Item {
 		public ItemHunterCap(){
 			
 			
-			//Price, Name, Description, Bonus,
-			super (400,"Shadow's Sanctum","hej");
+			//Price, Name, Description, Slot,
+			super (400,"Shadow's Sanctum","hej","Headwear");
 			try{
 				Image = new Image("res/items/Hunters Cap.png");
 			} catch (SlickException e) {

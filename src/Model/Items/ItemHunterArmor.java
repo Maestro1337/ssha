@@ -10,8 +10,8 @@ public class ItemHunterArmor extends Item {
 	public ItemHunterArmor(){
 		
 		
-		//Price, Name, Description, Bonus,
-		super (400,"Leather armor of Hardened Skinn","hej");
+		//Price, Name, Description, Slot,
+		super (400,"Leather armor of Hardened Skinn","hej","Armor");
 		try{
 			Image = new Image("res/items/Hunters Armor.png");
 		} catch (SlickException e) {

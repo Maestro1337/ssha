@@ -7,23 +7,25 @@ import Model.StatusEffect;
 
 public class Item {
 	
-	private int price;
+	private int cost;
 	private StatusEffect itemBonus;
 	private String name;
 	private String description;
 	private Image itemImage;
+	private boolean equipped;
+	private String itemSlot;
 	
-	
-	public Item (int price, String name,String description){
-		this.price = price;
+	public Item (int cost, String name,String description,String itemSlot){
+		this.cost = cost;
 		this.name= name;
 		this.description=description;
+		this.itemSlot= itemSlot;
 		
 		
 		
 	}
-	public int getPrice(){
-		return price;
+	public int getCost(){
+		return cost;
 	}
 	public String getName(){
 		return name;
@@ -36,6 +38,9 @@ public class Item {
 	}
 	public Image getImage(){
 		return itemImage;
+	}
+	public String getItemSlot(){
+		return itemSlot;
 	}
 
 }

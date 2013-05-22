@@ -9,8 +9,8 @@ public class ItemWizardHat extends Item {
 	public ItemWizardHat(){
 		
 		
-		//Price, Name, Description, Bonus,
-		super (400,"Gandalfs skalles balle","hej");
+		//Price, Name, Description, Slot,
+		super (400,"Gandalfs skalles balle","hej","Headwear");
 		try{
 			Image = new Image("res/items/Mages Hat.png");
 		} catch (SlickException e) {

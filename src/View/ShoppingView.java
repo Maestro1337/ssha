@@ -23,6 +23,16 @@ import org.newdawn.slick.UnicodeFont;
 import Control.GlobalClassSelector;
 import Model.Player;
 import Model.PlayerModel;
+import Model.Items.Item;
+import Model.Items.ItemHunterArmor;
+import Model.Items.ItemHunterBow;
+import Model.Items.ItemHunterCap;
+import Model.Items.ItemWarriorArmor;
+import Model.Items.ItemWarriorHelmet;
+import Model.Items.ItemWarriorSword;
+import Model.Items.ItemWizardHat;
+import Model.Items.ItemWizardRobe;
+import Model.Items.ItemWizardStaff;
 import Model.Skills.Skill;
 import Model.Skills.Hunter.SkillArrow;
 import Model.Skills.Hunter.SkillArrowFlurry;
@@ -61,6 +71,7 @@ public class ShoppingView extends BasicGameState {
 	
 	Player activePlayer;
 	ArrayList<Skill> ownedSkillList;
+	ArrayList<Item> ownedItemList;
 	
 	String buyString = " ";
 	
@@ -70,6 +81,7 @@ public class ShoppingView extends BasicGameState {
 	String costText;
 	
 	boolean showingSkillDescription = false;
+	boolean showingItemDescription = false;
 	private int xPos = 0;
 	private int yPos = 0;
 	
@@ -81,6 +93,9 @@ public class ShoppingView extends BasicGameState {
 	private int grabbedFromChosenIndex = -1;
 	private boolean dragMouse = false;
 	
+	private int chosenSkillsXStart = 17;
+	private int chosenSkillsYStart = 280;
+	
 	
 	private String mouse = "No input yet";
 	Image menuTab;
@@ -89,6 +104,9 @@ public class ShoppingView extends BasicGameState {
 	Skill[] allSkills = new Skill[9];
 	Skill basicSkill;
 	Skill selectedSkill = null;
+	
+	Item[] allItems = new Item[3];
+	Item selectedItem = null;
 	
 	Image playButton;
 	Image optionsButton;
@@ -104,6 +122,10 @@ public class ShoppingView extends BasicGameState {
 	
 	Image [] LevelofSkills = new Image [9];
 	Image [] LobbyPlayers = new Image [100];
+	
+	Image headSlotItem;
+	Image chestSlotItem;
+	Image weaponSlotItem;
 
 	//UnicodeFont uFont;
 	//Font font;
@@ -130,6 +152,10 @@ public class ShoppingView extends BasicGameState {
 		LevelofSkills [6] = new Image ("res/skillIcons/Level 0.png");
 		LevelofSkills [7] = new Image ("res/skillIcons/Level 0.png");
 		LevelofSkills [8] = new Image ("res/skillIcons/Level 0.png");
+		
+		headSlotItem = new Image ("res/Items/Headwear Empty.png");
+		chestSlotItem = new Image ("res/Items/Armor Empty.png");
+		weaponSlotItem = new Image ("res/Items/Weapon Empty.png");
 		
 		for (int i=0;i<GlobalClassSelector.getController().getPlayerControllers().length;i++){
 			LobbyPlayers[i] = new Image ("res/miscImages/LobbyPlayer.png");
@@ -182,6 +208,10 @@ public class ShoppingView extends BasicGameState {
 				allSkills[6] = new SkillFlamewave();
 				allSkills[7] = new SkillIceblock();
 				allSkills[8] = new SkillTeleport();
+				
+				allItems[0] = new ItemWizardHat();
+				allItems[1] = new ItemWizardRobe();
+				allItems[2] = new ItemWizardStaff();
 				break;
 			case "Hunter":
 				classPortrait = new Image("res/classImages/hunter_portrait.png");
@@ -198,6 +228,10 @@ public class ShoppingView extends BasicGameState {
 				allSkills[6] = new SkillArrowFlurry();
 				allSkills[7] = new SkillStealth();
 				allSkills[8] = new SkillBarrelRoll();
+				
+				allItems[0] = new ItemHunterCap();
+				allItems[1] = new ItemHunterArmor();
+				allItems[2] = new ItemHunterBow();
 				break;
 			case "Warrior":
 				classPortrait = new Image("res/classImages/warrior_portrait.png");
@@ -214,6 +248,10 @@ public class ShoppingView extends BasicGameState {
 				allSkills[6] = new SkillAdrenaline();
 				allSkills[7] = new SkillFirstAid();
 				allSkills[8] = new SkillLeapAttack();
+				
+				allItems[0] = new ItemWarriorHelmet();
+				allItems[1] = new ItemWarriorArmor();
+				allItems[2] = new ItemWarriorSword();
 				break;
 	      	}
 	      
@@ -236,15 +274,24 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(playButton, 1120, 670);
 		g.drawImage(optionsButton,980,670);
 		g.setColor(Color.black);
-		g.drawImage(skillDescBg, 485, 460);
-		g.setColor(Color.white);
-		g.drawString(skillText, 560, 475);
-		g.drawString(costText, 760, 475);
-		g.drawImage(buyUpgradeButton, 710, 610);
+		if (showingSkillDescription||showingItemDescription){
+			g.drawImage(skillDescBg, 485, 460);
+			g.setColor(Color.white);
+			g.drawString(skillText, 560, 475);
+			g.drawString(costText, 760, 475);
+			g.drawImage(buyUpgradeButton, 710, 610);
+			if (showingItemDescription){
+				g.drawImage(selectedItem.getImage(), 445, 470);
+			}else{
+				g.drawImage(selectedSkill.getSkillBarImage(), 490, 470);
+			}
+		}
 		
+		/*
 		if(selectedSkill != null)
 			g.drawImage(selectedSkill.getSkillBarImage(), 490, 470);
-
+		*/
+		
 		g.drawString(mouse, 900, 10);
 		
 		g.drawImage(classPortrait, 70, 30);
@@ -255,10 +302,17 @@ public class ShoppingView extends BasicGameState {
 
 
 		for(int j=0; j<chosenSkills.length; j++){
-			g.drawString("" + (j+1), 100 + 69*j, 250);
+			g.drawString("" + (j+1), chosenSkillsXStart+30 + 69*j, chosenSkillsYStart-25);
 			if(chosenSkills[j] != null)
-				g.drawImage(chosenSkills[j].getSkillBarImage(), 70 + 69*j, 275);
+				g.drawImage(chosenSkills[j].getSkillBarImage(), chosenSkillsXStart + 69*j, chosenSkillsYStart);
 		}
+		
+		
+		// Draw out the itemslots
+		
+		g.drawImage(headSlotItem,365,10 );
+		g.drawImage(chestSlotItem,365,100 );
+		g.drawImage(weaponSlotItem,365,190);
 		
 		
 		//Drawing the skills the player already owns
@@ -313,6 +367,10 @@ public class ShoppingView extends BasicGameState {
 		
 		if(dragMouse){
 			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
+		}
+		//Draw out the items
+		for (int i=0;i<allItems.length;i++){
+			g.drawImage(allItems[i].getImage(),475,80+145*i);
 		}
 	}
 
@@ -403,43 +461,65 @@ public class ShoppingView extends BasicGameState {
 		//Checking if mouse is pressed down
 		if(input.isMousePressed(0) && !dragMouse){
 			int chosenIndex;
-			if(xPos >= 60 && xPos <= 399 && yPos >= 440 && yPos <= 654){
-				int xAllIndex = -1;
-				int yAllIndex = -1;
-				int totalIndex = -1;
-				if(60<=xPos && xPos<=124){
-					xAllIndex = 0;
-				}else if(200<=xPos && xPos<=264){
-					xAllIndex = 1;
-				}else if(335<=xPos && xPos<=399){
-					xAllIndex = 2;
-				}
+			System.out.println("Tomas");
+			int xAllIndex = -1;
+			int yAllIndex = -1;
+			int xItemIndex = -1;
+			int yItemIndex = -1;
+			int totalIndex = -1;
+			
+			if(475<=xPos && xPos<=555){
+				xItemIndex = 1;
+			}/*else if(565<=xPos && xPos<=645){
+				xItemIndex = 2;
+			}else if(655<=xPos && xPos<=735){
+				xItemIndex = 3;
+			}If we want to add more Items */
 				
-				if(yPos >= 440 && yPos <= 504){
-					yAllIndex = 0;
-				}else if(yPos >= 515 && yPos <= 579){
-					yAllIndex = 1;
-				}else if(yPos >= 590 && yPos <= 654){
-					yAllIndex = 2;
-				}
+			if(yPos >= 80 && yPos <= 160){
+				yItemIndex = 0;
+			}else if(yPos >= 225 && yPos <= 305){
+				yItemIndex = 1;
+			}else if(yPos >= 370 && yPos <= 450){
+				yItemIndex = 2;
+			}
+			if(60<=xPos && xPos<=124){
+				xAllIndex = 0;
+			}else if(200<=xPos && xPos<=264){
+				xAllIndex = 1;
+			}else if(335<=xPos && xPos<=399){
+				xAllIndex = 2;
+			}
 				
-				if(xAllIndex != -1 && yAllIndex != -1)
-					totalIndex = xAllIndex + 3*yAllIndex;
+			if(yPos >= 440 && yPos <= 504){
+				yAllIndex = 0;
+			}else if(yPos >= 515 && yPos <= 579){
+				yAllIndex = 1;
+			}else if(yPos >= 590 && yPos <= 654){
+				yAllIndex = 2;
+			}
 				
-				if(totalIndex >= 0){		
-					Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
-					if(newChosenSkill != null){
-						setSelectedSkill(newChosenSkill);
-						if (!allSkills[totalIndex].isPassive()){
-							dragMouse=true;	
-							grabbedFromChosenIndex = -1;
-						}
+			if(xAllIndex != -1 && yAllIndex != -1){
+				totalIndex = xAllIndex + 3*yAllIndex;
+			}else if (xItemIndex != -1 && yItemIndex != -1){
+				totalIndex = xItemIndex * yItemIndex; /* + xItemIndex; Stays if we want to add more Items */ 
+				setSelectedItem(allItems[totalIndex]);
+			}
+				
+			if(totalIndex >= 0 && xAllIndex != -1 && yAllIndex != -1){		
+				Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
+				if(newChosenSkill != null){
+					setSelectedSkill(newChosenSkill);
+					if (!allSkills[totalIndex].isPassive()){
+						dragMouse=true;	
+						grabbedFromChosenIndex = -1;
+					}
 					}else{
 						setSelectedSkill(allSkills[totalIndex]);
 						dragMouse=false;
 					}
 					
-				}
+				
 			}else if((chosenIndex = getChosenSkillIndex()) > 0){
 				if(chosenSkills[chosenIndex] != null){
 					setSelectedSkill(chosenSkills[chosenIndex]);
@@ -484,33 +564,6 @@ public class ShoppingView extends BasicGameState {
 			grabbedFromChosenIndex = -1;
 			dragMouse = false;
 		}
-		
-		/*
-		if(input.isMousePressed(0)){
-			
-			//Calculating where the x and y index are in the list that is shown by owned skills
-			if(xPos >= 475 && xPos <= 859 && yPos >= 50 && yPos <= 400){
-				int xRange = xPos - 475;
-				int yRange = yPos - 50;
-				int xIndex = 0;
-				int yIndex = 0;
-				
-				while(xRange > 64){
-					xIndex++;
-					xRange -= 64;
-				}
-				while(yRange > 64){
-					yIndex++;
-					yRange -= 64;
-				}
-				int index = xIndex + 6*yIndex;
-				if(ownedSkillList.size() > index){
-					setChosenSkill(ownedSkillList.get(index));
-					dragMouse = true;
-				}
-				
-			}
-		}*/
 	}
 	
 
@@ -519,8 +572,9 @@ public class ShoppingView extends BasicGameState {
 	 * @return the index of chosen skills and -1 if mouse is not over
 	 */
 	private int getChosenSkillIndex(){
-		if(xPos >= 70 && xPos <= 415 && yPos >= 275 && yPos <= 339){
-			int xRange = xPos - 70;
+		
+		if(xPos >= chosenSkillsXStart && xPos <= 5*69+chosenSkillsXStart && yPos >= chosenSkillsYStart && yPos <= chosenSkillsYStart+64){
+			int xRange = xPos - chosenSkillsXStart;
 			int xIndex = -1;
 			while(xRange > 0){
 				xIndex++;
@@ -534,6 +588,11 @@ public class ShoppingView extends BasicGameState {
 	private void updateSkillLists(){
 		chosenSkills = activePlayer.getSkillList();
 		ownedSkillList = activePlayer.getOwnedSkills();
+	}
+	private void buyItem(Item item){
+		for (int i=0; i<ownedItemList.size();i++){
+			
+		}
 	}
 	
 	private void buySkill(Skill skill){
@@ -580,8 +639,17 @@ public class ShoppingView extends BasicGameState {
 	private void setSelectedSkill(Skill skill){
 		skillText = "Level " + skill.getCurrentLvl() + " " + skill.getDescription();
 		costText = "Cost : " + skill.getCost();
-		showingSkillDescription = true;
 		selectedSkill = skill;
+		showingItemDescription = false;
+		showingSkillDescription = true;
+	}
+	private void setSelectedItem(Item item){
+		System.out.println("kom in");
+		skillText = item.getName() +"\n" +item.getDescription() ;
+		costText ="Cost : " + item.getCost();
+		selectedItem = item;
+		showingItemDescription = true;
+		showingSkillDescription =false;
 	}
 	
 	private void updateSkillInformation(){

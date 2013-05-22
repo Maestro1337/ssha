@@ -9,8 +9,8 @@ public class ItemHunterBow extends Item {
 	public ItemHunterBow(){
 		
 		
-		//Price, Name, Description, Bonus,
-		super (400,"Cupids Demise","hej");
+		//Price, Name, Description, Slot,
+		super (400,"Cupids Demise","hej","Weapon");
 		try{
 			Image = new Image("res/items/Hunters Bow.png");
 		} catch (SlickException e) {

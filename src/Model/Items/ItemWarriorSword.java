@@ -9,8 +9,8 @@ public class ItemWarriorSword extends Item {
 	public ItemWarriorSword(){
 		
 		
-		//Price, Name, Description, Bonus,
-		super (400,"The Sword of a Thousand Truths","hej");
+		//Price, Name, Description, Slot,
+		super (400,"The Sword of a Thousand Truths","hej","Weapon");
 		try{
 			Image = new Image("res/items/Warriors Sword.png");
 		} catch (SlickException e) {

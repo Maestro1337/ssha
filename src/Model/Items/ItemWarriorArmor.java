@@ -9,8 +9,8 @@ public class ItemWarriorArmor extends Item {
 	public ItemWarriorArmor(){
 		
 		
-		//Price, Name, Description, Bonus,
-		super (400,"The Rightious' Blessing","hej");
+		//Price, Name, Description, Slot,
+		super (400,"The Rightious' Blessing","hej","Armor");
 		try{
 			Image = new Image("res/items/Warrior Breastplate.png");
 		} catch (SlickException e) {

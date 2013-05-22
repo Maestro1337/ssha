@@ -55,12 +55,13 @@ public class SocketClient implements Runnable {
 		
 		while(true) {
 			
+			/*
 			System.out.println("These players are/are maybe connected:");
 			System.out.println(GlobalClassSelector.getController().getPlayer(0));
 			System.out.println(GlobalClassSelector.getController().getPlayer(1));
 			System.out.println(GlobalClassSelector.getController().getPlayer(2));
 			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-			
+			*/
 			
 			if(connected) {
 				
