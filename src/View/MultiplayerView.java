@@ -110,10 +110,11 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		TimeRoundStart = System.currentTimeMillis();
 		shouldcalcgold=true;
 		
-		Random obsGenerator = new Random();
+		/*Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
-		}
+		}*/
+		obstacles = GlobalClassSelector.getController().getMapSelected().getObstacles();
 		playerList = GlobalClassSelector.getController().getPlayers();
 		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
 		switch(playerList[activePlayer].getType()){
