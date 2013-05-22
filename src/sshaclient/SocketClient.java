@@ -80,7 +80,7 @@ public class SocketClient implements Runnable {
 					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.isReady();
 				} else {
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
-					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " " + tp.getHP() + " skills";
+					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMovementSpeed() + " " + tp.getHP() + " skills";
 					for(int j = 0; j < tempSkills.length; j++) {
 						if(tempSkills[j] != null) {
 							/*

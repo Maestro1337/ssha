@@ -186,7 +186,7 @@ public class Player {
 	public float getMouseYPosMove(){
 		return mouseYPosMove;
 	}
-	public double getMoveSpeed(){
+	public double getMovementSpeed(){
 		return moveSpeed;
 	}
 	public int getMoveCounter(){
@@ -285,8 +285,14 @@ public class Player {
 	public double getArmor(){
 		return armor;
 	}
+	public void setArmor(double armor){
+		this.armor = armor;
+	}
 	public int getEvasion(){
 		return evasion;
+	}
+	public void setEvasion(int evasion){
+		this.evasion = evasion;
 	}
 	public void addEvasion(int evasion){
 		this.evasion += evasion;
