@@ -37,6 +37,7 @@ public class Player {
 	private boolean connected;
 	
 	private int playerListIndex;
+	private int currentActiveSkillIndex;
 	private boolean isAlive = true;
 	private boolean nameTaken = false;
 	
@@ -77,6 +78,8 @@ public class Player {
 	private double pushSpeed = 1.5;
 	
 	private boolean isRunning = false;
+	private boolean canAttack = true;
+	private boolean canWalk = true;
 	
 	public Player(String name, String ctrlType, String type, float x, float y, int maxHP, double speed, double armor, int index){
 		this.name = name;
@@ -150,6 +153,24 @@ public class Player {
 	}
 	public void setY(float y){
 		imgY = y;
+	}
+	public void setCanAttackState(boolean state){
+		canAttack = state;
+	}
+	public boolean canAttack(){
+		return canAttack;
+	}
+	public int getCurrentActiveSkillIndex(){
+		return currentActiveSkillIndex;
+	}
+	public void setCurrentActiveSkillIndex(int index){
+		currentActiveSkillIndex = index;
+	}
+	public void setCanWalkState(boolean state){
+		canWalk = state;
+	}
+	public boolean canWalk(){
+		return canWalk;
 	}
 	
 	public void setMouseXPosMove(float x){

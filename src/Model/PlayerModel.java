@@ -26,25 +26,39 @@ public class PlayerModel implements ActionListener {
 	
 	Obstacle[] obstacles;
 	
-	private long globalCDStart = 0;
-	private long globalCDElapsed = 0;
+	private long globalAttackCDStart = 0;
+	private long globalAttackCDElapsed = 0;
+	private long globalWalkCDStart = 0;
+	private long globalWalkCDElapsed = 0;
 	
-	/**
-	 * Resets the global cooldown so the PlayerModel can not use more skills within one second
-	 */
-	public void resetGlobalTimer(){
-		globalCDStart = System.currentTimeMillis();
+
+	public void resetGlobalAttackTimer(){
+		player.setCanAttackState(false);
+		globalAttackCDStart = System.currentTimeMillis();
 	}
-	/**
-	 * Check if the global cooldown for skills is done and will return 0 if it is
-	 * @return a long depending on how long ago it was the reset was called
-	 */
-	public long checkGlobalCooldown(){
-		globalCDElapsed = System.currentTimeMillis() - globalCDStart;
-		if(globalCDElapsed >= 1000){
+	public long checkGlobalAttackCooldown(){
+		globalAttackCDElapsed = System.currentTimeMillis() - globalAttackCDStart;
+		if(globalAttackCDElapsed >= 1000){
+			player.setCanAttackState(true);
 			return 0;
+			
 		}
-		return (1000-globalCDElapsed);
+		return (1000-globalAttackCDElapsed);
+	}
+	
+	public void resetGlobalWalkTimer(){
+		player.setCanWalkState(false);
+		globalWalkCDStart = System.currentTimeMillis();
+	}
+	
+	public long checkGlobalWalkCooldown(){
+		globalWalkCDElapsed = System.currentTimeMillis() - globalWalkCDStart;
+		if(globalWalkCDElapsed >= 100){
+			player.setCanWalkState(true);
+			return 0;
+			
+		}
+		return (100-globalWalkCDElapsed);
 	}
 
 	public PlayerModel(Player player, Obstacle[] obstacles){
@@ -79,7 +93,8 @@ public class PlayerModel implements ActionListener {
 		player.resetHP();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
-		resetGlobalTimer();
+		resetGlobalAttackTimer();
+		resetGlobalWalkTimer();
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
 				playerSkills[i].resetCooldown();
@@ -98,6 +113,7 @@ public class PlayerModel implements ActionListener {
 				if(i == index){
 					currentActiveSkill = playerSkills[i];
 					playerSkills[i].setChosenState(true);
+					player.setCurrentActiveSkillIndex(i);
 				}else{
 					playerSkills[i].setChosenState(false);
 				}
@@ -253,43 +269,45 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
-		if(player.getChannel()){
-			for(int i=0; i<player.getStatusEffects().size();i++){
-				if(player.getStatusEffects().get(i).getChanneling()){
-					player.getStatusEffects().get(i).setResetOfStatusEffect();
-					player.removeStatusEffect(player.getStatusEffects().get(i));
+		if(checkGlobalWalkCooldown() == 0){
+			if(player.getChannel()){
+				for(int i=0; i<player.getStatusEffects().size();i++){
+					if(player.getStatusEffects().get(i).getChanneling()){
+						player.getStatusEffects().get(i).setResetOfStatusEffect();
+						player.removeStatusEffect(player.getStatusEffects().get(i));
+					}
+				}
+			}
+			if(!player.isPushed()){
+				rotate(x, y);
+				player.setMouseXPosMove(x);
+				player.setMouseYPosMove(y);
+				
+				float xDir = x - player.getX();
+				float yDir = y - player.getY();
+				float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+				
+				
+				Double findNaN = (double)genDir;
+				if(!findNaN.isNaN() && !findNaN.isInfinite()){
+					player.setXDirMove(xDir);
+					player.setYDirMove(yDir);
+					player.setGenDirMove(genDir);
+					player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
+					player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+					
+					player.resetMoveCounter();
+					
+				//	System.out.println("Running " + player.getGenDirMove() + " pixels");
+					player.setRunningState(true);
 				}
 			}
 		}
-		if(!player.isPushed()){
-			rotate(x, y);
-			player.setMouseXPosMove(x);
-			player.setMouseYPosMove(y);
-			
-			float xDir = x - player.getX();
-			float yDir = y - player.getY();
-			float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-			
-			
-			Double findNaN = (double)genDir;
-			if(!findNaN.isNaN() && !findNaN.isInfinite()){
-				player.setXDirMove(xDir);
-				player.setYDirMove(yDir);
-				player.setGenDirMove(genDir);
-				player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-				player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
-				
-				player.resetMoveCounter();
-				
-			//	System.out.println("Running " + player.getGenDirMove() + " pixels");
-				player.setRunningState(true);
-			}
-		}
+		resetGlobalWalkTimer();
 	}
 	
 	public void attack(int x, int y){
-		if(checkGlobalCooldown() == 0){
-			resetGlobalTimer();
+		if(checkGlobalAttackCooldown() == 0){
 			if(player.getChannel()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
 					if(player.getStatusEffects().get(i).getChanneling()){
@@ -352,6 +370,7 @@ public class PlayerModel implements ActionListener {
 				}
 			}
 		}
+		resetGlobalAttackTimer();
 	}
 
 	public void rotate(int x, int y){

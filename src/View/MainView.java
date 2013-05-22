@@ -263,7 +263,8 @@ public class MainView extends BasicGameState implements ActionListener {
 
 			}
 		}
-		g.drawString(""+players.get(activePlayer).checkGlobalCooldown(),20, 610);
+		g.drawString("Attack Timer: "+players.get(activePlayer).checkGlobalAttackCooldown(),20, 570);
+		g.drawString("Walk Timer : "+players.get(activePlayer).checkGlobalWalkCooldown(),20, 580);
 		
 	
 		if(roundOver){
@@ -307,10 +308,13 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
-		System.out.println(players.get(activePlayer).getPlayer().getArmor());
+		
 		
 		PlayerModel currentActiveController = players.get(activePlayer);
 		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
+		
+		System.out.println("Can Attack: " + currentActiveController.getPlayer().canAttack());
+		System.out.println("Can Walk: " + currentActiveController.getPlayer().canWalk());
 		
 		//Update current mouse position
 		int xPos = Mouse.getX();
