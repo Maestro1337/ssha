@@ -36,17 +36,17 @@ public class PlayerClientController implements PlayerControl {
 		int currentSkillLvl;
 		
 	//	boolean[] canActivateEndState = new boolean[5];
-		boolean[] canActivateSkill = new boolean[5];
-		for(int i=0; i<canActivateSkill.length; i++){
+	//	boolean[] canActivateSkill = new boolean[5];
+	//	for(int i=0; i<canActivateSkill.length; i++){
 	//		canActivateEndState[i] = true;
-			canActivateSkill[i] = true;
-		}
-	//	boolean canActivateAttack = false;
-		boolean canActivateMovement = false;
+	//		canActivateSkill[i] = true;
+	//	}
+		boolean canActivateAttack = false;
+		boolean canActivateMovement = true;
 		
 		while(isAlive) {
 			
-			System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
+		//	System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
 			
 			
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
@@ -168,22 +168,38 @@ public class PlayerClientController implements PlayerControl {
 				tp.setHP(Integer.parseInt(Constants.getItem(tempStats, 5)));
 				tp.setCurrentActiveSkillIndex(Integer.parseInt(Constants.getItem(tempStats, 11)));
 				
-				float checkX = Float.parseFloat(Constants.getItem(tempStats, 3));
-				float checkY = Float.parseFloat(Constants.getItem(tempStats, 4));
-				tp.setX(checkX);
-				tp.setY(checkY);
+				float x = Float.parseFloat(Constants.getItem(tempStats, 3));
+				float y = Float.parseFloat(Constants.getItem(tempStats, 4));
+				float checkX = Math.abs(x - tp.getX());
+				float checkY = Math.abs(y - tp.getY());
+			//	tp.setX(checkX);
+			//	tp.setY(checkY);
 				realSkills = tp.getSkillList();
 				int skillIndex = tp.getCurrentActiveSkillIndex();
+				boolean isRunning = Boolean.valueOf(Constants.getItem(tempStats, 7));
+				boolean canWalk = Boolean.valueOf(Constants.getItem(tempStats, 6));
+				
+				//Checking if player position is synced
+				if(checkX >= 5 || checkY >= 5){
+					tp.setX(x);
+					tp.setY(y);
+				}
+				
+				if(isRunning){
+					model.move((int)Double.parseDouble(Constants.getItem(tempStats, 8)), (int)Double.parseDouble(Constants.getItem(tempStats, 9)));
+				//	canActivateMovement = false;
+				}//else if(canWalk){
+			//		canActivateMovement = true;
+			//	}
 				
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
 				
 				
-				
-				if(canActivateSkill[skillIndex] && isAttacking){
+				if(canActivateAttack && isAttacking){
 					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
-					canActivateSkill[skillIndex] = false;
-				}else if(!isAttacking){
-					canActivateSkill[skillIndex] = true;
+					canActivateAttack = false;
+				}else if(!isAttacking || !tp.getSkillList()[skillIndex].isAttacking()){
+					canActivateAttack = true;
 				}
 				
 				/*

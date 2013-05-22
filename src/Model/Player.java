@@ -172,7 +172,9 @@ public class Player {
 		canWalk = state;
 	}
 	public boolean canWalk(){
-		return canWalk;
+		boolean tempWalk = canWalk;
+		canWalk = false;
+		return tempWalk;
 	}
 	
 	public void setMouseXPosMove(float x){

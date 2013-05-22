@@ -31,7 +31,6 @@ public class SkillAdrenaline extends Skill {
 					skillBar[1] = new Image("res/skillIcons/adrenaline_active.png");
 					skillBar[2] = new Image("res/skillIcons/adrenaline_disabled.png");
 				} catch (SlickException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);

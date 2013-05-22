@@ -15,6 +15,7 @@ import java.util.Random;
 import Control.GlobalClassSelector;
 import Model.Obstacles.*;
 import Model.Skills.*;
+import Model.StatusEffects.SpawnTeleport;
 import Model.Timers.SkillCheckingTimer;
 
 public class PlayerModel implements ActionListener {
@@ -33,13 +34,13 @@ public class PlayerModel implements ActionListener {
 	
 
 	public void resetGlobalAttackTimer(){
-		player.setCanAttackState(false);
+//		player.setCanAttackState(false);
 		globalAttackCDStart = System.currentTimeMillis();
 	}
 	public long checkGlobalAttackCooldown(){
 		globalAttackCDElapsed = System.currentTimeMillis() - globalAttackCDStart;
 		if(globalAttackCDElapsed >= 1000){
-			player.setCanAttackState(true);
+//			player.setCanAttackState(true);
 			return 0;
 			
 		}
@@ -47,7 +48,7 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void resetGlobalWalkTimer(){
-		player.setCanWalkState(false);
+	//	player.setCanWalkState(false);
 		globalWalkCDStart = System.currentTimeMillis();
 	}
 	
@@ -91,8 +92,8 @@ public class PlayerModel implements ActionListener {
 		player.activatePassiveEffects();
 		checkPlayerObstacleCollision(0, 0);
 		player.resetHP();
-		player.setX(player.getStartX());
-		player.setY(player.getStartY());
+		player.addStatusEffect(new SpawnTeleport().createStatusEffectTo(player));
+		move((int)player.getX()+1,(int)player.getY()+1);
 		resetGlobalAttackTimer();
 		resetGlobalWalkTimer();
 		for(int i=0; i<playerSkills.length; i++){
@@ -124,7 +125,7 @@ public class PlayerModel implements ActionListener {
 	public void isRunning() throws SlickException{
 		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
 		
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMovementSpeed() > 0 && !collided && player.getControlType() != "server"){
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMovementSpeed() > 0 && !collided){
 			player.addX((float)(player.getXDirMove()*player.getMovementSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMovementSpeed()));
 			player.incMoveCounter();
@@ -270,6 +271,7 @@ public class PlayerModel implements ActionListener {
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
 		if(checkGlobalWalkCooldown() == 0){
+			
 			if(player.getChannel()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
 					if(player.getStatusEffects().get(i).getChanneling()){
@@ -279,6 +281,7 @@ public class PlayerModel implements ActionListener {
 				}
 			}
 			if(!player.isPushed()){
+				
 				rotate(x, y);
 				player.setMouseXPosMove(x);
 				player.setMouseYPosMove(y);
@@ -316,14 +319,19 @@ public class PlayerModel implements ActionListener {
 					}
 				}
 			}
-			
+			currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
+			}
+			if(currentActiveSkill.isGrapplingHook()){
+				
 			}
 			//Setting x and y to be in middle of mouse click
 			x -= currentActiveSkill.getCurrentWidth()/2;
 			y -= currentActiveSkill.getCurrentHeight()/2;
 			rotate(x, y);
+			if(player.getControlType() == "server")
+				System.out.println("BAJS");
 			if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 				
 					currentActiveSkill.activateSkill();
