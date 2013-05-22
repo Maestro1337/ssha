@@ -313,8 +313,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		PlayerModel currentActiveController = players.get(activePlayer);
 		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
 		
-		System.out.println("Can Attack: " + currentActiveController.getPlayer().canAttack());
-		System.out.println("Can Walk: " + currentActiveController.getPlayer().canWalk());
+		//System.out.println("Can Attack: " + currentActiveController.getPlayer().canAttack());
+		//System.out.println("Can Walk: " + currentActiveController.getPlayer().canWalk());
 		
 		//Update current mouse position
 		int xPos = Mouse.getX();

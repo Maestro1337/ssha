@@ -12,19 +12,19 @@ import Model.StatusEffects.StatusEffectTeleport;
 public class SkillGrapplingHook extends Skill {
 	public SkillGrapplingHook(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Grappling hook", 1000, 0, 7, 3, 25, 150,"Grappling hook \n" +
+				super("Grappling hook", 1000, 500, 7, 3, 25, 150,"Grappling hook \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage");
 				
-				Image[] attackImage = new Image[36];
-				Image[] animation = new Image[7];
+				Image[] attackImage = new Image[18];
+				Image[] animation = new Image[18];
 				Image[] skillBar = new Image[3];
 				
 				super.setOffensiveStatusEffectShell(new StatusEffectStun(this, 2), false);
-				//super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
-				//super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
+				super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLeap(this));
 				
 				try {
 					attackImage[0] = new Image("res/animations/grapplingHook/grapp1.png");
@@ -46,32 +46,24 @@ public class SkillGrapplingHook extends Skill {
 					attackImage[16] = new Image("res/animations/grapplingHook/grapp17.png");
 					attackImage[17] = new Image("res/animations/grapplingHook/grapp18.png");
 					
-					attackImage[18] = new Image("res/animations/grapplingHook/grapp18.png");
-					attackImage[19] = new Image("res/animations/grapplingHook/grapp17.png");
-					attackImage[20] = new Image("res/animations/grapplingHook/grapp16.png");
-					attackImage[21] = new Image("res/animations/grapplingHook/grapp15.png");
-					attackImage[22] = new Image("res/animations/grapplingHook/grapp14.png");
-					attackImage[23] = new Image("res/animations/grapplingHook/grapp13.png");
-					attackImage[24] = new Image("res/animations/grapplingHook/grapp12.png");
-					attackImage[25] = new Image("res/animations/grapplingHook/grapp11.png");
-					attackImage[26] = new Image("res/animations/grapplingHook/grapp10.png");
-					attackImage[27] = new Image("res/animations/grapplingHook/grapp9.png");
-					attackImage[28] = new Image("res/animations/grapplingHook/grapp8.png");
-					attackImage[29] = new Image("res/animations/grapplingHook/grapp7.png");
-					attackImage[30] = new Image("res/animations/grapplingHook/grapp6.png");
-					attackImage[31] = new Image("res/animations/grapplingHook/grapp5.png");
-					attackImage[32] = new Image("res/animations/grapplingHook/grapp4.png");
-					attackImage[33] = new Image("res/animations/grapplingHook/grapp3.png");
-					attackImage[34] = new Image("res/animations/grapplingHook/grapp2.png");
-					attackImage[35] = new Image("res/animations/grapplingHook/grapp1.png");
-					
-					animation[0] = new Image("res/animations/explode/explode1.png");
-					animation[1] = new Image("res/animations/explode/explode2.png");
-					animation[2] = new Image("res/animations/explode/explode3.png");
-					animation[3] = new Image("res/animations/explode/explode4.png");
-					animation[4] = new Image("res/animations/explode/explode5.png");
-					animation[5] = new Image("res/animations/explode/explode6.png");
-					animation[6] = new Image("res/animations/explode/explode7.png");
+					animation[0] = new Image("res/animations/grapplingHook/grapp18.png");
+					animation[1] = new Image("res/animations/grapplingHook/grapp17.png");
+					animation[2] = new Image("res/animations/grapplingHook/grapp16.png");
+					animation[3] = new Image("res/animations/grapplingHook/grapp15.png");
+					animation[4] = new Image("res/animations/grapplingHook/grapp14.png");
+					animation[5] = new Image("res/animations/grapplingHook/grapp13.png");
+					animation[6] = new Image("res/animations/grapplingHook/grapp12.png");
+					animation[7] = new Image("res/animations/grapplingHook/grapp11.png");
+					animation[8] = new Image("res/animations/grapplingHook/grapp10.png");
+					animation[9] = new Image("res/animations/grapplingHook/grapp9.png");
+					animation[10] = new Image("res/animations/grapplingHook/grapp8.png");
+					animation[11] = new Image("res/animations/grapplingHook/grapp7.png");
+					animation[12] = new Image("res/animations/grapplingHook/grapp6.png");
+					animation[13] = new Image("res/animations/grapplingHook/grapp5.png");
+					animation[14] = new Image("res/animations/grapplingHook/grapp4.png");
+					animation[15] = new Image("res/animations/grapplingHook/grapp3.png");
+					animation[16] = new Image("res/animations/grapplingHook/grapp2.png");
+					animation[17] = new Image("res/animations/grapplingHook/grapp1.png");
 					
 					skillBar[0] = new Image("res/skillIcons/grapplinghook.png");
 					skillBar[1] = new Image("res/skillIcons/grapplinghook_active.png");
@@ -80,8 +72,8 @@ public class SkillGrapplingHook extends Skill {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				super.setImage(attackImage, 5000);
-				super.setEndState(attackImage, 1000, 400);
+				super.setImage(attackImage, 1000);
+				super.setEndState(animation, 1000, 400);
 				super.setSkillBarImages(skillBar);
 			}
 
