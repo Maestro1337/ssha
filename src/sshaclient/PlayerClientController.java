@@ -36,12 +36,11 @@ public class PlayerClientController implements PlayerControl {
 		int currentSkillLvl;
 		
 	//	boolean[] canActivateEndState = new boolean[5];
-		boolean[] canActivateSkill = new boolean[5];
-		for(int i=0; i<canActivateSkill.length; i++){
+	//	boolean[] canActivateSkill = new boolean[5];
+	//	for(int i=0; i<canActivateSkill.length; i++){
 	//		canActivateEndState[i] = true;
-			canActivateSkill[i] = true;
-		}
-	//	boolean canActivateAttack = false;
+	//		canActivateSkill[i] = true;
+	//	}
 		boolean canActivateMovement = false;
 		
 		while(isAlive) {
@@ -178,11 +177,8 @@ public class PlayerClientController implements PlayerControl {
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
 				
 				
-				if(canActivateSkill[0] && isAttacking){
+				if(isAttacking){
 					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
-					canActivateSkill[0] = false;
-				}else if(!isAttacking){
-				//	canActivateSkill[0] = true;
 				}
 				
 				/*
