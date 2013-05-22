@@ -303,17 +303,16 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		int yPos = 720 - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		if(currentActiveController.getPlayer().isRunning()){
+	/*	if(currentActiveController.getPlayer().isRunning()){
 			currentActiveController.isRunning();
-		}
-		
-		Skill[] currentPlayerSkillList = currentActiveController.getPlayer().getSkillList();
+		}*/
+		/*Skill[] currentPlayerSkillList = currentActiveController.getPlayer().getSkillList();
 		for(int j=0; j<currentPlayerSkillList.length; j++){
 			//Check if players skills are in use to update positioning
 			if(currentPlayerSkillList[j] != null && currentPlayerSkillList[j].isAttacking()){
 				currentActiveController.isAttacking(currentPlayerSkillList[j]);
 			}
-		}
+		}*/
 		
 		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
@@ -339,45 +338,17 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				}
 				
 				//Check if player is running to update positioning
-		/*		if(currentController.getPlayer().isRunning()){
+				if(currentController.getPlayer().isRunning()){
 					currentController.isRunning();
-				}*/
-				
-				//Check for servers endstate
-		/*		if(currentController.getPlayer().getControlType() == "server"){
-					//Check if player is running to update positioning
-					if(currentController.getPlayer().isRunning()){
-						currentController.isRunning();
-					}
-					
-					Skill[] currentSkillList = currentController.getPlayer().getSkillList();
-					for(int j=0; j<currentSkillList.length; j++){
-						Skill attackingSkill = currentSkillList[j];
-						
-						if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
-	
-							
-						}else if(currentSkillList[j] != null && currentSkillList[j].isEndState()){
-							if(attackingSkill.getAnimationTimer() != null){
-								Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-							//TODO have to add -90 for slash.. but turn image instead..
-								animationImage.setRotation(attackingSkill.getRotation());
-							
-								if(animationImage != null)
-									attackingSkill.setEndStateImage(animationImage);
-							}
-						}
-					}
 				}
-				*/
 				
-			/*	Skill[] currentSkillList = currentController.getPlayer().getSkillList();
+				Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 				for(int j=0; j<currentSkillList.length; j++){
 					//Check if players skills are in use to update positioning
 					if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
 						currentController.isAttacking(currentSkillList[j]);
 					}
-				}*/
+				}
 			
 			}
 		}
