@@ -53,7 +53,7 @@ public class OptionsView extends BasicGameState {
 		readyButton = new Image ("res/buttons/Ready.png");
 		
 		GlobalClassSelector.getController().setDifficultySelected(2);
-		GlobalClassSelector.getController().setMapSelected(new MapHazardCross());
+		GlobalClassSelector.getController().setMapIndex(0);
 		
 		Map1= new Image ("res/Maps/Map_HazardCross2.png");
 		Map2= new Image ("res/Maps/Map_SlaughterField.png");
@@ -140,24 +140,25 @@ public class OptionsView extends BasicGameState {
 			Map1 = new Image("res/Maps/Map_HazardCross2.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField.png");
 			Map3 = new Image("res/Maps/Map_Volcano1.png");
-			GlobalClassSelector.getController().setMapSelected(new MapHazardCross());	
+			GlobalClassSelector.getController().setMapIndex(0);	
 		}	
 		if((57<xPos && xPos<643) && (161<yPos && yPos<228) && input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField2.png");
 			Map3 = new Image("res/Maps/Map_Volcano1.png");
-			GlobalClassSelector.getController().setMapSelected(new MapSlaughterField());
+			GlobalClassSelector.getController().setMapIndex(1);
 		}
 		if((57<xPos && xPos<643) && (230<yPos && yPos<297)&& input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField.png");
 			Map3 = new Image("res/Maps/Map_Volcano2.png");
-			GlobalClassSelector.getController().setMapSelected(new MapHazardCross());
+			GlobalClassSelector.getController().setMapIndex(0);
 		}	
 		if(GlobalClassSelector.getController().getMapSelected().getName()== "Hazard Cross"){
 			MapView = new Image ("res/Maps/MapHazardCross.png");
 		}else if(GlobalClassSelector.getController().getMapSelected().getName()== "Slaughter Field"){
-			MapView = new Image ("res/Maps/MapSlaughterField.png");
+	//		MapView = new Image ("res/Maps/MapSlaughterField.png");
+			MapView = new Image ("res/Maps/MapHazardCross.png");
 		//}else if(){
 			//MapView = new Image ("res/Maps/MapHazardCross.png");
 		}

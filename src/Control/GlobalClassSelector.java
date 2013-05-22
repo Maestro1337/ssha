@@ -7,6 +7,8 @@ import sshaclient.SocketClient;
 
 import Model.Player;
 import Model.Arenas.Arena;
+import Model.Arenas.MapHazardCross;
+import Model.Arenas.MapSlaughterField;
 import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
 import Model.Classes.ClassWizard;
@@ -23,8 +25,9 @@ public class GlobalClassSelector {
 	private SocketClient socketClient;
 	private Thread socketThread;
 	private int activePlayer = 0;
-	private Arena mapSelected;
+	private int mapSelected;
 	private int difficultySelected;
+	private Arena[] maps;
 	private String playerName = "Puss!";
 	
 	//Singleton
@@ -39,6 +42,10 @@ public class GlobalClassSelector {
 	// make constructor private so no one except the getController() can call it
 	private GlobalClassSelector() {
 		players[0] = new ClassWizard(getActivePlayerName(), "player", 120, 100, 0);
+		
+		maps = new Arena[2];
+		maps[0] = new MapHazardCross();
+		maps[1] = new MapSlaughterField();
 		
 		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort, players[0]);
 		socketThread = new Thread(socketClient);
@@ -113,10 +120,13 @@ public class GlobalClassSelector {
 		return socketClient;
 	}
 	public Arena getMapSelected(){
+		return maps[mapSelected];
+	}
+	public int getMapIndex(){
 		return mapSelected;
 	}
-	public void setMapSelected(Arena map){
-		mapSelected = map;
+	public void setMapIndex(int mapIndex){
+		mapSelected = mapIndex;
 	}
 	public int getDiffcultySelected(){
 		return difficultySelected;
