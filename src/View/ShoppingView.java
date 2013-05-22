@@ -72,6 +72,7 @@ public class ShoppingView extends BasicGameState {
 	Player activePlayer;
 	ArrayList<Skill> ownedSkillList;
 	ArrayList<Item> ownedItemList;
+	//ArrayList<Player> LobbyPlayers;
 	
 	String buyString = " ";
 	
