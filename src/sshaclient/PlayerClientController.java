@@ -178,12 +178,11 @@ public class PlayerClientController implements PlayerControl {
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
 				
 				
-				
-				if(canActivateSkill[skillIndex] && isAttacking){
+				if(canActivateSkill[0] && isAttacking){
 					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
-					canActivateSkill[skillIndex] = false;
+					canActivateSkill[0] = false;
 				}else if(!isAttacking){
-					canActivateSkill[skillIndex] = true;
+				//	canActivateSkill[0] = true;
 				}
 				
 				/*
