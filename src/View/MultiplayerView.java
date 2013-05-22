@@ -237,7 +237,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				Player currentPlayer = playerList[i];
 				Skill[] currentSkillset = currentPlayer.getSkillList();
 				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed() 
+						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMovementSpeed() 
 						+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY(),900+150*i,25);
 				
 				

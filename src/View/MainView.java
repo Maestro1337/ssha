@@ -218,7 +218,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			Player currentPlayer = players.get(i).getPlayer();
 			Skill[] currentSkillset = currentPlayer.getSkillList();
 			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMoveSpeed(),900+150*i,25);
+					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMovementSpeed(),900+150*i,25);
 			
 			
 			for(int j=0; j<currentSkillset.length; j++){

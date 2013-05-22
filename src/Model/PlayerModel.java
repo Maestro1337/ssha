@@ -122,16 +122,16 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
-		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMoveSpeed()), (float)(player.getYDirMove()*player.getMoveSpeed()));
+		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
 		
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMoveSpeed() > 0 && !collided && player.getControlType() != "server"){
-			player.addX((float)(player.getXDirMove()*player.getMoveSpeed()));
-			player.addY((float)(player.getYDirMove()*player.getMoveSpeed()));
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMovementSpeed() > 0 && !collided && player.getControlType() != "server"){
+			player.addX((float)(player.getXDirMove()*player.getMovementSpeed()));
+			player.addY((float)(player.getYDirMove()*player.getMovementSpeed()));
 			player.incMoveCounter();
-			if(player.getMoveCounter()*player.getMoveSpeed() >= player.getGenDirMove())
+			if(player.getMoveCounter()*player.getMovementSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
 			
-		}else if(player.isAlive() && player.isPushed() && player.getMoveSpeed() > 0 && !collided){
+		}else if(player.isAlive() && player.isPushed() && player.getMovementSpeed() > 0 && !collided){
 			
 			double tempSpeed = player.getPushSpeed();
 			double calculateDecision = tempSpeed*player.getMoveCounter();
