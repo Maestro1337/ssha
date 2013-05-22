@@ -316,7 +316,7 @@ public class PlayerModel implements ActionListener {
 					}
 				}
 			}
-			
+			currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
@@ -324,6 +324,8 @@ public class PlayerModel implements ActionListener {
 			x -= currentActiveSkill.getCurrentWidth()/2;
 			y -= currentActiveSkill.getCurrentHeight()/2;
 			rotate(x, y);
+			if(player.getControlType() == "server")
+				System.out.println("BAJS");
 			if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 				
 					currentActiveSkill.activateSkill();
