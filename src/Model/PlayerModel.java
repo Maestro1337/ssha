@@ -302,8 +302,8 @@ public class PlayerModel implements ActionListener {
 					player.setRunningState(true);
 				}
 			}
+			resetGlobalWalkTimer();
 		}
-		resetGlobalWalkTimer();
 	}
 	
 	public void attack(int x, int y){
@@ -369,8 +369,8 @@ public class PlayerModel implements ActionListener {
 					}
 				}
 			}
+			resetGlobalAttackTimer();
 		}
-		resetGlobalAttackTimer();
 	}
 
 	public void rotate(int x, int y){
