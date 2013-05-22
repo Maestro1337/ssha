@@ -41,6 +41,7 @@ public class PlayerClientController implements PlayerControl {
 	//		canActivateEndState[i] = true;
 	//		canActivateSkill[i] = true;
 	//	}
+		boolean canActivateAttack = false;
 		boolean canActivateMovement = false;
 		
 		while(isAlive) {
@@ -177,8 +178,11 @@ public class PlayerClientController implements PlayerControl {
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
 				
 				
-				if(isAttacking){
+				if(canActivateAttack && isAttacking){
 					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
+					canActivateAttack = false;
+				}else if(!isAttacking || tp.getSkillList()[skillIndex].isAttacking()){
+					canActivateAttack = true;
 				}
 				
 				/*
