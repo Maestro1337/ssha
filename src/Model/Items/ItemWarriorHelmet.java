@@ -12,7 +12,7 @@ public class ItemWarriorHelmet extends Item {
 		//Price, Name, Description, Slot,
 		super (400,"The Crusaders Defence","hej","Headwear");
 		try{
-			Image = new Image("res/items/Hunters Cap.png");
+			Image = new Image("res/items/Warriors Helmet.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

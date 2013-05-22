@@ -11,6 +11,7 @@ import javax.sound.sampled.Clip;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import Model.Items.Item;
 import Model.Skills.*;
 import Model.Timers.RepeatingAnimationTimer;
 
@@ -54,6 +55,7 @@ public class Player {
 	private int gold=500;
 	private Skill[] skillList = new Skill[5];
 	private ArrayList<Skill> ownedSkills = new ArrayList<Skill>();
+	private ArrayList<Item> ownedItems = new ArrayList<Item>();
 	
 	private ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
@@ -376,6 +378,12 @@ public class Player {
 	}
 	public void addSkillAsOwned(Skill skill){
 		ownedSkills.add(skill);
+	}
+	public ArrayList<Item> getOwnedItems(){
+		return ownedItems;
+	}
+	public void addItemOwned(Item item){
+		ownedItems.add(item);
 	}
 	public ArrayList<Skill> getPassiveSkills(){
 		return passiveSkills;

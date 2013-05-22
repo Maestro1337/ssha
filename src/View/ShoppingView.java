@@ -80,6 +80,8 @@ public class ShoppingView extends BasicGameState {
 	Image skillDescBg;
 	String costText;
 	
+	private String itemName;
+	
 	boolean showingSkillDescription = false;
 	boolean showingItemDescription = false;
 	private int xPos = 0;
@@ -191,6 +193,9 @@ public class ShoppingView extends BasicGameState {
 	      activePlayer = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex());
 	      updateSkillLists();
 	      
+	      ownedItemList = activePlayer.getOwnedItems();
+	      
+	      
 	      
 	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
 			case "Wizard":
@@ -273,19 +278,22 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(background, 0, 0);
 		g.drawImage(playButton, 1120, 670);
 		g.drawImage(optionsButton,980,670);
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		if (showingSkillDescription||showingItemDescription){
 			g.drawImage(skillDescBg, 485, 460);
-			g.setColor(Color.white);
-			g.drawString(skillText, 560, 475);
-			g.drawString(costText, 760, 475);
 			g.drawImage(buyUpgradeButton, 710, 610);
 			if (showingItemDescription){
-				g.drawImage(selectedItem.getImage(), 445, 470);
+				g.drawImage(selectedItem.getImage(), 490, 490);
+				g.drawString(costText, 490, 625);
+				g.drawString(skillText, 580, 490);
+				g.drawString(itemName, 490, 470);
 			}else{
 				g.drawImage(selectedSkill.getSkillBarImage(), 490, 470);
+				g.drawString(costText, 490, 625);
+				g.drawString(skillText, 560, 475);
 			}
 		}
+		
 		
 		/*
 		if(selectedSkill != null)
@@ -314,20 +322,25 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(chestSlotItem,365,100 );
 		g.drawImage(weaponSlotItem,365,190);
 		
-		
-		//Drawing the skills the player already owns
-		int row = 0;
-		int col = 0;
-		for(int i=0; i<ownedSkillList.size(); i++){
-			g.drawImage(ownedSkillList.get(i).getSkillBarImage(), 475+col*64, 50+row*64);
-			col++;
-			if(i != 0 && col%6 == 0){
-				row++;
-				col = 0;
-			}else if(i==0){
-				
+		//Draws out owned items
+		if(ownedItemList.size()!=0){
+			for (int i=0;i<ownedItemList.size();i++){
+				switch (ownedItemList.get(i).getItemSlot()){
+				case "Headwear" :
+					g.drawImage(ownedItemList.get(i).getImage(),365,10);
+					break;
+				case "Armor":
+					g.drawImage(ownedItemList.get(i).getImage(),365,100);
+					break;
+				case "Weapon":
+					g.drawImage(ownedItemList.get(i).getImage(),365,190);
+					break;
+				}
 			}
 		}
+		
+		
+	
 		
 		//Draw the Connected players in lobby (not done)
 		//for (int i=0;i<LobbyPlayers.length;i++){
@@ -363,7 +376,7 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage((findOwnedSkill(allSkills[8].getName())) != null ? allSkills[8].getRegularSkillBarImage() : allSkills[8].getDisabledSkillBarImage(), 335, 590);
 		g.drawImage(LevelofSkills[8],389,644);
 		
-		g.drawString(buyString, 640, 200);
+		g.drawString(buyString, 500, 675);
 		
 		if(dragMouse){
 			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
@@ -374,11 +387,14 @@ public class ShoppingView extends BasicGameState {
 		}
 	}
 
+
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
 		
 		xPos = Mouse.getX();
 		yPos = 720 - Mouse.getY();
+		
+		activePlayer.setGold(5000);
 		
 		for(int i=0;i<9;i++){
 			if (findOwnedSkill(allSkills[i].getName()) != null){
@@ -408,15 +424,22 @@ public class ShoppingView extends BasicGameState {
 		
 		
 		
-		if(showingSkillDescription){
+		if(showingSkillDescription||showingItemDescription){
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
 			if((710<xPos && xPos<830) && (600<yPos && yPos<645)){
 				buyUpgradeButton = new Image("res/buttons/buyOver.png");
 				if(input.isMousePressed(0) && buyOneTime){
 					buyOneTime = false;
-					if(activePlayer.getGold()>=selectedSkill.getCost()){					
-						buySkill(selectedSkill);
+					if(showingSkillDescription){
+						if(activePlayer.getGold()>=selectedSkill.getCost()){					
+							buySkill(selectedSkill);
+						}
+					}else{
+						if(activePlayer.getGold()>=selectedItem.getCost()){					
+							buyItem(selectedItem);
+						}
 					}
+					
 				}
 			}else{
 				buyUpgradeButton = new Image("res/buttons/buy.png");
@@ -590,8 +613,18 @@ public class ShoppingView extends BasicGameState {
 		ownedSkillList = activePlayer.getOwnedSkills();
 	}
 	private void buyItem(Item item){
+		boolean alreadyOwnItem = false;
 		for (int i=0; i<ownedItemList.size();i++){
-			
+			if(ownedItemList.get(i).getName()==item.getName()){
+				buyString = "Already own Item";
+				alreadyOwnItem = true;
+				break;
+			}
+		}
+		if(!alreadyOwnItem){
+			buyString = "Succesfully bought the item for " + item.getCost() + "!";
+			activePlayer.addGold(-item.getCost());
+			activePlayer.addItemOwned(item);
 		}
 	}
 	
@@ -599,7 +632,7 @@ public class ShoppingView extends BasicGameState {
 		boolean alreadyOwnSkill = false;
 		for(int i=0; i<ownedSkillList.size(); i++){
 			if(ownedSkillList.get(i).getName() == skill.getName()){
-				buyString = "You can not buy skills you already own";
+				buyString = "Already own skill";
 				alreadyOwnSkill = true;
 				break;
 			}
@@ -645,7 +678,8 @@ public class ShoppingView extends BasicGameState {
 	}
 	private void setSelectedItem(Item item){
 		System.out.println("kom in");
-		skillText = item.getName() +"\n" +item.getDescription() ;
+		itemName = item.getName();
+		skillText = item.getDescription() ;
 		costText ="Cost : " + item.getCost();
 		selectedItem = item;
 		showingItemDescription = true;
