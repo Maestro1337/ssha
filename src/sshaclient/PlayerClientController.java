@@ -205,7 +205,7 @@ public class PlayerClientController implements PlayerControl {
 				
 				if(Integer.parseInt(Constants.getItem(tempStats, 15)) != 0) {
 					for(int i = 0; i < Integer.parseInt(Constants.getItem(tempStats, 15)); i++) {
-						MainHub.getController().getMapSelected().destroyObstacle(Integer.parseInt(Constants.getItem(tempStats, 15+i)));
+						MainHub.getController().getMapSelected().destroyObstacle(Integer.parseInt(Constants.getItem(tempStats, 16+i)));
 					}
 				}
 				
