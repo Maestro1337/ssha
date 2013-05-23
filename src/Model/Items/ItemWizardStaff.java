@@ -10,7 +10,7 @@ public class ItemWizardStaff extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"Rod of Endless Power","It's a 'rod' of \nendless power. \n'Nuff said.", "Weapon");
+		super (400,"Rod of Endless Power","Rapidly increases the growth \nof the pewnitZ to the \nsize of an infant.", "Weapon");
 		try{
 			Image = new Image("res/items/Mages Staff.png");
 		} catch (SlickException e) {
