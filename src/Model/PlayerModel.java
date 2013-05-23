@@ -175,7 +175,7 @@ public class PlayerModel implements ActionListener {
 				
 				//Calculates the new direction if the skill is guided
 				if(attackingSkill.isGuided()){
-					if(attackingSkill.getGuidedTarget().isStealthed()){
+					if(attackingSkill.getGuidedTarget() != null && attackingSkill.getGuidedTarget().isStealthed()){
 						attackingSkill.setGuidedTarget(null);
 					}
 					if(attackingSkill.getGuidedTarget() != null){
