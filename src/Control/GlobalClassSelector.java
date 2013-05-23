@@ -25,11 +25,10 @@ public class GlobalClassSelector {
 	private SocketClient socketClient;
 	private Thread socketThread;
 	private int activePlayer = 0;
-
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "MrNoName";
+	private String playerName = "PewnitZ!";
 	
 	//Singleton
 	public static GlobalClassSelector getController() {

@@ -50,6 +50,9 @@ public class Arena {
 	public void setObstacles(Obstacle[] obs){
 		obstacles = obs;
 	}
+	public void removeObstacle(int index) {
+		obstacles[index] = null;
+	}
 	public String getName(){
 		return name;
 	}

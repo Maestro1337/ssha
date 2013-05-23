@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Random;
 
+import Model.Items.Item;
 import Model.Skills.Skill;
 import Model.Timers.*;
 
@@ -54,6 +55,21 @@ public abstract class StatusEffectShell {
 		this.isChanneling = isChanneling;
 		evasionEff = evasion;
 		hasStealth = isStealth;
+		
+		playersGivenTo = new String[3];
+		ESIT = new StatusEffectTimer(delay);
+		
+	}
+	public StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int attackSpeed, int counts, int delay){
+		this.player = player;
+		this.name = name;
+		
+		dmgEff = damage;
+		armEff = arm;
+		atkSpeedEff = attackSpeed;
+		moveSpeedEff = moveSpeed;
+		this.counts = maxCounts = counts;
+		this.delay = delay;
 		
 		playersGivenTo = new String[3];
 		ESIT = new StatusEffectTimer(delay);

@@ -625,6 +625,7 @@ public class ShoppingView extends BasicGameState {
 			buyString = "Succesfully bought the item for " + item.getCost() + "!";
 			activePlayer.addGold(-item.getCost());
 			activePlayer.addItemOwned(item);
+			activePlayer.addPassiveItem(item);
 		}
 	}
 	

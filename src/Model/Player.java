@@ -57,6 +57,7 @@ public class Player {
 	private ArrayList<Skill> ownedSkills = new ArrayList<Skill>();
 	private ArrayList<Item> ownedItems = new ArrayList<Item>();
 	
+	private ArrayList<Item> passiveItems = new ArrayList<Item>();
 	private ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
 	
@@ -387,6 +388,15 @@ public class Player {
 	public void addItemOwned(Item item){
 		ownedItems.add(item);
 	}
+	public ArrayList<Item> getPassiveItems(){
+		return passiveItems;
+	}
+	public void addPassiveItem(Item item){
+		passiveItems.add(item);
+	}
+	public void removePassiveItem(Item item){
+		passiveItems.remove(item);
+	}
 	public ArrayList<Skill> getPassiveSkills(){
 		return passiveSkills;
 	}
@@ -402,6 +412,12 @@ public class Player {
 		moveSpeed = baseMoveSpeed;
 		for(int i=0; i<passiveSkills.size(); i++){
 			StatusEffectShell SE = passiveSkills.get(i).getSelfAffectingStatusEffect();
+			armor *= SE.getArmEff();
+			evasion += SE.getEvasionEff();
+			moveSpeed += SE.getMoveSpeedEff();
+		}
+		for(int i=0; i<passiveItems.size(); i++){
+			StatusEffectShell SE = passiveItems.get(i).getSelfAffectingStatusEffect();
 			armor *= SE.getArmEff();
 			evasion += SE.getEvasionEff();
 			moveSpeed += SE.getMoveSpeedEff();
