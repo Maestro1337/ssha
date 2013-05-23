@@ -196,6 +196,11 @@ public class ShoppingView extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
+	      int fem=0;
+	      while(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) == null){
+	    	  System.out.println(fem);
+	    	  fem++;
+	      }
 	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
 	      activePlayer.setReady(false);
 	      updateSkillLists();
