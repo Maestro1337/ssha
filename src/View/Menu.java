@@ -66,7 +66,6 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.drawImage(titleText, gc.getWidth()/2 - titleText.getWidth()/2 - 20, 150);
 		g.drawImage(startGameButton, gc.getWidth()/2 - startGameButton.getWidth()/2 - 20, 277);
 		g.drawImage(exitButton, gc.getWidth()/2 - exitButton.getWidth()/2 - 20, 352);
-		g.drawImage(warriorImage, 800, 200);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
