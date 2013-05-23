@@ -5,15 +5,13 @@ import Model.StatusEffect;
 import Model.StatusEffectShell;
 import Model.Skills.Skill;
 
-public class StatusEffectCripple extends StatusEffectShell{
+public class StatusEffectStealth extends StatusEffectShell{
 
-	public StatusEffectCripple(Skill skill, double moveEff, int seconds) {
-		//player,skill,name,damage,moveX,moveY,moveSpeed,arm,attackSpeed,range,isStun,isChanneling,counts,delay
-		//plus one to add a count after the first hit which is instant
-		super(null, skill, "Cripple", 0, 0, 0, moveEff, 0, 0, 0, 0, false, false, false, seconds+1, 0);
-		// TODO Auto-generated constructor stub
+	public StatusEffectStealth(Skill skill, int seconds) {
+		
+		super(null, skill, "Stealth", 0, 0, 0, 0, 0, 0, 0,  0, true, false, false, seconds+1, 1);
 	}
-
+	
 	@Override
 	public StatusEffect createStatusEffectTo(Player newPlayer) {
 		//Finding the next free space in list to add player to

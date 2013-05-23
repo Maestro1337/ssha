@@ -258,7 +258,9 @@ public class MainView extends BasicGameState implements ActionListener {
 						}
 					}
 				}
-				g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
+				if(!currentPlayer.isStealthed() || currentPlayer.getPlayerListIndex() == MainHub.getController().getActivePlayerIndex()){
+					g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
+				}
 			}
 		}
 		//Draw Obstacles

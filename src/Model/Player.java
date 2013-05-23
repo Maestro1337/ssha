@@ -83,6 +83,8 @@ public class Player {
 	private boolean isPushed = false;
 	private double pushSpeed = 1.5;
 	
+	private boolean isStealthed = false;
+	
 	private boolean isRunning = false;
 	private boolean canAttack = true;
 	private boolean canWalk = true;
@@ -497,6 +499,12 @@ public class Player {
 	}
 	public void setChannel(boolean channelState){
 		this.isChanneling = channelState;
+	}
+	public boolean isStealthed(){
+		return isStealthed;
+	}
+	public void setStealthState(boolean state){
+		isStealthed = state;
 	}
 	public boolean isReady() {
 		return isReady;

@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectStealth;
 
 public class SkillStealth extends Skill {
 	public SkillStealth(){
@@ -17,6 +18,8 @@ public class SkillStealth extends Skill {
 		Image[] attackImages = new Image[3];
 		Image[] animation = new Image[3];
 		Image[] skillBar = new Image[3];
+		
+		super.setSelfAffectingStatusEffectShell(new StatusEffectStealth(this, 5));
 		
 		try {
 			attackImages[0] = new Image("res/animations/stealth/hunter_stealthstand.png");

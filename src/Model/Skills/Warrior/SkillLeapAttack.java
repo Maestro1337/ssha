@@ -12,14 +12,14 @@ import Model.StatusEffects.StatusEffectTeleport;
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 10000, 200, 2, 8, 50, 50,"Leap attack \n" +
+				super("Leap attack", 10000, 200, 5, 8, 50, 50,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage");
 
 				Image[] attackImages = new Image[4];
-				Image[] animation = new Image[4];
+				Image[] animation = new Image[8];
 				Image[] skillBar = new Image[3];
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
@@ -37,6 +37,10 @@ public class SkillLeapAttack extends Skill {
 					animation[1] = new Image("res/animations/warstomp/warstompGround3.png");
 					animation[2] = new Image("res/animations/warstomp/warstompGround2.png");
 					animation[3] = new Image("res/animations/warstomp/warstompGround.png");
+					animation[4] = new Image("res/animations/warstomp/warstompGround.png");
+					animation[5] = new Image("res/animations/warstomp/warstompGround.png");
+					animation[6] = new Image("res/animations/warstomp/warstompGround.png");
+					animation[7] = new Image("res/animations/warstomp/warstompGround.png");
 					
 					skillBar[0] = new Image("res/skillIcons/leapattack.png");
 					skillBar[1] = new Image("res/skillIcons/leapattack_active.png");
@@ -46,7 +50,7 @@ public class SkillLeapAttack extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImages, 1000);
-				super.setEndState(animation, 600, 2000);
+				super.setEndState(animation, 300, 2000);
 				super.setSkillBarImages(skillBar);
 			}
 

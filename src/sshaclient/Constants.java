@@ -11,7 +11,7 @@ public class Constants {
 	
 	public static final int globalSleep = 1;
 	
-	public static final int syncMargin = 5;
+	public static final int syncMargin = 10;
 	
 	public static String getItem(String str, int pos) {
 		
