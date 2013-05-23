@@ -28,7 +28,7 @@ public class MainHub {
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "Maestro!";
+	private String playerName = "Vito";
 	
 	//Singleton
 	public static MainHub getController() {
@@ -53,7 +53,7 @@ public class MainHub {
 	}
 	
 	public synchronized void addPlayer(Player player, int index){
-		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType());
+		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
 		players[index] = player;
 	}
 	public synchronized void removePlayer(int index) {

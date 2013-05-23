@@ -47,7 +47,7 @@ public class PlayerClientController implements PlayerControl {
 		
 		while(isAlive) {
 			
-			System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
+		//	System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
 			
 			
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());

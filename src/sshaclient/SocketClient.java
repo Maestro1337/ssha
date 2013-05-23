@@ -186,9 +186,9 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-			System.out.println(inData);
+	//		System.out.println(inData);
 			
-			if(inData.length() < 4999) {
+			if(inData.length() > 10 && inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
 			//		MainHub.getController().removePlayer(0);
@@ -196,6 +196,7 @@ public class SocketClient implements Runnable {
 					MainHub.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
+					MainHub.getController().resetPlayers();
 					tp.takeName(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
