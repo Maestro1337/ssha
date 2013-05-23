@@ -20,7 +20,7 @@ public class SkillFlamewave extends Skill{
 		Image[] animation = new Image[2];
 		Image[] skillBar = new Image[3];
 
-		super.isPiercing();
+		super.setPiercing(true);
 		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 50, 1), false);
 		
 		try {
