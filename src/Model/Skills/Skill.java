@@ -170,6 +170,8 @@ public abstract class Skill{
 		attackImage.setRotation(angle);
 		rotation = angle;
 	}
+	
+	//Setting end state by getting the images, the duration and interval on when damage can be dealt again to players during endstate
 	public void setEndState(Image[] images, int duration, int interval){
 		if(images[0] != null){
 			endStateImage = images[0];

@@ -43,7 +43,7 @@ public class SkillLeapAttack extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImages, 1000);
-				super.setEndState(animation, 2000, 2000);
+				super.setEndState(animation, 500, 2000);
 				super.setSkillBarImages(skillBar);
 			}
 
