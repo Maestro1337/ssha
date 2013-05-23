@@ -35,8 +35,8 @@ public class SocketClient implements Runnable {
 	private BufferedInputStream bis;
 	private InputStreamReader isr;
 	
-	public SocketClient(String host, int port, Player tp) {
-		this.tp = tp;
+	public SocketClient(String host, int port){//, Player tp) {
+		//this.tp = tp;
 		
 		this.allAreReady = false;
 		
@@ -86,6 +86,18 @@ public class SocketClient implements Runnable {
 					process = process + tp.getHP() + " " + tp.canWalk() + " " + tp.isRunning() + " " + tp.getMouseXPosMove() + " " + tp.getMouseYPosMove() + " ";
 					process = process + tp.canAttack() + " " + skillIndex + " " + tp.getSkillList()[skillIndex].isAttacking() + " ";
 					process = process + tp.getSkillList()[skillIndex].getMouseXPos() + " " + tp.getSkillList()[skillIndex].getMouseYPos();
+					
+					int[] tempObs = MainHub.getController().getMapSelected().getDestroyedObstacles();
+					
+					if(tempObs != null) {
+						process = process + " " + tempObs.length;
+						for(int i = 0; i < tempObs.length; i++) {
+							process = process + " " + tempObs[i];
+						}
+					} else {
+						process = process + " " + 0;
+					}
+					
 					
 					/*
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
