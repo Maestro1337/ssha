@@ -14,7 +14,7 @@ public class Arena {
 	private int height;
 	private String terrain;
 	private Obstacle[] obstacles;
-	private ArrayList<Integer> destroyedObstacles;
+	private ArrayList<Integer> destroyedObstacles = new ArrayList<Integer>();
 	
 	private TiledMap background;
 	
