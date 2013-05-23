@@ -22,7 +22,7 @@ public class PlayerClientController implements PlayerControl {
 		this.sc = sc;
 		this.tp = tp;
 		
-		model = new PlayerModel(tp, new Obstacle[0]);
+		model = new PlayerModel(tp);
 		isAlive = true;
 	}
 	
@@ -42,8 +42,8 @@ public class PlayerClientController implements PlayerControl {
 	//		canActivateEndState[i] = true;
 	//		canActivateSkill[i] = true;
 	//	}
-		boolean canActivateAttack = false;
-		boolean canActivateMovement = false;
+		boolean canActivateAttack = true;
+		boolean canActivateMovement = true;
 		
 		while(isAlive) {
 			
@@ -174,14 +174,26 @@ public class PlayerClientController implements PlayerControl {
 				tp.setHP(Integer.parseInt(Constants.getItem(tempStats, 5)));
 				tp.setCurrentActiveSkillIndex(Integer.parseInt(Constants.getItem(tempStats, 11)));
 				
-				float checkX = Float.parseFloat(Constants.getItem(tempStats, 3));
-				float checkY = Float.parseFloat(Constants.getItem(tempStats, 4));
-				tp.setX(checkX);
-				tp.setY(checkY);
+				float x = Float.parseFloat(Constants.getItem(tempStats, 3));
+				float y = Float.parseFloat(Constants.getItem(tempStats, 4));
+				float checkX = Math.abs(x - tp.getX());
+				float checkY = Math.abs(y - tp.getY());
+				//tp.setX(checkX);
+				//tp.setY(checkY);
 				realSkills = tp.getSkillList();
 				int skillIndex = tp.getCurrentActiveSkillIndex();
+				boolean isRunning = Boolean.valueOf(Constants.getItem(tempStats, 7));
 				
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
+				
+				if(checkX > Constants.syncMargin || checkY > Constants.syncMargin) {
+					tp.setX(x);
+					tp.setY(y);
+				}
+				
+				if(isRunning) {
+					model.move((int)Double.parseDouble(Constants.getItem(tempStats, 8)), (int)Double.parseDouble(Constants.getItem(tempStats, 9)));
+				}
 				
 				
 				if(canActivateAttack && isAttacking){
@@ -193,7 +205,7 @@ public class PlayerClientController implements PlayerControl {
 				
 				if(Integer.parseInt(Constants.getItem(tempStats, 15)) != 0) {
 					for(int i = 0; i < Integer.parseInt(Constants.getItem(tempStats, 15)); i++) {
-						MainHub.getController().getMapSelected().removeObstacle(Integer.parseInt(Constants.getItem(tempStats, 15+i)));
+						MainHub.getController().getMapSelected().destroyObstacle(Integer.parseInt(Constants.getItem(tempStats, 16+i)));
 					}
 				}
 				

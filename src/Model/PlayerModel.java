@@ -61,14 +61,12 @@ public class PlayerModel implements ActionListener {
 		return (100-globalWalkCDElapsed);
 	}
 
-	public PlayerModel(Player player, Obstacle[] obstacles){
+	public PlayerModel(Player player){
 		
 		this.player = player;
 		
 		playerSkills = player.getSkillList();
 		currentActiveSkill = playerSkills[0];
-		
-		//this.obstacles = obstacles;
 	}
 	
 	public Player getPlayer(){
@@ -408,15 +406,10 @@ public class PlayerModel implements ActionListener {
 						evasion = generator.nextInt(100) - evasion;
 					}
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
-					//And if it can affect others
 					if(playerSkills[i].getOffensiveStatusEffect() != null && !playerSkills[i].getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
 						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
-				/*	if(playerSkills[i].getSelfAffectingOnHitStatusEffect() != null && !playerSkills[i].getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(attackingPlayer.getName()) 
-							&& playerSkills[i].getAffectSelfOnHit() && evasion > 0){
-						attackingPlayer.addStatusEffect(playerSkills[i].getSelfAffectingOnHitStatusEffect().createStatusEffectTo(attackingPlayer));
-					}*/
 					
 					if(!playerSkills[i].isEndState()){
 						if(evasion>=0){
@@ -489,7 +482,7 @@ public class PlayerModel implements ActionListener {
 			SCT = skill.addNewSkillCheckingTimer(obstacle);
 		}
 		
-		System.out.println("Obstacle HP: " + SCT.getObstacle().getHealth());
+	//	System.out.println("Obstacle HP: " + SCT.getObstacle().getHealth());
 		return SCT;
 	}
 	
@@ -503,6 +496,7 @@ public class PlayerModel implements ActionListener {
 				if(currentObstacleCheck.isSolid()){
 					player.setPushState(false);	
 					player.setRunningState(false);
+				//	pushPlayer(player.getXDirMove(), player.getYDirMove(), -100);
 					fixSpawnCollision(currentObstacleCheck);
 				}
 
@@ -517,19 +511,17 @@ public class PlayerModel implements ActionListener {
 	public boolean checkSkillObstacleCollision(Skill skill, float x, float y) throws SlickException{
 		boolean collision = false;
 		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
-		//for(int i=0; i<obstacles.length; i++){
 			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
 			//Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
-				System.out.println(skill.getCurrentWidth());
 				if(!skill.isEndState()){
-					System.out.println("Obstacle hit with " + skill.getName());
+				//	System.out.println("Obstacle hit with " + skill.getName());
 					currentObstacleCheck.takeDamage(skill.getDamage());
 				}else{
 					SkillCheckingTimer SCT = getRelevantSCT(currentObstacleCheck, skill);
-					System.out.println(SCT.checkESColTimer() + "   " + skill.getESColInterval());
+				//	System.out.println(SCT.checkESColTimer() + "   " + skill.getESColInterval());
 					if(SCT != null && SCT.checkESColTimer() == skill.getESColInterval()){
-						System.out.println("Obstacle hit with " + skill.getName());
+					//	System.out.println("Obstacle hit with " + skill.getName());
 						currentObstacleCheck.takeDamage(skill.getDamage());
 						
 						SCT.resetESColTimer();
