@@ -324,6 +324,9 @@ public class PlayerModel implements ActionListener {
 					}
 				}
 			}
+			if(player.isStealthed()){
+				player.setStealthState(false);
+			}
 			currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
