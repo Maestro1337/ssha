@@ -19,7 +19,7 @@ public class ItemHunterArmor extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.7, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.5, 0));
 		super.setImage(Image);
 	}
 }
