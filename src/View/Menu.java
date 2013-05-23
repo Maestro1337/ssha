@@ -29,8 +29,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	Image bg;
 
 	Image backgroundImage;
-	Image singleplayerButton;
-	Image multiplayerButton;
+	Image startGameButton;
 	Image exitButton;
 	Image titleText;
 	
@@ -41,8 +40,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		backgroundImage = new Image("res/miscImages/bg.png");
-		singleplayerButton = new Image("res/buttons/singleplayer.png");
-		multiplayerButton = new Image("res/buttons/multiplayer.png");
+		startGameButton = new Image("res/buttons/startgame.png");
 		exitButton = new Image("res/buttons/exitButton.png");
 		titleText = new Image("res/miscImages/title.png");
 		
@@ -65,9 +63,8 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.drawString(mouse, 500, 20);
 		
 		g.drawImage(titleText, 380, 100);
-		g.drawImage(singleplayerButton, 500, 300);
-		g.drawImage(multiplayerButton, 500, 400);
-		g.drawImage(exitButton, 500, 500);
+		g.drawImage(startGameButton, 500, 325);
+		g.drawImage(exitButton, 500, 425);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
@@ -82,24 +79,18 @@ public class Menu extends BasicGameState implements ActionListener{
         if(input.isKeyDown(Input.KEY_ESCAPE)) gc.exit();
         
 		
-		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
-			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
+		if((500<xPos && xPos<750) && (325<yPos && yPos<379)){
+			startGameButton = new Image("res/buttons/startgame_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				sbg.enterState(3);
 			}
-		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
-			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-					sbg.enterState(3);
-			}
-		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
+		} else if((500<xPos && xPos<750) && (425<yPos && yPos<479)){
 			exitButton = new Image("res/buttons/exitButton_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				System.exit(0);
 			}
 		}else{
-			singleplayerButton = new Image("res/buttons/singleplayer.png");
-			multiplayerButton = new Image("res/buttons/multiplayer.png");
+			startGameButton = new Image("res/buttons/startgame.png");
 			exitButton = new Image("res/buttons/exitButton.png");
 		}
 	}
