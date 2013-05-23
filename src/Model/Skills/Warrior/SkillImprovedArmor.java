@@ -8,7 +8,7 @@ import Model.StatusEffects.StatusEffectArmor;
 
 public class SkillImprovedArmor extends Skill {
 	public SkillImprovedArmor(){
-		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
+		//String name, int cd, int range, double speed, int aoe, int cost, int damage, String description
 				super("Improved armor", 11000, 400, 0.4, 3, 10, 0,"Improved Armor \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +

@@ -26,6 +26,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import sshaclient.Constants;
+
 
 
 
@@ -42,7 +44,7 @@ import Model.Timers.AnimationTimer;
 
 
 public class MainView extends BasicGameState implements ActionListener {	
-	boolean shouldcalcgold;
+	boolean shouldCalcGold;
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
@@ -79,7 +81,10 @@ public class MainView extends BasicGameState implements ActionListener {
 	private int enemyPlayer = 1;
 	
 	private int activePlayer;
-	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
+	private PlayerModel currentActiveController;
+	private Skill[] activeSkillList;
+	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
+	private int nbrOfCurrentPlayers;
 	private Obstacle[] obstacles = new Obstacle[100];
 	
 	Image userImage;
@@ -107,26 +112,25 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		map = new TiledMap("res/tileset/grassBackground.tmx");
-	//	initRound();
 	}
 	
 	public void initRound() throws SlickException{
 		TimeRoundStart = System.currentTimeMillis();
-		shouldcalcgold=true;
+		shouldCalcGold=true;
 		treetop = new Image ("res/tileset/Treetop2.png");
 
-		Arena arena = GlobalClassSelector.getController().getMapSelected();
+		Arena arena = MainHub.getController().getMapSelected();
 		if(arena != null){
 			obstacles = arena.getObstacles();
 		}else{
 			Random obsGenerator = new Random();
 			for(int i=0; i<obsGenerator.nextInt(50); i++){
-				obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
+				obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(GameEngine.screenWidth), obsGenerator.nextInt(GameEngine.screenHeight-1) + 1);
 			}
 
 		}
-		playerList = GlobalClassSelector.getController().getPlayers();
-		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
+		playerList = MainHub.getController().getPlayers();
+		activePlayer = MainHub.getController().getActivePlayerIndex();
 		
 		switch(playerList[activePlayer].getType()){
 		case "Wizard":
@@ -140,10 +144,19 @@ public class MainView extends BasicGameState implements ActionListener {
 		break;
       	}
 		
+		for(int i=0; i<MainHub.getController().getPlayers().length; i++){
+			
+			if(MainHub.getController().getPlayer(i) != null){
+				System.out.println(MainHub.getController().getPlayer(i).getName() + " " + MainHub.getController().getPlayer(i).getPlayerListIndex() + " " + i);
+				players[i] = new PlayerModel(MainHub.getController().getPlayer(i), obstacles);
+				nbrOfCurrentPlayers++;
+			}
+		}
+		
 		
 		//TODO Is to be removed later (is still here because of AI methods)-------
 		
-		Control = new PlayerModel(playerList[activePlayer], obstacles);
+	/*	Control = new PlayerModel(playerList[activePlayer], obstacles);
 		player = playerList[activePlayer];
 		playerSkills = player.getSkillList();
 
@@ -161,19 +174,21 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
 
-		enemyControl.checkPlayerObstacleCollision(0, 0);
+		enemyControl.checkPlayerObstacleCollision(0, 0);*/
 		
 		//----------------- Up until this point
 		
-		players.clear();
-		players.add(new PlayerModel(playerList[activePlayer], obstacles));
+	//	players.clear();
+	//	players.add(new PlayerModel(playerList[activePlayer], obstacles));
 		
-		players.add(enemyControl);
+	//	players.add(enemyControl);
 		
-		for(int i=0; i<players.size(); i++){
-			PlayerModel currentController = players.get(i);
-			currentController.ressurectPlayer();
-			currentController.checkPlayerObstacleCollision(0, 0);
+		for(int i=0; i<players.length; i++){
+			PlayerModel currentController = players[i];
+			if(currentController != null){
+				currentController.ressurectPlayer();
+				currentController.checkPlayerObstacleCollision(0, 0);
+			}
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
 		nextRoundBg = new Image("res/miscImages/skillDescBg.png");
@@ -193,6 +208,26 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		victoryAnimation = new AnimationTimer(500,victoryanimation);
 		firstTimeRoundOver = true;
+		
+		MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()).setMode("arena");
+		for(int lol = 0; lol < MainHub.getController().getPlayers().length; lol++) {
+			if(MainHub.getController().getPlayers()[lol] != null) {
+				if(MainHub.getController().getPlayers()[lol].getControlType().equals("server")) {
+					MainHub.getController().getPlayerControllers()[lol].changePlayer(MainHub.getController().getPlayers()[lol]);
+					System.out.println("Player " + lol + " is now changed.");
+				}
+				
+			
+			}
+		}
+		
+		for(int i=0; i<players.length; i++){
+			if(players[i] != null){
+				System.out.println(players[i].getPlayer().getName() + " " + players[i].getPlayer().getPlayerListIndex() + " " + i);
+			}
+		}
+		currentActiveController = players[activePlayer];
+		activeSkillList = currentActiveController.getPlayer().getSkillList();
 	}
 	
 	@Override
@@ -214,23 +249,26 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		//Draw player stats and image
 		
-		for(int i=0; i<players.size(); i++){
-			Player currentPlayer = players.get(i).getPlayer();
-			Skill[] currentSkillset = currentPlayer.getSkillList();
-			g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-					+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMovementSpeed(),900+150*i,25);
-			
-			
-			for(int j=0; j<currentSkillset.length; j++){
-				if(currentSkillset[j] != null){
-					if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
-						g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
-					}else if(currentSkillset[j].isEndState()){
-						g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+		for(int i=0; i<playerList.length; i++){
+			if(playerList[i] != null){
+				Player currentPlayer = playerList[i];
+				Skill[] currentSkillset = currentPlayer.getSkillList();
+				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
+						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMovementSpeed() 
+						+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY(),900+150*i,25);
+				
+				
+				for(int j=0; j<currentSkillset.length; j++){
+					if(currentSkillset[j] != null){
+						if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
+							g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						}else if(currentSkillset[j].isEndState()){
+							g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
+						}
 					}
 				}
+				g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 			}
-			g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 		}
 		//Draw Obstacles
 		for(int i=0; i<obstacles.length; i++){
@@ -247,113 +285,94 @@ public class MainView extends BasicGameState implements ActionListener {
 //		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
 		g.drawImage(playerPortrait, 20, 585);
 		//Draw the actionbar
-		Skill[] activePlayerSkills = players.get(activePlayer).getPlayer().getSkillList();
+		Skill[] activePlayerSkills = playerList[activePlayer].getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
-			//g.setColor(Color.white);
-			//g.fillRect(140 + j*64, 640, 64, 64);
-			g.setColor(Color.black);
+		//	g.setColor(Color.white);
+		//	g.fillRect(140 + j*64, 640, 64, 64);
+		//	g.setColor(Color.black);
+			
 			if(activePlayerSkills[j] != null){
-
-
-
-				//if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
+				
+			//	if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
 					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
-				//}
+			//	}
 				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
-
+				
 			}
 		}
-		g.drawString("Attack Timer: "+players.get(activePlayer).checkGlobalAttackCooldown(),20, 570);
-		g.drawString("Walk Timer : "+players.get(activePlayer).checkGlobalWalkCooldown(),20, 580);
+		g.drawString("Attack Timer: "+players[activePlayer].checkGlobalAttackCooldown(),20, 570);
+		g.drawString("Walk Timer : "+players[activePlayer].checkGlobalWalkCooldown(),20, 580);
 		
 	
 		if(roundOver){
-			if (shouldcalcgold){
+			if (shouldCalcGold && nbrOfCurrentPlayers>1){
 				goldreward();
 			}
-			shouldcalcgold=false;
-		//	System.out.println(player.getGold());
-			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
-			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
-			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
-			if(Control.getPlayer().getHP()>0){
+			shouldCalcGold=false;
+			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
+			g.drawImage(nextRoundButton, GameEngine.screenWidth/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
+			g.drawString(endRoundText, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/4, 210);
+			if(players[activePlayer].getPlayer().getHP()>0){
 				
 				Image testAnimationImage = victoryAnimation.getCurrentAnimationImage();
 				if(testAnimationImage != null){
 					roundOverAnimationImage = testAnimationImage;
 				}
 				if(roundOverAnimationImage != null)
-					g.drawImage(roundOverAnimationImage, 1280/2 - nextRoundBg.getWidth()/2, 200-nextRoundBg.getHeight()/2);
+					g.drawImage(roundOverAnimationImage, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200-nextRoundBg.getHeight()/2);
 			}
 		}
 		//g.drawString("Singleplayer", 640, 200);
 	}
-	public void goldreward(){
-		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
-			player.setGold(player.getGold()+1);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
-			player.setGold(player.getGold()+5);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
-			player.setGold(player.getGold()+15);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
-			player.setGold(player.getGold()+25);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
-			player.setGold(player.getGold()+50);
-		if(!enemy.isAlive()){
-			player.addGold(25);
-		}
-	}
-	
-	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
 		
 		
-		PlayerModel currentActiveController = players.get(activePlayer);
-		Skill[] activeSkillList = currentActiveController.getPlayer().getSkillList();
+		
 		
 		//System.out.println("Can Attack: " + currentActiveController.getPlayer().canAttack());
 		//System.out.println("Can Walk: " + currentActiveController.getPlayer().canWalk());
 		
 		//Update current mouse position
 		int xPos = Mouse.getX();
-		int yPos = 720 - Mouse.getY();
+		int yPos = GameEngine.screenHeight - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
-		for(int i=0; i<players.size(); i++){
-			PlayerModel currentController = players.get(i);
-			//Checking status effects
-			currentController.checkStatusEffects();
+		for(int i=0; i<players.length; i++){
+			PlayerModel currentController = players[i];
+			if(currentController != null){
+				//Checking status effects
+				currentController.checkStatusEffects();
+				
+				//Checking userImageChange
+				currentController.checkUserImageChange();
+				
+				//Checking collision from other players
+				for(int j=0; j<players.length; j++){
+					PlayerModel checkController;
+					//Check to see it is another player
+					if(j != i && currentController.getPlayer().isAlive()){
+						checkController = players[j];
+						if(checkController != null){
+							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+						}
+					}
+				}
 			
-			//Checking userImageChange
-			currentController.checkUserImageChange();
-			
-			//Checking collision from other players
-			for(int j=0; j<players.size(); j++){
-				PlayerModel checkController;
-				//Check to see it is another player
-				if(j != i && currentController.getPlayer().isAlive()){
-					checkController = players.get(j);
-					currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
+				//Check if player is running to update positioning
+				if(currentController.getPlayer().isRunning()){
+					currentController.isRunning();
+				}
+				
+				Skill[] currentSkillList = currentController.getPlayer().getSkillList();
+				for(int j=0; j<currentSkillList.length; j++){
+					//Check if players skills are in use to update positioning
+					if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
+						currentController.isAttacking(currentSkillList[j]);
+					}
 				}
 			}
-			
-			//Check if player is running to update positioning
-			if(currentController.getPlayer().isRunning()){
-				currentController.isRunning();
-			}
-			
-			
-			Skill[] currentSkillList = currentController.getPlayer().getSkillList();
-			for(int j=0; j<currentSkillList.length; j++){
-				//Check if players skills are in use to update positioning
-				if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
-					currentController.isAttacking(currentSkillList[j]);
-				}
-			}
-			
-			
 		}
 		
 		Input input = gc.getInput();
@@ -386,28 +405,28 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
-			currentActiveController.move(Mouse.getX(), 720 - Mouse.getY());
-			//enemyControl.move(generator.nextInt(1280), generator.nextInt(719) + 1);
+			currentActiveController.move(Mouse.getX(), GameEngine.screenHeight - Mouse.getY());
+			//enemyControl.move(generator.nextInt(GameEngine.screenWidth), generator.nextInt(GameEngine.screenHeight-1) + 1);
 		}
 		//If right mousebutton is clicked, attack that point
 		if(input.isMouseButtonDown(0) && currentActiveController.getCurrentActiveSkill().checkCooldown() == currentActiveController.getCurrentActiveSkill().getCoolDown()){
-			currentActiveController.attack(Mouse.getX(), 720 - Mouse.getY());
+			currentActiveController.attack(Mouse.getX(), GameEngine.screenHeight - Mouse.getY());
 		}
 		
 		
 		//Checks if round should be ended
 		int endRound = 0;
 		String winningPlayer = null;
-		for(int i=0; i<players.size(); i++){
-			if(!players.get(i).getPlayer().isAlive()){
-				endRound++;
-				
-			}else{
-				winningPlayer = players.get(i).getPlayer().getName();
+		for(int i=0; i<players.length; i++){
+			if(players[i] != null){
+				if(players[i].getPlayer().isAlive()){
+					endRound++;
+					winningPlayer = players[i].getPlayer().getName();
+				}
 			}
 		}
 		//Ends round if only 1 player is alive
-		if (endRound >= players.size() - 1){
+		if (endRound == 1 && nbrOfCurrentPlayers > 1){
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
@@ -426,11 +445,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		
-		AI();
+	//	AI();
 	}
-	
-	
-	
+
 	public boolean willCollide(){
 		float collitionx;
 		float collitiony;
@@ -478,10 +495,10 @@ public class MainView extends BasicGameState implements ActionListener {
 			else if (distance>=30){
 				enemyControl.move((int)player.getX(),(int) player.getY());
 			}else if (dx<0){
-				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(719) + 1);
+				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(GameEngine.screenHeight-1) + 1);
 			}
 			else{
-				enemyControl.move(generator.nextInt(1280-(int)player.getX())+(int)player.getX(), generator.nextInt(719) + 1);
+				enemyControl.move(generator.nextInt(GameEngine.screenWidth-(int)player.getX())+(int)player.getX(), generator.nextInt(GameEngine.screenHeight-1) + 1);
 			}
 			time=System.currentTimeMillis();
 		}
@@ -522,15 +539,32 @@ public class MainView extends BasicGameState implements ActionListener {
 	//Handling the soundfiles
 	public static synchronized void playSound(String filename) {
 
-		    try
-		    {
-		        Clip clip = AudioSystem.getClip();
-		        clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-		        clip.start();
-		    }
-		    catch (Exception exc)
-		    {
-		        exc.printStackTrace(System.out);
-		    }	
+	    try
+	    {
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+	    }
+	    catch (Exception exc)
+	    {
+	        exc.printStackTrace(System.out);
+	    }	
+	}
+	
+	public void goldreward(){
+		Player goldRewardPlayer = players[activePlayer].getPlayer();
+		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
+			goldRewardPlayer.addGold(1);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
+			goldRewardPlayer.addGold(5);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
+			goldRewardPlayer.addGold(15);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
+			goldRewardPlayer.addGold(25);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
+			goldRewardPlayer.addGold(50);
+	//	if(!enemy.isAlive()){
+	//		player.addGold(25);
+	//	}
 	}
 }

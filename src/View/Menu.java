@@ -11,7 +11,7 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Control.GlobalClassSelector;
+import Model.MainHub;
 
 
 
@@ -29,8 +29,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	Image bg;
 
 	Image backgroundImage;
-	Image singleplayerButton;
-	Image multiplayerButton;
+	Image startGameButton;
 	Image exitButton;
 	Image titleText;
 	
@@ -41,8 +40,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		backgroundImage = new Image("res/miscImages/bg.png");
-		singleplayerButton = new Image("res/buttons/singleplayer.png");
-		multiplayerButton = new Image("res/buttons/multiplayer.png");
+		startGameButton = new Image("res/buttons/startgame.png");
 		exitButton = new Image("res/buttons/exitButton.png");
 		titleText = new Image("res/miscImages/title.png");
 		
@@ -58,16 +56,15 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.setColor(Color.black);
 		g.drawImage(backgroundImage, 0, 0);
 
-		if(startMusic){
+		/*if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
 			startMusic = false;
-		}
+		}*/
 		g.drawString(mouse, 500, 20);
 		
 		g.drawImage(titleText, 380, 100);
-		g.drawImage(singleplayerButton, 500, 300);
-		g.drawImage(multiplayerButton, 500, 400);
-		g.drawImage(exitButton, 500, 500);
+		g.drawImage(startGameButton, 500, 325);
+		g.drawImage(exitButton, 500, 425);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
@@ -82,48 +79,18 @@ public class Menu extends BasicGameState implements ActionListener{
         if(input.isKeyDown(Input.KEY_ESCAPE)) gc.exit();
         
 		
-		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
-			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
+		if((500<xPos && xPos<750) && (325<yPos && yPos<379)){
+			startGameButton = new Image("res/buttons/startgame_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				GlobalClassSelector.getController().setSingleOrMulti(false);
 				sbg.enterState(3);
 			}
-		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
-
-			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				GlobalClassSelector.getController().setSingleOrMulti(true);
-				
-				// Try to connect to server.
-				GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(true);
-				GlobalClassSelector.getController().getSocketClient().findConnection();
-				
-				long oldTime = System.currentTimeMillis();
-				long timeDiff = 0;
-				
-				// Wait ca 3 seconds
-				while(timeDiff < 3000) {
-					timeDiff = System.currentTimeMillis() - oldTime;
-					if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
-						break;
-					}
-				}
-				
-				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
-				if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
-					sbg.enterState(3);
-				} else {
-					
-				}
-			}
-		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
+		} else if((500<xPos && xPos<750) && (425<yPos && yPos<479)){
 			exitButton = new Image("res/buttons/exitButton_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				System.exit(0);
 			}
 		}else{
-			singleplayerButton = new Image("res/buttons/singleplayer.png");
-			multiplayerButton = new Image("res/buttons/multiplayer.png");
+			startGameButton = new Image("res/buttons/startgame.png");
 			exitButton = new Image("res/buttons/exitButton.png");
 		}
 	}

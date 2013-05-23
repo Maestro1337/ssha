@@ -1,11 +1,11 @@
-package Control;
+package Model;
 
 import java.util.ArrayList;
 
 import sshaclient.Constants;
 import sshaclient.SocketClient;
 
-import Model.Player;
+import Control.PlayerControl;
 import Model.Arenas.Arena;
 import Model.Arenas.MapHazardCross;
 import Model.Arenas.MapSlaughterField;
@@ -13,36 +13,34 @@ import Model.Classes.ClassHunter;
 import Model.Classes.ClassWarrior;
 import Model.Classes.ClassWizard;
 
-public class GlobalClassSelector {
+public class MainHub {
 
 	private static final int nbrOfPlayers = 4;
 	
 	private boolean isMultiplayer = false;
-	private static GlobalClassSelector myControl = null;
+	private static MainHub myControl = null;
 	private Player[] players = new Player[nbrOfPlayers];
 	private PlayerControl[] playerControllers = new PlayerControl[nbrOfPlayers];
 	private Thread[] controllerThreads = new Thread[nbrOfPlayers];
 	private SocketClient socketClient;
 	private Thread socketThread;
 	private int activePlayer = 0;
-
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "Stjärtskvätt";
-
+	private String playerName = "Raslor!";
 	
 	//Singleton
-	public static GlobalClassSelector getController() {
+	public static MainHub getController() {
 	if (myControl == null) {
-	   myControl = new GlobalClassSelector();
+	   myControl = new MainHub();
 	   // prepare myController here or use setter() methods or a parameterized constructor
 	   }
 	   return myControl;
 	}
 
 	// make constructor private so no one except the getController() can call it
-	private GlobalClassSelector() {
+	private MainHub() {
 		players[0] = new ClassWizard(getActivePlayerName(), "player", 120, 100, 0);
 		
 		maps = new Arena[2];

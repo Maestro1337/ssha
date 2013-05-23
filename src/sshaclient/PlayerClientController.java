@@ -1,7 +1,7 @@
 package sshaclient;
 
-import Control.GlobalClassSelector;
 import Control.PlayerControl;
+import Model.MainHub;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Obstacles.Obstacle;
@@ -61,7 +61,7 @@ public class PlayerClientController implements PlayerControl {
 				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 21)));
 				
 				if(tp.getPlayerListIndex() != 0) {
-					GlobalClassSelector.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
+					MainHub.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
 				}
 				
 				for(int i = 0; i < tempSkills.length; i++) {
@@ -174,37 +174,27 @@ public class PlayerClientController implements PlayerControl {
 				tp.setHP(Integer.parseInt(Constants.getItem(tempStats, 5)));
 				tp.setCurrentActiveSkillIndex(Integer.parseInt(Constants.getItem(tempStats, 11)));
 				
-				float x = Float.parseFloat(Constants.getItem(tempStats, 3));
-				float y = Float.parseFloat(Constants.getItem(tempStats, 4));
-				float checkX = Math.abs(x - tp.getX());
-				float checkY = Math.abs(y - tp.getY());
-			//	tp.setX(checkX);
-			//	tp.setY(checkY);
+				float checkX = Float.parseFloat(Constants.getItem(tempStats, 3));
+				float checkY = Float.parseFloat(Constants.getItem(tempStats, 4));
+				tp.setX(checkX);
+				tp.setY(checkY);
 				realSkills = tp.getSkillList();
 				int skillIndex = tp.getCurrentActiveSkillIndex();
 				
-				boolean isRunning = Boolean.valueOf(Constants.getItem(tempStats, 7));
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
-				boolean canWalk = Boolean.valueOf(Constants.getItem(tempStats, 6));
 				
-				//Checking if player position is synced
-				if(checkX >= 5 || checkY >= 5){
-					tp.setX(x);
-					tp.setY(y);
-				}
-				
-				if(isRunning){
-					model.move((int)Double.parseDouble(Constants.getItem(tempStats, 8)), (int)Double.parseDouble(Constants.getItem(tempStats, 9)));
-				//	canActivateMovement = false;
-				}//else if(canWalk){
-			//		canActivateMovement = true;
-			//	}
 				
 				if(canActivateAttack && isAttacking){
 					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
 					canActivateAttack = false;
 				}else if(!isAttacking || tp.getSkillList()[skillIndex].isAttacking()){
 					canActivateAttack = true;
+				}
+				
+				if(Integer.parseInt(Constants.getItem(tempStats, 15)) != 0) {
+					for(int i = 0; i < Integer.parseInt(Constants.getItem(tempStats, 15)); i++) {
+						MainHub.getController().getMapSelected().removeObstacle(Integer.parseInt(Constants.getItem(tempStats, 15+i)));
+					}
 				}
 				
 				/*

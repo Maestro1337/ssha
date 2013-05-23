@@ -46,6 +46,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
+	Image treetop;
 	private String mouse = "No input yet";
 	
 	String test;
@@ -110,12 +111,13 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		TimeRoundStart = System.currentTimeMillis();
 		shouldcalcgold=true;
 		
-		Random obsGenerator = new Random();
+		/*Random obsGenerator = new Random();
 		for(int i=0; i<obsGenerator.nextInt(50); i++){
 			obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1);
-		}
-		playerList = GlobalClassSelector.getController().getPlayers();
-		activePlayer = GlobalClassSelector.getController().getActivePlayerIndex();
+		}*/
+		obstacles = MainHub.getController().getMapSelected().getObstacles();
+		playerList = MainHub.getController().getPlayers();
+		activePlayer = MainHub.getController().getActivePlayerIndex();
 		switch(playerList[activePlayer].getType()){
 		case "Wizard":
 			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
@@ -129,11 +131,11 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
       	}
 		
 	//	players.add(new PlayerModel(playerList[activePlayer], obstacles));
-		for(int i=0; i<GlobalClassSelector.getController().getPlayers().length; i++){
+		for(int i=0; i<MainHub.getController().getPlayers().length; i++){
 			
-			if(GlobalClassSelector.getController().getPlayer(i) != null){
-				System.out.println(GlobalClassSelector.getController().getPlayer(i).getName() + " " + GlobalClassSelector.getController().getPlayer(i).getPlayerListIndex() + " " + i);
-				players[i] = new PlayerModel(GlobalClassSelector.getController().getPlayer(i), obstacles);
+			if(MainHub.getController().getPlayer(i) != null){
+				System.out.println(MainHub.getController().getPlayer(i).getName() + " " + MainHub.getController().getPlayer(i).getPlayerListIndex() + " " + i);
+				players[i] = new PlayerModel(MainHub.getController().getPlayer(i), obstacles);
 			}
 		}
 		
@@ -164,11 +166,11 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		victoryAnimation = new AnimationTimer(500,victoryanimation);
 		firstTimeRoundOver = true;
 		
-		GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()).setMode("arena");
-		for(int lol = 0; lol < GlobalClassSelector.getController().getPlayers().length; lol++) {
-			if(GlobalClassSelector.getController().getPlayers()[lol] != null) {
-				if(GlobalClassSelector.getController().getPlayers()[lol].getControlType().equals("server")) {
-					GlobalClassSelector.getController().getPlayerControllers()[lol].changePlayer(GlobalClassSelector.getController().getPlayers()[lol]);
+		MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()).setMode("arena");
+		for(int lol = 0; lol < MainHub.getController().getPlayers().length; lol++) {
+			if(MainHub.getController().getPlayers()[lol] != null) {
+				if(MainHub.getController().getPlayers()[lol].getControlType().equals("server")) {
+					MainHub.getController().getPlayerControllers()[lol].changePlayer(MainHub.getController().getPlayers()[lol]);
 					System.out.println("Player " + lol + " is now changed.");
 				}
 				
@@ -316,7 +318,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 		
 		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
-			
 			if(currentController != null){
 				//Checking status effects
 				currentController.checkStatusEffects();
@@ -328,7 +329,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 				for(int j=0; j<players.length; j++){
 					PlayerModel checkController;
 					//Check to see it is another player
-					
 					if(j != i && currentController.getPlayer().isAlive()){
 						checkController = players[j];
 						if(checkController != null){
@@ -337,8 +337,6 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 					}
 				}
 				
-				//if(currentController.getPlayer().getControlType() == "server")
-				//	System.out.println(currentController.getPlayer().isRunning());
 				//Check if player is running to update positioning
 				if(currentController.getPlayer().isRunning()){
 					currentController.isRunning();
@@ -414,7 +412,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 			if(firstTimeRoundOver){
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
-				GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()).setMode("lobby");
+				MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()).setMode("lobby");
 			}
 			roundOver = true;
 			endRoundText = winningPlayer + " " + "wins!";
