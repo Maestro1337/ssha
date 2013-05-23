@@ -47,7 +47,7 @@ public class MainHub {
 		maps[0] = new MapHazardCross();
 		maps[1] = new MapSlaughterField();
 		
-		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort, players[0]);
+		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort);
 		socketThread = new Thread(socketClient);
 		socketThread.start();
 	}
