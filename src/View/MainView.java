@@ -42,7 +42,7 @@ import Model.Timers.AnimationTimer;
 
 
 public class MainView extends BasicGameState implements ActionListener {	
-	boolean shouldcalcgold;
+	boolean shouldCalcGold;
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
@@ -112,7 +112,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 	public void initRound() throws SlickException{
 		TimeRoundStart = System.currentTimeMillis();
-		shouldcalcgold=true;
+		shouldCalcGold=true;
 		treetop = new Image ("res/tileset/Treetop2.png");
 
 		Arena arena = GlobalClassSelector.getController().getMapSelected();
@@ -143,7 +143,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		//TODO Is to be removed later (is still here because of AI methods)-------
 		
-		Control = new PlayerModel(playerList[activePlayer], obstacles);
+	/*	Control = new PlayerModel(playerList[activePlayer], obstacles);
 		player = playerList[activePlayer];
 		playerSkills = player.getSkillList();
 
@@ -161,14 +161,14 @@ public class MainView extends BasicGameState implements ActionListener {
 		enemyImage = enemy.getImage();
 		enemyControl.ressurectPlayer();
 
-		enemyControl.checkPlayerObstacleCollision(0, 0);
+		enemyControl.checkPlayerObstacleCollision(0, 0);*/
 		
 		//----------------- Up until this point
 		
 		players.clear();
 		players.add(new PlayerModel(playerList[activePlayer], obstacles));
 		
-		players.add(enemyControl);
+	//	players.add(enemyControl);
 		
 		for(int i=0; i<players.size(); i++){
 			PlayerModel currentController = players.get(i);
@@ -268,15 +268,14 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	
 		if(roundOver){
-			if (shouldcalcgold){
+			if (shouldCalcGold && players.size()>1){
 				goldreward();
 			}
-			shouldcalcgold=false;
-		//	System.out.println(player.getGold());
+			shouldCalcGold=false;
 			g.drawImage(nextRoundBg, 1280/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, 1280/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, 1280/2 - nextRoundBg.getWidth()/4, 210);
-			if(Control.getPlayer().getHP()>0){
+			if(players.get(activePlayer).getPlayer().getHP()>0){
 				
 				Image testAnimationImage = victoryAnimation.getCurrentAnimationImage();
 				if(testAnimationImage != null){
@@ -288,23 +287,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		//g.drawString("Singleplayer", 640, 200);
 	}
-	public void goldreward(){
-		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
-			player.setGold(player.getGold()+1);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
-			player.setGold(player.getGold()+5);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
-			player.setGold(player.getGold()+15);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
-			player.setGold(player.getGold()+25);
-		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
-			player.setGold(player.getGold()+50);
-		if(!enemy.isAlive()){
-			player.addGold(25);
-		}
-	}
-	
-	
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
@@ -426,7 +408,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		
-		AI();
+	//	AI();
 	}
 	
 	
@@ -522,15 +504,31 @@ public class MainView extends BasicGameState implements ActionListener {
 	//Handling the soundfiles
 	public static synchronized void playSound(String filename) {
 
-		    try
-		    {
-		        Clip clip = AudioSystem.getClip();
-		        clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-		        clip.start();
-		    }
-		    catch (Exception exc)
-		    {
-		        exc.printStackTrace(System.out);
-		    }	
+	    try
+	    {
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+	    }
+	    catch (Exception exc)
+	    {
+	        exc.printStackTrace(System.out);
+	    }	
+	}
+	
+	public void goldreward(){
+		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
+			player.setGold(player.getGold()+1);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
+			player.setGold(player.getGold()+5);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
+			player.setGold(player.getGold()+15);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
+			player.setGold(player.getGold()+25);
+		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
+			player.setGold(player.getGold()+50);
+		if(!enemy.isAlive()){
+			player.addGold(25);
+		}
 	}
 }
