@@ -11,7 +11,7 @@ public class ItemHunterArmor extends Item {
 	Image Image;
 	public ItemHunterArmor(){
 		//Price, Name, Description, Slot,
-		super (400,"Leather armor of Hardened Skin","hej","Armor");
+		super (400,"Leather armor of Hardened Skin","Magically grants the bearer \nbewbs.","Armor");
 		try{
 			Image = new Image("res/items/Hunters Armor.png");
 		} catch (SlickException e) {
@@ -19,7 +19,7 @@ public class ItemHunterArmor extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.7, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.5, 0));
 		super.setImage(Image);
 	}
 }

@@ -12,7 +12,7 @@ public class ItemWizardRobe extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"The Scholars' Robe","hej","Armor");
+		super (400,"The Scholars' Robe","Dis make yo bootey look biig!","Armor");
 		try{
 			Image = new Image("res/items/Mages Robe.png");
 		} catch (SlickException e) {
@@ -20,7 +20,7 @@ public class ItemWizardRobe extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.7, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.5, 0));
 		super.setImage(Image);
 	}
 

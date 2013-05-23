@@ -10,7 +10,7 @@ public class ItemWarriorSword extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"The Sword of a Thousand Truths","hej","Weapon");
+		super (400,"The Sword of a Thousand Truths","Stored on a USB.","Weapon");
 		try{
 			Image = new Image("res/items/Warriors Sword.png");
 		} catch (SlickException e) {
