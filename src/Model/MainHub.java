@@ -30,7 +30,6 @@ public class MainHub {
 	private Arena[] maps;
 	private String playerName = "tja";
 
-
 	
 	//Singleton
 	public static MainHub getController() {
