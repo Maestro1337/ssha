@@ -11,7 +11,7 @@ import org.newdawn.slick.state.*;
 
 
 
-import Control.GlobalClassSelector;
+import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
@@ -84,9 +84,9 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					backButton = new Image("res/buttons/playButton_pressed.png");
 					
 					// If you're in the Multiplayer-view and click back, the connection will close.
-					if(GlobalClassSelector.getController().isMulti()) {
-						GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(false);
-						GlobalClassSelector.getController().getSocketClient().closeConnection();
+					if(MainHub.getController().isMulti()) {
+						MainHub.getController().getSocketClient().getPlayer().setConnected(false);
+						MainHub.getController().getSocketClient().closeConnection();
 					}
 					sbg.enterState(0);
 			}
@@ -98,17 +98,17 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					selectButton = new Image("res/buttons/playButton_pressed.png");
 					
-					if(!GlobalClassSelector.getController().isMulti()) {
-						GlobalClassSelector.getController().addPlayer(player, 0);
+					if(!MainHub.getController().isMulti()) {
+						MainHub.getController().addPlayer(player, 0);
 					} else {
 						// Sets the player array-position to their server-id.
 				//		GlobalClassSelector.getController().resetPlayers();
 
 				//		GlobalClassSelector.getController().removePlayer(0)
 					//	if(GlobalClassSelector.getController()){
-							player.setIndex(GlobalClassSelector.getController().getActivePlayerIndex());
-							GlobalClassSelector.getController().addPlayer(player, GlobalClassSelector.getController().getActivePlayerIndex());
-							GlobalClassSelector.getController().getSocketClient().changePlayer(player);	
+							player.setIndex(MainHub.getController().getActivePlayerIndex());
+							MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
+							MainHub.getController().getSocketClient().changePlayer(player);	
 					//	}
 					}
 					//Addition of AI player
@@ -116,8 +116,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					
 	//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
 	
-				if(!(GlobalClassSelector.getController().isMulti())){	
-					GlobalClassSelector.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
+				if(!(MainHub.getController().isMulti())){	
+					MainHub.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
 					sbg.enterState(5);
 				}else{
 				//	sbg.enterState(2);
@@ -134,7 +134,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"Your skills with weapons in close combat makes you a powerful \n" +
 						"force on the battlefield and a durable opponent for all who dares \n" +
 						"cross your way.";
-				player = new ClassWarrior(GlobalClassSelector.getController().getActivePlayerName(), "player", 120, 100, 0);
+				player = new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 			}
 		}
@@ -145,7 +145,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"their opponents. Able to take down tyrants without blinking an eye \n" +
 						"or breaking a bowstring, you'll range far and wide with this class.";
 		//		classType = "Hunter";
-				player = new ClassHunter(GlobalClassSelector.getController().getActivePlayerName(), "player", 120, 100, 0);
+				player = new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
 			}
 		}
@@ -156,7 +156,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"a distance, able to cause great harm or restrict a targets actions using \n" +
 						"their supreme knowledge of the elements.";
 		//		classType = "Wizard";
-				player = new ClassWizard(GlobalClassSelector.getController().getActivePlayerName(), "player", 160, 300, 0);
+				player = new ClassWizard(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
 		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
 			}
 		}

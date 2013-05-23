@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import Control.GlobalClassSelector;
+import Model.MainHub;
 import Model.Arenas.MapHazardCross;
 import Model.Arenas.MapSlaughterField;
 
@@ -52,8 +52,8 @@ public class OptionsView extends BasicGameState {
 		
 		readyButton = new Image ("res/buttons/Ready.png");
 		
-		GlobalClassSelector.getController().setDifficultySelected(2);
-		GlobalClassSelector.getController().setMapIndex(0);
+		MainHub.getController().setDifficultySelected(2);
+		MainHub.getController().setMapIndex(0);
 		
 		Map1= new Image ("res/Maps/Map_HazardCross2.png");
 		Map2= new Image ("res/Maps/Map_SlaughterField.png");
@@ -104,33 +104,33 @@ public class OptionsView extends BasicGameState {
 			}		
 		}
 		//Easybutton Check 159x38
-		if((75<xPos && xPos<234) && (615<yPos && yPos<653)&& GlobalClassSelector.getController().getDiffcultySelected()!= 1){
+		if((75<xPos && xPos<234) && (615<yPos && yPos<653)&& MainHub.getController().getDiffcultySelected()!= 1){
 			easyButton = new Image("res/buttons/Easy_2.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				easyButton = new Image("res/buttons/Easy_3.png");
-				GlobalClassSelector.getController().setDifficultySelected(1);
+				MainHub.getController().setDifficultySelected(1);
 			}
-		}else if (GlobalClassSelector.getController().getDiffcultySelected()!= 1){
+		}else if (MainHub.getController().getDiffcultySelected()!= 1){
 			easyButton = new Image("res/buttons/Easy_1.png");
 		}
 		//Normalbutton Check
-		if((275<xPos && xPos<434) && (615<yPos && yPos<653)&& GlobalClassSelector.getController().getDiffcultySelected() != 2){
+		if((275<xPos && xPos<434) && (615<yPos && yPos<653)&& MainHub.getController().getDiffcultySelected() != 2){
 			normalButton = new Image("res/buttons/Normal_2.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				normalButton = new Image("res/buttons/Normal_3.png");
-				GlobalClassSelector.getController().setDifficultySelected(2);
+				MainHub.getController().setDifficultySelected(2);
 			}	
-		}else if (GlobalClassSelector.getController().getDiffcultySelected() != 2){
+		}else if (MainHub.getController().getDiffcultySelected() != 2){
 			normalButton = new Image("res/buttons/Normal_1.png");
 		}
 		//Hardbutton Check
-		if((475<xPos && xPos<634) && (615<yPos && yPos<653)&& GlobalClassSelector.getController().getDiffcultySelected() != 3){
+		if((475<xPos && xPos<634) && (615<yPos && yPos<653)&& MainHub.getController().getDiffcultySelected() != 3){
 			hardButton = new Image("res/buttons/Hard_2.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				hardButton = new Image("res/buttons/Hard_3.png");
-				GlobalClassSelector.getController().setDifficultySelected(3);
+				MainHub.getController().setDifficultySelected(3);
 			}
-		}else if (GlobalClassSelector.getController().getDiffcultySelected() != 3){
+		}else if (MainHub.getController().getDiffcultySelected() != 3){
 			hardButton = new Image("res/buttons/Hard_1.png");
 		}	
 		
@@ -140,23 +140,23 @@ public class OptionsView extends BasicGameState {
 			Map1 = new Image("res/Maps/Map_HazardCross2.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField.png");
 			Map3 = new Image("res/Maps/Map_Volcano1.png");
-			GlobalClassSelector.getController().setMapIndex(0);	
+			MainHub.getController().setMapIndex(0);	
 		}	
 		if((57<xPos && xPos<643) && (161<yPos && yPos<228) && input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField2.png");
 			Map3 = new Image("res/Maps/Map_Volcano1.png");
-			GlobalClassSelector.getController().setMapIndex(1);
+			MainHub.getController().setMapIndex(1);
 		}
 		if((57<xPos && xPos<643) && (230<yPos && yPos<297)&& input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
 			Map2 = new Image("res/Maps/Map_SlaughterField.png");
 			Map3 = new Image("res/Maps/Map_Volcano2.png");
-			GlobalClassSelector.getController().setMapIndex(0);
+			MainHub.getController().setMapIndex(0);
 		}	
-		if(GlobalClassSelector.getController().getMapSelected().getName()== "Hazard Cross"){
+		if(MainHub.getController().getMapSelected().getName()== "Hazard Cross"){
 			MapView = new Image ("res/Maps/MapHazardCross.png");
-		}else if(GlobalClassSelector.getController().getMapSelected().getName()== "Slaughter Field"){
+		}else if(MainHub.getController().getMapSelected().getName()== "Slaughter Field"){
 	//		MapView = new Image ("res/Maps/MapSlaughterField.png");
 			MapView = new Image ("res/Maps/MapHazardCross.png");
 		//}else if(){

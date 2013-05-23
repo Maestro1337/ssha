@@ -1,7 +1,7 @@
 package sshaclient;
 
-import Control.GlobalClassSelector;
 import Control.PlayerControl;
+import Model.MainHub;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Obstacles.Obstacle;
@@ -61,7 +61,7 @@ public class PlayerClientController implements PlayerControl {
 				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 21)));
 				
 				if(tp.getPlayerListIndex() != 0) {
-					GlobalClassSelector.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
+					MainHub.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
 				}
 				
 				for(int i = 0; i < tempSkills.length; i++) {
