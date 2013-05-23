@@ -11,7 +11,7 @@ import org.newdawn.slick.state.*;
 
 
 
-import Control.MainHub;
+import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;

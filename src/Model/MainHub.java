@@ -1,11 +1,11 @@
-package Control;
+package Model;
 
 import java.util.ArrayList;
 
 import sshaclient.Constants;
 import sshaclient.SocketClient;
 
-import Model.Player;
+import Control.PlayerControl;
 import Model.Arenas.Arena;
 import Model.Arenas.MapHazardCross;
 import Model.Arenas.MapSlaughterField;

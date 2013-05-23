@@ -20,7 +20,7 @@ import org.newdawn.slick.UnicodeFont;
 
 
 
-import Control.MainHub;
+import Model.MainHub;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Items.Item;

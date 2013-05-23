@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Control.MainHub;
 import Model.Obstacles.*;
 import Model.Skills.*;
 import Model.StatusEffects.SpawnTeleport;

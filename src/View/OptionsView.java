@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import Control.MainHub;
+import Model.MainHub;
 import Model.Arenas.MapHazardCross;
 import Model.Arenas.MapSlaughterField;
 

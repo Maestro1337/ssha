@@ -3,7 +3,7 @@ package sshaclient;
 import java.net.*;
 import java.io.*;
 
-import Control.MainHub;
+import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Skills.Skill;

@@ -1,7 +1,7 @@
 package sshaclient;
 
-import Control.MainHub;
 import Control.PlayerControl;
+import Model.MainHub;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Obstacles.Obstacle;

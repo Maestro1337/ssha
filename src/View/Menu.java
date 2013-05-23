@@ -11,7 +11,7 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Control.MainHub;
+import Model.MainHub;
 
 
 
