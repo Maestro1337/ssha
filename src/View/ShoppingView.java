@@ -196,10 +196,15 @@ public class ShoppingView extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      int fem=0;
+	      
+	      //Waiting for the connection to give the correct playerIndex
+	      int connectionCheck=0;
 	      while(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) == null){
-	    	  System.out.println(fem);
-	    	  fem++;
+	    	  System.out.println(connectionCheck);
+	    	  connectionCheck++;
+	    	  if(connectionCheck >= 100000){
+	    		  container.exit();
+	    	  }
 	      }
 	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
 	      activePlayer.setReady(false);
