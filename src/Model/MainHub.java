@@ -41,8 +41,8 @@ public class MainHub {
 
 	// make constructor private so no one except the getController() can call it
 	private MainHub() {
-		players[0] = new ClassWizard(getActivePlayerName(), "player", 120, 100, 0);
-		
+		//players[0] = new ClassWizard(getActivePlayerName(), "player", 120, 100, 0);
+		players[0] = new Player("name", "player", "Wizard", 400, 300, 1600, 0.7, 0.35, 0);
 		maps = new Arena[2];
 		maps[0] = new MapHazardCross();
 		maps[1] = new MapSlaughterField();
