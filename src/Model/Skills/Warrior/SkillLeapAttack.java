@@ -19,7 +19,7 @@ public class SkillLeapAttack extends Skill {
 						"Level 4: 45 damage");
 
 				Image[] attackImages = new Image[4];
-				Image[] animation = new Image[1];
+				Image[] animation = new Image[4];
 				Image[] skillBar = new Image[3];
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectPreLeap(this));
@@ -33,7 +33,10 @@ public class SkillLeapAttack extends Skill {
 					attackImages[2] = new Image("res/animations/leapattack/leapattack3.png");
 					attackImages[3] = new Image("res/animations/leapattack/leapattack4.png");
 					
-					animation[0] = new Image("res/animations/warstomp/warstompGround.png");
+					animation[0] = new Image("res/animations/warstomp/warstompGround4.png");
+					animation[1] = new Image("res/animations/warstomp/warstompGround3.png");
+					animation[2] = new Image("res/animations/warstomp/warstompGround2.png");
+					animation[3] = new Image("res/animations/warstomp/warstompGround.png");
 					
 					skillBar[0] = new Image("res/skillIcons/leapattack.png");
 					skillBar[1] = new Image("res/skillIcons/leapattack_active.png");
@@ -43,7 +46,7 @@ public class SkillLeapAttack extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImages, 1000);
-				super.setEndState(animation, 500, 2000);
+				super.setEndState(animation, 600, 2000);
 				super.setSkillBarImages(skillBar);
 			}
 
