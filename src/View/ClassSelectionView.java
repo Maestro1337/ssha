@@ -111,23 +111,14 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			selectButton = new Image("res/buttons/selectButton_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					
-					if(!MainHub.getController().isMulti()) {
+				/*	if(!MainHub.getController().isMulti()) {
 						MainHub.getController().addPlayer(player, 0);
 					} else {
 						// Sets the player array-position to their server-id.
-				//		GlobalClassSelector.getController().resetPlayers();
-
-				//		GlobalClassSelector.getController().removePlayer(0)
-					//	if(GlobalClassSelector.getController()){
-							player.setIndex(MainHub.getController().getActivePlayerIndex());
-							MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
-							MainHub.getController().getSocketClient().changePlayer(player);	
-					//	}
-					}
-					//Addition of AI player
-	
-					
-	//				System.out.println(GlobalClassSelector.getController().getPlayers().size());
+						player.setIndex(MainHub.getController().getActivePlayerIndex());
+						MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
+						MainHub.getController().getSocketClient().changePlayer(player);	
+					}*/
 	
 				if(!(MainHub.getController().isMulti())){	
 					MainHub.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
@@ -176,19 +167,24 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		
 		if((900<xPos && xPos<1150) && (300<yPos && yPos<354)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				MainHub.getController().setSingleOrMulti(false);
-				sbg.enterState(3);
+				MainHub.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
+				MainHub.getController().addPlayer(player, 0);
+				sbg.enterState(5);
 			}
 		} else if((900<xPos && xPos<1150) && (400<yPos && yPos<454)){
-
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
+			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				MainHub.getController().setSingleOrMulti(true);
+				
+				MainHub.getController().getSocketClient().changePlayer(player);
 				
 				// Try to connect to server.
 				MainHub.getController().getSocketClient().getPlayer().setConnected(true);
 				MainHub.getController().getSocketClient().findConnection();
+				
+				
 				
 				long oldTime = System.currentTimeMillis();
 				long timeDiff = 0;
@@ -203,7 +199,11 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				
 				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
 				if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
-					sbg.enterState(3);
+					//Setting correct playerindex
+					player.setIndex(MainHub.getController().getActivePlayerIndex());
+					MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
+					//MainHub.getController().getSocketClient().changePlayer(player);	
+					sbg.enterState(4);
 				} else {
 					
 				}
