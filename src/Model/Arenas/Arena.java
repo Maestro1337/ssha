@@ -53,8 +53,14 @@ public class Arena {
 		obstacles = obs;
 	}
 	public synchronized void removeObstacle(int index) {
+		if(obstacles[index] != null){
+			obstacles[index] = null;
+			destroyedObstacles.add(new Integer(index));
+		}
+		
+	}
+	public synchronized void destroyObstacle(int index){
 		obstacles[index] = null;
-		destroyedObstacles.add(new Integer(index));
 	}
 	public String getName(){
 		return name;
