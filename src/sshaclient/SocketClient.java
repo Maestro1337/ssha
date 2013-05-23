@@ -191,7 +191,7 @@ public class SocketClient implements Runnable {
 			if(inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
-					MainHub.getController().removePlayer(0);
+			//		MainHub.getController().removePlayer(0);
 					MainHub.getController().addPlayer(tp, tp.getPlayerListIndex());
 					MainHub.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
@@ -271,6 +271,8 @@ public class SocketClient implements Runnable {
 				playerStats[arrPos] = tempStats;
 				playerChanged[arrPos] = true;
 				
+				//(!Constants.getItem(tempStats, 3).equals(MainHub.getController().getPlayer(arrPos).getType()) || 
+				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
 				if(MainHub.getController().getPlayer(arrPos) == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
@@ -278,11 +280,11 @@ public class SocketClient implements Runnable {
 					
 					//Create new player from the playerclass
 					if(Constants.getItem(tempStats, 3).equals("Hunter")) {
-						MainHub.getController().addPlayer(new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
+						MainHub.getController().addPlayer(new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), arrPos), arrPos);
 					} else if(Constants.getItem(tempStats, 3).equals("Warrior")) {
-						MainHub.getController().addPlayer(new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
+						MainHub.getController().addPlayer(new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), arrPos), arrPos);
 					} else if(Constants.getItem(tempStats, 3).equals("Wizard")) {
-						MainHub.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
+						MainHub.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), arrPos), arrPos);
 					}
 					
 					MainHub.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);

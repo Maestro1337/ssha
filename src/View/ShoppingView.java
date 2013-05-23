@@ -694,7 +694,7 @@ public class ShoppingView extends BasicGameState {
 	private void pressedReadyOrGo(StateBasedGame sbg){
 		if(MainHub.getController().isMulti()){
 			activePlayer.setMode("arena");
-			sbg.enterState(2);
+			sbg.enterState(1);
 		}else{
 			sbg.enterState(1);
 		}
