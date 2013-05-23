@@ -22,7 +22,7 @@ public class PlayerClientController implements PlayerControl {
 		this.sc = sc;
 		this.tp = tp;
 		
-		model = new PlayerModel(tp, new Obstacle[0]);
+		model = new PlayerModel(tp);
 		isAlive = true;
 	}
 	
