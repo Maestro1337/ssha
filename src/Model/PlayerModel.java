@@ -330,6 +330,9 @@ public class PlayerModel implements ActionListener {
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
+			if(currentActiveSkill.isPiercing()){
+				
+			}
 			if(currentActiveSkill.isGrapplingHook()){
 				
 			}

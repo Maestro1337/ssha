@@ -527,6 +527,9 @@ public abstract class Skill{
 	public boolean isPiercing(){
 		return isPiercing;
 	}
+	public void setPiercing(){
+		isPiercing = true;
+	}
 	public int getPiercingDamage(){
 		return piercingDamage;
 	}
