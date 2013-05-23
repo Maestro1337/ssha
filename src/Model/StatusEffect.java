@@ -174,6 +174,9 @@ public class StatusEffect {
 			player.setRunningState(false);
 			player.setChannel(isChannel);
 		}
+		if(hasStealth){
+			player.setStealthState(true);
+		}
 		player.setStunState(hasStun);
 		commitedChange = true;
 	} 
@@ -203,6 +206,9 @@ public class StatusEffect {
 			if(isChannel){
 			//	player.setMovementSpeed(moveSpeedEff);
 				player.setChannel(false);
+			}
+			if(hasStealth){
+				player.setStealthState(false);
 			}
 			player.setStunState(false);
 		}

@@ -24,18 +24,13 @@ public class StatusEffectLifesteal extends StatusEffectShell{
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), super.getDmgEff(), 
+		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), -super.getSkill().getDamage(), 
 				super.getMoveXEff(), super.getMoveYEff(), super.getMoveSpeedEff(),
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
 				super.hasStealth(),	super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
 		newSE.setChangeModel();
 		
 		return newSE;
-	}
-	
-	private int calculateLifesteal(){
-		//damage *= (1-armor);
-		return 0;
 	}
 }
 
