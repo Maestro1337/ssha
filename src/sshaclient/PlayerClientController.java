@@ -1,6 +1,6 @@
 package sshaclient;
 
-import Control.GlobalClassSelector;
+import Control.MainHub;
 import Control.PlayerControl;
 import Model.Player;
 import Model.PlayerModel;
@@ -61,7 +61,7 @@ public class PlayerClientController implements PlayerControl {
 				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 21)));
 				
 				if(tp.getPlayerListIndex() != 0) {
-					GlobalClassSelector.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
+					MainHub.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
 				}
 				
 				for(int i = 0; i < tempSkills.length; i++) {

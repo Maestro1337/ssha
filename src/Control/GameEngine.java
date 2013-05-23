@@ -16,6 +16,8 @@ public class GameEngine extends StateBasedGame {
 	private static final int shop = 4;
 	private static final int options = 5;
 	private static final int maxFPS = 60;
+	public static final int screenHeight = 720;
+	public static final int screenWidth = 1280;
 	
 	public GameEngine(String name){
 		super(name);
@@ -41,7 +43,7 @@ public class GameEngine extends StateBasedGame {
 		try{
 			agc = new AppGameContainer(new GameEngine(gameName));
 			agc.setTargetFrameRate(maxFPS);
-			agc.setDisplayMode(1280, 720, false);
+			agc.setDisplayMode(screenWidth, screenHeight, false);
 			agc.start();
 		}catch(SlickException ex){
 			ex.printStackTrace();

@@ -11,7 +11,7 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Control.GlobalClassSelector;
+import Control.MainHub;
 
 
 
@@ -85,18 +85,18 @@ public class Menu extends BasicGameState implements ActionListener{
 		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				GlobalClassSelector.getController().setSingleOrMulti(false);
+				MainHub.getController().setSingleOrMulti(false);
 				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
 
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				GlobalClassSelector.getController().setSingleOrMulti(true);
+				MainHub.getController().setSingleOrMulti(true);
 				
 				// Try to connect to server.
-				GlobalClassSelector.getController().getSocketClient().getPlayer().setConnected(true);
-				GlobalClassSelector.getController().getSocketClient().findConnection();
+				MainHub.getController().getSocketClient().getPlayer().setConnected(true);
+				MainHub.getController().getSocketClient().findConnection();
 				
 				long oldTime = System.currentTimeMillis();
 				long timeDiff = 0;
@@ -104,13 +104,13 @@ public class Menu extends BasicGameState implements ActionListener{
 				// Wait ca 3 seconds
 				while(timeDiff < 3000) {
 					timeDiff = System.currentTimeMillis() - oldTime;
-					if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
+					if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
 						break;
 					}
 				}
 				
 				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
-				if(GlobalClassSelector.getController().getSocketClient().getPlayer().isConnected()) {
+				if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
 					sbg.enterState(3);
 				} else {
 					

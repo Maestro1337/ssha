@@ -3,7 +3,7 @@ package sshaclient;
 import java.net.*;
 import java.io.*;
 
-import Control.GlobalClassSelector;
+import Control.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Skills.Skill;
@@ -77,7 +77,7 @@ public class SocketClient implements Runnable {
 							process = process + " noskill 0";
 						}
 					}
-					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + GlobalClassSelector.getController().getMapIndex() + " " + tp.isReady();
+					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + MainHub.getController().getMapIndex() + " " + tp.isReady();
 				} else {
 					
 					int skillIndex = tp.getCurrentActiveSkillIndex();
@@ -179,9 +179,9 @@ public class SocketClient implements Runnable {
 			if(inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
-					GlobalClassSelector.getController().removePlayer(0);
-					GlobalClassSelector.getController().addPlayer(tp, tp.getPlayerListIndex());
-					GlobalClassSelector.getController().setActivePlayerIndex(tp.getPlayerListIndex());
+					MainHub.getController().removePlayer(0);
+					MainHub.getController().addPlayer(tp, tp.getPlayerListIndex());
+					MainHub.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
 					tp.takeName(false);
@@ -210,9 +210,9 @@ public class SocketClient implements Runnable {
 	public void closeConnection() {
 		if(connection != null) {
 			
-			for(int i = 0; i < GlobalClassSelector.getController().getPlayerControllers().length; i++) {
-				if(GlobalClassSelector.getController().getPlayerControllers()[i] != null) {
-					GlobalClassSelector.getController().getPlayerControllers()[i].killItWithFire();
+			for(int i = 0; i < MainHub.getController().getPlayerControllers().length; i++) {
+				if(MainHub.getController().getPlayerControllers()[i] != null) {
+					MainHub.getController().getPlayerControllers()[i].killItWithFire();
 				}
 			}
 			
@@ -261,22 +261,22 @@ public class SocketClient implements Runnable {
 				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
-				if(GlobalClassSelector.getController().getPlayer(arrPos) == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
+				if(MainHub.getController().getPlayer(arrPos) == null && !tempStats.substring(0, tempStats.indexOf(32)).equals(tp.getName())) {
 					// Add method for checking class, string after id maybe? Instead of just adding "TestClass"
 					
 					//Create new player from the playerclass
 					if(Constants.getItem(tempStats, 3).equals("Hunter")) {
-						GlobalClassSelector.getController().addPlayer(new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
+						MainHub.getController().addPlayer(new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					} else if(Constants.getItem(tempStats, 3).equals("Warrior")) {
-						GlobalClassSelector.getController().addPlayer(new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
+						MainHub.getController().addPlayer(new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					} else if(Constants.getItem(tempStats, 3).equals("Wizard")) {
-						GlobalClassSelector.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
+						MainHub.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), Integer.parseInt(Constants.getItem(tempStats, 1))), arrPos);
 					}
 					
-					GlobalClassSelector.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
-					GlobalClassSelector.getController().addPlayerController(new PlayerClientController(this, GlobalClassSelector.getController().getPlayer(arrPos)), arrPos);
-					GlobalClassSelector.getController().addControllerThread(new Thread(GlobalClassSelector.getController().getPlayerControl(arrPos)), arrPos);
-					GlobalClassSelector.getController().getControllerThread(arrPos).start();
+					MainHub.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);
+					MainHub.getController().addPlayerController(new PlayerClientController(this, MainHub.getController().getPlayer(arrPos)), arrPos);
+					MainHub.getController().addControllerThread(new Thread(MainHub.getController().getPlayerControl(arrPos)), arrPos);
+					MainHub.getController().getControllerThread(arrPos).start();
 				}
 			}
 			data = data.substring(data.indexOf(47)+1, data.length());
@@ -286,20 +286,20 @@ public class SocketClient implements Runnable {
 		for(int k = 0; k < playerChanged.length; k++) {
 			if(!playerChanged[k]) {
 				playerStats[k] = null;
-				if(GlobalClassSelector.getController().getPlayer(k) != null && GlobalClassSelector.getController().getPlayerControl(k) != null) {
-					GlobalClassSelector.getController().getPlayerControl(k).killItWithFire();
-					GlobalClassSelector.getController().removeControllerThread(k);
-					GlobalClassSelector.getController().removePlayerController(k);
-					GlobalClassSelector.getController().removePlayer(k);
+				if(MainHub.getController().getPlayer(k) != null && MainHub.getController().getPlayerControl(k) != null) {
+					MainHub.getController().getPlayerControl(k).killItWithFire();
+					MainHub.getController().removeControllerThread(k);
+					MainHub.getController().removePlayerController(k);
+					MainHub.getController().removePlayer(k);
 				}
 			}
 		}
 		
 		// Checking if players in the lobby are ready.
 		boolean tempReady = true;
-		for(int i = 0; i < GlobalClassSelector.getController().getPlayers().length; i++) {
-			if(GlobalClassSelector.getController().getPlayer(i) != null) {
-				if(!GlobalClassSelector.getController().getPlayer(i).isReady()) {
+		for(int i = 0; i < MainHub.getController().getPlayers().length; i++) {
+			if(MainHub.getController().getPlayer(i) != null) {
+				if(!MainHub.getController().getPlayer(i).isReady()) {
 					tempReady = false;
 				}
 			}
@@ -319,10 +319,10 @@ public class SocketClient implements Runnable {
 	public String[] getPlayerNames() {
 		String[] names = new String[Constants.nbrOfPlayer];
 		
-		for(int i = 0; i < GlobalClassSelector.getController().getPlayers().length; i++) {
+		for(int i = 0; i < MainHub.getController().getPlayers().length; i++) {
 			names[i] = "";
-			if(GlobalClassSelector.getController().getPlayer(i) != null) {
-				names[i] = GlobalClassSelector.getController().getPlayer(i).getName();
+			if(MainHub.getController().getPlayer(i) != null) {
+				names[i] = MainHub.getController().getPlayer(i).getName();
 			}
 		}
 		return names;

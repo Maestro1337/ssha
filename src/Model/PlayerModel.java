@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Control.GlobalClassSelector;
+import Control.MainHub;
 import Model.Obstacles.*;
 import Model.Skills.*;
 import Model.StatusEffects.SpawnTeleport;
@@ -494,9 +494,9 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public boolean checkPlayerObstacleCollision(float x, float y) throws SlickException{
-		for(int i=0; i<GlobalClassSelector.getController().getMapSelected().getObstacles().length; i++){
+		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
 		//for(int i=0; i<obstacles.length; i++){
-			Obstacle currentObstacleCheck = GlobalClassSelector.getController().getMapSelected().getObstacles()[i];
+			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
 			//Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && isCollidingWithObstacle(currentObstacleCheck, player.getX()+x, player.getY()+y, player.getImage().getWidth(), player.getImage().getHeight())){
 				
@@ -516,9 +516,9 @@ public class PlayerModel implements ActionListener {
 	}
 	public boolean checkSkillObstacleCollision(Skill skill, float x, float y) throws SlickException{
 		boolean collision = false;
-		for(int i=0; i<GlobalClassSelector.getController().getMapSelected().getObstacles().length; i++){
+		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
 		//for(int i=0; i<obstacles.length; i++){
-			Obstacle currentObstacleCheck = GlobalClassSelector.getController().getMapSelected().getObstacles()[i];
+			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
 			//Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
 				System.out.println(skill.getCurrentWidth());
@@ -537,7 +537,7 @@ public class PlayerModel implements ActionListener {
 				}
 				if(currentObstacleCheck.getHealth()<=0){
 					currentObstacleCheck = null;
-					GlobalClassSelector.getController().getMapSelected().removeObstacle(i);
+					MainHub.getController().getMapSelected().removeObstacle(i);
 					//obstacles[i] = null;
 				}
 				collision = true;
@@ -581,7 +581,7 @@ public class PlayerModel implements ActionListener {
 	
 	public void fixSpawnCollision(Obstacle obstacle) throws SlickException{
 		int N=0,S=0,W=0,E=0;
-		if(GlobalClassSelector.getController().getMapSelected().getObstacles() != null){
+		if(MainHub.getController().getMapSelected().getObstacles() != null){
 		//if(obstacles != null){
 			while(isCollidingWithObstacle(obstacle, player.getX()+E, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
 				E++;
@@ -690,7 +690,7 @@ public class PlayerModel implements ActionListener {
 	 * @param skill which is the skill that will have a target assigned to it
 	 */
 	public void findAndSetGuidedTarget(Skill skill){
-		Player[] guidedPlayers = GlobalClassSelector.getController().getPlayers();
+		Player[] guidedPlayers = MainHub.getController().getPlayers();
 		int targetPlayer = player.getPlayerListIndex() != 0 ? 0 : 1;
 		float targetPlayerXDir = guidedPlayers[targetPlayer].getX() - player.getX();
 		float targetPlayerYDir = guidedPlayers[targetPlayer].getY() - player.getY();

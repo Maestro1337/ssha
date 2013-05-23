@@ -20,7 +20,7 @@ import org.newdawn.slick.UnicodeFont;
 
 
 
-import Control.GlobalClassSelector;
+import Control.MainHub;
 import Model.Player;
 import Model.PlayerModel;
 import Model.Items.Item;
@@ -159,7 +159,7 @@ public class ShoppingView extends BasicGameState {
 		chestSlotItem = new Image ("res/Items/Armor Empty.png");
 		weaponSlotItem = new Image ("res/Items/Weapon Empty.png");
 		
-		for (int i=0;i<GlobalClassSelector.getController().getPlayerControllers().length;i++){
+		for (int i=0;i<MainHub.getController().getPlayerControllers().length;i++){
 			LobbyPlayers[i] = new Image ("res/miscImages/LobbyPlayer.png");
 		}
 		
@@ -170,8 +170,8 @@ public class ShoppingView extends BasicGameState {
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");
-		if(GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex()) != null)
-			playerGoldText = "" + GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getGold();
+		if(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) != null)
+			playerGoldText = "" + MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getGold();
 		
 
 		skillText = " ";
@@ -190,14 +190,14 @@ public class ShoppingView extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
-	      activePlayer = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getActivePlayerIndex());
+	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
 	      updateSkillLists();
 	      
 	      ownedItemList = activePlayer.getOwnedItems();
 	      
 	      
 	      
-	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
+	      switch(MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getType()){
 			case "Wizard":
 				classPortrait = new Image("res/classImages/mage_portrait.png");
 				//Init wizard basic, offensive, defensive and mobility skillists
@@ -261,11 +261,11 @@ public class ShoppingView extends BasicGameState {
 	      	}
 	      
 	      	if(true && !false)
-	      		activePlayer.setIndex(GlobalClassSelector.getController().getActivePlayerIndex());
+	      		activePlayer.setIndex(MainHub.getController().getActivePlayerIndex());
 	      	if(1 == 1)
-	      		GlobalClassSelector.getController().addPlayer(activePlayer, GlobalClassSelector.getController().getActivePlayerIndex());
+	      		MainHub.getController().addPlayer(activePlayer, MainHub.getController().getActivePlayerIndex());
 	      	if(8 != 7)
-	      		GlobalClassSelector.getController().getSocketClient().changePlayer(activePlayer);
+	      		MainHub.getController().getSocketClient().changePlayer(activePlayer);
 	      	if(true == !false)
 	      		activePlayer.setMode("lobby");
 			
@@ -692,9 +692,9 @@ public class ShoppingView extends BasicGameState {
 	}
 	
 	private void pressedReadyOrGo(StateBasedGame sbg){
-		if(GlobalClassSelector.getController().isMulti()){
+		if(MainHub.getController().isMulti()){
 			activePlayer.setMode("arena");
-			sbg.enterState(2);
+			sbg.enterState(1);
 		}else{
 			sbg.enterState(1);
 		}
