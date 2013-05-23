@@ -132,17 +132,8 @@ public class MainView extends BasicGameState implements ActionListener {
 		playerList = MainHub.getController().getPlayers();
 		activePlayer = MainHub.getController().getActivePlayerIndex();
 		
-		switch(playerList[activePlayer].getType()){
-		case "Wizard":
-			playerPortrait = new Image("res/classImages/Portrait_Wizard.png");
-		break;
-		case "Hunter":
-			playerPortrait = new Image("res/classImages/Portrait_Hunter.png");
-		break;
-		case "Warrior":
-			playerPortrait = new Image("res/classImages/Portrait_Warrior.png");
-		break;
-      	}
+		playerPortrait = playerList[activePlayer].getFramedImage();
+		
 		
 		for(int i=0; i<MainHub.getController().getPlayers().length; i++){
 			

@@ -448,6 +448,7 @@ public class PlayerModel implements ActionListener {
 		if(player.getHP() <= 0){
 			attackingPlayer.incKills();
 			killPlayer();
+			player.incDeaths();
 		}
 	}
 	
