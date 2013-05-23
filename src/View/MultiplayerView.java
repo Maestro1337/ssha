@@ -46,6 +46,7 @@ public class MultiplayerView extends BasicGameState implements ActionListener {
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
+	Image treetop;
 	private String mouse = "No input yet";
 	
 	String test;
