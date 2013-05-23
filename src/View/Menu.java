@@ -85,36 +85,12 @@ public class Menu extends BasicGameState implements ActionListener{
 		if((500<xPos && xPos<750) && (300<yPos && yPos<354)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				MainHub.getController().setSingleOrMulti(false);
 				sbg.enterState(3);
 			}
 		} else if((500<xPos && xPos<750) && (400<yPos && yPos<454)){
-
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				MainHub.getController().setSingleOrMulti(true);
-				
-				// Try to connect to server.
-				MainHub.getController().getSocketClient().getPlayer().setConnected(true);
-				MainHub.getController().getSocketClient().findConnection();
-				
-				long oldTime = System.currentTimeMillis();
-				long timeDiff = 0;
-				
-				// Wait ca 3 seconds
-				while(timeDiff < 3000) {
-					timeDiff = System.currentTimeMillis() - oldTime;
-					if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
-						break;
-					}
-				}
-				
-				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
-				if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
 					sbg.enterState(3);
-				} else {
-					
-				}
 			}
 		} else if((500<xPos && xPos<750) && (500<yPos && yPos<597)){
 			exitButton = new Image("res/buttons/exitButton_pressed.png");
