@@ -175,15 +175,19 @@ public class PlayerModel implements ActionListener {
 				
 				//Calculates the new direction if the skill is guided
 				if(attackingSkill.isGuided()){
-					
-					float xDir = attackingSkill.getGuidedTarget().getX()-attackingSkill.getAttX();
-					float yDir = attackingSkill.getGuidedTarget().getY()-attackingSkill.getAttY();
-					float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-					
-					attackingSkill.setXDirAtt(xDir/genDir);
-					attackingSkill.setYDirAtt(yDir/genDir);
-					double rotation = Math.toDegrees(Math.atan2((yDir),(xDir)));
-					attackingSkill.setRotation(90 + (float)rotation);
+					if(attackingSkill.getGuidedTarget().isStealthed()){
+						attackingSkill.setGuidedTarget(null);
+					}
+					if(attackingSkill.getGuidedTarget() != null){
+						float xDir = attackingSkill.getGuidedTarget().getX()-attackingSkill.getAttX();
+						float yDir = attackingSkill.getGuidedTarget().getY()-attackingSkill.getAttY();
+						float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+						
+						attackingSkill.setXDirAtt(xDir/genDir);
+						attackingSkill.setYDirAtt(yDir/genDir);
+						double rotation = Math.toDegrees(Math.atan2((yDir),(xDir)));
+						attackingSkill.setRotation(90 + (float)rotation);
+					}
 					
 				}
 				//determines which x and y the skill will have in the next render session
