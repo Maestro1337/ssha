@@ -61,7 +61,6 @@ public class Menu extends BasicGameState implements ActionListener{
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
 			startMusic = false;
 		}*/
-		g.drawString(mouse, 500, 20);
 		
 		g.drawImage(titleText, gc.getWidth()/2 - titleText.getWidth()/2, 150);
 		g.drawImage(startGameButton, gc.getWidth()/2 - startGameButton.getWidth()/2, 325);
@@ -73,22 +72,20 @@ public class Menu extends BasicGameState implements ActionListener{
 		int xPos = Mouse.getX();
 		int yPos = 720 - Mouse.getY();
 		
-		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
-		
 		Input input = gc.getInput();  
 		// Escape key quits the game
         if(input.isKeyDown(Input.KEY_ESCAPE)) gc.exit();
         
 		
-		if((500<xPos && xPos<620) && (325<yPos && yPos<370)){
+		if((580<xPos && xPos<700) && (325<yPos && yPos<370)){
 			startGameButton = new Image("res/buttons/startgame_p.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				sbg.enterState(3);
 			}
-		} else if((500<xPos && xPos<620) && (425<yPos && yPos<470)){
+		} else if((580<xPos && xPos<700) && (425<yPos && yPos<470)){
 			exitButton = new Image("res/buttons/exit_p.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				System.exit(0);
+				gc.exit();
 			}
 		}else{
 			startGameButton = new Image("res/buttons/startgame.png");
