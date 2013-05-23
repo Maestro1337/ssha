@@ -19,6 +19,9 @@ public class Player {
 	
 	private Image userImage;
 	private Image noStepImage;
+	private Image portraitImage;
+	private Image portraitImageMini;
+	private Image framedImage;
 	
 	private RepeatingAnimationTimer changedModelAnimation;
 	private RepeatingAnimationTimer regularModelAnimation;
@@ -323,7 +326,22 @@ public class Player {
 	public void addGold(int gold) {
 		this.gold += gold;
 	}
-
+	
+	//Getters and setters for portraits
+	public Image getFramedImage(){
+		return framedImage;
+	}
+	public Image getPortraitImage(){
+		return portraitImage;
+	}
+	public Image getPortraitImageMini(){
+		return portraitImageMini;
+	}
+	public void setPortraits(Image frameImage, Image image,Image miniImage){
+		portraitImage= image;
+		portraitImageMini= miniImage;
+		framedImage = frameImage;
+	}
 	public void setImages(Image image, Image first, Image second){
 		userImage = noStepImage = image;
 		Image[] tempImages = new Image[2];

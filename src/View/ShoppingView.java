@@ -72,7 +72,7 @@ public class ShoppingView extends BasicGameState {
 	Player activePlayer;
 	ArrayList<Skill> ownedSkillList;
 	ArrayList<Item> ownedItemList;
-	//ArrayList<Player> LobbyPlayers;
+	ArrayList<Player> LobbyPlayers;
 	
 	String buyString = " ";
 	
@@ -124,7 +124,7 @@ public class ShoppingView extends BasicGameState {
 	Image shopText;
 	
 	Image [] LevelofSkills = new Image [9];
-	Image [] LobbyPlayers = new Image [100];
+	//Image [] LobbyPlayers = new Image [100];
 	
 	Image headSlotItem;
 	Image chestSlotItem;
@@ -160,9 +160,10 @@ public class ShoppingView extends BasicGameState {
 		chestSlotItem = new Image ("res/Items/Armor Empty.png");
 		weaponSlotItem = new Image ("res/Items/Weapon Empty.png");
 		
+		/*
 		for (int i=0;i<GlobalClassSelector.getController().getPlayerControllers().length;i++){
 			LobbyPlayers[i] = new Image ("res/miscImages/LobbyPlayer.png");
-		}
+		}*/
 		
 				
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
@@ -196,6 +197,9 @@ public class ShoppingView extends BasicGameState {
 	      
 	      ownedItemList = activePlayer.getOwnedItems();
 	      
+	      for (int i=0; i<GlobalClassSelector.getController().getPlayers().length;i++){
+	    	  LobbyPlayers.add(GlobalClassSelector.getController().getPlayer(i));
+	      }
 	      
 	      
 	      switch(GlobalClassSelector.getController().getPlayers()[GlobalClassSelector.getController().getActivePlayerIndex()].getType()){
@@ -303,7 +307,7 @@ public class ShoppingView extends BasicGameState {
 		
 		g.drawString(mouse, 900, 10);
 		
-		g.drawImage(classPortrait, 70, 30);
+		g.drawImage(activePlayer.getPortraitImage(), 70, 30);
 		g.drawImage(playerGold,70,185);
 		g.drawString(""+activePlayer.getGold(), 140, 198);
 		g.drawString(activePlayer.getName() + "\nHP: "+activePlayer.getHP() + "\nArmor: " + (int)(activePlayer.getArmor()*100) 
@@ -339,16 +343,19 @@ public class ShoppingView extends BasicGameState {
 				}
 			}
 		}
-		
-		
+		/*
+		for (int i=0; i<LobbyPlayers.size();i++){
+			if (LobbyPlayers.get(i).isConnected())
+				g.drawImage()
+		}*/
 	
 		
 		//Draw the Connected players in lobby (not done)
 		//for (int i=0;i<LobbyPlayers.length;i++){
 			//if(GlobalClassSelector.getController().getPlayer(i).isConnected()){
-				g.drawImage(LobbyPlayers[0],898,400+59);
+		//		g.drawImage(LobbyPlayers[0],898,400+59);
 				//if(GlobalClassSelector.getController().getPlayer(i).isReady()){
-					LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
+			//		LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
 				//}
 			//}	
 		//}
