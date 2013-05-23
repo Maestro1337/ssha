@@ -43,8 +43,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 
 		backgroundImage = new Image("res/miscImages/sakura001.png");
-		selectButton = new Image("res/buttons/playButtons.png");
-		backButton = new Image("res/buttons/playButtons.png");
+		selectButton = new Image("res/buttons/selectButton.png");
+		backButton = new Image("res/buttons/backButton.png");
 		classImage = new Image("res/classImages/classes.png");
 		title = "Choose your class!";
 		
@@ -79,9 +79,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		Input input = gc.getInput();
 	//	Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 		if((300<xPos && xPos<550) && (550<yPos && yPos<604)){
-			backButton = new Image("res/buttons/playButton_hover.png");
+			backButton = new Image("res/buttons/backButton_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-					backButton = new Image("res/buttons/playButton_pressed.png");
 					
 					// If you're in the Multiplayer-view and click back, the connection will close.
 					if(MainHub.getController().isMulti()) {
@@ -91,12 +90,11 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					sbg.enterState(0);
 			}
 		}else{
-			backButton = new Image("res/buttons/playButtons.png");
+			backButton = new Image("res/buttons/backButton.png");
 		}
 		if((700<xPos && xPos<950) && (550<yPos && yPos<604)){
-			selectButton = new Image("res/buttons/playButton_hover.png");
+			selectButton = new Image("res/buttons/selectButton_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-					selectButton = new Image("res/buttons/playButton_pressed.png");
 					
 					if(!MainHub.getController().isMulti()) {
 						MainHub.getController().addPlayer(player, 0);
@@ -125,7 +123,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				}
 			}
 		}else{
-			selectButton = new Image("res/buttons/playButtons.png");
+			selectButton = new Image("res/buttons/selectButton.png");
 		}
 		if((340<xPos && xPos<517) && (106<yPos && yPos<425)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
