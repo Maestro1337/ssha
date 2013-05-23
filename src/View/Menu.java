@@ -40,9 +40,9 @@ public class Menu extends BasicGameState implements ActionListener{
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-		backgroundImage = new Image("res/miscImages/bg.png");
+		backgroundImage = new Image("res/miscImages/bg-gates.png");
 		startGameButton = new Image("res/buttons/startgame.png");
-		exitButton = new Image("res/buttons/exitButton.png");
+		exitButton = new Image("res/buttons/exit.png");
 		titleText = new Image("res/miscImages/menuText.png");
 		
 		try {
@@ -80,19 +80,19 @@ public class Menu extends BasicGameState implements ActionListener{
         if(input.isKeyDown(Input.KEY_ESCAPE)) gc.exit();
         
 		
-		if((500<xPos && xPos<750) && (325<yPos && yPos<379)){
-			startGameButton = new Image("res/buttons/startgame_pressed.png");
+		if((500<xPos && xPos<620) && (325<yPos && yPos<370)){
+			startGameButton = new Image("res/buttons/startgame_p.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				sbg.enterState(3);
 			}
-		} else if((500<xPos && xPos<750) && (425<yPos && yPos<479)){
-			exitButton = new Image("res/buttons/exitButton_pressed.png");
+		} else if((500<xPos && xPos<620) && (425<yPos && yPos<470)){
+			exitButton = new Image("res/buttons/exit_p.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				System.exit(0);
 			}
 		}else{
 			startGameButton = new Image("res/buttons/startgame.png");
-			exitButton = new Image("res/buttons/exitButton.png");
+			exitButton = new Image("res/buttons/exit.png");
 		}
 	}
 	
