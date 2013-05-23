@@ -148,7 +148,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			if(MainHub.getController().getPlayer(i) != null){
 				System.out.println(MainHub.getController().getPlayer(i).getName() + " " + MainHub.getController().getPlayer(i).getPlayerListIndex() + " " + i);
-				players[i] = new PlayerModel(MainHub.getController().getPlayer(i), obstacles);
+				players[i] = new PlayerModel(MainHub.getController().getPlayer(i));
 				nbrOfCurrentPlayers++;
 			}
 		}
