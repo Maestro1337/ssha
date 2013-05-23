@@ -323,6 +323,12 @@ public class Player {
 	public void setKills(int kills) {
 		this.kills = kills;
 	}
+	public int getDeaths(){
+		return deaths;
+	}
+	public void incDeaths(){
+		deaths++;
+	}
 
 	public void addGold(int gold) {
 		this.gold += gold;
