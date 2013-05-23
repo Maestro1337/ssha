@@ -9,7 +9,7 @@ public class StatusEffectDodge extends StatusEffectShell{
 
 	public StatusEffectDodge(Skill skill, int evasion, int seconds) {
 		
-		super(null, skill, "Dodge", 50, 0, 0, 0, 0, 0, 0, evasion, false, false, false, seconds+1, 0);
+		super(null, skill, "Dodge", 0, 0, 0, 0, 1, 0, 0, evasion, false, false, false, seconds+1, 0);
 	}
 	
 	@Override

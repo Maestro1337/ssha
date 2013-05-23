@@ -3,6 +3,8 @@ package Model.Items;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import Model.StatusEffects.StatusEffectItems;
+
 public class ItemHunterBow extends Item {
 
 	Image Image;
@@ -15,6 +17,8 @@ public class ItemHunterBow extends Item {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		super.setPassive();
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 1, 0));
 		super.setImage(Image);
 	}
 }
