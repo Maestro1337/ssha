@@ -201,7 +201,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
 					//Setting correct playerindex
 					player.setIndex(MainHub.getController().getActivePlayerIndex());
-					MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
+				//	MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
 					//MainHub.getController().getSocketClient().changePlayer(player);	
 					sbg.enterState(4);
 				} else {

@@ -30,6 +30,7 @@ public class MainHub {
 	private Arena[] maps;
 	private String playerName = "tja";
 
+
 	
 	//Singleton
 	public static MainHub getController() {
@@ -61,6 +62,7 @@ public class MainHub {
 		players[index] = null;
 	}
 	public synchronized void resetPlayers(){
+		System.out.println("PLAYERS IS ZEH RESETSELUS!");
 		players = new Player[nbrOfPlayers];
 	}
 	public synchronized Player[] getPlayers(){

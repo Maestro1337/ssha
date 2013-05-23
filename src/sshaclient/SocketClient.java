@@ -196,7 +196,7 @@ public class SocketClient implements Runnable {
 					MainHub.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
-					MainHub.getController().resetPlayers();
+				//	MainHub.getController().resetPlayers();
 					tp.takeName(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
