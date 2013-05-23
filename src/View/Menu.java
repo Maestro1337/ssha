@@ -32,7 +32,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	Image startGameButton;
 	Image exitButton;
 	Image titleText;
-	Image warriorImage;
+	Image midBannerImage;
 	
 	public Menu (int state){
 		
@@ -41,6 +41,7 @@ public class Menu extends BasicGameState implements ActionListener{
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		backgroundImage = new Image("res/miscImages/bg-gates.png");
+		midBannerImage = new Image("res/miscImages/midBanner.png");
 		startGameButton = new Image("res/buttons/startgame.png");
 		exitButton = new Image("res/buttons/exit.png");
 		titleText = new Image("res/miscImages/menuText.png");
@@ -56,6 +57,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		gc.setFullscreen(false);
 		g.setColor(Color.black);
 		g.drawImage(backgroundImage, 0, 0);
+		g.drawImage(midBannerImage, gc.getWidth()/2 - midBannerImage.getWidth()/2, 0);
 
 		/*if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
