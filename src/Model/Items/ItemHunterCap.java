@@ -14,7 +14,7 @@ public class ItemHunterCap extends Item {
 			
 			
 			//Price, Name, Description, Slot,
-			super (400,"Shadow's Sanctum","The rapist's friend.\nNoone can see what\nyou do in the dark.","Headwear");
+			super (400,"Shadow's Sanctum","The rapist's friend.\nShrouded in darkness\nby the headgear you \ncan freely molest anyone.","Headwear");
 			try{
 				Image = new Image("res/items/Hunters Helmet.png");
 			} catch (SlickException e) {
