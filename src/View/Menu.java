@@ -85,7 +85,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		} else if((580<xPos && xPos<700) && (425<yPos && yPos<470)){
 			exitButton = new Image("res/buttons/exit_p.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				System.exit(0);
+				gc.exit();
 			}
 		}else{
 			startGameButton = new Image("res/buttons/startgame.png");
