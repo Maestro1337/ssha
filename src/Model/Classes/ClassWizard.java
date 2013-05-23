@@ -12,6 +12,9 @@ import Model.Skills.Wizard.*;
 public class ClassWizard extends Player {
 
 	Image playerImage;
+	Image portraitImage;
+	Image portraitImageMini;
+	Image framedImage;
 	Image firstStep;
 	Image secondStep;
 	static Skill[] chosenSkills = new Skill[5];
@@ -24,6 +27,9 @@ public class ClassWizard extends Player {
 		super(name, ctrlType, "Wizard", x, y, 1000, 0.65, 0.2, index);
 		try {
 			playerImage = new Image("res/animations/characters/mage_stand.png");
+			portraitImage = new Image("res/classImages/mage_portrait.png");
+			portraitImageMini = new Image("res/classImages/mage_portraitmini.png");
+			framedImage = new Image("res/classImages/Portrait_Wizard.png");
 			firstStep = new Image("res/animations/characters/mage_walk1.png");
 			secondStep = new Image("res/animations/characters/mage_walk2.png");
 			
@@ -66,6 +72,7 @@ public class ClassWizard extends Player {
 		super.addSkillAsOwned(chosenSkills[0]);
 		
 		super.setImages(playerImage, firstStep, secondStep);
+		super.setPortraits(framedImage, portraitImage, portraitImageMini);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
 		super.setSkillList(chosenSkills);
 		super.setPassiveSkillList(passiveSkills);

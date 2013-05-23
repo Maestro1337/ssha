@@ -122,8 +122,11 @@ public class ShoppingView extends BasicGameState {
 	Image skillsText;
 	Image shopText;
 	
+	Image lobbyPlayer;
+	Image lobbyPlayerReady;
+	
 	Image [] LevelofSkills = new Image [9];
-	Image [] LobbyPlayers = new Image [100];
+	Player [] LobbyPlayers;
 	
 	Image headSlotItem;
 	Image chestSlotItem;
@@ -159,9 +162,13 @@ public class ShoppingView extends BasicGameState {
 		chestSlotItem = new Image ("res/Items/Armor Empty.png");
 		weaponSlotItem = new Image ("res/Items/Weapon Empty.png");
 		
+		lobbyPlayer = new Image ("res/miscImages/LobbyPlayer.png");
+		lobbyPlayerReady = new Image ("res/miscImages/LobbyPlayerReady.png");
+
+		/*
 		for (int i=0;i<MainHub.getController().getPlayerControllers().length;i++){
 			LobbyPlayers[i] = new Image ("res/miscImages/LobbyPlayer.png");
-		}
+		}*/
 		
 				
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
@@ -179,7 +186,6 @@ public class ShoppingView extends BasicGameState {
 		skillDescBg = new Image("res/miscImages/initEmptyPic.png");
 		
 		
-
 		
 		playButton = new Image("res/buttons/playButtons.png");
 		buyUpgradeButton = new Image("res/miscImages/initEmptyPic.png");
@@ -191,15 +197,18 @@ public class ShoppingView extends BasicGameState {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
 	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
+	      activePlayer.setReady(false);
 	      updateSkillLists();
 	      
 	      ownedItemList = activePlayer.getOwnedItems();
+	      classPortrait = activePlayer.getPortraitImage();
+	      LobbyPlayers = MainHub.getController().getPlayers();
+	      
 	      
 	      
 	      
 	      switch(MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getType()){
 			case "Wizard":
-				classPortrait = new Image("res/classImages/mage_portrait.png");
 				//Init wizard basic, offensive, defensive and mobility skillists
 				
 				basicSkill = new SkillWandattack();
@@ -219,7 +228,6 @@ public class ShoppingView extends BasicGameState {
 				allItems[2] = new ItemWizardStaff();
 				break;
 			case "Hunter":
-				classPortrait = new Image("res/classImages/hunter_portrait.png");
 				//Init Hunter basic, offensive, defensive and mobility skillists
 				
 				basicSkill = new SkillArrow();
@@ -239,7 +247,6 @@ public class ShoppingView extends BasicGameState {
 				allItems[2] = new ItemHunterBow();
 				break;
 			case "Warrior":
-				classPortrait = new Image("res/classImages/warrior_portrait.png");
 				//Init warrior basic, offensive, defensive and mobility skillists
 				
 				basicSkill = new SkillSlash();
@@ -339,18 +346,23 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		
-		
+		// Draws out players in lobby
+		for (int i=0; i<LobbyPlayers.length;i++){
+			if (LobbyPlayers[i] != null){
+				g.drawString(MainHub.getController().getPlayer(i).getName(), 910, 120+40*i);
+				g.drawString(MainHub.getController().getPlayer(i).getKills() + "/" + MainHub.getController().getPlayer(i).getDeaths(), 1075, 120+40*i);
+				g.drawImage(lobbyPlayer,897,400+60*i);
+				if (LobbyPlayers[i].isReady()){
+					g.drawImage(lobbyPlayerReady,897,400+60*i);
+				}
+				g.drawImage(MainHub.getController().getPlayer(i).getPortraitImageMini(),920,405+60*i);
+				g.drawString(MainHub.getController().getPlayer(i).getName(), 980, 420+60*i);
+			}
+					
+		}
 	
 		
-		//Draw the Connected players in lobby (not done)
-		//for (int i=0;i<LobbyPlayers.length;i++){
-			//if(GlobalClassSelector.getController().getPlayer(i).isConnected()){
-				g.drawImage(LobbyPlayers[0],898,400+59);
-				//if(GlobalClassSelector.getController().getPlayer(i).isReady()){
-					LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
-				//}
-			//}	
-		//}
+		
 		
 		//Offensive skills	
 		g.drawImage((findOwnedSkill(allSkills[0].getName())) != null ? allSkills[0].getRegularSkillBarImage() : allSkills[0].getDisabledSkillBarImage(), 60, 440);

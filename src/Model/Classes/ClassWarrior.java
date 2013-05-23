@@ -12,8 +12,12 @@ import Model.Skills.Warrior.*;
 public class ClassWarrior extends Player {
 	
 	Image playerImage;
+	Image portraitImage;
+	Image portraitImageMini;
+	Image framedImage;
 	Image firstStep;
 	Image secondStep;
+
 	static Skill[] chosenSkills = new Skill[5];
 	ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	Image[] changedModelWalkImages = new Image[2];
@@ -24,6 +28,9 @@ public class ClassWarrior extends Player {
 		super(name, ctrlType, "Warrior", x, y, 1600, 0.7, 0.35, index);
 		try {
 			playerImage = new Image("res/animations/characters/warrior_stand.png");
+			portraitImage = new Image("res/classImages/warrior_portrait.png");
+			portraitImageMini = new Image("res/classImages/warrior_portraitmini.png");
+			framedImage = new Image("res/classImages/Portrait_Warrior.png");
 			firstStep = new Image("res/animations/characters/warrior_walk1.png");
 			secondStep = new Image("res/animations/characters/warrior_walk2.png");
 			
@@ -39,6 +46,7 @@ public class ClassWarrior extends Player {
 		super.addSkillAsOwned(chosenSkills[0]);
 
 		super.setImages(playerImage, firstStep, secondStep);
+		super.setPortraits(framedImage, portraitImage, portraitImageMini);
 		super.setChangedModelImages(changedModelWalkImages, changedModelStandImages);
 		super.setSkillList(chosenSkills);
 		super.setPassiveSkillList(passiveSkills);
