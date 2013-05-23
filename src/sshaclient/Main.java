@@ -9,7 +9,7 @@ public class Main {
 		
 		TestView tv = new TestView();
 		Player tp = new ClassWizard(Constants.name, "player", 100, 100, -1);
-		SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort, tp);
+		SocketClient sc = new SocketClient(Constants.hostName, Constants.defaultPort);
 		Thread t2 = new Thread(sc);
 		t2.start();
 		TestController tc = new TestController(tv, tp, sc); 
