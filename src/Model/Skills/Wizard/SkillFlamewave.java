@@ -19,7 +19,8 @@ public class SkillFlamewave extends Skill{
 		Image[] attackImages = new Image[2];
 		Image[] animation = new Image[2];
 		Image[] skillBar = new Image[3];
-		
+
+		super.setPiercing(true);
 		super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 50, 1), false);
 		
 		try {
@@ -37,9 +38,6 @@ public class SkillFlamewave extends Skill{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 		super.setImage(attackImages,200);
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);

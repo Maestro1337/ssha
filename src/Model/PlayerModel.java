@@ -328,6 +328,9 @@ public class PlayerModel implements ActionListener {
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
+			if(currentActiveSkill.isPiercing()){
+				currentActiveSkill.setEndstate(false);
+			}
 			if(currentActiveSkill.isGrapplingHook()){
 				
 			}
@@ -397,7 +400,11 @@ public class PlayerModel implements ActionListener {
 
 	public void checkCollision(Player attackingPlayer, Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
+			//System.out.println(playerSkills[player.getCurrentActiveSkillIndex()].isPiercing());
 			for(int i=0; i<playerSkills.length; i++){
+				if(playerSkills[player.getCurrentActiveSkillIndex()] != null && playerSkills[player.getCurrentActiveSkillIndex()].isPiercing()){
+					break;
+				}
 				if(playerSkills[i] != null && isColliding(playerSkills[i])){
 					int evasion = player.getEvasion();
 					//Calculates new evasion to check if player will evade the attack in this state
@@ -636,7 +643,6 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void pushPlayer(float xDir, float yDir, int pushRange){
-		
 		//Aborts channel if player is channeling
 		if(player.getChannel()){
 			for(int i=0; i<player.getStatusEffects().size();i++){
