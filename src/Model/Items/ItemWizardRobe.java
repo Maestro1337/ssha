@@ -12,7 +12,7 @@ public class ItemWizardRobe extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"The Scholars' Robe","hej","Armor");
+		super (400,"The Scholars' Robe","Dis make yo bootey look biig!","Armor");
 		try{
 			Image = new Image("res/items/Mages Robe.png");
 		} catch (SlickException e) {
