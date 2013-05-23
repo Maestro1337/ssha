@@ -53,6 +53,7 @@ public class MainHub {
 	}
 	
 	public synchronized void addPlayer(Player player, int index){
+		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType());
 		players[index] = player;
 	}
 	public synchronized void removePlayer(int index) {
