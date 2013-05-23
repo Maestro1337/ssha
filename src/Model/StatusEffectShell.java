@@ -60,13 +60,12 @@ public abstract class StatusEffectShell {
 		ESIT = new StatusEffectTimer(delay);
 		
 	}
-	public StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int attackSpeed, int counts, int delay){
+	public StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int counts, int delay){
 		this.player = player;
 		this.name = name;
 		
 		dmgEff = damage;
 		armEff = arm;
-		atkSpeedEff = attackSpeed;
 		moveSpeedEff = moveSpeed;
 		this.counts = maxCounts = counts;
 		this.delay = delay;

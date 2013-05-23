@@ -3,7 +3,7 @@ package Model.Items;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.StatusEffects.StatusEffectArmor;
+import Model.StatusEffects.StatusEffectItems;
 
 public class ItemWizardRobe extends Item {
 
@@ -20,7 +20,8 @@ public class ItemWizardRobe extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.5, 0));
+		//Item item, int damage, double movement, double armor
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 1.5, 0));
 		super.setImage(Image);
 	}
 

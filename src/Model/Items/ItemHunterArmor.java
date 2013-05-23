@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import Model.Player;
 import Model.StatusEffect;
 import Model.StatusEffects.StatusEffectArmor;
+import Model.StatusEffects.StatusEffectItems;
 
 public class ItemHunterArmor extends Item {
 	Image Image;
@@ -19,7 +20,7 @@ public class ItemHunterArmor extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.5, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 1.5, 0));
 		super.setImage(Image);
 	}
 }
