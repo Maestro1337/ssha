@@ -3,6 +3,8 @@ package Model.Items;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import Model.StatusEffects.StatusEffectArmor;
+
 public class ItemWizardRobe extends Item {
 
 	Image Image;
@@ -17,6 +19,8 @@ public class ItemWizardRobe extends Item {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		super.setPassive();
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1.7, 0));
 		super.setImage(Image);
 	}
 
