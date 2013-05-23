@@ -557,18 +557,19 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void goldreward(){
+		Player goldRewardPlayer = players[activePlayer].getPlayer();
 		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
-			player.setGold(player.getGold()+1);
+			goldRewardPlayer.addGold(1);
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
-			player.setGold(player.getGold()+5);
+			goldRewardPlayer.addGold(5);
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
-			player.setGold(player.getGold()+15);
+			goldRewardPlayer.addGold(15);
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
-			player.setGold(player.getGold()+25);
+			goldRewardPlayer.addGold(25);
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
-			player.setGold(player.getGold()+50);
-		if(!enemy.isAlive()){
-			player.addGold(25);
-		}
+			goldRewardPlayer.addGold(50);
+	//	if(!enemy.isAlive()){
+	//		player.addGold(25);
+	//	}
 	}
 }
