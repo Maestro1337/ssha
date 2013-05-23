@@ -9,11 +9,11 @@ import Model.Skills.Skill;
 
 public class StatusEffectLifesteal extends StatusEffectShell{
 
-	public StatusEffectLifesteal(Skill skill, int seconds) {
+	public StatusEffectLifesteal(Skill skill) {
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, isStun, isChanneling, counts, delay
 		
-		super(null, skill, "Lifestealing Arrow", 0, 0, 0, 1, 0, 0, 0, 0,false, false, false, seconds+1, 0);
+		super(null, skill, "Lifestealing Arrow", 0, 0, 0, 1, 0, 0, 0, 0,false, false, false, 1, 0);
 
 		super.setChangeModel();
 	}

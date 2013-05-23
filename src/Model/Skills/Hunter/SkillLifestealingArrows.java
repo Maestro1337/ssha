@@ -19,6 +19,8 @@ public class SkillLifestealingArrows extends Skill {
 		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
+	//	super.setSelfAffectingOnHitStatusEffectShell(new StatusEffectLifeSteal());
+		
 		try {
 			attackImages[0] = new Image("res/animations/LifestealingArrow/Arrow1.png");
 			attackImages[1] = new Image("res/animations/LifestealingArrow/Arrow2.png");
