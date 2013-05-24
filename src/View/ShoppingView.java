@@ -492,6 +492,7 @@ public class ShoppingView extends BasicGameState {
 						playButton = new Image("res/buttons/GoButton.png");	
 						if(activePlayer.isReady()){
 							activePlayer.setHasClickedStartGame(true);
+							startCheckTimer.resetTimer();
 						}
 					}	
 					activePlayer.setReady(true);
