@@ -480,13 +480,19 @@ public class ShoppingView extends BasicGameState {
 				playButton = new Image ("res/buttons/UnreadyOver.png");
 			}
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-
-				if( activePlayer.isReady()&&activePlayer != LobbyPlayers[0]){
+				//Checking if all players are ready when player with index 0 presses GO
+				allIsReady = true;
+				for(int i=0; i<LobbyPlayers.length; i++){
+					if(LobbyPlayers[i] != null && !LobbyPlayers[i].isReady()){
+						allIsReady = false;
+					}
+				}
+				if( activePlayer.isReady() && activePlayer != LobbyPlayers[0]){
 					playButton = new Image ("res/buttons/Ready.png");
 					activePlayer.setReady(false);
-				}else{
+				}else if(activePlayer == LobbyPlayers[0]){
 					playButton = new Image ("res/buttons/Unready.png");
-					if (activePlayer == LobbyPlayers[0]){
+					if (allIsReady && activePlayer == LobbyPlayers[0]){
 						playButton = new Image("res/buttons/GoButton.png");	
 						if(activePlayer.isReady()){
 							activePlayer.setHasClickedStartGame(true);
@@ -503,20 +509,12 @@ public class ShoppingView extends BasicGameState {
 		}else{
 			playButton = new Image ("res/buttons/Unready.png");
 		}
-	
-		allIsReady = true;
-		
-		for(int i=0; i<LobbyPlayers.length; i++){
-			if(LobbyPlayers[i] != null && !LobbyPlayers[i].isReady()){
-				allIsReady = false;
-			}
-		}
 		System.out.println(startCheckTimer.checkTimer());
 		if(LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
 			canResetTimer = false;
 			startCheckTimer.resetTimer();
 		}
-		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
+		if(LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
 			pressedReadyOrGo(sbg);
 		}
 		
