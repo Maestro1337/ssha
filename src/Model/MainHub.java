@@ -29,7 +29,7 @@ public class MainHub {
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "Kuckett";
+	private String playerName = "DatAssIsOutOfThisWorldMeWantSomeOfDatBabysAssYummy!";
 	
 	//Singleton
 	public static MainHub getController() {
