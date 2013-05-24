@@ -97,6 +97,7 @@ public class ShoppingView extends BasicGameState {
 	private boolean dragMouse = false;
 	private boolean allIsReady = false;
 	private RegularTimer startCheckTimer = new RegularTimer(5000, 0);
+	private boolean canResetTimer = true;
 	
 	private int chosenSkillsXStart = 17;
 	private int chosenSkillsYStart = 280;
@@ -188,7 +189,7 @@ public class ShoppingView extends BasicGameState {
 		costText = " ";
 		skillDescBg = new Image("res/miscImages/initEmptyPic.png");
 		
-		
+		canResetTimer = true;
 		
 		playButton = new Image("res/buttons/playButtons.png");
 		buyUpgradeButton = new Image("res/miscImages/initEmptyPic.png");
@@ -491,8 +492,6 @@ public class ShoppingView extends BasicGameState {
 						playButton = new Image("res/buttons/GoButton.png");	
 						if(activePlayer.isReady()){
 							activePlayer.setHasClickedStartGame(true);
-							startCheckTimer.resetTimer();
-							
 						}
 					}	
 					activePlayer.setReady(true);
@@ -515,6 +514,10 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		System.out.println(startCheckTimer.checkTimer());
+		if(LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
+			canResetTimer = false;
+			startCheckTimer.resetTimer();
+		}
 		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
 			pressedReadyOrGo(sbg);
 		}
