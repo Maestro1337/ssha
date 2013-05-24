@@ -15,6 +15,10 @@ import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
+import Model.Skills.Skill;
+import Model.Skills.Hunter.*;
+import Model.Skills.Warrior.*;
+import Model.Skills.Wizard.*;
 
 public class ClassSelectionView extends BasicGameState implements ActionListener{
 
