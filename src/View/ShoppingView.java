@@ -189,7 +189,7 @@ public class ShoppingView extends BasicGameState {
 		costText = " ";
 		skillDescBg = new Image("res/miscImages/initEmptyPic.png");
 		
-		canResetTimer = true;
+		
 		
 		playButton = new Image("res/buttons/playButtons.png");
 		buyUpgradeButton = new Image("res/miscImages/initEmptyPic.png");
@@ -219,7 +219,7 @@ public class ShoppingView extends BasicGameState {
 	      classPortrait = activePlayer.getPortraitImage();
 	      LobbyPlayers = MainHub.getController().getPlayers();
 	      
-	      
+	      canResetTimer = true;
 	      
 	      
 	      switch(MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getType()){
@@ -492,7 +492,6 @@ public class ShoppingView extends BasicGameState {
 						playButton = new Image("res/buttons/GoButton.png");	
 						if(activePlayer.isReady()){
 							activePlayer.setHasClickedStartGame(true);
-							startCheckTimer.resetTimer();
 						}
 					}	
 					activePlayer.setReady(true);
