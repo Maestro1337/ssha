@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Control.GameEngine;
 import Model.Obstacles.*;
 import Model.Skills.*;
 import Model.StatusEffects.SpawnTeleport;
@@ -175,8 +176,11 @@ public class PlayerModel implements ActionListener {
 				
 				//Calculates the new direction if the skill is guided
 				if(attackingSkill.isGuided()){
-					if(attackingSkill.getGuidedTarget() != null && attackingSkill.getGuidedTarget().isStealthed()){
-						attackingSkill.setGuidedTarget(null);
+					if(attackingSkill.getGuidedTarget() != null){
+						if(attackingSkill.getGuidedTarget().isStealthed() || !stillAbleToMakeAction(attackingSkill.getGuidedTarget())){
+							attackingSkill.setGuidedTarget(null);
+						}
+						
 					}
 					if(attackingSkill.getGuidedTarget() != null){
 						float xDir = attackingSkill.getGuidedTarget().getX()-attackingSkill.getAttX();
@@ -276,7 +280,7 @@ public class PlayerModel implements ActionListener {
 	public void move(int x, int y){
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
-		if(checkGlobalWalkCooldown() == 0){
+		if(checkGlobalWalkCooldown() == 0 && stillAbleToMakeAction(player)){
 			
 			if(player.getChannel()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
@@ -319,7 +323,7 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		if(checkGlobalAttackCooldown() == 0){
+		if(checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player)){
 			if(player.getChannel()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
 					if(player.getStatusEffects().get(i).getChanneling()){
@@ -695,6 +699,7 @@ public class PlayerModel implements ActionListener {
 	 * @param skill which is the skill that will have a target assigned to it
 	 */
 	public void findAndSetGuidedTarget(Skill skill){
+		//TODO fix for when all players are stealthed
 		Player[] guidedPlayers = MainHub.getController().getPlayers();
 		int targetPlayer = player.getPlayerListIndex() != 0 ? 0 : 1;
 		float targetPlayerXDir = guidedPlayers[targetPlayer].getX() - player.getX();
@@ -707,7 +712,7 @@ public class PlayerModel implements ActionListener {
 				float compYDir = guidedPlayers[i].getY() - player.getY();
 				float compGenDir = (float)Math.sqrt(compXDir*compXDir+compYDir*compYDir);
 				
-				if(compGenDir<targetPlayerGenDir){
+				if(compGenDir<targetPlayerGenDir && !guidedPlayers[i].isStealthed()){
 					targetPlayer = i;
 					targetPlayerXDir = compXDir;
 					targetPlayerYDir = compYDir;
@@ -716,6 +721,16 @@ public class PlayerModel implements ActionListener {
 			}
 		}
 		skill.setGuidedTarget(guidedPlayers[targetPlayer]);
+	}
+	
+	private boolean stillAbleToMakeAction(Player player){
+		if(player != null)
+			if(player.getX() < 0 || player.getY() < 0 || player.getX() > GameEngine.screenWidth || player.getY() > GameEngine.screenHeight){
+				return false;
+			}else{
+				return true;
+		}
+		return false;
 	}
 
 	@Override

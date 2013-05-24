@@ -78,7 +78,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image enemyImage;
 	Skill[] enemySkills;
 	
-	private int enemyPlayer = 1;
+	
 	
 	private int activePlayer;
 	private PlayerModel currentActiveController;
