@@ -16,6 +16,7 @@ import Model.Classes.ClassWizard;
 public class MainHub {
 
 	public static final int nbrOfPlayers = 4;
+	public static final int noActionLimit = 400;
 	
 	private boolean isMultiplayer = false;
 	private static MainHub myControl = null;
