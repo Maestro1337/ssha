@@ -51,7 +51,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 		backgroundImage = new Image("res/miscImages/classSelectionBg.png");
 		backButton = new Image("res/buttons/back.png");
-		classImage = new Image("res/classImages/classes.png");
+		classImage = new Image("res/classImages/classes2.png");
 		title = "Choose your class!";
 		
 	}
@@ -63,13 +63,16 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		g.drawString(mouse, 500, 20);
 		
 		g.drawImage(classImage, 336, 100);
-		
-		g.drawString(classDescription, 336, 450);
+
+		g.setColor(Color.white);
+		g.drawString(classDescription, 366, 445);
 		g.drawString(title, 550, 75);
+		g.setColor(Color.white);
 		
 		g.drawImage(singleplayerButton, gc.getWidth()/2 - singleplayerButton.getWidth()/2, 550);
 		g.drawImage(multiplayerButton, gc.getWidth()/2 - multiplayerButton.getWidth()/2, 600);
 		g.drawImage(backButton, gc.getWidth()/2 - backButton.getWidth()/2, 650);
+		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
@@ -104,8 +107,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				classImage = new Image("res/classImages/warriorSelected.png");
 				classDescription = "The heart of a warrior is filled with courage and strength. \n" +
 						"Your skills with weapons in close combat makes you a powerful \n" +
-						"force on the battlefield and a durable opponent for all who dares \n" +
-						"cross your way.";
+						"force on the battlefield and a durable opponent for all who \n" +
+						"dares cross your way.";
 				player = new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 			}
@@ -114,8 +117,9 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				classImage = new Image("res/classImages/hunterSelected.png");
 				classDescription = "Hunters are stealthy, wealthy and wise to the ways of \n" +
-						"their opponents. Able to take down tyrants without blinking an eye \n" +
-						"or breaking a bowstring, you'll range far and wide with this class.";
+						"their opponents. Able to take down tyrants without blinking \n" +
+						"an eye or breaking a bowstring, you'll range far and wide \n" +
+						"with this class.";
 		//		classType = "Hunter";
 				player = new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
 		//		Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
@@ -125,8 +129,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				classImage = new Image("res/classImages/mageSelected.png");
 				classDescription = "Mages are the quintessential magic user. They attack from \n" +
-						"a distance, able to cause great harm or restrict a targets actions \n " +
-						"using their supreme knowledge of the elements.";
+						"a distance, able to cause great harm or restrict a targets \n" +
+						"actions using their supreme knowledge of the elements.";
 		//		classType = "Wizard";
 				player = new ClassWizard(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
 		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
