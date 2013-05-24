@@ -94,6 +94,7 @@ public class ShoppingView extends BasicGameState {
 	private boolean buyOneTime = false;
 	private int grabbedFromChosenIndex = -1;
 	private boolean dragMouse = false;
+	private boolean allIsReady = false;
 	
 	private int chosenSkillsXStart = 17;
 	private int chosenSkillsYStart = 280;
@@ -208,6 +209,7 @@ public class ShoppingView extends BasicGameState {
 	      }
 	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
 	      activePlayer.setReady(false);
+	      activePlayer.setHasClickedStartGame(false);
 	      updateSkillLists();
 	      
 	      ownedItemList = activePlayer.getOwnedItems();
@@ -473,24 +475,44 @@ public class ShoppingView extends BasicGameState {
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
 			if (!activePlayer.isReady()){
 				playButton = new Image("res/buttons/ReadyOver.png");
-			}else{
+			}else if (activePlayer == LobbyPlayers[0]){
 				playButton = new Image("res/buttons/GoButtonOver.png");
+			}else {
+				playButton = new Image ("res/buttons/OptionsOver.png");
 			}
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				playButton = new Image("res/buttons/GoButton.png");
-				//LobbyPlayers[0] = new Image ("res/miscImages/LobbyPlayerReady.png");
-				
-				if(activePlayer.isReady()){
-					pressedReadyOrGo(sbg);
+				if( activePlayer.isReady()&&!(activePlayer == LobbyPlayers[0])){
+					playButton = new Image ("res/buttons/Ready.png");
+					activePlayer.setReady(false);
+				}else{
+					playButton = new Image ("res/buttons/Options.png");
+					if (activePlayer == LobbyPlayers[0]){
+						playButton = new Image("res/buttons/GoButton.png");	
+						if(activePlayer.isReady()){
+							activePlayer.setHasClickedStartGame(true);
+						}
+					}	
+					activePlayer.setReady(true);
 				}
-				activePlayer.setReady(true);
-				
-			}
-			
+								
+			}			
 		}else if(!activePlayer.isReady()){
 			playButton = new Image("res/buttons/Ready.png");
-		}else{
+		}else if (activePlayer == LobbyPlayers[0]){
 			playButton = new Image("res/buttons/GoButton.png");
+		}else{
+			playButton = new Image ("res/buttons/Options.png");
+		}
+	
+		allIsReady = true;
+		
+		for(int i=0; i<LobbyPlayers.length; i++){
+			if(LobbyPlayers[i] != null && !LobbyPlayers[i].isReady()){
+				allIsReady = false;
+			}
+		}
+		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame()){
+			pressedReadyOrGo(sbg);
 		}
 		
 		if((980<xPos && xPos<1100) && (670<yPos && yPos<715)){

@@ -36,6 +36,7 @@ public class Player {
 	private float startingPosX;
 	private float startingPosY;
 	private boolean isReady;
+	private boolean hasClickedStartGame;
 	private String mode;
 	private String ctrlType;
 	private boolean connected;
@@ -93,6 +94,7 @@ public class Player {
 		this.name = name;
 		this.classType = type;
 		this.isReady = false;
+		this.hasClickedStartGame = false;
 		this.mode = "lobby";
 		this.ctrlType = ctrlType;
 		this.connected = false;
@@ -511,6 +513,12 @@ public class Player {
 	}
 	public void setReady(boolean ready) {
 		isReady = ready;
+	}
+	public boolean hasClickedStartGame(){
+		return hasClickedStartGame;
+	}
+	public void setHasClickedStartGame(boolean hasClicked){
+		hasClickedStartGame = hasClicked;
 	}
 	public String getControlType() {
 		return ctrlType;

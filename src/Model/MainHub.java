@@ -28,7 +28,7 @@ public class MainHub {
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "Vito";
+	private String playerName = "Vitakukarluktarbäst";
 	
 	//Singleton
 	public static MainHub getController() {
