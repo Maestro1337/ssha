@@ -78,6 +78,7 @@ public class SocketClient implements Runnable {
 						}
 					}
 					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + MainHub.getController().getMapIndex() + " " + tp.isReady();
+					process = process + " " + tp.hasClickedStartGame();
 				} else {
 					
 					int skillIndex = tp.getCurrentActiveSkillIndex();

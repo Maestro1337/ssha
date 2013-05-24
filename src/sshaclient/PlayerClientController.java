@@ -60,6 +60,9 @@ public class PlayerClientController implements PlayerControl {
 				tp.setEvasion(Integer.parseInt(Constants.getItem(tempStats, 20)));
 				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 21)));
 				
+				tp.setReady(Boolean.parseBoolean(Constants.getItem(tempStats, 23)));
+				tp.setHasClickedStartGame(Boolean.parseBoolean(Constants.getItem(tempStats, 24)));
+				
 				if(tp.getPlayerListIndex() != 0) {
 					MainHub.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
 				}
