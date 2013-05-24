@@ -26,7 +26,6 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 //	private String classType = null;
 
 	Image backgroundImage;
-	Image selectButton;
 	Image backButton;
 	Image classImage;
 	
@@ -38,7 +37,6 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 	Image singleplayerButton;
 	Image multiplayerButton;
-	Image exitButton;
 	
 	
 	public ClassSelectionView (int state){
@@ -50,11 +48,9 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 		singleplayerButton = new Image("res/buttons/singleplayer.png");
 		multiplayerButton = new Image("res/buttons/multiplayer.png");
-		exitButton = new Image("res/buttons/exitButton.png");
 
-		backgroundImage = new Image("res/miscImages/sakura001.png");
-		selectButton = new Image("res/buttons/selectButton.png");
-		backButton = new Image("res/buttons/backButton.png");
+		backgroundImage = new Image("res/miscImages/classSelectionBg.png");
+		backButton = new Image("res/buttons/back.png");
 		classImage = new Image("res/classImages/classes.png");
 		title = "Choose your class!";
 		
@@ -66,18 +62,14 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		
 		g.drawString(mouse, 500, 20);
 		
-		g.drawImage(selectButton, 700, 550);
 		g.drawImage(classImage, 336, 100);
 		
 		g.drawString(classDescription, 336, 450);
 		g.drawString(title, 550, 75);
 		
-		g.drawImage(backButton, 300, 550);
-		
-
-		g.drawImage(singleplayerButton, 900, 300);
-		g.drawImage(multiplayerButton, 900, 400);
-		g.drawImage(exitButton, 900, 500);
+		g.drawImage(singleplayerButton, gc.getWidth()/2 - singleplayerButton.getWidth()/2, 550);
+		g.drawImage(multiplayerButton, gc.getWidth()/2 - multiplayerButton.getWidth()/2, 600);
+		g.drawImage(backButton, gc.getWidth()/2 - backButton.getWidth()/2, 650);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
@@ -93,8 +85,8 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		}*/
 		Input input = gc.getInput();
 	//	Control = new PlayerController("Player", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
-		if((300<xPos && xPos<550) && (550<yPos && yPos<604)){
-			backButton = new Image("res/buttons/backButton_pressed.png");
+		if((580<xPos && xPos<700) && (650<yPos && yPos<695)){
+			backButton = new Image("res/buttons/back_pressed.png");
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					
 					// If you're in the Multiplayer-view and click back, the connection will close.
@@ -105,34 +97,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					sbg.enterState(0);
 			}
 		}else{
-			backButton = new Image("res/buttons/backButton.png");
-		}
-		if((700<xPos && xPos<950) && (550<yPos && yPos<604)){
-			selectButton = new Image("res/buttons/selectButton_pressed.png");
-			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-					
-				/*	if(!MainHub.getController().isMulti()) {
-						MainHub.getController().addPlayer(player, 0);
-					} else {
-						// Sets the player array-position to their server-id.
-						player.setIndex(MainHub.getController().getActivePlayerIndex());
-						MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
-						MainHub.getController().getSocketClient().changePlayer(player);	
-					}*/
-	
-				if(!(MainHub.getController().isMulti())){	
-					Player aiPlayer = new ClassWarrior("Enemy", "ai", 600, 600, 1);
-					
-					MainHub.getController().addPlayer(aiPlayer, 1);
-					aiPlayer.setReady(true);
-					sbg.enterState(5);
-				}else{
-				//	sbg.enterState(2);
-					sbg.enterState(4);
-				}
-			}
-		}else{
-			selectButton = new Image("res/buttons/selectButton.png");
+			backButton = new Image("res/buttons/back.png");
 		}
 		if((340<xPos && xPos<517) && (106<yPos && yPos<425)){
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
@@ -160,15 +125,15 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				classImage = new Image("res/classImages/mageSelected.png");
 				classDescription = "Mages are the quintessential magic user. They attack from \n" +
-						"a distance, able to cause great harm or restrict a targets actions using \n" +
-						"their supreme knowledge of the elements.";
+						"a distance, able to cause great harm or restrict a targets actions \n " +
+						"using their supreme knowledge of the elements.";
 		//		classType = "Wizard";
 				player = new ClassWizard(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
 		//		Control = new PlayerController("WizardMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Wizard");
 			}
 		}
 		
-		if((900<xPos && xPos<1150) && (300<yPos && yPos<354)){
+		if((580<xPos && xPos<700) && (550<yPos && yPos<595)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				MainHub.getController().setSingleOrMulti(false);
@@ -180,7 +145,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				MainHub.getController().addPlayer(player, 0);
 				sbg.enterState(5);
 			}
-		} else if((900<xPos && xPos<1150) && (400<yPos && yPos<454)){
+		} else if((580<xPos && xPos<700) && (600<yPos && yPos<645)){
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				MainHub.getController().setSingleOrMulti(true);
@@ -215,15 +180,9 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					
 				}
 			}
-		} else if((900<xPos && xPos<1150) && (500<yPos && yPos<597)){
-			exitButton = new Image("res/buttons/exitButton_pressed.png");
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				System.exit(0);
-			}
 		}else{
 			singleplayerButton = new Image("res/buttons/singleplayer.png");
 			multiplayerButton = new Image("res/buttons/multiplayer.png");
-			exitButton = new Image("res/buttons/exitButton.png");
 		}
 	}
 	
