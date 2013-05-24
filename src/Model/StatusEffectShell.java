@@ -28,7 +28,7 @@ public abstract class StatusEffectShell {
 	private boolean hasStealth;
 	private String[] playersGivenTo;
 	
-	private StatusEffectTimer ESIT;
+	private RegularTimer ESIT;
 	private int delay;
 	
 	private boolean changeModel = false;
@@ -57,7 +57,7 @@ public abstract class StatusEffectShell {
 		hasStealth = isStealth;
 		
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
-		ESIT = new StatusEffectTimer(delay);
+		ESIT = new RegularTimer(1000, delay);
 		
 	}
 	protected StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int counts, int delay){
@@ -71,7 +71,7 @@ public abstract class StatusEffectShell {
 		this.delay = delay;
 		
 		playersGivenTo = new String[3];
-		ESIT = new StatusEffectTimer(delay);
+		ESIT = new RegularTimer(1000, delay);
 		
 	}
 	protected boolean getChannel(){
