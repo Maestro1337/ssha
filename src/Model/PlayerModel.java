@@ -111,7 +111,6 @@ public class PlayerModel implements ActionListener {
 		return currentActiveSkill;
 	}
 	public void setCurrentActiveSkill(int index){
-		
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
 				if(i == index){
@@ -122,6 +121,9 @@ public class PlayerModel implements ActionListener {
 					playerSkills[i].setChosenState(false);
 				}
 			}
+		}
+		if(playerSkills[index].getRange() == 0){
+			attack((int)player.getX(), (int)player.getY());
 		}
 	}
 	
@@ -281,15 +283,7 @@ public class PlayerModel implements ActionListener {
 	//	mouseXPosMove = Mouse.getX();
 	//	mouseYPosMove = 720 - Mouse.getY();
 		if(checkGlobalWalkCooldown() == 0 && stillAbleToMakeAction(player)){
-			
-			if(player.getChannel()){
-				for(int i=0; i<player.getStatusEffects().size();i++){
-					if(player.getStatusEffects().get(i).getChanneling()){
-						player.getStatusEffects().get(i).setResetOfStatusEffect();
-						player.removeStatusEffect(player.getStatusEffects().get(i));
-					}
-				}
-			}
+			checkAndCorrectChannel();
 			if(!player.isPushed()){
 				
 				rotate(x, y);
@@ -324,16 +318,16 @@ public class PlayerModel implements ActionListener {
 	
 	public void attack(int x, int y){
 		if(currentActiveSkill != null && checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player)){
-			if(player.getChannel()){
+			checkAndCorrectChannel();
+			checkAndCorrectStealth();
+			
+			if(player.isStealthed()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
 					if(player.getStatusEffects().get(i).getChanneling()){
 						player.getStatusEffects().get(i).setResetOfStatusEffect();
 						player.removeStatusEffect(player.getStatusEffects().get(i));
 					}
 				}
-			}
-			if(player.isStealthed()){
-				player.setStealthState(false);
 			}
 			currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 			if(currentActiveSkill.isGuided()){
@@ -466,40 +460,6 @@ public class PlayerModel implements ActionListener {
 			killPlayer();
 			player.incDeaths();
 		}
-	}
-	
-	private SkillCheckingTimer getRelevantSCT(Skill skill){
-		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
-		SkillCheckingTimer SCT = null;
-		int index = -1;
-		for(int j=0; j<SCTArray.size(); j++){
-			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
-				index = j;
-				SCT = SCTArray.get(j);
-			}
-		}
-		if(index == -1){
-			SCT = skill.addNewSkillCheckingTimer(player);
-		}
-		
-		return SCT;
-	}
-	private SkillCheckingTimer getRelevantSCT(Obstacle obstacle, Skill skill){
-		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
-		SkillCheckingTimer SCT = null;
-		int index = -1;
-		for(int j=0; j<SCTArray.size(); j++){
-			if(SCTArray.get(j) != null && SCTArray.get(j).getObstacle() == obstacle){
-				index = j;
-				SCT = SCTArray.get(j);
-			}
-		}
-		if(index == -1){
-			SCT = skill.addNewSkillCheckingTimer(obstacle);
-		}
-		
-	//	System.out.println("Obstacle HP: " + SCT.getObstacle().getHealth());
-		return SCT;
 	}
 	
 	public boolean checkPlayerObstacleCollision(float x, float y) throws SlickException{
@@ -653,14 +613,7 @@ public class PlayerModel implements ActionListener {
 
 	public void pushPlayer(float xDir, float yDir, int pushRange){
 		//Aborts channel if player is channeling
-		if(player.getChannel()){
-			for(int i=0; i<player.getStatusEffects().size();i++){
-				if(player.getStatusEffects().get(i).getChanneling()){
-					player.getStatusEffects().get(i).setResetOfStatusEffect();
-					player.removeStatusEffect(player.getStatusEffects().get(i));
-				}
-			}
-		}
+		checkAndCorrectChannel();
 		
 		
 		float x = player.getX()+xDir*pushRange;
@@ -729,6 +682,57 @@ public class PlayerModel implements ActionListener {
 				return true;
 		}
 		return false;
+	}
+	private void checkAndCorrectChannel(){
+		if(player.getChannel()){
+			for(int i=0; i<player.getStatusEffects().size();i++){
+				if(player.getStatusEffects().get(i).getChanneling()){
+					player.getStatusEffects().get(i).setResetOfStatusEffect();
+					player.removeStatusEffect(player.getStatusEffects().get(i));
+				}
+			}
+		}
+	}
+	private void checkAndCorrectStealth(){
+		if(player.isStealthed()){
+			for(int i=0; i<player.getStatusEffects().size();i++){
+				if(player.getStatusEffects().get(i).hasStealth()){
+					player.getStatusEffects().get(i).setResetOfStatusEffect();
+					player.removeStatusEffect(player.getStatusEffects().get(i));
+				}
+			}
+		}
+	}
+	private SkillCheckingTimer getRelevantSCT(Skill skill){
+		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
+		SkillCheckingTimer SCT = null;
+		int index = -1;
+		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
+				index = j;
+				SCT = SCTArray.get(j);
+			}
+		}
+		if(index == -1){
+			SCT = skill.addNewSkillCheckingTimer(player);
+		}
+		
+		return SCT;
+	}
+	private SkillCheckingTimer getRelevantSCT(Obstacle obstacle, Skill skill){
+		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
+		SkillCheckingTimer SCT = null;
+		int index = -1;
+		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getObstacle() == obstacle){
+				index = j;
+				SCT = SCTArray.get(j);
+			}
+		}
+		if(index == -1){
+			SCT = skill.addNewSkillCheckingTimer(obstacle);
+		}
+		return SCT;
 	}
 
 	@Override

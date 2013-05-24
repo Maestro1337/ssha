@@ -362,8 +362,8 @@ public class Player {
 	}
 	
 	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
-		changedModelAnimation = new RepeatingAnimationTimer(2000, walkingImages);
-		noStepChangedModelAnimation = new RepeatingAnimationTimer(2000, standingImages);
+		changedModelAnimation = new RepeatingAnimationTimer(1000, walkingImages);
+		noStepChangedModelAnimation = new RepeatingAnimationTimer(1000, standingImages);
 	}
 	
 	public void changeUserImage(){

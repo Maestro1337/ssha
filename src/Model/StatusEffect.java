@@ -65,6 +65,9 @@ public class StatusEffect {
 	public boolean hasStun(){
 		return hasStun;
 	}
+	public boolean hasStealth(){
+		return hasStealth;
+	}
 	public void setChangeModel(){
 		changeModel = true;
 	}
