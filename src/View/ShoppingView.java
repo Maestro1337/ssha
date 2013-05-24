@@ -692,9 +692,14 @@ public class ShoppingView extends BasicGameState {
 			if(ownedSkill.getCurrentLvl() < 4){
 				buyString = "Succesfully upgraded a skill for " + skill.getCost() + "!";
 				activePlayer.addGold(-skill.getCost());
-				activePlayer.removePassiveSkill(ownedSkill);
-				ownedSkill.upgradeSkill();
-				activePlayer.addPassiveSkill(ownedSkill);
+				if(skill.isPassive()){
+					activePlayer.removePassiveSkill(ownedSkill);
+					ownedSkill.upgradeSkill();
+					activePlayer.addPassiveSkill(ownedSkill);
+				}else{
+					ownedSkill.upgradeSkill();
+				}
+				
 				
 			}else{
 				buyString = "Skill already max level!";
