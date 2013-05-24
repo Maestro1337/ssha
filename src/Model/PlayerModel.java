@@ -323,7 +323,7 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		if(checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player)){
+		if(currentActiveSkill != null && checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player)){
 			if(player.getChannel()){
 				for(int i=0; i<player.getStatusEffects().size();i++){
 					if(player.getStatusEffects().get(i).getChanneling()){
@@ -349,9 +349,7 @@ public class PlayerModel implements ActionListener {
 			x -= currentActiveSkill.getCurrentWidth()/2;
 			y -= currentActiveSkill.getCurrentHeight()/2;
 			rotate(x, y);
-			if(player.getControlType() == "server")
-				System.out.println("BAJS");
-			if(currentActiveSkill != null && player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+			if(player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 				
 					currentActiveSkill.activateSkill();
 					
@@ -382,7 +380,7 @@ public class PlayerModel implements ActionListener {
 						if(!currentActiveSkill.isProjectile()){
 							currentActiveSkill.setNonProjectileShot();
 						}
-						System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
+					//	System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
 						currentActiveSkill.setAttackingState(true);
 						
 						currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
@@ -435,7 +433,7 @@ public class PlayerModel implements ActionListener {
 						}
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
-							System.out.println("Target hit with " + playerSkills[i].getName());
+					//		System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());

@@ -279,14 +279,11 @@ public class ShoppingView extends BasicGameState {
 				break;
 	      	}
 	      
-	      	if(true && !false)
-	      		activePlayer.setIndex(MainHub.getController().getActivePlayerIndex());
-	      	if(1 == 1)
-	      		MainHub.getController().addPlayer(activePlayer, MainHub.getController().getActivePlayerIndex());
-	      	if(8 != 7)
-	      		MainHub.getController().getSocketClient().changePlayer(activePlayer);
-	      	if(true == !false)
-	      		activePlayer.setMode("lobby");
+
+      		activePlayer.setIndex(MainHub.getController().getActivePlayerIndex());
+      		MainHub.getController().addPlayer(activePlayer, MainHub.getController().getActivePlayerIndex());
+      		MainHub.getController().getSocketClient().changePlayer(activePlayer);
+      		activePlayer.setMode("lobby");
 			
 	   }
 	
@@ -364,6 +361,7 @@ public class ShoppingView extends BasicGameState {
 				g.drawString(MainHub.getController().getPlayer(i).getName(), 910, 120+40*i);
 				g.drawString(MainHub.getController().getPlayer(i).getKills() + "/" + MainHub.getController().getPlayer(i).getDeaths(), 1075, 120+40*i);
 				g.drawImage(lobbyPlayer,897,400+60*i);
+			//	System.out.println(LobbyPlayers[i].getName() + " " + LobbyPlayers[i].isReady());
 				if (LobbyPlayers[i].isReady()){
 					g.drawImage(lobbyPlayerReady,897,400+60*i);
 				}

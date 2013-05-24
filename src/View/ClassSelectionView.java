@@ -121,7 +121,10 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 					}*/
 	
 				if(!(MainHub.getController().isMulti())){	
-					MainHub.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
+					Player aiPlayer = new ClassWarrior("Enemy", "ai", 600, 600, 1);
+					
+					MainHub.getController().addPlayer(aiPlayer, 1);
+					aiPlayer.setReady(true);
 					sbg.enterState(5);
 				}else{
 				//	sbg.enterState(2);
@@ -169,7 +172,11 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				MainHub.getController().setSingleOrMulti(false);
-				MainHub.getController().addPlayer(new ClassWarrior("Enemy", "ai", 600, 600, 1), 1);
+				
+				Player aiPlayer = new ClassWarrior("Enemy", "ai", 600, 600, 1);
+				MainHub.getController().addPlayer(aiPlayer, 1);
+				aiPlayer.setReady(true);
+				
 				MainHub.getController().addPlayer(player, 0);
 				sbg.enterState(5);
 			}
