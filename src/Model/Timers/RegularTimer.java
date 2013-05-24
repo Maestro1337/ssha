@@ -3,14 +3,15 @@ package Model.Timers;
 import Model.Skills.*;
 import Model.*;
 
-public class StatusEffectTimer {
+public class RegularTimer {
 
 	private int interval = 1000;
 	private long startTime = 0;
 	private long elapsedTime = 0;
 	
-	public StatusEffectTimer(int delay){
+	public RegularTimer(int interval, int delay){
 		
+		this.interval = interval;
 		resetTimer();
 		//Setting startTime to startTime minus interval to make the first check instant and then plus delay to add delay if there is any
 		startTime = startTime - interval + delay;

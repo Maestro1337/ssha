@@ -30,7 +30,7 @@ public class StatusEffect {
 	private boolean commitedChange = false;
 	private String[] playersGivenTo;
 	
-	private StatusEffectTimer ESIT;
+	private RegularTimer ESIT;
 	private int delay;
 	
 	private boolean changeModel = false;
@@ -56,7 +56,7 @@ public class StatusEffect {
 		hasStealth = isStealth;
 		
 		playersGivenTo = new String[3];
-		ESIT = new StatusEffectTimer(delay);
+		ESIT = new RegularTimer(1000, delay);
 		
 	}
 	public boolean getChanneling(){

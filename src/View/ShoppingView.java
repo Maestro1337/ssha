@@ -64,6 +64,7 @@ import Model.Skills.Wizard.SkillIroncloak;
 import Model.Skills.Wizard.SkillTeleport;
 import Model.Skills.Wizard.SkillUnstableMagic;
 import Model.Skills.Wizard.SkillWandattack;
+import Model.Timers.RegularTimer;
 
 
 
@@ -95,6 +96,7 @@ public class ShoppingView extends BasicGameState {
 	private int grabbedFromChosenIndex = -1;
 	private boolean dragMouse = false;
 	private boolean allIsReady = false;
+	private RegularTimer startCheckTimer = new RegularTimer(5000, 0);
 	
 	private int chosenSkillsXStart = 17;
 	private int chosenSkillsYStart = 280;
@@ -488,6 +490,8 @@ public class ShoppingView extends BasicGameState {
 						playButton = new Image("res/buttons/GoButton.png");	
 						if(activePlayer.isReady()){
 							activePlayer.setHasClickedStartGame(true);
+							startCheckTimer.resetTimer();
+							
 						}
 					}	
 					activePlayer.setReady(true);
@@ -509,8 +513,9 @@ public class ShoppingView extends BasicGameState {
 				allIsReady = false;
 			}
 		}
-		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame()){
-		//	pressedReadyOrGo(sbg);
+		System.out.println(startCheckTimer.checkTimer());
+		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
+			pressedReadyOrGo(sbg);
 		}
 		
 		if((980<xPos && xPos<1100) && (670<yPos && yPos<715)){
