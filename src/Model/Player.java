@@ -455,15 +455,14 @@ public class Player {
 		return statusEffectList;
 	}
 	public void addStatusEffect(StatusEffect SE){
-		if(SE.getChangeModel()){
-			changeModel = true;
-		}
+		
 		statusEffectList.add(SE);
 	}
+	public void setChangedModelState(boolean state){
+		changeModel = state;
+	}
 	public void removeStatusEffect(StatusEffect SE){
-		if(SE.getChangeModel()){
-			changeModel = false;
-		}
+		
 		statusEffectList.remove(SE);
 	}
 	public void resetStatusEffects(){

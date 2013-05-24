@@ -62,57 +62,13 @@ public class StatusEffect {
 	public boolean getChanneling(){
 		return isChannel;
 	}
-	public Player getPlayer(){
-		return player;
-	}
-	public Skill getSkill(){
-		return skill;
-	}
-	public String getName(){
-		return name;
-	}
-	public int getDmgEff(){
-		return dmgEff;
-	}
-	public float getMoveXEff(){
-		return moveXEff;
-	}
-	public float getMoveYEff(){
-		return moveYEff;
-	}
-	public double getArmEff(){
-		return armEff;
-	}
-	public int getAttackSpeedEff(){
-		return atkSpeedEff;
-	}
-	public int getRangeEff(){
-		return rangeEff;
-	}
-	public int getEvasionEff(){
-		return evasionEff;
-	}
-	public double getMoveSpeedEff(){
-		return moveSpeedEff;
-	}
 	public boolean hasStun(){
 		return hasStun;
-	}
-	public boolean hasStealth(){
-		return hasStealth;
 	}
 	public void setChangeModel(){
 		changeModel = true;
 	}
-	public boolean getChangeModel(){
-		return changeModel;
-	}
-	public int getMaxCounts(){
-		return maxCounts;
-	}
-	protected int getDelay(){
-		return delay;
-	}
+
 	
 	public void resetStatusEffect(){
 		counts = maxCounts;
@@ -151,12 +107,12 @@ public class StatusEffect {
 			player.setRunningState(false);
 		}
 		if(armEff!=0 && !commitedChange){
+			armEff *= player.getArmor();
 			player.addArmor(armEff);
 		}
 		if(moveSpeedEff!=0 && !commitedChange){
 			//Calculating how the moveSpeed will be changed to know how much to change it back after return of statusEffect
 			moveSpeedEff = moveSpeedEff*player.getMovementSpeed();
-			System.out.println(moveSpeedEff);
 			player.addMovementSpeed(moveSpeedEff);
 		}
 		if(atkSpeedEff!=0 && !commitedChange){
@@ -177,6 +133,9 @@ public class StatusEffect {
 		if(hasStealth){
 			player.setStealthState(true);
 		}
+		if(changeModel){
+			player.setChangedModelState(true);
+		}
 		player.setStunState(hasStun);
 		commitedChange = true;
 	} 
@@ -194,7 +153,6 @@ public class StatusEffect {
 				skill.addAttackRange(-rangeEff);
 			}
 			if(moveSpeedEff!=0){
-				System.out.println(moveSpeedEff);
 				player.addMovementSpeed(-moveSpeedEff);
 			}
 			if(moveXEff != 0 || moveYEff != 0){
@@ -209,6 +167,9 @@ public class StatusEffect {
 			}
 			if(hasStealth){
 				player.setStealthState(false);
+			}
+			if(changeModel){
+				player.setChangedModelState(false);
 			}
 			player.setStunState(false);
 		}
