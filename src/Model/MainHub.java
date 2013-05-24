@@ -30,7 +30,6 @@ public class MainHub {
 	private int difficultySelected;
 	private Arena[] maps;
 	private String playerName = "Vitakukarluktarbäst2";
-
 	//Singleton
 	public static MainHub getController() {
 	if (myControl == null) {

@@ -470,8 +470,6 @@ public class ShoppingView extends BasicGameState {
 				buyUpgradeButton = new Image("res/buttons/buy.png");
 			}
 		}
-		
-		
 
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
 			if (!activePlayer.isReady()){
