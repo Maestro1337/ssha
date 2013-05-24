@@ -479,7 +479,7 @@ public class ShoppingView extends BasicGameState {
 				playButton = new Image ("res/buttons/OptionsOver.png");
 			}
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				if( activePlayer.isReady()&&!(activePlayer == LobbyPlayers[0])){
+				if( activePlayer.isReady()&& activePlayer != LobbyPlayers[0]){
 					playButton = new Image ("res/buttons/Ready.png");
 					activePlayer.setReady(false);
 				}else{
@@ -510,7 +510,7 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame()){
-			pressedReadyOrGo(sbg);
+		//	pressedReadyOrGo(sbg);
 		}
 		
 		if((980<xPos && xPos<1100) && (670<yPos && yPos<715)){
