@@ -675,7 +675,8 @@ public class PlayerModel implements ActionListener {
 	
 	private boolean stillAbleToMakeAction(Player player){
 		if(player != null)
-			if(player.getX() < 0 || player.getY() < 0 || player.getX() > GameEngine.screenWidth || player.getY() > GameEngine.screenHeight){
+			if(player.getX() < 0-MainHub.noActionLimit || player.getY() < 0-MainHub.noActionLimit || 
+					player.getX() > GameEngine.screenWidth+MainHub.noActionLimit || player.getY() > GameEngine.screenHeight+MainHub.noActionLimit){
 				return false;
 			}else{
 				return true;
