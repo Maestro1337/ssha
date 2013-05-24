@@ -510,7 +510,7 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		if(allIsReady&&LobbyPlayers[0].hasClickedStartGame()){
-		//	pressedReadyOrGo(sbg);
+			pressedReadyOrGo(sbg);
 		}
 		
 		if((980<xPos && xPos<1100) && (670<yPos && yPos<715)){
