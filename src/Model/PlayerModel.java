@@ -87,7 +87,6 @@ public class PlayerModel implements ActionListener {
 		player.setStunState(false);
 		player.setPushState(false);
 		player.resetStatusEffects();
-		player.activatePassiveEffects();
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
 		checkPlayerObstacleCollision(0, 0);
