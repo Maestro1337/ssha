@@ -28,9 +28,7 @@ public class StatusEffectUnstableMagic extends StatusEffectShell{
 				super.getMoveXEff(), super.getMoveYEff(), getRandomSpeed(), 
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
 				super.hasStealth(), super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
-		
 		newSE.setChangeModel();
-		
 		return newSE;
 	}
 	

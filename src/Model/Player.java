@@ -362,8 +362,8 @@ public class Player {
 	}
 	
 	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
-		changedModelAnimation = new RepeatingAnimationTimer(2000, walkingImages);
-		noStepChangedModelAnimation = new RepeatingAnimationTimer(2000, standingImages);
+		changedModelAnimation = new RepeatingAnimationTimer(1000, walkingImages);
+		noStepChangedModelAnimation = new RepeatingAnimationTimer(1000, standingImages);
 	}
 	
 	public void changeUserImage(){
@@ -421,24 +421,40 @@ public class Player {
 	}
 	public void addPassiveItem(Item item){
 		passiveItems.add(item);
+		StatusEffectShell SE = item.getSelfAffectingStatusEffect();
+		armor *= SE.getArmEff();
+		evasion += SE.getEvasionEff();
+		moveSpeed += SE.getMoveSpeedEff();
 	}
 	public void removePassiveItem(Item item){
 		passiveItems.remove(item);
+		StatusEffectShell SE = item.getSelfAffectingStatusEffect();
+		armor /= SE.getArmEff();
+		evasion -= SE.getEvasionEff();
+		moveSpeed -= SE.getMoveSpeedEff();
 	}
 	public ArrayList<Skill> getPassiveSkills(){
 		return passiveSkills;
 	}
 	public void addPassiveSkill(Skill skill){
 		passiveSkills.add(skill);
+		StatusEffectShell SE = skill.getSelfAffectingStatusEffect();
+		armor *= SE.getArmEff();
+		evasion += SE.getEvasionEff();
+		moveSpeed += SE.getMoveSpeedEff();
 	}
 	public void removePassiveSkill(Skill skill){
 		passiveSkills.remove(skill);
+		StatusEffectShell SE = skill.getSelfAffectingStatusEffect();
+		armor /= SE.getArmEff();
+		evasion -= SE.getEvasionEff();
+		moveSpeed -= SE.getMoveSpeedEff();
 	}
 	public void activatePassiveEffects(){
 		evasion = baseEvasion;
 		armor = baseArmor;
 		moveSpeed = baseMoveSpeed;
-		for(int i=0; i<passiveSkills.size(); i++){
+		/*for(int i=0; i<passiveSkills.size(); i++){
 			StatusEffectShell SE = passiveSkills.get(i).getSelfAffectingStatusEffect();
 			armor *= SE.getArmEff();
 			evasion += SE.getEvasionEff();
@@ -449,7 +465,7 @@ public class Player {
 			armor *= SE.getArmEff();
 			evasion += SE.getEvasionEff();
 			moveSpeed += SE.getMoveSpeedEff();
-		}
+		}*/
 	}
 	public ArrayList<StatusEffect> getStatusEffects(){
 		return statusEffectList;

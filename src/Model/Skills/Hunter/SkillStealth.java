@@ -15,20 +15,16 @@ public class SkillStealth extends Skill {
 				"Level 3: 15 sec\n" +
 				"Level 4: 20 sec");
 		
-		Image[] attackImages = new Image[3];
-		Image[] animation = new Image[3];
+		Image[] attackImages = new Image[1];
+		Image[] animation = new Image[1];
 		Image[] skillBar = new Image[3];
 		
 		super.setSelfAffectingStatusEffectShell(new StatusEffectStealth(this, 5));
 		
 		try {
 			attackImages[0] = new Image("res/animations/stealth/hunter_stealthstand.png");
-			attackImages[1] = new Image("res/animations/stealth/hunter_stealthwalk1.png");
-			attackImages[2] = new Image("res/animations/stealth/hunter_stealthwalk2.png");
 			
-			animation[0] = new Image("res/animations/stealth/hunter_stealthstand.png");
-			animation[1] = new Image("res/animations/stealth/hunter_stealthwalk1.png");
-			animation[2] = new Image("res/animations/stealth/hunter_stealthwalk2.png");
+			animation[0] = new Image("res/animations/stealth/hunter_stealthwalk1.png");
 			
 			skillBar[0] = new Image("res/skillIcons/stealth.png");
 			skillBar[1] = new Image("res/skillIcons/stealth_active.png");

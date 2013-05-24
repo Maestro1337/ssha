@@ -31,7 +31,8 @@ public class Menu extends BasicGameState implements ActionListener{
 	Image backgroundImage;
 	Image startGameButton;
 	Image exitButton;
-	Image titleText;
+	Image titleText1;
+	Image titleText2;
 	Image midBannerImage;
 	
 	public Menu (int state){
@@ -44,7 +45,8 @@ public class Menu extends BasicGameState implements ActionListener{
 		midBannerImage = new Image("res/miscImages/midBanner.png");
 		startGameButton = new Image("res/buttons/startgame.png");
 		exitButton = new Image("res/buttons/exit.png");
-		titleText = new Image("res/miscImages/menuText.png");
+		titleText1 = new Image("res/miscImages/SSH.png");
+		titleText2 = new Image("res/miscImages/arena.png");
 		
 		try {
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/bg-music.wav"));
@@ -64,7 +66,8 @@ public class Menu extends BasicGameState implements ActionListener{
 			startMusic = false;
 		}*/
 		
-		g.drawImage(titleText, gc.getWidth()/2 - titleText.getWidth()/2, 150);
+		g.drawImage(titleText1, gc.getWidth()/2 - titleText1.getWidth()/2, 150);
+		g.drawImage(titleText2, gc.getWidth()/2 - titleText2.getWidth()/2, 200);
 		g.drawImage(startGameButton, gc.getWidth()/2 - startGameButton.getWidth()/2, 325);
 		g.drawImage(exitButton, gc.getWidth()/2 - exitButton.getWidth()/2, 425);
 	}
