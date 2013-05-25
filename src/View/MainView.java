@@ -45,6 +45,7 @@ import Model.Timers.AnimationTimer;
 
 public class MainView extends BasicGameState implements ActionListener {	
 	boolean shouldCalcGold;
+	ArrayList <Player> placingInRound = null; 
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
@@ -103,8 +104,9 @@ public class MainView extends BasicGameState implements ActionListener {
 	
 //	float mouseXPosAtt;
 //	float mouseYPosAtt;
-	
+
 //	private boolean start = true;
+
 	
 	public MainView(int state) {
 		
@@ -115,11 +117,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		map = new TiledMap("res/tileset/grassBackground.tmx");
 	}
 	
-	public void initRound() throws SlickException{
+	public void initRound() throws SlickException{		
 		TimeRoundStart = System.currentTimeMillis();
 		shouldCalcGold=true;
 		treetop = new Image ("res/tileset/Treetop2.png");
-
+		
 		Arena arena = MainHub.getController().getMapSelected();
 		if(arena != null){
 			obstacles = arena.getObstacles();
@@ -257,8 +259,8 @@ public class MainView extends BasicGameState implements ActionListener {
 				Player currentPlayer = playerList[i];
 				Skill[] currentSkillset = currentPlayer.getSkillList();
 				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-						+ "%\nKills: " + currentPlayer.getKills() + "\nMovement: " + currentPlayer.getMovementSpeed() 
-						+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY(),900+150*i,25);
+						+ "%\nKills: " + currentPlayer.getKillsThisRound() + "\nMovement: " + currentPlayer.getMovementSpeed() 
+						+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY() + "\n DMG: "+ currentPlayer.getRoundDamageDone(),900+150*i,25);
 				
 				
 				for(int j=0; j<currentSkillset.length; j++){
@@ -413,6 +415,13 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
+		 for (int i =0;i<players.length;i++){
+			 if (!players [i].getPlayer().isAlive()){
+				 placingInRound.add(players [i].getPlayer());
+			 }		
+		 }
+		
+		
 		
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
@@ -427,6 +436,9 @@ public class MainView extends BasicGameState implements ActionListener {
 		if(roundOverCheck()){
 			if (shouldCalcGold && nbrOfCurrentPlayers>1){
 				goldreward();
+				placingInRound.clear();
+				currentActiveController.getPlayer().incTotalKills(currentActiveController.getPlayer().getKillsThisRound());
+				currentActiveController.getPlayer().setKillsThisRound(0);
 			}
 			shouldCalcGold=false;
 			if((640 - nextRoundButton.getWidth()/2<xPos && xPos<760 - nextRoundButton.getWidth()/2) && (200 + nextRoundBg.getHeight()/2<yPos && yPos<245 + nextRoundBg.getHeight()/2)){
@@ -443,6 +455,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	//	AI();
 	}
+
 	
 	private boolean roundOverCheck(){
 		//Checks if round should be ended
@@ -456,6 +469,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				if(players[i].getPlayer().isAlive()){
 					stillAlive++;
 					winningPlayer = players[i].getPlayer().getName();
+					placingInRound.add(players[i].getPlayer());
 				}
 			}
 		}
@@ -516,19 +530,39 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void goldreward(){
-		Player goldRewardPlayer = players[activePlayer].getPlayer();
+		int numberofplayers=0;
+		int allDamageDone=0;
+		double damageDonePercentage;
+		double activeRoundMultiplier=0;
+		double placingInRoundMultiplier=0;
+		int activeplayerkills = players [activePlayer].getPlayer().getKillsThisRound();
+		
+		// A round that ends fast is an active round that should earn the player more gold.
 		if(System.currentTimeMillis()-TimeRoundStart<1000*60*1)
-			goldRewardPlayer.addGold(1);
+			activeRoundMultiplier = 2;
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*2)
-			goldRewardPlayer.addGold(5);
+			activeRoundMultiplier = 1.75;
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*3)
-			goldRewardPlayer.addGold(15);
+			activeRoundMultiplier = 1.5;
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*4)
-			goldRewardPlayer.addGold(25);
+			activeRoundMultiplier = 1.25;
 		else if(System.currentTimeMillis()-TimeRoundStart<1000*60*5)
-			goldRewardPlayer.addGold(50);
-	//	if(!enemy.isAlive()){
-	//		player.addGold(25);
-	//	}
+			activeRoundMultiplier = 1;
+	
+		for (int i=0;i<players.length;i++){
+			if (players [i]!= null){
+				allDamageDone += players [i].getPlayer().getRoundDamageDone();
+				numberofplayers++;
+			}
+		}for (int i=0;i<placingInRound.size();i++){
+			if (placingInRound.get(i)==players[activePlayer].getPlayer()){
+				placingInRoundMultiplier = 0.8+i/10;
+			}	
+			else placingInRoundMultiplier = 1;
+		}
+		damageDonePercentage = players[activePlayer].getPlayer().getRoundDamageDone()/allDamageDone;
+		
+		//Gives the player gold based on how well he/she did this round.
+		players [activePlayer].getPlayer().addGold((int)((damageDonePercentage*numberofplayers*10+activeplayerkills*5+20)*activeRoundMultiplier*placingInRoundMultiplier));
 	}
 }

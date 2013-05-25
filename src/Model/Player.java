@@ -54,7 +54,10 @@ public class Player {
 	private double armor=0;
 	private int baseEvasion = 0;
 	private int evasion=0;
-	private int kills=0;
+	private int totalKills=0;
+	private int killsThisRound=0;
+	private int totalDamageDone=0;
+	private int roundDamageDone=0;
 	private int deaths = 0;
 	private int gold=500;
 	private Skill[] skillList = new Skill[5];
@@ -318,14 +321,38 @@ public class Player {
 	public void setMovementSpeed(double speed) {
 		this.moveSpeed = speed;
 	}
-	public int getKills(){
-		return kills;
+	public int getTotalKills(){
+		return totalKills;
 	}
-	public void incKills(){
-		kills++;
+	public void incTotalKills(int incAmount){
+		totalKills=totalKills+incAmount;
 	}
-	public void setKills(int kills) {
-		this.kills = kills;
+	public void setTotalKills(int kills) {
+		totalKills = kills;
+	}
+	public int getKillsThisRound(){
+		return killsThisRound;
+	}
+	public void setKillsThisRound(int kills){
+		killsThisRound=kills;
+	}
+	public void incKillsThisRound(){
+		killsThisRound++;
+	}
+	public int getRoundDamageDone(){
+		return roundDamageDone;
+	}
+	public void setRoundDamageDone(int damage){
+		roundDamageDone=damage;
+	}
+	public void incRoundDamageDone(int damageAmount){
+		roundDamageDone=roundDamageDone+damageAmount;
+	}
+	public int getTotalDamageDone(){
+		return totalDamageDone;
+	}
+	public void incTotalDamageDone(int damageAmount){
+		totalDamageDone=totalDamageDone+damageAmount;
 	}
 	public int getDeaths(){
 		return deaths;

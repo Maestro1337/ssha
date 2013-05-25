@@ -54,7 +54,7 @@ public class PlayerClientController implements PlayerControl {
 			
 			// Set Player stats in lobby with info from Server
 			if(Constants.getItem(tempStats, 2).equals("lobby")) {
-				tp.setKills(Integer.parseInt(Constants.getItem(tempStats, 4)));
+				tp.setTotalKills(Integer.parseInt(Constants.getItem(tempStats, 4)));
 				tp.setGold(Integer.parseInt(Constants.getItem(tempStats, 5)));
 				tp.setArmor(Double.parseDouble(Constants.getItem(tempStats, 19)));
 				tp.setEvasion(Integer.parseInt(Constants.getItem(tempStats, 20)));

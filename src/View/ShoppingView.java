@@ -325,7 +325,7 @@ public class ShoppingView extends BasicGameState {
 		g.drawImage(playerGold,70,185);
 		g.drawString(""+activePlayer.getGold(), 140, 198);
 		g.drawString(activePlayer.getName() + "\nHP: "+activePlayer.getHP() + "\nArmor: " + (int)(activePlayer.getArmor()*100) 
-				+ "%\nKills: " + activePlayer.getKills() , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
+				+ "%\nKills: " + activePlayer.getTotalKills() , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
 
 
 		for(int j=0; j<chosenSkills.length; j++){
@@ -362,7 +362,7 @@ public class ShoppingView extends BasicGameState {
 		for (int i=0; i<LobbyPlayers.length;i++){
 			if (LobbyPlayers[i] != null){
 				g.drawString(MainHub.getController().getPlayer(i).getName(), 910, 120+40*i);
-				g.drawString(MainHub.getController().getPlayer(i).getKills() + "/" + MainHub.getController().getPlayer(i).getDeaths(), 1075, 120+40*i);
+				g.drawString(MainHub.getController().getPlayer(i).getTotalKills() + "/" + MainHub.getController().getPlayer(i).getDeaths(), 1075, 120+40*i);
 				g.drawImage(lobbyPlayer,897,400+60*i);
 			//	System.out.println(LobbyPlayers[i].getName() + " " + LobbyPlayers[i].isReady());
 				if (LobbyPlayers[i].isReady()){
@@ -421,7 +421,7 @@ public class ShoppingView extends BasicGameState {
 		xPos = Mouse.getX();
 		yPos = 720 - Mouse.getY();
 		
-		activePlayer.setGold(5000);
+		//activePlayer.setGold(5000);
 		
 		for(int i=0;i<9;i++){
 			if (findOwnedSkill(allSkills[i].getName()) != null){

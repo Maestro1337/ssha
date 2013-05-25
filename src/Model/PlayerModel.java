@@ -410,10 +410,13 @@ public class PlayerModel implements ActionListener {
 							playerSkills[i].collidedShot();
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
+								
 							}
 						}else{
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
 							}
 							playerSkills[i].activateCollisionEndState();
 						}
@@ -424,6 +427,7 @@ public class PlayerModel implements ActionListener {
 							//TODO Fix so it can hit several players and reset differently instead of one collected
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
 								playerSkills[i].resetOffensiveStatusGivenTo();
 							}
 							SCT.resetESColTimer();
@@ -433,7 +437,7 @@ public class PlayerModel implements ActionListener {
 			}
 		}
 		if(player.getHP() <= 0){
-			attackingPlayer.incKills();
+			attackingPlayer.incKillsThisRound();
 			killPlayer();
 			player.incDeaths();
 		}
@@ -455,8 +459,7 @@ public class PlayerModel implements ActionListener {
 						}
 					}
 					fixSpawnCollision(currentObstacleCheck);
-				}
-				
+				}				
 				return true;
 
 			}
