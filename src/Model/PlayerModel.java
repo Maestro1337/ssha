@@ -116,13 +116,14 @@ public class PlayerModel implements ActionListener {
 					currentActiveSkill = playerSkills[i];
 					playerSkills[i].setChosenState(true);
 					player.setCurrentActiveSkillIndex(i);
+					//Using attack instantly if the range is 0
+					if(playerSkills[i].getRange() == 0){
+						attack((int)player.getX(), (int)player.getY());
+					}
 				}else{
 					playerSkills[i].setChosenState(false);
 				}
 			}
-		}
-		if(playerSkills[index].getRange() == 0){
-			attack((int)player.getX(), (int)player.getY());
 		}
 	}
 	
@@ -286,8 +287,6 @@ public class PlayerModel implements ActionListener {
 			if(!player.isPushed()){
 				
 				rotate(x, y);
-				player.setMouseXPosMove(x);
-				player.setMouseYPosMove(y);
 				
 				float xDir = x - player.getX();
 				float yDir = y - player.getY();
@@ -303,8 +302,6 @@ public class PlayerModel implements ActionListener {
 					player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
 					
 					player.resetMoveCounter();
-					
-				//	System.out.println("Running " + player.getGenDirMove() + " pixels");
 					player.setRunningState(true);
 				}else{
 					System.out.println("NaN BUG");
@@ -316,75 +313,67 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void attack(int x, int y){
-		if(currentActiveSkill != null && checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player)){
+		currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
+		if(currentActiveSkill != null && checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player) && 
+				!currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			checkAndCorrectChannel();
 			checkAndCorrectStealth();
-			
-			if(player.isStealthed()){
-				for(int i=0; i<player.getStatusEffects().size();i++){
-					if(player.getStatusEffects().get(i).getChanneling()){
-						player.getStatusEffects().get(i).setResetOfStatusEffect();
-						player.removeStatusEffect(player.getStatusEffects().get(i));
-					}
-				}
-			}
-			currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
+			
+			//WUT??
 			if(currentActiveSkill.isPiercing()){
 				currentActiveSkill.setEndstate(false);
 			}
+			
+			//WUT?? Again
 			if(currentActiveSkill.isGrapplingHook()){
 				
 			}
-			//Setting x and y to be in middle of mouse click
+			//Rotating to where the middle of the mouse click is
+			if(currentActiveSkill.getRange() != 0)
+				rotate(x, y);
+			//Setting x and y to make the center of the skill appear in the center of the mouse click
 			x -= currentActiveSkill.getCurrentWidth()/2;
 			y -= currentActiveSkill.getCurrentHeight()/2;
-			rotate(x, y);
-			if(player.isAlive() && !player.isStunned() && !currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+			
+			
+		
+			currentActiveSkill.activateSkill();
+			currentActiveSkill.resetShot(player);
+			
+			float xDir = x - currentActiveSkill.getAttX();
+			float yDir = y - currentActiveSkill.getAttY();
+			float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
+			
+			
+			Double findNaN = (double)genDir;
+			if(!findNaN.isNaN() && !findNaN.isInfinite()){
+			
+				currentActiveSkill.setRotation(player.getRotation());
 				
-					currentActiveSkill.activateSkill();
-					
-					currentActiveSkill.setMouseXPos(x);
-					currentActiveSkill.setMouseYPos(y);
-					
-					
-					currentActiveSkill.resetShot(player);
-					
-					float xDir = x - currentActiveSkill.getAttX();
-					float yDir = y - currentActiveSkill.getAttY();
-					float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-					
-					
-					Double findNaN = (double)genDir;
-					if(!findNaN.isNaN() && !findNaN.isInfinite()){
-					
-						currentActiveSkill.setRotation(player.getRotation());
-						
-						currentActiveSkill.setGenDirAtt(genDir);
-						currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
-						currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
-						
-						if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
-							currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
-						}
-						currentActiveSkill.resetAttCounter();
-						if(!currentActiveSkill.isProjectile()){
-							currentActiveSkill.setNonProjectileShot();
-						}
-					//	System.out.println("Attacking with " + currentActiveSkill.getName() + " at the range of " + currentActiveSkill.getGenDirAtt() + " pixels");
-						currentActiveSkill.setAttackingState(true);
-						
-						currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
-						currentActiveSkill.setMouseYPos(player.getY()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getGenDirAtt());
-						
-					}
-					
-				if(currentActiveSkill.getAffectSelf()){
-					if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
-						player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
-					}
+				currentActiveSkill.setGenDirAtt(genDir);
+				currentActiveSkill.setXDirAtt(xDir/currentActiveSkill.getGenDirAtt());
+				currentActiveSkill.setYDirAtt(yDir/currentActiveSkill.getGenDirAtt());
+				
+				if(currentActiveSkill.getGenDirAtt() > currentActiveSkill.getAttackRange()){
+					currentActiveSkill.setGenDirAtt(currentActiveSkill.getAttackRange());
+				}
+				currentActiveSkill.resetAttCounter();
+				if(!currentActiveSkill.isProjectile()){
+					currentActiveSkill.setNonProjectileShot();
+				}
+				currentActiveSkill.setAttackingState(true);
+				
+				currentActiveSkill.setMouseXPos(player.getX()+currentActiveSkill.getXDirAtt()*currentActiveSkill.getGenDirAtt());
+				currentActiveSkill.setMouseYPos(player.getY()+currentActiveSkill.getYDirAtt()*currentActiveSkill.getGenDirAtt());
+				
+			}
+				
+			if(currentActiveSkill.getAffectSelf()){
+				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
+					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
 				}
 			}
 			resetGlobalAttackTimer();
@@ -676,7 +665,8 @@ public class PlayerModel implements ActionListener {
 	private boolean stillAbleToMakeAction(Player player){
 		if(player != null)
 			if(player.getX() < 0-MainHub.noActionLimit || player.getY() < 0-MainHub.noActionLimit || 
-					player.getX() > GameEngine.screenWidth+MainHub.noActionLimit || player.getY() > GameEngine.screenHeight+MainHub.noActionLimit){
+					player.getX() > GameEngine.screenWidth+MainHub.noActionLimit || player.getY() > GameEngine.screenHeight+MainHub.noActionLimit ||
+					!player.isAlive() || player.isStunned()){
 				return false;
 			}else{
 				return true;

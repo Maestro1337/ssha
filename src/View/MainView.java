@@ -61,49 +61,50 @@ public class MainView extends BasicGameState implements ActionListener {
 	Image nextRoundButton;
 	Image nextRoundBg;
 	boolean roundOver = false;
-	boolean firstTimeRoundOver;
+	private boolean firstTimeRoundOver;
+	private int roundOverMultiCheck = 0;
 	Image roundOverAnimationImage;
 	
 	AnimationTimer victoryAnimation;
 	
-	private PlayerModel Control; 
-	private PlayerModel enemyControl;
-	Player player;
-	Player enemy;
-	Skill[] playerSkills;
-	Skill activeSkill;
+//	private PlayerModel Control; 
+//	private PlayerModel enemyControl;
+//	Skill[] playerSkills;
+//	Skill activeSkill;
 	
-	Image playerPortrait;
-	
-	Image enemyImage;
-	Skill[] enemySkills;
+//	Image playerPortrait;
+//	Player player;
+//	Player enemy;
+//	Image enemyImage;
+//	Skill[] enemySkills;
 	
 	
 	
 	private int activePlayer;
 	private PlayerModel currentActiveController;
 	private Skill[] activeSkillList;
-	private PlayerModel[] players = new PlayerModel[Constants.nbrOfPlayer];
+	private PlayerModel[] players = new PlayerModel[MainHub.nbrOfPlayers];
+	private AIModel[] aiModels = new AIModel[MainHub.nbrOfPlayers];
 	private int nbrOfCurrentPlayers;
 	private Obstacle[] obstacles = new Obstacle[100];
 	
-	Image userImage;
-	Image user;
-	Image move1;
-	Image move2;
+//	Image userImage;
+//	Image user;
+//	Image move1;
+//	Image move2;
 	
 	
-	float mouseXPosMove;
-	float mouseYPosMove;
+//	float mouseXPosMove;
+//	float mouseYPosMove;
 	
-	float prevMouseXPosMove;
-	float prevMouseYPosMove;
+//	float prevMouseXPosMove;
+//	float prevMouseYPosMove;
 	
 	
-	float mouseXPosAtt;
-	float mouseYPosAtt;
+//	float mouseXPosAtt;
+//	float mouseYPosAtt;
 	
-	private boolean start = true;
+//	private boolean start = true;
 	
 	public MainView(int state) {
 		
@@ -132,15 +133,19 @@ public class MainView extends BasicGameState implements ActionListener {
 		playerList = MainHub.getController().getPlayers();
 		activePlayer = MainHub.getController().getActivePlayerIndex();
 		
-		playerPortrait = playerList[activePlayer].getFramedImage();
+//		playerPortrait = playerList[activePlayer].getFramedImage();
 		
 		
 		for(int i=0; i<MainHub.getController().getPlayers().length; i++){
-			
-			if(MainHub.getController().getPlayer(i) != null){
-				System.out.println(MainHub.getController().getPlayer(i).getName() + " " + MainHub.getController().getPlayer(i).getPlayerListIndex() + " " + i);
-				players[i] = new PlayerModel(MainHub.getController().getPlayer(i));
+			Player newPlayer = MainHub.getController().getPlayer(i);
+			if(newPlayer != null){
+				System.out.println(newPlayer.getName() + " " + newPlayer.getPlayerListIndex() + " " + i);
 				nbrOfCurrentPlayers++;
+				players[i] = new PlayerModel(newPlayer);
+				if(newPlayer.getControlType() == "ai"){
+					aiModels[i] = new AIModel(newPlayer);
+				}
+				
 			}
 		}
 		
@@ -199,6 +204,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		victoryAnimation = new AnimationTimer(500,victoryanimation);
 		firstTimeRoundOver = true;
+		roundOverMultiCheck = 0;
 		
 		MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()).setMode("arena");
 		for(int lol = 0; lol < MainHub.getController().getPlayers().length; lol++) {
@@ -219,6 +225,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		currentActiveController = players[activePlayer];
 		activeSkillList = currentActiveController.getPlayer().getSkillList();
+		
 	}
 	
 	@Override
@@ -276,7 +283,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Attempt to draw oval around player which displays max range (Currently not working correctly)
 //		g.drawOval(player.getX()-Control.getCurrentActiveSkill().getAttackRange()/2, player.getY()-Control.getCurrentActiveSkill().getAttackRange()/2, Control.getCurrentActiveSkill().getAttackRange(), Control.getCurrentActiveSkill().getAttackRange());
 //		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
-		g.drawImage(playerPortrait, 20, 585);
+		g.drawImage(playerList[activePlayer].getFramedImage(), 20, 585);
 		//Draw the actionbar
 		Skill[] activePlayerSkills = playerList[activePlayer].getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
@@ -298,10 +305,10 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	
 		if(roundOver){
-			if (shouldCalcGold && nbrOfCurrentPlayers>1){
+			/*if (shouldCalcGold && nbrOfCurrentPlayers>1){
 				goldreward();
 			}
-			shouldCalcGold=false;
+			shouldCalcGold=false;*/
 			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, GameEngine.screenWidth/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/4, 210);
@@ -368,6 +375,12 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
+		for(int j=0; j<aiModels.length; j++){
+			if(aiModels[j] != null){
+				aiModels[j].AI();
+			}
+		}
+		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
 			if(activeSkillList[0] != null && !activeSkillList[0].isPassive()){
@@ -406,26 +419,11 @@ public class MainView extends BasicGameState implements ActionListener {
 			currentActiveController.attack(Mouse.getX(), GameEngine.screenHeight - Mouse.getY());
 		}
 		
-		
-		//Checks if round should be ended
-		int endRound = 0;
-		String winningPlayer = null;
-		for(int i=0; i<players.length; i++){
-			if(players[i] != null){
-				if(players[i].getPlayer().isAlive()){
-					endRound++;
-					winningPlayer = players[i].getPlayer().getName();
-				}
+		if(roundOverCheck()){
+			if (shouldCalcGold && nbrOfCurrentPlayers>1){
+				goldreward();
 			}
-		}
-		//Ends round if only 1 player is alive
-		if (endRound == 1 && nbrOfCurrentPlayers > 1){
-			if(firstTimeRoundOver){
-				victoryAnimation.resetCounterAndTimer();
-				firstTimeRoundOver = false;
-			}
-			roundOver = true;
-			endRoundText = winningPlayer + " " + "wins!";
+			shouldCalcGold=false;
 			if((640 - nextRoundButton.getWidth()/2<xPos && xPos<760 - nextRoundButton.getWidth()/2) && (200 + nextRoundBg.getHeight()/2<yPos && yPos<245 + nextRoundBg.getHeight()/2)){
 				nextRoundButton = new Image("res/buttons/ReadyOver.png");
 				if(input.isMousePressed(0)){
@@ -440,71 +438,40 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	//	AI();
 	}
-
-	public boolean willCollide(){
-		float collitionx;
-		float collitiony;
-		boolean value=false;
-		
-		for (int i=1;i<Control.getCurrentActiveSkill().getRange();i++){
-			collitionx=player.getX()+(i*Control.getCurrentActiveSkill().getAttX());
-			collitiony=player.getY()+(i*Control.getCurrentActiveSkill().getAttY());	
-			if(collitionx>enemy.getX()&&collitionx<enemy.getX()+enemy.getImage().getWidth()&&collitiony>enemy.getY()&&collitiony<enemy.getY()+enemy.getImage().getHeight()){
-				value = true;
-			 break;
-			}
+	
+	private boolean roundOverCheck(){
+		//Checks if round should be ended
+		if(roundOverMultiCheck >= MainHub.syncFrames){
+			return true;
 		}
-		return value;
-	}
-	public boolean aiTimer (long delay){
-		return true;
-	}
-		
-	
-	
-	long time = 0;
-	int dodgedirX;
-	int dodgedirY;
-	
-	public void AI() throws SlickException{
-		Random generator = new Random();
-		long delay=500;
-		double dx = enemy.getX()-player.getX();
-		double dy = enemy.getY()-player.getY();
-		double distance = Math.sqrt((dx*dx)+(dy*dy));
-		while (System.currentTimeMillis()>time+delay){
-			// if player is attacking the AI will try to dodge.
-			if(Control.getCurrentActiveSkill().isAttacking()&&Control.getCurrentActiveSkill().getRange()>distance){
-				if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-					
+		int stillAlive = 0;
+		String winningPlayer = null;
+		for(int i=0; i<players.length; i++){
+			if(players[i] != null){
+				if(players[i].getPlayer().isAlive()){
+					stillAlive++;
+					winningPlayer = players[i].getPlayer().getName();
 				}
-				else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
-				}
-				
-			}
-				
-			
-			else if (distance>=30){
-				enemyControl.move((int)player.getX(),(int) player.getY());
-			}else if (dx<0){
-				enemyControl.move(generator.nextInt((int)player.getX()), generator.nextInt(GameEngine.screenHeight-1) + 1);
-			}
-			else{
-				enemyControl.move(generator.nextInt(GameEngine.screenWidth-(int)player.getX())+(int)player.getX(), generator.nextInt(GameEngine.screenHeight-1) + 1);
-			}
-			time=System.currentTimeMillis();
-		}
-		for(int i=0;i<enemy.getSkillList().length;i++){
-			enemyControl.setCurrentActiveSkill(i);
-			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
-							enemyControl.getCurrentActiveSkill().checkCooldown()==enemyControl.getCurrentActiveSkill().getCoolDown()){
-				enemyControl.attack((int)player.getX(), (int)player.getY());
 			}
 		}
-		
+		if(stillAlive == 1){
+			roundOverMultiCheck++;
+		}else{
+			roundOverMultiCheck = 0;
+		}
+		System.out.println(roundOverMultiCheck);
+		//Ends round if only 1 player is alive
+		if (stillAlive == 1 && nbrOfCurrentPlayers > 1 && roundOverMultiCheck >= MainHub.syncFrames){
+			if(firstTimeRoundOver){
+				victoryAnimation.resetCounterAndTimer();
+				firstTimeRoundOver = false;
+			}
+			roundOver = true;
+			endRoundText = winningPlayer + " " + "wins!";
+			return true;
+		}
+		return false;
 	}
-	
 		
 	//Returns the state of the game
 	public int getID(){

@@ -20,23 +20,30 @@ public class AIModel implements PlayerControl{
 	private int enemyPlayer = 1;
 	Obstacle[] obstacles;
 	
+	
+	
+	
+	public AIModel(Player player){
+		enemy = player;
+		run();
+	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		playerList = MainHub.getController().getPlayers();
 		obstacles = MainHub.getController().getMapSelected().getObstacles();
-		enemyControl = new PlayerModel(playerList[enemyPlayer]);
+		enemyControl = new PlayerModel(enemy);
 		updateTarget();
 
-		enemy = enemyControl.getPlayer();
+	//	enemy = enemyControl.getPlayer();
 		enemySkills = enemy.getSkillList();
 		try {
 			enemyControl.ressurectPlayer();
 			enemyControl.checkPlayerObstacleCollision(0, 0);
-			while(true){
-				AI();
-			}
+		//	while(true){
+		//		AI();
+		//	}
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,6 +95,9 @@ public class AIModel implements PlayerControl{
 	int dodgedirY;
 	
 	public void AI() throws SlickException{
+		if(targetPlayer == null){
+			updateTarget();
+		}
 		Random generator = new Random();
 		long delay=500;
 		double dx = enemy.getX()-targetPlayer.getX();
@@ -128,7 +138,7 @@ public class AIModel implements PlayerControl{
 	}
 	
 	private void updateTarget(){
-		int targetPlayerIndex = enemy.getPlayerListIndex() != 0 ? 0 : 1;
+	/*	int targetPlayerIndex = enemy.getPlayerListIndex() != 0 ? 0 : 1;
 		float targetPlayerXDir = playerList[targetPlayerIndex].getX() - enemy.getX();
 		float targetPlayerYDir = playerList[targetPlayerIndex].getY() - enemy.getY();
 		float targetPlayerGenDir = (float)Math.sqrt(targetPlayerXDir*targetPlayerXDir+targetPlayerYDir*targetPlayerYDir);
@@ -151,6 +161,7 @@ public class AIModel implements PlayerControl{
 			targetPlayer = playerList[targetPlayerIndex];
 		}else{
 			targetPlayer = null;
-		}
+		}*/
+		targetPlayer = playerList[0];
 	}
 }
