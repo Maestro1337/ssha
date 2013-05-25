@@ -130,14 +130,14 @@ public class PlayerModel implements ActionListener {
 	public void isRunning() throws SlickException{
 		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
 		
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMovementSpeed() > 0 && !collided){
+		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMovementSpeed() > 0/* && !collided*/){
 			player.addX((float)(player.getXDirMove()*player.getMovementSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMovementSpeed()));
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMovementSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
 			
-		}else if(player.isAlive() && player.isPushed() && player.getMovementSpeed() > 0 && !collided){
+		}else if(player.isAlive() && player.isPushed() && player.getMovementSpeed() > 0/* && !collided*/){
 			
 			double tempSpeed = player.getPushSpeed();
 			double calculateDecision = tempSpeed*player.getMoveCounter();
@@ -452,19 +452,16 @@ public class PlayerModel implements ActionListener {
 	
 	public boolean checkPlayerObstacleCollision(float x, float y) throws SlickException{
 		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
-		//for(int i=0; i<obstacles.length; i++){
 			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
-			//Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && isCollidingWithObstacle(currentObstacleCheck, player.getX()+x, player.getY()+y, player.getImage().getWidth(), player.getImage().getHeight())){
 				
 				if(currentObstacleCheck.isSolid()){
-					player.setPushState(false);	
-					player.setRunningState(false);
-				//	pushPlayer(player.getXDirMove(), player.getYDirMove(), -100);
+					player.setPushState(false);
+					if(currentObstacleCheck.getDamage() > 0){
+						pushPlayer(player.getXDirMove(), player.getYDirMove(), -20);
+					}
 					fixSpawnCollision(currentObstacleCheck);
 				}
-
-//				System.out.println("Target ran into " + obstacles[i].getType());
 				player.dealDamage(currentObstacleCheck.getDamage());
 				return true;
 
