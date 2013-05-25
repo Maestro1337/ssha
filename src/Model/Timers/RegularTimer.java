@@ -36,4 +36,7 @@ public class RegularTimer {
 	public int getInterval(){
 		return interval;
 	}
+	public void stopTimer(){
+		startTime = System.currentTimeMillis() - interval;
+	}
 }

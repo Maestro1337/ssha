@@ -1,17 +1,10 @@
 package Model;
 
-import java.util.ArrayList;
-
 import sshaclient.Constants;
 import sshaclient.SocketClient;
 
 import Control.PlayerControl;
-import Model.Arenas.Arena;
-import Model.Arenas.MapHazardCross;
-import Model.Arenas.MapSlaughterField;
-import Model.Classes.ClassHunter;
-import Model.Classes.ClassWarrior;
-import Model.Classes.ClassWizard;
+import Model.Arenas.*;
 
 public class MainHub {
 
@@ -30,7 +23,7 @@ public class MainHub {
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "xXx-oster";
+	private String playerName = "vVv-ito";
 
 
 	//Singleton

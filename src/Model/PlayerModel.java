@@ -385,10 +385,8 @@ public class PlayerModel implements ActionListener {
 	public void checkCollision(Player attackingPlayer, Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
 			for(int i=0; i<playerSkills.length; i++){
-				if(playerSkills[player.getCurrentActiveSkillIndex()] != null && playerSkills[player.getCurrentActiveSkillIndex()].isPiercing()){
-					break;
-				}
-				if(playerSkills[i] != null && isColliding(playerSkills[i])){
+				Skill skill = playerSkills[i];
+				if(skill != null && isColliding(skill)){
 					int evasion = player.getEvasion();
 					//Calculates new evasion to check if player will evade the attack in this state
 					if(evasion>=0){
@@ -396,39 +394,42 @@ public class PlayerModel implements ActionListener {
 						evasion = generator.nextInt(100) - evasion;
 					}
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
-					if(playerSkills[i].getOffensiveStatusEffect() != null && !playerSkills[i].getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
+					if(skill.getOffensiveStatusEffect() != null && !skill.getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
-						player.addStatusEffect(playerSkills[i].getOffensiveStatusEffect().createStatusEffectTo(player));
+						player.addStatusEffect(skill.getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
 					
-					if(!playerSkills[i].isEndState()){
-						if(evasion>=0){
-							pushPlayer(playerSkills[i].getXDirAtt(), playerSkills[i].getYDirAtt(), playerSkills[i].getPushDistance());
+					if(!skill.isEndState()){
+						if(evasion>=0 && !skill.isPiercing()){
+							pushPlayer(skill.getXDirAtt(), skill.getYDirAtt(), skill.getPushDistance());
 						}
-						if(!playerSkills[i].hasEndState()){
-							playerSkills[i].setAttackingState(false);
-							playerSkills[i].collidedShot();
+						if(!skill.hasEndState()){
+							if(!skill.isPiercing()){
+								System.out.println("BAHSSSSS");
+								skill.setAttackingState(false);
+								skill.collidedShot();
+							}
 							if(evasion>=0){
-								player.dealDamage(playerSkills[i].getDamage());
-								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
+								player.dealDamage(skill.getDamage());
+								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
 								
 							}
 						}else{
 							if(evasion>=0){
-								player.dealDamage(playerSkills[i].getDamage());
-								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
+								player.dealDamage(skill.getDamage());
+								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
 							}
-							playerSkills[i].activateCollisionEndState();
+							skill.activateCollisionEndState();
 						}
 					}else{
 						
-						SkillCheckingTimer SCT = getRelevantSCT(playerSkills[i]);
-						if(SCT != null && SCT.checkESColTimer() == playerSkills[i].getESColInterval()){
+						SkillCheckingTimer SCT = getRelevantSCT(skill);
+						if(SCT != null && SCT.checkESColTimer() == skill.getESColInterval()){
 							//TODO Fix so it can hit several players and reset differently instead of one collected
 							if(evasion>=0){
-								player.dealDamage(playerSkills[i].getDamage());
-								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
-								playerSkills[i].resetOffensiveStatusGivenTo();
+								player.dealDamage(skill.getDamage());
+								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
+								skill.resetOffensiveStatusGivenTo();
 							}
 							SCT.resetESColTimer();
 						}

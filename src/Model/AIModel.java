@@ -17,7 +17,6 @@ public class AIModel implements PlayerControl{
 	Player enemy;
 	Player targetPlayer;
 	Skill[] enemySkills;
-	private int enemyPlayer = 1;
 	Obstacle[] obstacles;
 	
 	
