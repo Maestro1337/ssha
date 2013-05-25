@@ -17,6 +17,7 @@ public class MainHub {
 
 	public static final int nbrOfPlayers = 4;
 	public static final int noActionLimit = 400;
+	public static final int syncFrames = 50;
 	
 	private boolean isMultiplayer = false;
 	private static MainHub myControl = null;
