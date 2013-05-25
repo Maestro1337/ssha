@@ -17,5 +17,4 @@ public class ObstacleCrater extends Obstacle {
 		}
 		super.setImage(images);
 	}
-
 }
