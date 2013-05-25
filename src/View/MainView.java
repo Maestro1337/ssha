@@ -243,7 +243,12 @@ public class MainView extends BasicGameState implements ActionListener {
 		//Show the coodinates of the mouse
 		g.drawString(mouse, 900, 10);
 		
-		
+		//Draw Obstacles
+		for(int i=0; i<obstacles.length; i++){
+			if(obstacles[i] != null){
+				g.drawImage(obstacles[i].getCurrentImage(), obstacles[i].getX(), obstacles[i].getY());
+			}
+		}
 		
 		//Draw player stats and image
 		
@@ -270,10 +275,10 @@ public class MainView extends BasicGameState implements ActionListener {
 				}
 			}
 		}
-		//Draw Obstacles
+		
+		//Draw images of obstacles that are at a higher altitude than the player
 		for(int i=0; i<obstacles.length; i++){
 			if(obstacles[i] != null){
-				g.drawImage(obstacles[i].getCurrentImage(), obstacles[i].getX(), obstacles[i].getY());
 				if(obstacles[i].getType()== "TreePillar"){
 					g.drawImage(treetop,obstacles[i].getX()-25, obstacles[i].getY()-21);
 				}

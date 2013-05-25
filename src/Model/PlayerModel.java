@@ -173,7 +173,6 @@ public class PlayerModel implements ActionListener {
 		if(attackingSkill != null){
 			boolean collided = checkSkillObstacleCollision(attackingSkill, (float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()), (float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
 			
-		//	System.out.println("" + attackingSkill.getSelfAffectingStatusEffect());
 			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
 				
 				//Calculates the new direction if the skill is guided
@@ -219,14 +218,11 @@ public class PlayerModel implements ActionListener {
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
-						System.out.println("Commencing end state with " + attackingSkill.getName());
 					}
 				}
 				
 			}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
-				attackingSkill.activateEndState();					
-				System.out.println("Commencing end state with " + attackingSkill.getName());
-			
+				attackingSkill.activateEndState();			
 			}else if(attackingSkill.isEndState()){
 				if(!player.getChannel() && attackingSkill.getSelfAffectingStatusEffect() != null 
 						&& attackingSkill.getSelfAffectingStatusEffect().getChannel()){
@@ -271,9 +267,6 @@ public class PlayerModel implements ActionListener {
 				return true;
 			}
 		}
-		
-	//	System.out.println("Skill: " + skill.getName() + " X: " + skill.getAttX() + " Y: " + skill.getAttY() + " W: " + skill.getCurrentWidth() + " H: " + skill.getCurrentHeight());
-		
 		return false;
 	}
 
@@ -391,7 +384,6 @@ public class PlayerModel implements ActionListener {
 
 	public void checkCollision(Player attackingPlayer, Skill[] playerSkills) throws SlickException{
 		if(player.isAlive()){
-			//System.out.println(playerSkills[player.getCurrentActiveSkillIndex()].isPiercing());
 			for(int i=0; i<playerSkills.length; i++){
 				if(playerSkills[player.getCurrentActiveSkillIndex()] != null && playerSkills[player.getCurrentActiveSkillIndex()].isPiercing()){
 					break;
@@ -415,13 +407,11 @@ public class PlayerModel implements ActionListener {
 						}
 						if(!playerSkills[i].hasEndState()){
 							playerSkills[i].setAttackingState(false);
-					//		System.out.println("Target hit with " + playerSkills[i].getName());
 							playerSkills[i].collidedShot();
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 							}
 						}else{
-							System.out.println("Target hit with " + playerSkills[i].getName());
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 							}
@@ -432,7 +422,6 @@ public class PlayerModel implements ActionListener {
 						SkillCheckingTimer SCT = getRelevantSCT(playerSkills[i]);
 						if(SCT != null && SCT.checkESColTimer() == playerSkills[i].getESColInterval()){
 							//TODO Fix so it can hit several players and reset differently instead of one collected
-							System.out.println("Target hit with " + playerSkills[i].getName());
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
 								playerSkills[i].resetOffensiveStatusGivenTo();
@@ -458,11 +447,16 @@ public class PlayerModel implements ActionListener {
 				if(currentObstacleCheck.isSolid()){
 					player.setPushState(false);
 					if(currentObstacleCheck.getDamage() > 0){
+						player.dealDamage(currentObstacleCheck.getDamage());
 						pushPlayer(player.getXDirMove(), player.getYDirMove(), -20);
+						if(player.getHP() <= 0){
+							killPlayer();
+							player.incDeaths();
+						}
 					}
 					fixSpawnCollision(currentObstacleCheck);
 				}
-				player.dealDamage(currentObstacleCheck.getDamage());
+				
 				return true;
 
 			}
@@ -473,16 +467,12 @@ public class PlayerModel implements ActionListener {
 		boolean collision = false;
 		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
 			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
-			//Obstacle currentObstacleCheck = obstacles[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
 				if(!skill.isEndState()){
-				//	System.out.println("Obstacle hit with " + skill.getName());
 					currentObstacleCheck.takeDamage(skill.getDamage());
 				}else{
 					SkillCheckingTimer SCT = getRelevantSCT(currentObstacleCheck, skill);
-				//	System.out.println(SCT.checkESColTimer() + "   " + skill.getESColInterval());
 					if(SCT != null && SCT.checkESColTimer() == skill.getESColInterval()){
-					//	System.out.println("Obstacle hit with " + skill.getName());
 						currentObstacleCheck.takeDamage(skill.getDamage());
 						
 						SCT.resetESColTimer();
