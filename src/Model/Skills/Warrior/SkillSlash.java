@@ -12,10 +12,7 @@ public class SkillSlash extends Skill{
 	public SkillSlash(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 		super("Slash", 2000, 0, 100, 5, 0, 150, "Slash \n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+				"It might slash foes\n");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[4];

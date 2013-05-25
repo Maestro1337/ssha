@@ -44,6 +44,9 @@ public class EndStateAnimationTimer {
 		
 		return counter>=0 && counter<images.length ? images[counter] : null;
 	}
+	public Image[] getImages(){
+		return images;
+	}
 	public int getInterval(){
 		return interval;
 	}

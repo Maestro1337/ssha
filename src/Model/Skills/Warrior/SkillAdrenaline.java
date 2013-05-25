@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skills.Skill;
+import Model.StatusEffects.StatusEffectAdrenaline;
 
 public class SkillAdrenaline extends Skill {
 	public SkillAdrenaline(){
@@ -17,6 +18,8 @@ public class SkillAdrenaline extends Skill {
 				Image attackImage = null;
 				Image[] animation = new Image[5];
 				Image[] skillBar = new Image[3];
+				
+				super.setSelfAffectingStatusEffectShell(new StatusEffectAdrenaline(this, 8));
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");

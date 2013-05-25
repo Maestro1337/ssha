@@ -423,7 +423,6 @@ public class Player {
 		passiveItems.add(item);
 		StatusEffectShell SE = item.getSelfAffectingStatusEffect();
 		SE.setArmor(armor*SE.getArmEff());
-		System.out.println("Add" + SE.getArmEff());
 		armor += SE.getArmEff();
 		evasion += SE.getEvasionEff();
 		moveSpeed += SE.getMoveSpeedEff();
@@ -442,7 +441,6 @@ public class Player {
 		passiveSkills.add(skill);
 		StatusEffectShell SE = skill.getSelfAffectingStatusEffect();
 		SE.setArmor(armor*SE.getArmEff());
-		System.out.println("Add" + SE.getArmEff());
 		armor += SE.getArmEff();
 		evasion += SE.getEvasionEff();
 		moveSpeed += SE.getMoveSpeedEff();
@@ -450,7 +448,6 @@ public class Player {
 	public void removePassiveSkill(Skill skill){
 		passiveSkills.remove(skill);
 		StatusEffectShell SE = skill.getSelfAffectingStatusEffect();
-		System.out.println("Remove " + SE.getArmEff());
 		armor -= SE.getArmEff();
 		evasion -= SE.getEvasionEff();
 		moveSpeed -= SE.getMoveSpeedEff();
