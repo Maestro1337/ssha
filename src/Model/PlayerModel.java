@@ -419,11 +419,14 @@ public class PlayerModel implements ActionListener {
 							playerSkills[i].collidedShot();
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
+								
 							}
 						}else{
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
 							}
 							playerSkills[i].activateCollisionEndState();
 						}
@@ -435,6 +438,7 @@ public class PlayerModel implements ActionListener {
 							System.out.println("Target hit with " + playerSkills[i].getName());
 							if(evasion>=0){
 								player.dealDamage(playerSkills[i].getDamage());
+								attackingPlayer.incRoundDamageDone((int)(playerSkills[i].getDamage()*(1-player.getArmor())));
 								playerSkills[i].resetOffensiveStatusGivenTo();
 							}
 							SCT.resetESColTimer();
@@ -444,7 +448,7 @@ public class PlayerModel implements ActionListener {
 			}
 		}
 		if(player.getHP() <= 0){
-			attackingPlayer.incKills();
+			attackingPlayer.incKillsThisRound();
 			killPlayer();
 			player.incDeaths();
 		}
@@ -466,6 +470,7 @@ public class PlayerModel implements ActionListener {
 
 //				System.out.println("Target ran into " + obstacles[i].getType());
 				player.dealDamage(currentObstacleCheck.getDamage());
+				
 				return true;
 
 			}

@@ -69,7 +69,7 @@ public class SocketClient implements Runnable {
 				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
-					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getKills() + " " + tp.getGold() + " skills";
+					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getTotalKills() + " " + tp.getGold() + " skills";
 					for(int i = 0; i < tempSkills.length; i++) {
 						if(tempSkills[i] != null) {
 							process = process + " " + tempSkills[i].getSmallName() + " " + tempSkills[i].getCurrentLvl();
