@@ -459,7 +459,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		}else{
 			roundOverMultiCheck = 0;
 		}
-		System.out.println(roundOverMultiCheck);
 		//Ends round if only 1 player is alive
 		if (stillAlive == 1 && nbrOfCurrentPlayers > 1 && roundOverMultiCheck >= MainHub.syncFrames){
 			if(firstTimeRoundOver){
