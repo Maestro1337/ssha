@@ -41,9 +41,6 @@ public abstract class StatusEffectShell {
 		dmgEff = damage;
 		moveXEff = moveX;
 		moveYEff = moveY;
-		if(arm == 0){
-			arm = 1;
-		}
 		armEff = arm;
 		atkSpeedEff = attackSpeed;
 		rangeEff = range;
