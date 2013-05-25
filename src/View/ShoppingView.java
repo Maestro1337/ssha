@@ -160,7 +160,7 @@ public class ShoppingView extends BasicGameState {
 	    	  connectionCheck++;
 	    	  if(connectionCheck >= 100000){
 	    		  System.out.println(connectionCheck);
-	    		  container.exit();
+	    	//	  container.exit();
 	    		  if(connectionCheck >= 200000){
 	    			  break;
 	    		  }
@@ -175,6 +175,10 @@ public class ShoppingView extends BasicGameState {
 	      ownedItemList = activePlayer.getOwnedItems();
 	      classPortrait = activePlayer.getPortraitImage();
 	      LobbyPlayers = MainHub.getController().getPlayers();
+	      for(int i=0;i<LobbyPlayers.length; i++){
+	    	  if(LobbyPlayers[i]!=null)
+	    		  System.out.println(i);
+	      }
 	      
 	      canResetTimer = true;
 	      Image[] countDownImages = new Image[5];
@@ -379,7 +383,7 @@ public class ShoppingView extends BasicGameState {
 		}
 		g.drawString(buyString, 500, 675);
 		
-		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0].hasClickedStartGame()){
+		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame()){
 			Image currentCount = countDownAnimation.getCurrentAnimationImage();
 			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(currentCount,GameEngine.screenWidth/2-currentCount.getWidth()/2,GameEngine.screenHeight/2-currentCount.getHeight()/2-nextRoundBg.getHeight()/3);
@@ -468,17 +472,17 @@ public class ShoppingView extends BasicGameState {
 		}else{
 			playButton = new Image ("res/buttons/Unready.png");
 		}
-		if(LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
 			canResetTimer = false;
 			startCheckTimer.resetTimer();
 			countDownAnimation.resetCounterAndTimer();
 		}
-		if(LobbyPlayers[0].hasClickedStartGame() && !allIsReady){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && !allIsReady){
 			activePlayer.setHasClickedStartGame(false);
 			canResetTimer = true;
 			startCheckTimer.stopTimer();
 		}
-		if(LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
 			pressedReadyOrGo(sbg);
 		}
 		
