@@ -514,7 +514,7 @@ public class ShoppingView extends BasicGameState {
 		}else{
 			playButton = new Image ("res/buttons/Unready.png");
 		}
-		System.out.println(startCheckTimer.checkTimer());
+	//	System.out.println(startCheckTimer.checkTimer());
 		startTimer = "Game starting in: " + startCheckTimer.checkTimer()/1000;
 		if(LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
 			canResetTimer = false;
