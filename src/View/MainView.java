@@ -103,6 +103,8 @@ public class MainView extends BasicGameState implements ActionListener {
 	float mouseXPosAtt;
 	float mouseYPosAtt;
 	
+	
+	
 	private boolean start = true;
 	
 	public MainView(int state) {
@@ -114,11 +116,12 @@ public class MainView extends BasicGameState implements ActionListener {
 		map = new TiledMap("res/tileset/grassBackground.tmx");
 	}
 	
-	public void initRound() throws SlickException{
+	public void initRound() throws SlickException{		
+		ArrayList <Player> PlayerPlacing; 
 		TimeRoundStart = System.currentTimeMillis();
 		shouldCalcGold=true;
 		treetop = new Image ("res/tileset/Treetop2.png");
-
+		
 		Arena arena = MainHub.getController().getMapSelected();
 		if(arena != null){
 			obstacles = arena.getObstacles();
@@ -441,21 +444,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	//	AI();
 	}
 
-	public boolean willCollide(){
-		float collitionx;
-		float collitiony;
-		boolean value=false;
-		
-		for (int i=1;i<Control.getCurrentActiveSkill().getRange();i++){
-			collitionx=player.getX()+(i*Control.getCurrentActiveSkill().getAttX());
-			collitiony=player.getY()+(i*Control.getCurrentActiveSkill().getAttY());	
-			if(collitionx>enemy.getX()&&collitionx<enemy.getX()+enemy.getImage().getWidth()&&collitiony>enemy.getY()&&collitiony<enemy.getY()+enemy.getImage().getHeight()){
-				value = true;
-			 break;
-			}
-		}
-		return value;
-	}
+	
 	public boolean aiTimer (long delay){
 		return true;
 	}
