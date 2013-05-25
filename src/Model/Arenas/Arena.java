@@ -52,6 +52,14 @@ public class Arena {
 	public void setObstacles(Obstacle[] obs){
 		obstacles = obs;
 	}
+	public void addObstacle(Obstacle obs){
+		for(int i = 0; i<obstacles.length; i++){
+			if(obstacles[i] == null){
+				obstacles[i] = obs;
+				break;
+			}
+		}
+	}
 	public synchronized void removeObstacle(int index) {
 		if(obstacles[index] != null){
 			obstacles[index] = null;

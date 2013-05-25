@@ -20,7 +20,7 @@ public class ItemWarriorHelmet extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0.3, 1.2, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0.3, 0.2, 0));
 		super.setImage(Image);
 	} 
 

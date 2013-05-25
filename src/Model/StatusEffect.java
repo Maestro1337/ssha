@@ -2,7 +2,10 @@ package Model;
 
 import java.util.Random;
 
+import org.newdawn.slick.Image;
+
 import Model.Skills.Skill;
+import Model.StatusEffects.MainSkillChange;
 import Model.Timers.*;
 
 public class StatusEffect {
@@ -26,6 +29,7 @@ public class StatusEffect {
 	private boolean hasStun;
 	private boolean isChannel = false;
 	private boolean hasStealth = false;
+	private MainSkillChange MSC = null;
 	
 	private boolean commitedChange = false;
 	private String[] playersGivenTo;
@@ -70,6 +74,9 @@ public class StatusEffect {
 	}
 	public void setChangeModel(){
 		changeModel = true;
+	}
+	public void setChangeOfMainSkill(Image[] animation, int newDamage){
+		MSC = new MainSkillChange(animation, newDamage);
 	}
 
 	
@@ -139,6 +146,13 @@ public class StatusEffect {
 		if(changeModel){
 			player.setChangedModelState(true);
 		}
+		if(MSC != null){
+			if(MSC.getOldSkillImages() == null){
+				MSC.setOldSkill(player.getSkillList()[0].getAnimationTimer().getImages(), player.getSkillList()[0].getDamage());
+				player.getSkillList()[0].setEndState(MSC.getNewSkillImages(), player.getSkillList()[0].getEndStateDuration(), player.getSkillList()[0].getAnimationTimer().getInterval());
+				player.getSkillList()[0].setDamage(MSC.getNewSkillDamage());
+			}
+		}
 		player.setStunState(hasStun);
 		commitedChange = true;
 	} 
@@ -165,7 +179,6 @@ public class StatusEffect {
 				player.addEvasion(-evasionEff);
 			}
 			if(isChannel){
-			//	player.setMovementSpeed(moveSpeedEff);
 				player.setChannel(false);
 			}
 			if(hasStealth){
@@ -173,6 +186,10 @@ public class StatusEffect {
 			}
 			if(changeModel){
 				player.setChangedModelState(false);
+			}
+			if(MSC != null && MSC.getOldSkillImages() != null){
+				player.getSkillList()[0].setEndState(MSC.getOldSkillImages(), player.getSkillList()[0].getEndStateDuration(), player.getSkillList()[0].getAnimationTimer().getInterval());
+				player.getSkillList()[0].setDamage(MSC.getOldSkillDamage());
 			}
 			player.setStunState(false);
 		}

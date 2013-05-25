@@ -41,9 +41,6 @@ public abstract class StatusEffectShell {
 		dmgEff = damage;
 		moveXEff = moveX;
 		moveYEff = moveY;
-		if(arm == 0){
-			arm = 1;
-		}
 		armEff = arm;
 		atkSpeedEff = attackSpeed;
 		rangeEff = range;
@@ -127,6 +124,9 @@ public abstract class StatusEffectShell {
 	}
 	protected int getDelay(){
 		return delay;
+	}
+	protected void setArmor(double armor){
+		armEff = armor;
 	}
 	
 	public abstract StatusEffect createStatusEffectTo(Player newPlayer);

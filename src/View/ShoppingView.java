@@ -102,8 +102,8 @@ public class ShoppingView extends BasicGameState {
 	private int chosenSkillsXStart = 17;
 	private int chosenSkillsYStart = 280;
 	
-	
 	private String mouse = "No input yet";
+	private String startTimer = "";
 	Image menuTab;
 	
 	Skill[] chosenSkills = new Skill[5];
@@ -403,6 +403,8 @@ public class ShoppingView extends BasicGameState {
 		
 		g.drawString(buyString, 500, 675);
 		
+		g.drawString(startTimer, 1000, 620);
+		
 		if(dragMouse){
 			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
 		}
@@ -512,7 +514,8 @@ public class ShoppingView extends BasicGameState {
 		}else{
 			playButton = new Image ("res/buttons/Unready.png");
 		}
-		System.out.println(startCheckTimer.checkTimer());
+	//	System.out.println(startCheckTimer.checkTimer());
+		startTimer = "Game starting in: " + startCheckTimer.checkTimer()/1000;
 		if(LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
 			canResetTimer = false;
 			startCheckTimer.resetTimer();

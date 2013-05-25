@@ -35,17 +35,17 @@ public class EndStateAnimationTimer {
 		if(elapsedTime > interval){
 			resetTimer();
 			counter++;
-	//		System.out.println("Counter: " + counter + " Length: " + images.length);
 		}
 		if(counter >= images.length){
 			skill.finishEndState();
 			skill.setAttackingState(false);
 			resetCounterAndTimer();
-			
-			System.out.println("Finishing end state with " + skill.getName());
 		}
 		
 		return counter>=0 && counter<images.length ? images[counter] : null;
+	}
+	public Image[] getImages(){
+		return images;
 	}
 	public int getInterval(){
 		return interval;

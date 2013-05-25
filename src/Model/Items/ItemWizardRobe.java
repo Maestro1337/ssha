@@ -21,7 +21,7 @@ public class ItemWizardRobe extends Item {
 		}
 		super.setPassive();
 		//Item item, int damage, double movement, double armor
-		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 1.2, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.2, 0));
 		super.setImage(Image);
 	}
 

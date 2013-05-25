@@ -20,7 +20,7 @@ public class ItemWarriorSword extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 1, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0, 0));
 		super.setImage(Image);
 	} 
 
