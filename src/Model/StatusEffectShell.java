@@ -125,6 +125,9 @@ public abstract class StatusEffectShell {
 	protected int getDelay(){
 		return delay;
 	}
+	protected void setArmor(double armor){
+		armEff = armor;
+	}
 	
 	public abstract StatusEffect createStatusEffectTo(Player newPlayer);
 	
