@@ -45,6 +45,7 @@ import Model.Timers.AnimationTimer;
 
 public class MainView extends BasicGameState implements ActionListener {	
 	boolean shouldCalcGold;
+	ArrayList <Player> PlacingInRound; 
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
@@ -117,7 +118,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void initRound() throws SlickException{		
-		ArrayList <Player> PlayerPlacing; 
 		TimeRoundStart = System.currentTimeMillis();
 		shouldCalcGold=true;
 		treetop = new Image ("res/tileset/Treetop2.png");
