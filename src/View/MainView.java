@@ -45,7 +45,7 @@ import Model.Timers.AnimationTimer;
 
 public class MainView extends BasicGameState implements ActionListener {	
 	boolean shouldCalcGold;
-	ArrayList <Player> placingInRound = null; 
+	ArrayList <Player> placingInRound = new ArrayList<Player>();
 	long TimeRoundStart=System.currentTimeMillis();
 	
 	Image bg;
@@ -416,7 +416,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		 for (int i =0;i<players.length;i++){
-			 if (!players [i].getPlayer().isAlive()){
+			 if ( players[i] != null && !players [i].getPlayer().isAlive()){
 				 placingInRound.add(players [i].getPlayer());
 			 }		
 		 }
@@ -466,7 +466,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		String winningPlayer = null;
 		for(int i=0; i<players.length; i++){
 			if(players[i] != null){
-				if(players[i].getPlayer().isAlive()){
+				if(players[i] != null && players[i].getPlayer().isAlive()){
 					stillAlive++;
 					winningPlayer = players[i].getPlayer().getName();
 					placingInRound.add(players[i].getPlayer());

@@ -328,6 +328,7 @@ public abstract class Skill{
 		animation.resetCounterAndTimer();
 		addAttX((float)(getXDirAtt()*getGenDirAtt())/*-endStateImgWidth/2*/);
 		addAttY((float)(getYDirAtt()*getGenDirAtt())/*-endStateImgHeight/2*/);
+		isEndState = true;
 	}
 	
 	public void collidedShot(){
