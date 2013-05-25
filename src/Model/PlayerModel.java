@@ -492,6 +492,9 @@ public class PlayerModel implements ActionListener {
 					}
 				}
 				if(currentObstacleCheck.getHealth()<=0){
+					if(currentObstacleCheck.getType() == "Explosive Barrel"){
+						MainHub.getController().getMapSelected().addObstacle(new ObstacleCrater("Crater", 0, 50000, currentObstacleCheck.getX(), currentObstacleCheck.getY(), false));
+					}
 					currentObstacleCheck = null;
 					MainHub.getController().getMapSelected().removeObstacle(i);
 					//obstacles[i] = null;
