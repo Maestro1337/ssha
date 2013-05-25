@@ -9,7 +9,7 @@ public class SkillFirestorm extends Skill{
 
 	public SkillFirestorm(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 9000, 350, 100, 8, 225, 5,"Firestorm:\nA dangerous explosion that \ndeals damage to an area for a limited \ntime." +
+		super("Firestorm", 9000, 350, 100, 8, 225, 15,"Firestorm:\nA dangerous explosion that \ndeals damage to an area for a limited \ntime." +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +

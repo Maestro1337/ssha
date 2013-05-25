@@ -561,7 +561,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			else placingInRoundMultiplier = 1;
 		}
 		damageDonePercentage = players[activePlayer].getPlayer().getRoundDamageDone()/allDamageDone;
-		
+		System.out.println("damage"+damageDonePercentage);
 		//Gives the player gold based on how well he/she did this round.
 		players [activePlayer].getPlayer().addGold((int)((damageDonePercentage*numberofplayers*10+activeplayerkills*5+20)*activeRoundMultiplier*placingInRoundMultiplier));
 	}
