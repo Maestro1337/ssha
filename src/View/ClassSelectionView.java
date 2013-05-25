@@ -55,7 +55,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 		backgroundImage = new Image("res/miscImages/classSelectionBg.png");
 		backButton = new Image("res/buttons/back.png");
-		classImage = new Image("res/classImages/classes2.png");
+		classImage = new Image("res/classImages/classes.png");
 		title = "Choose your class!";
 		
 	}
