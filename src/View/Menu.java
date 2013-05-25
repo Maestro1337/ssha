@@ -12,6 +12,12 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.ResourceLoader;
 
 import Model.MainHub;
+import Model.Player;
+import Model.Classes.*;
+import Model.Skills.Skill;
+import Model.Skills.Hunter.*;
+import Model.Skills.Warrior.*;
+import Model.Skills.Wizard.*;
 
 
 
@@ -53,6 +59,8 @@ public class Menu extends BasicGameState implements ActionListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		openGLInitializer();
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -113,5 +121,44 @@ public class Menu extends BasicGameState implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
+	}
+	
+	private void openGLInitializer(){
+		Player player = new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
+		player = new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
+		player = new ClassWizard(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
+		
+		Skill skill = new SkillArrow();
+		skill = new SkillArrowFlurry();
+		skill = new SkillBarrelRoll();
+		skill = new SkillCripplingTrap();
+		skill = new SkillFlamingArrow();
+		skill = new SkillGuidedArrow();
+		skill = new SkillLifestealingArrows();
+		skill = new SkillPassiveDodge();
+		skill = new SkillSprint();
+		skill = new SkillStealth();
+		
+		skill = new SkillAdrenaline();
+		skill = new SkillFirstAid();
+		skill = new SkillGrapplingHook();
+		skill = new SkillImprovedArmor();
+		skill = new SkillIncreasedMovement();
+		skill = new SkillLeapAttack();
+		skill = new SkillShieldStance();
+		skill = new SkillSlash();
+		skill = new SkillThrowingAxe();
+		skill = new SkillWarstomp();
+		
+		skill = new SkillAbsorb();
+		skill = new SkillBlizzard();
+		skill = new SkillFireball();
+		skill = new SkillFirestorm();
+		skill = new SkillFlamewave();
+		skill = new SkillIceblock();
+		skill = new SkillIroncloak();
+		skill = new SkillTeleport();
+		skill = new SkillUnstableMagic();
+		skill = new SkillWandattack();
 	}
 }

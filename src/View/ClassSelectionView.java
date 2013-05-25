@@ -15,6 +15,10 @@ import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
+import Model.Skills.Skill;
+import Model.Skills.Hunter.*;
+import Model.Skills.Warrior.*;
+import Model.Skills.Wizard.*;
 
 public class ClassSelectionView extends BasicGameState implements ActionListener{
 
@@ -51,7 +55,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 
 		backgroundImage = new Image("res/miscImages/classSelectionBg.png");
 		backButton = new Image("res/buttons/back.png");
-		classImage = new Image("res/classImages/classes2.png");
+		classImage = new Image("res/classImages/classes.png");
 		title = "Choose your class!";
 		
 	}
@@ -109,7 +113,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"Your skills with weapons in close combat makes you a powerful \n" +
 						"force on the battlefield and a durable opponent for all who \n" +
 						"dares cross your way.";
-				player = new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
+				player = new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
 		//		Control = new PlayerController("WarriorMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Warrior");
 			}
 		}
@@ -121,7 +125,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 						"an eye or breaking a bowstring, you'll range far and wide \n" +
 						"with this class.";
 		//		classType = "Hunter";
-				player = new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
+				player = new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
 		//		Control = new PlayerController("HunterMan", obsGenerator.nextInt(1280), obsGenerator.nextInt(719) + 1, obstacles, "Hunter");
 			}
 		}

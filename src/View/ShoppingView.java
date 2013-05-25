@@ -499,6 +499,9 @@ public class ShoppingView extends BasicGameState {
 						}
 					}	
 					activePlayer.setReady(true);
+				}else{
+					playButton = new Image ("res/buttons/Unready.png");
+					activePlayer.setReady(true);
 				}
 								
 			}			
