@@ -230,8 +230,8 @@ public class PlayerModel {
 				}
 				
 				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt() || collided){
-					if(attackingSkill.getAffectSelfOnHit()/* && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
-						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
+					if(attackingSkill.getAffectSelfOnHit() && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())){
+						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player, null));
 					}
 					if(!attackingSkill.getHasEndState()){
 						attackingSkill.setAttackingState(false);
@@ -332,11 +332,6 @@ public class PlayerModel {
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
 
-			/*
-			if(currentActiveSkill.getPiercing()){
-				currentActiveSkill.setEndstate(false);
-			}*/
-
 			if(currentActiveSkill.getGrapplingHook()){
 				
 			}
@@ -380,7 +375,7 @@ public class PlayerModel {
 				
 			if(currentActiveSkill.getAffectSelf()){
 				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
-					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player));
+					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player, null));
 				}
 			}
 			resetGlobalAttackTimer();
@@ -410,7 +405,7 @@ public class PlayerModel {
 					//Checks if collided skill has a statusEffect and adds it to the player it hit
 					if(skill.getOffensiveStatusEffect() != null && !skill.getOffensiveStatusEffect().hasBeenGivenTo(player.getName()) 
 							&& playerSkills[i].getAffectOthers() && evasion > 0){
-						player.addStatusEffect(skill.getOffensiveStatusEffect().createStatusEffectTo(player));
+						player.addStatusEffect(skill.getOffensiveStatusEffect().createStatusEffectTo(player, attackingPlayer));
 					}
 					
 					if(!skill.getEndState()){
@@ -431,14 +426,15 @@ public class PlayerModel {
 								}
 							}
 							if(evasion>=0 && canHitTarget){
-								player.dealDamage(skill.getDamage());
-								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
-								
+							//	player.dealDamage(skill.getDamage());
+							//	attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
+								playerHit(attackingPlayer, skill);
 							}
 						}else{
 							if(evasion>=0){
-								player.dealDamage(skill.getDamage());
-								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
+						//		player.dealDamage(skill.getDamage());
+						//		attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
+								playerHit(attackingPlayer, skill);
 							}
 							skill.activateCollisionEndState();
 						}
@@ -447,8 +443,9 @@ public class PlayerModel {
 						SkillCheckingTimer SCT = getRelevantSCT(skill);
 						if(SCT != null && SCT.checkESColTimer() == skill.getESColInterval()){
 							if(evasion>=0){
-								player.dealDamage(skill.getDamage());
-								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
+								//player.dealDamage(skill.getDamage());
+								//attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
+								playerHit(attackingPlayer, skill);
 								skill.resetOffensiveStatusGivenTo();
 							}
 							SCT.resetESColTimer();
@@ -461,6 +458,16 @@ public class PlayerModel {
 			attackingPlayer.incKillsThisRound();
 			killPlayer();
 			player.incDeaths();
+		}
+	}
+	
+	private void playerHit(Player attackingPlayer, Skill attackingSkill){
+		player.dealDamage(attackingSkill.getDamage());
+		attackingPlayer.incRoundDamageDone((int)(attackingSkill.getDamage()*(1-player.getArmor())));
+		if(attackingSkill.getAffectSelfOnHit())
+			System.out.println(attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName()));
+		if(attackingSkill.getAffectSelfOnHit() && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())){
+			player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(attackingPlayer, player));
 		}
 	}
 	

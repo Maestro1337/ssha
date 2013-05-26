@@ -19,7 +19,7 @@ public class StatusEffectItems extends StatusEffectShell {
 	}
 
 	@Override
-	public StatusEffect createStatusEffectTo(Player newPlayer) {
+	public StatusEffect createStatusEffectTo(Player newPlayer, Player fromPlayer) {
 		//Finding the next free space in list to add player to
 				super.addPlayerGivenTo(newPlayer.getName());
 				

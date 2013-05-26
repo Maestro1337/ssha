@@ -2,5 +2,5 @@ package Model;
 
 public interface IStatusEffectShell {
 	
-	public StatusEffect createStatusEffectTo(Player newPlayer);
+	public StatusEffect createStatusEffectTo(Player toPlayer, Player fromPlayer);
 }
