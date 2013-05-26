@@ -104,48 +104,31 @@ public class AIModel implements PlayerControl{
 		double distance = Math.sqrt((dx*dx)+(dy*dy));
 		Skill currentSkillCheck;
 	
-		while (System.currentTimeMillis()>time+delay){
-			if (enemyControl.checkPlayerObstacleCollision(enemy.getX()+5,enemy.getY())||enemyControl.checkPlayerObstacleCollision(enemy.getX()-5,enemy.getY())){
-				if (dy<=0){
-					enemyControl.move((int)enemy.getX(),(int)enemy.getY()-5);
-				}else{
-					enemyControl.move((int)enemy.getX(),(int)enemy.getY()+5);
-				}
-				System.out.println("obstacle1");
-				
-			}else if(enemyControl.checkPlayerObstacleCollision(enemy.getX(),enemy.getY()+5)||enemyControl.checkPlayerObstacleCollision(enemy.getX(),enemy.getY()-5)){
-				if (dx<=0){
-					enemyControl.move((int)enemy.getX()+5,(int)enemy.getY());
-				}else{
-					enemyControl.move((int)enemy.getX()-5,(int)enemy.getY());
-				}
-				System.out.println("obstacle2");
-			}else{
-				currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
-				// if player is attacking the AI will try to dodge.
-				if(currentSkillCheck.isAttacking()&&currentSkillCheck.getRange()>distance){
-					if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-						
-					}
-					else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-						enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
-					}
+		while (System.currentTimeMillis()>time+delay){		
+			currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
+			// if player is attacking the AI will try to dodge.
+			if(currentSkillCheck.isAttacking()&&currentSkillCheck.getRange()>distance){
+				if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
 					
 				}
+				else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
+				}
+					
+			}
 					
 				
-				else if (distance>=30){
-					enemyControl.move((int)targetPlayer.getX(),(int) targetPlayer.getY());
-				}else if (dx<0){
-					enemyControl.move(generator.nextInt((int)targetPlayer.getX()), generator.nextInt(GameEngine.screenHeight-1) + 1);
-				}
-				else{
-					enemyControl.move(generator.nextInt(GameEngine.screenWidth-(int)targetPlayer.getX())+(int)targetPlayer.getX(), generator.nextInt(GameEngine.screenHeight-1) + 1);
-				}
-				time=System.currentTimeMillis();
+			else if (distance>=30){
+				enemyControl.move((int)targetPlayer.getX(),(int) targetPlayer.getY());
+			}else if (dx<0){
+				enemyControl.move(generator.nextInt((int)targetPlayer.getX()), generator.nextInt(GameEngine.screenHeight-1) + 1);
 			}
+			else{
+				enemyControl.move(generator.nextInt(GameEngine.screenWidth-(int)targetPlayer.getX())+(int)targetPlayer.getX(), generator.nextInt(GameEngine.screenHeight-1) + 1);
 			}
-			
+			time=System.currentTimeMillis();
+		}
+				
 		for(int i=0;i<enemy.getSkillList().length;i++){
 			enemyControl.setCurrentActiveSkill(i);
 			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
@@ -154,6 +137,7 @@ public class AIModel implements PlayerControl{
 			}
 		}
 	}
+	
 	
 	private void updateTarget(){
 	/*	int targetPlayerIndex = enemy.getPlayerListIndex() != 0 ? 0 : 1;
