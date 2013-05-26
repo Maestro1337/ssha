@@ -4,23 +4,23 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skill;
+import Model.StatusEffects.StatusEffectArmor;
 
 public class SkillAbsorb extends Skill{
 	public SkillAbsorb(){
 	//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-		super("Absorb", 11000, 0, 0.4, 3, 25, 150,"Absorb (Passive):\nThe wizards gains an absorbing \n shield around him. \n" +
-				"Level 1: 10 % of damage done, max 100\n" +
-				"Level 2: 15 % of damage done, max 150\n" +
-				"Level 3: 20 % of damage done, max 200\n" +
-				"Level 4: 25 % of damage done, max 250");
+		super("Absorb", 30000, 0, 0.4, 3, 25, 0,"Absorb:\nThe wizards gains an absorbing \n shield around him. \n" +
+				"Level 1: 3 seconds invurnability\n" +
+				"Level 2: 5 seconds invurnability\n" +
+				"Level 3: 7 seconds invurnability\n" +
+				"Level 4: 10 seconds invurnability");
 
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
-		super.setPassive();
-		//super.setSelfAffectingStatusEffectShell(new )
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1, 3));
 		
 		try {
 			attackImage = new Image("res/animations/explode/explode1.png");
@@ -44,10 +44,6 @@ public class SkillAbsorb extends Skill{
 		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
-
-	private int lvl2 = 300;
-	private int lvl3 = 300;
-	private int lvl4 = 300;
 	
 	@Override
 	public void upgradeSkill() {
@@ -56,13 +52,13 @@ public class SkillAbsorb extends Skill{
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setDamage(lvl2);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1, 5));
 				break;
 			case 3:
-				super.setDamage(lvl3);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1, 7));
 				break;
 			case 4:
-				super.setDamage(lvl4);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1, 10));
 				break;
 			}
 		}
