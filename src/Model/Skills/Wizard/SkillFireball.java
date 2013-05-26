@@ -15,9 +15,9 @@ String description;
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage lvl1, int damage lvl2,  int damage lvl3, int damage lvl4,  StatusEffect SE
 		super("Fireball", 11000, 400, 1.5, 3, 20, 100,"Fireball:\nA fireball that burns the \nenemy to oblivion." +
 				"\nLevel 1: 100 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+				"Level 2: 150 damage\n" +
+				"Level 3: 200 damage\n" +
+				"Level 4: 250 damage");
 		
 		Image[] attackImages = new Image[4];
 		Image[] animation = new Image[7];

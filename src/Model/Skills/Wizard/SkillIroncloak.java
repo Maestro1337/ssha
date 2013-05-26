@@ -10,18 +10,18 @@ public class SkillIroncloak extends Skill {
 
 	public SkillIroncloak() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Iron cloak", 11000, 400, 0.4, 3, 20, 150,"Iron cloak: \n" +
-				"\nLevel 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+		super("Iron cloak", 11000, 400, 0.4, 3, 20, 150,"Iron cloak: (Passive) \nIncreases armor" +
+				"\nLevel 1: 20%\n" +
+				"Level 2: 40%\n" +
+				"Level 3: 60%\n" +
+				"Level 4: 80%");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
 		Image[] skillBar = new Image[3];
 		
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.25, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.2, 0));
 		
 		try {
 			attackImage = new Image("res/animations/explode/explode1.png");
@@ -60,15 +60,15 @@ public class SkillIroncloak extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.5, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.4, 0));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.75, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.6, 0));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 1, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.8, 0));
 				super.setDamage(lvl4);
 				break;
 			}

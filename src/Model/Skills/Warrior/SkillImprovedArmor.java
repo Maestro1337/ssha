@@ -19,7 +19,7 @@ public class SkillImprovedArmor extends Skill {
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
 				super.setPassive();
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.2, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.1, 0));
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");
@@ -55,15 +55,15 @@ public class SkillImprovedArmor extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.34, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.22, 0));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.48, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.33, 0));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.6, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.45, 0));
 				super.setDamage(lvl4);
 				break;
 			}

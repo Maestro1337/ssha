@@ -117,7 +117,6 @@ public class MainHub {
 		return roundNumber;
 	}
 	public synchronized void addPlayer(Player player, int index){
-		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
 		players[index] = player;
 	}
 	public void setActivePlayerName(String name){

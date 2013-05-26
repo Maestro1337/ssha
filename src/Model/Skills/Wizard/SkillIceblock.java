@@ -11,11 +11,11 @@ public class SkillIceblock extends Skill {
 	private Image[] animation = new Image[1];
 	public SkillIceblock() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, String skillDescription
-		super("Ice block", 11000, 0, 0, 20, 150, 0,"Ice block:\nEncapsule yourself inside \nan iceblock to escape from \nharms way.\n" +
-				"\nLevel 1: 2 second\n" +
-				"Level 2: 3 second\n" +
-				"Level 3: 4 second\n" +
-				"Level 4: 5 second");
+		super("Ice block", 11000, 0, 0, 20, 150, 0,"Ice block:\nHide inside a block of\nice to become invulnerable\n" +
+				"Level 1: 2 seconds\n" +
+				"Level 2: 3 seconds\n" +
+				"Level 3: 4 seconds\n" +
+				"Level 4: 5 seconds");
 		
 		Image attackImage = null;
 		

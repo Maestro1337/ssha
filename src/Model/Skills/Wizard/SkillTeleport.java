@@ -10,7 +10,11 @@ public class SkillTeleport extends Skill {
 
 	public SkillTeleport() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Teleport", 20000, 500, 100, 8, 150, 0, "Teleport:\nTAFLEPoRT!");
+		super("Teleport", 20000, 500, 100, 8, 150, 0, "Teleport:\nFade into another plane and \nreappear at another position"+
+				"\nLevel 1: 20 sec cooldown\n" +
+				"Level 2: 15 sec cooldown\n" +
+				"Level 3: 10 sec cooldown\n" +
+				"Level 4: 5 sec cooldown");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[5];
