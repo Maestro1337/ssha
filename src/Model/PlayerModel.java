@@ -312,11 +312,10 @@ public class PlayerModel implements ActionListener {
 				
 				Double findNaN = (double)genDir;
 				if(!findNaN.isNaN() && !findNaN.isInfinite()){
-					player.setXDirMove(xDir);
-					player.setYDirMove(yDir);
+
 					player.setGenDirMove(genDir);
-					player.setXDirMove(player.getXDirMove()/player.getGenDirMove());
-					player.setYDirMove(player.getYDirMove()/player.getGenDirMove());
+					player.setXDirMove(xDir/player.getGenDirMove());
+					player.setYDirMove(yDir/player.getGenDirMove());
 					
 					player.resetMoveCounter();
 					player.setRunningState(true);
