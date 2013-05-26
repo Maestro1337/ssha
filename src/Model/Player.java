@@ -50,9 +50,7 @@ public class Player {
 	private int maxHP;
 	private String name;
 	private String classType;
-	private double baseArmor = 0;
 	private double armor=0;
-	private int baseEvasion = 0;
 	private int evasion=0;
 	private int totalKills=0;
 	private int killsThisRound=0;
@@ -71,7 +69,6 @@ public class Player {
 	//Movement variables
 	private float mouseXPosMove;
 	private float mouseYPosMove;
-	private double baseMoveSpeed = 1;
 	private double moveSpeed = 1;
 	
 	float rotation=0;
@@ -106,8 +103,8 @@ public class Player {
 		imgY = startingPosY = y;
 		
 		HP = this.maxHP = maxHP;
-		baseMoveSpeed = moveSpeed = speed;
-		baseArmor = this.armor = armor;
+		moveSpeed = speed;
+		this.armor = armor;
 		
 		playerListIndex = index;
 		

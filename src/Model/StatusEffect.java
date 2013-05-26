@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.Random;
-
 import org.newdawn.slick.Image;
 
 import Model.Skills.Skill;

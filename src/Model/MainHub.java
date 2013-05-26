@@ -1,6 +1,5 @@
 package Model;
 
-import sshaclient.Constants;
 import sshaclient.SocketClient;
 
 import Control.PlayerControl;
@@ -8,9 +7,18 @@ import Model.Arenas.*;
 
 public class MainHub {
 
+	private int defaultPort = 6666;
+	//public static final String hostName = "127.0.0.1";
+	private String hostName = "83.248.107.3";
+	//public static final String hostName = "10.0.1.8";
+	
+	// The maximum number of players allowed
 	public static final int nbrOfPlayers = 4;
 	public static final int noActionLimit = 400;
 	public static final int syncFrames = 50;
+	
+	// Used to correct transmission errors when moving online-player
+	public static final int syncMargin = 10;
 	
 	private boolean isMultiplayer = false;
 	private static MainHub myControl = null;
@@ -22,8 +30,10 @@ public class MainHub {
 	private int activePlayer = 0;
 	private int mapSelected;
 	private int difficultySelected;
+	private int roundNumber = 0;
 	private Arena[] maps;
 	private String playerName = "xXx-oster hej";
+
 
 
 	//Singleton
@@ -43,7 +53,7 @@ public class MainHub {
 		maps[0] = new MapHazardCross();
 		maps[1] = new MapSlaughterField();
 		
-		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort);
+		socketClient = new SocketClient(hostName, defaultPort);
 		socketThread = new Thread(socketClient);
 		socketThread.start();
 	}
@@ -87,6 +97,9 @@ public class MainHub {
 	public boolean getMulti(){
 		return isMultiplayer;
 	}
+	public int getRoundNumber(){
+		return roundNumber;
+	}
 	
 	public synchronized void addPlayer(Player player, int index){
 		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
@@ -103,6 +116,9 @@ public class MainHub {
 	}
 	public synchronized void resetPlayers(){
 		players = new Player[nbrOfPlayers];
+	}
+	public void addRoundNumber(int roundNumber){
+		this.roundNumber += roundNumber;
 	}
 	public synchronized void addPlayerController(PlayerControl pc, int index) {
 		playerControllers[index] = pc;
@@ -130,5 +146,19 @@ public class MainHub {
 	}
 	public void setMulti(boolean multi){
 		isMultiplayer = multi;
+	}
+	public void setRoundNumber(int roundNumber){
+		this.roundNumber = roundNumber;
+	}
+	
+	public static String getItem(String str, int pos) {
+		
+		String[] splitString = str.split(" ");
+		
+		if(pos < splitString.length) {
+			return splitString[pos];
+		} else {
+			return "nada";
+		}
 	}
 }

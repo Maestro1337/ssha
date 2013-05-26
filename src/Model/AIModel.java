@@ -41,6 +41,12 @@ public class AIModel implements PlayerControl{
 			enemyControl.checkPlayerObstacleCollision(0, 0);
 			while(true){
 				AI();
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
