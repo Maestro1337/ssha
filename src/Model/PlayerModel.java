@@ -82,7 +82,6 @@ public class PlayerModel {
 							player.addToggleEffect(SE);
 						}else{
 							for(int j=0; j<player.getToggleEffect().size(); j++){
-								System.out.println(player.getToggleEffect().get(j).getName());
 								if(player.getToggleEffect().get(j).getName().equals(playerSkills[i].getSelfAffectingStatusEffect().getName())){
 									player.getToggleEffect().get(j).returnStatsToNormal();
 									player.removeToggleEffect(player.getToggleEffect().get(j));

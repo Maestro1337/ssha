@@ -305,7 +305,6 @@ public class ShoppingView extends BasicGameState {
 				g.drawString(MainHub.getController().getPlayer(i).getName(), 910, 120+40*i);
 				g.drawString(MainHub.getController().getPlayer(i).getTotalKills() + "/" + MainHub.getController().getPlayer(i).getDeaths(), 1075, 120+40*i);
 				g.drawImage(lobbyPlayer,897,400+60*i);
-			//	System.out.println(LobbyPlayers[i].getName() + " " + LobbyPlayers[i].isReady());
 				if (LobbyPlayers[i].getReadyState()){
 					g.drawImage(lobbyPlayerReady,897,400+60*i);
 				}
@@ -453,7 +452,6 @@ public class ShoppingView extends BasicGameState {
 		//Checking if mouse is pressed down
 		if(input.isMousePressed(0) && !dragMouse){
 			int chosenIndex;
-			System.out.println("Tomas");
 			int xAllIndex = -1;
 			int yAllIndex = -1;
 			int xItemIndex = -1;
@@ -645,7 +643,6 @@ public class ShoppingView extends BasicGameState {
 		showingSkillDescription = true;
 	}
 	private void setSelectedItem(Item item){
-		System.out.println("kom in");
 		itemName = item.getName();
 		skillText = item.getDescription() ;
 		costText ="Cost : " + item.getCost();
