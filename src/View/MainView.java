@@ -235,6 +235,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		//g.drawString("Singleplayer", 640, 200);
+		g.drawString("" + MainHub.getController().getRoundNumber(), 20, 20);
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{

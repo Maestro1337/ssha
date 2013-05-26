@@ -153,6 +153,8 @@ public class ShoppingView extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 	      // TODO Auto-generated method stub
 	      super.enter(container, game);
+	     
+	      MainHub.getController().addRoundNumber(1);
 	      
 	      //Waiting for the connection to give the correct playerIndex
 	      int connectionCheck=0;
