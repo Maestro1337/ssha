@@ -358,7 +358,6 @@ public class ShoppingView extends BasicGameState {
 				}else{
 					g.drawString( "" + MainHub.getController().getPlayer(i).getRoundDamageDone()/1, 1200, 120 + 40*i);
 				}
-				
 			}
 		}
 	}
