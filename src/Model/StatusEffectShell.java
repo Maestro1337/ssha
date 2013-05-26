@@ -147,7 +147,7 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	}
 
 	@Override
-	public StatusEffect createStatusEffectTo(Player newPlayer) {
+	public StatusEffect createStatusEffectTo(Player toPlayer, Player fromPlayer) {
 		return null;
 	}
 }

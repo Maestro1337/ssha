@@ -17,18 +17,26 @@ public class StatusEffectLifesteal extends StatusEffectShell{
 	}
 	
 	@Override
-	public StatusEffect createStatusEffectTo(Player newPlayer) {
+	public StatusEffect createStatusEffectTo(Player newPlayer, Player fromPlayer) {
 		//Finding the next free space in list to add player to
 		super.addPlayerGivenTo(newPlayer.getName());
 		
 		StatusEffect newSE;
-		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), -super.getSkill().getDamage(), 
+		newSE = new StatusEffect(newPlayer, super.getSkill(), super.getName(), getLifeSteal(fromPlayer), 
 				super.getMoveXEff(), super.getMoveYEff(), super.getMoveSpeedEff(),
 				super.getArmEff(), super.getAttackSpeedEff(), super.getRangeEff(), super.getEvasionEff(), 
 				super.hasStealth(),	super.hasStun(), super.getChannel(), super.getMaxCounts(), super.getDelay());
 		newSE.setChangeModel();
 		
 		return newSE;
+	}
+	
+	private int getLifeSteal(Player fromPlayer){
+		if(fromPlayer != null){
+			return -(int)((1-fromPlayer.getArmor())*super.getSkill().getDamage());
+		}
+		
+		return 0;
 	}
 }
 
