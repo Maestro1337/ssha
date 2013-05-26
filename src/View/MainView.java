@@ -22,7 +22,6 @@ import Control.*;
 import Model.*;
 import Model.Arenas.Arena;
 import Model.Obstacles.*;
-import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
 
@@ -153,7 +152,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	@Override
 	   public void enter(GameContainer container, StateBasedGame game)
 	         throws SlickException {
-	      // TODO Auto-generated method stub
 	      super.enter(container, game);
 	      initRound();
 

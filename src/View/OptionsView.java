@@ -1,7 +1,6 @@
 package View;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -11,8 +10,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Model.MainHub;
-import Model.Arenas.MapHazardCross;
-import Model.Arenas.MapSlaughterField;
 
 
 public class OptionsView extends BasicGameState {
