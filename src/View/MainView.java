@@ -50,7 +50,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	private PlayerModel currentActiveController;
 	private Skill[] activeSkillList;
 	private PlayerModel[] players = new PlayerModel[MainHub.nbrOfPlayers];
-	private AIModel[] aiModels = new AIModel[MainHub.nbrOfPlayers];
+	//private AIModel[] aiModels = new AIModel[MainHub.nbrOfPlayers];
 	private int nbrOfCurrentPlayers;
 	private Obstacle[] obstacles = new Obstacle[100];
 
@@ -89,7 +89,9 @@ public class MainView extends BasicGameState implements ActionListener {
 				nbrOfCurrentPlayers++;
 				players[i] = new PlayerModel(newPlayer);
 				if(newPlayer.getControlType() == "ai"){
-					aiModels[i] = new AIModel(newPlayer);
+					MainHub.getController().addPlayerController(new AIModel(newPlayer), i);
+					MainHub.getController().addControllerThread(new Thread(MainHub.getController().getPlayerControl(i)), i);
+					MainHub.getController().getControllerThread(i).start();
 				}
 				
 			}
@@ -280,11 +282,11 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		for(int j=0; j<aiModels.length; j++){
+		/*for(int j=0; j<aiModels.length; j++){
 			if(aiModels[j] != null){
 				aiModels[j].AI();
 			}
-		}
+		}*/
 		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
