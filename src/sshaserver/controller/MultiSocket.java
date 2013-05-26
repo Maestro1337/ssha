@@ -100,7 +100,6 @@ public class MultiSocket implements Runnable {
 				
 				//Convert StringBuffer to String
 				this.statString = "" + process.toString();
-				System.out.println(statString);
 				
 				//Clear the StringBuffer
 				character = 0;

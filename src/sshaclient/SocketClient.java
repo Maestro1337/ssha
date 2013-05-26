@@ -52,19 +52,7 @@ public class SocketClient implements Runnable {
 		Skill[] tempSkills;
 		
 		while(true) {
-			
-			/*
-			System.out.println("These players are/are maybe connected:");
-			System.out.println(GlobalClassSelector.getController().getPlayer(0));
-			System.out.println(GlobalClassSelector.getController().getPlayer(1));
-			System.out.println(GlobalClassSelector.getController().getPlayer(2));
-			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-			*/
-			
 			if(connected) {
-				
-				//this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
-				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getTotalKills() + " " + tp.getGold() + " skills";
@@ -187,17 +175,13 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-		//	System.out.println(inData);
 			
 			if(inData.length() > 10 && inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
-			//		MainHub.getController().removePlayer(0);
 					MainHub.getController().addPlayer(tp, tp.getPlayerListIndex());
 					MainHub.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
-					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
-				//	MainHub.getController().resetPlayers();
 					tp.setNameTaken(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
