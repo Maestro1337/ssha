@@ -178,8 +178,10 @@ public class ShoppingView extends BasicGameState {
 	      classPortrait = activePlayer.getPortraitImage();
 	      LobbyPlayers = MainHub.getController().getPlayers();
 	      for(int i=0;i<LobbyPlayers.length; i++){
-	    	  if(LobbyPlayers[i]!=null)
-	    		  System.out.println(i);
+	    	  if(LobbyPlayers[i]!=null && LobbyPlayers[i].getControlType() == "ai"){
+	    		  LobbyPlayers[i].setReadyState(true);
+	    	  }
+	    		  
 	      }
 	      
 	      canResetTimer = true;
@@ -252,25 +254,6 @@ public class ShoppingView extends BasicGameState {
 				allItems[2] = new ItemWarriorSword();
 				break;
 	      	}
-	/*      for(int i=0;i<9;i++){
-				Skill skill = findOwnedSkill(allSkills[i].getName());
-				if (skill != null){
-					switch (allSkills[i].getCurrentLvl()){	
-						case 1:
-							LevelofSkills [i] = new Image ("res/skillIcons/Level 1.png");
-							break;
-						case 2:
-							LevelofSkills [i] = new Image ("res/skillIcons/Level 2.png");
-							break;
-						case 3:
-							LevelofSkills [i] = new Image ("res/skillIcons/Level 3.png");
-							break;
-						case 4:
-							LevelofSkills [i] = new Image ("res/skillIcons/Level 4.png");
-							break;
-					}
-				}
-			}*/
 
       		activePlayer.setPlayerListIndex(MainHub.getController().getActivePlayerIndex());
       		MainHub.getController().addPlayer(activePlayer, MainHub.getController().getActivePlayerIndex());
