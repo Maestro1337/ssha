@@ -168,7 +168,7 @@ public class ShoppingView extends BasicGameState {
 	      }
 	      
 	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
-	      activePlayer.setReady(false);
+	      activePlayer.setReadyState(false);
 	      activePlayer.setHasClickedStartGame(false);
 	      updateSkillLists();
 	      
@@ -352,7 +352,7 @@ public class ShoppingView extends BasicGameState {
 				g.drawString(MainHub.getController().getPlayer(i).getTotalKills() + "/" + MainHub.getController().getPlayer(i).getDeaths(), 1075, 120+40*i);
 				g.drawImage(lobbyPlayer,897,400+60*i);
 			//	System.out.println(LobbyPlayers[i].getName() + " " + LobbyPlayers[i].isReady());
-				if (LobbyPlayers[i].isReady()){
+				if (LobbyPlayers[i].getReadyState()){
 					g.drawImage(lobbyPlayerReady,897,400+60*i);
 				}
 				g.drawImage(MainHub.getController().getPlayer(i).getPortraitImageMini(),920,405+60*i);
@@ -441,13 +441,13 @@ public class ShoppingView extends BasicGameState {
 		
 		allIsReady = true;
 		for(int i=0; i<LobbyPlayers.length; i++){
-			if(LobbyPlayers[i] != null && !LobbyPlayers[i].isReady()){
+			if(LobbyPlayers[i] != null && !LobbyPlayers[i].getReadyState()){
 				allIsReady = false;
 			}
 		}
 
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
-			if (!activePlayer.isReady()){
+			if (!activePlayer.getReadyState()){
 				playButton = new Image("res/buttons/ReadyOver.png");
 			}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
 				playButton = new Image("res/buttons/GoButtonOver.png");
@@ -458,14 +458,14 @@ public class ShoppingView extends BasicGameState {
 				//Checking state the button 
 				if(allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
 					activePlayer.setHasClickedStartGame(true);
-				}else if(activePlayer.isReady()){
-					activePlayer.setReady(false);
+				}else if(activePlayer.getReadyState()){
+					activePlayer.setReadyState(false);
 				}else{
-					activePlayer.setReady(true);
+					activePlayer.setReadyState(true);
 				}
 								
 			}			
-		}else if(!activePlayer.isReady()){
+		}else if(!activePlayer.getReadyState()){
 			playButton = new Image("res/buttons/Ready.png");
 		}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
 			playButton = new Image("res/buttons/GoButton.png");
@@ -715,7 +715,7 @@ public class ShoppingView extends BasicGameState {
 	}
 	
 	private void pressedReadyOrGo(StateBasedGame sbg){
-		if(MainHub.getController().isMulti()){
+		if(MainHub.getController().getMulti()){
 			activePlayer.setMode("arena");
 			sbg.enterState(1);
 		}else{

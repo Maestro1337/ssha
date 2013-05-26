@@ -1,6 +1,4 @@
 package View;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,13 +8,7 @@ import java.util.Random;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -26,60 +18,33 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
-import sshaclient.Constants;
-
-
-
-
-
 import Control.*;
 import Model.*;
 import Model.Arenas.Arena;
-import Model.Classes.*;
-import Model.Obstacles.ObstaclePillar;
-import Model.Obstacles.Obstacle;
-import Model.Obstacles.ObstacleTestDamage;
+import Model.Obstacles.*;
 import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
 
 public class MainView extends BasicGameState implements ActionListener {	
-	boolean shouldCalcGold;
-	ArrayList <Player> placingInRound = new ArrayList<Player>();
-	long TimeRoundStart=System.currentTimeMillis();
-	
-	Image bg;
-	Image treetop;
+	private boolean shouldCalcGold;
+	private ArrayList <Player> placingInRound = new ArrayList<Player>();
+	private long TimeRoundStart=System.currentTimeMillis();
+	private Image treetop;
 	private String mouse = "No input yet";
+	private TiledMap map;
 	
-	String test;
-	TiledMap map;
+	private Player[] playerList;
 	
-	Player[] playerList;
-	
-	String endRoundText = "";
-	String winningPlayer= "<Fix code to get> \n<the winning> \n<players name>";
-	Image nextRoundButton;
-	Image nextRoundBg;
-	boolean roundOver = false;
+	private String endRoundText = "";
+	private Image nextRoundButton;
+	private Image nextRoundBg;
+	private boolean roundOver = false;
 	private boolean firstTimeRoundOver;
 	private int roundOverMultiCheck = 0;
-	Image roundOverAnimationImage;
+	private Image roundOverAnimationImage;
 	
-	AnimationTimer victoryAnimation;
-	
-//	private PlayerModel Control; 
-//	private PlayerModel enemyControl;
-//	Skill[] playerSkills;
-//	Skill activeSkill;
-	
-//	Image playerPortrait;
-//	Player player;
-//	Player enemy;
-//	Image enemyImage;
-//	Skill[] enemySkills;
-	
-	
+	private AnimationTimer victoryAnimation;
 	
 	private int activePlayer;
 	private PlayerModel currentActiveController;
@@ -88,24 +53,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	private AIModel[] aiModels = new AIModel[MainHub.nbrOfPlayers];
 	private int nbrOfCurrentPlayers;
 	private Obstacle[] obstacles = new Obstacle[100];
-	
-//	Image userImage;
-//	Image user;
-//	Image move1;
-//	Image move2;
-	
-	
-//	float mouseXPosMove;
-//	float mouseYPosMove;
-	
-//	float prevMouseXPosMove;
-//	float prevMouseYPosMove;
-	
-	
-//	float mouseXPosAtt;
-//	float mouseYPosAtt;
-
-//	private boolean start = true;
 
 	
 	public MainView(int state) {
@@ -135,9 +82,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		playerList = MainHub.getController().getPlayers();
 		activePlayer = MainHub.getController().getActivePlayerIndex();
 		
-//		playerPortrait = playerList[activePlayer].getFramedImage();
-		
-		
 		for(int i=0; i<MainHub.getController().getPlayers().length; i++){
 			Player newPlayer = MainHub.getController().getPlayer(i);
 			if(newPlayer != null){
@@ -150,37 +94,6 @@ public class MainView extends BasicGameState implements ActionListener {
 				
 			}
 		}
-		
-		
-		//TODO Is to be removed later (is still here because of AI methods)-------
-		
-	/*	Control = new PlayerModel(playerList[activePlayer], obstacles);
-		player = playerList[activePlayer];
-		playerSkills = player.getSkillList();
-
-		Control.ressurectPlayer();
-
-		userImage = player.getImage();
-
-		Control.checkPlayerObstacleCollision(0, 0);
-
-		enemyControl = new PlayerModel(playerList[enemyPlayer], obstacles);
-
-
-		enemy = enemyControl.getPlayer();
-		enemySkills = enemy.getSkillList();
-		enemyImage = enemy.getImage();
-		enemyControl.ressurectPlayer();
-
-		enemyControl.checkPlayerObstacleCollision(0, 0);*/
-		
-		//----------------- Up until this point
-		
-	//	players.clear();
-	//	players.add(new PlayerModel(playerList[activePlayer], obstacles));
-		
-	//	players.add(enemyControl);
-		
 		for(int i=0; i<players.length; i++){
 			PlayerModel currentController = players[i];
 			if(currentController != null){
@@ -272,7 +185,7 @@ public class MainView extends BasicGameState implements ActionListener {
 						}
 					}
 				}
-				if(!currentPlayer.isStealthed() || currentPlayer.getPlayerListIndex() == MainHub.getController().getActivePlayerIndex()){
+				if(!currentPlayer.getStealthState() || currentPlayer.getPlayerListIndex() == MainHub.getController().getActivePlayerIndex()){
 					g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 				}
 			}
@@ -286,36 +199,21 @@ public class MainView extends BasicGameState implements ActionListener {
 				}
 			}
 		}
-		
-		//Attempt to draw oval around player which displays max range (Currently not working correctly)
-//		g.drawOval(player.getX()-Control.getCurrentActiveSkill().getAttackRange()/2, player.getY()-Control.getCurrentActiveSkill().getAttackRange()/2, Control.getCurrentActiveSkill().getAttackRange(), Control.getCurrentActiveSkill().getAttackRange());
-//		System.out.println(Control.getCurrentActiveSkill().getAttackRange());
 		g.drawImage(playerList[activePlayer].getFramedImage(), 20, 585);
 		//Draw the actionbar
 		Skill[] activePlayerSkills = playerList[activePlayer].getSkillList();
 		for(int j=0; j<activePlayerSkills.length; j++){
-		//	g.setColor(Color.white);
-		//	g.fillRect(140 + j*64, 640, 64, 64);
-		//	g.setColor(Color.black);
 			
 			if(activePlayerSkills[j] != null){
-				
-			//	if(activePlayerSkills[j].checkCooldown() == activePlayerSkills[j].getCoolDown()){
-					g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
-			//	}
-				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);
-				
+				g.drawImage(activePlayerSkills[j].getSkillBarImage(),140 + j*64, 640);
+				g.drawString(""+activePlayerSkills[j].checkCooldown(), activePlayerSkills[j].getSkillBarImage().getWidth()/2 + 140 + j*64, 610);	
 			}
 		}
-		g.drawString("Attack Timer: "+players[activePlayer].checkGlobalAttackCooldown(),20, 570);
-		g.drawString("Walk Timer : "+players[activePlayer].checkGlobalWalkCooldown(),20, 580);
+		g.drawString("Global Cooldown Attack: "+players[activePlayer].checkGlobalAttackCooldown(),20, 570);
+		g.drawString("Global Cooldown Walk: "+players[activePlayer].checkGlobalWalkCooldown(),20, 580);
 		
 	
 		if(roundOver){
-			/*if (shouldCalcGold && nbrOfCurrentPlayers>1){
-				goldreward();
-			}
-			shouldCalcGold=false;*/
 			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(nextRoundButton, GameEngine.screenWidth/2 - nextRoundButton.getWidth()/2, 200 + nextRoundBg.getHeight()/2);
 			g.drawString(endRoundText, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/4, 210);
@@ -451,9 +349,6 @@ public class MainView extends BasicGameState implements ActionListener {
 				nextRoundButton = new Image("res/buttons/Ready.png");
 			}
 		}
-		
-		
-	//	AI();
 	}
 
 	
@@ -499,7 +394,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	//Test for sounds
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String fileName = "res/sounds/takingDamage.wav";
+	//	String fileName = "res/sounds/takingDamage.wav";
 		if(e.getActionCommand() == "Taking damage"){
 			playSound("res/sounds/takingDamage.wav");
 		} else if(e.getActionCommand() == "Sword"){

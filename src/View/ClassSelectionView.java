@@ -15,19 +15,12 @@ import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
-import Model.Skills.Skill;
-import Model.Skills.Hunter.*;
-import Model.Skills.Warrior.*;
-import Model.Skills.Wizard.*;
 
 public class ClassSelectionView extends BasicGameState implements ActionListener{
 
 	private String mouse = "No input yet";
 	
-	private boolean isMultiplayer;
-	
 	Player player = null;
-//	private String classType = null;
 
 	Image backgroundImage;
 	Image backButton;
@@ -97,7 +90,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 					
 					// If you're in the Multiplayer-view and click back, the connection will close.
-					if(MainHub.getController().isMulti()) {
+					if(MainHub.getController().getMulti()) {
 						MainHub.getController().getSocketClient().getPlayer().setConnected(false);
 						MainHub.getController().getSocketClient().closeConnection();
 					}
@@ -144,11 +137,11 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		if((580<xPos && xPos<700) && (550<yPos && yPos<595)){
 			singleplayerButton = new Image("res/buttons/singleplayer_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				MainHub.getController().setSingleOrMulti(false);
+				MainHub.getController().setMulti(false);
 				
 				Player aiPlayer = new ClassWarrior("Enemy", "ai", 600, 600, 1);
 				MainHub.getController().addPlayer(aiPlayer, 1);
-				aiPlayer.setReady(true);
+				aiPlayer.setReadyState(true);
 				
 				MainHub.getController().addPlayer(player, 0);
 				sbg.enterState(5);
@@ -156,7 +149,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 		} else if((580<xPos && xPos<700) && (600<yPos && yPos<645)){
 			multiplayerButton = new Image("res/buttons/multiplayer_pressed.png");
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				MainHub.getController().setSingleOrMulti(true);
+				MainHub.getController().setMulti(true);
 				
 				MainHub.getController().getSocketClient().changePlayer(player);
 				
@@ -172,13 +165,13 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				// Wait ca 3 seconds
 				while(timeDiff < 3000) {
 					timeDiff = System.currentTimeMillis() - oldTime;
-					if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
+					if(MainHub.getController().getSocketClient().getPlayer().getConnected()) {
 						break;
 					}
 				}
 				
 				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
-				if(MainHub.getController().getSocketClient().getPlayer().isConnected()) {
+				if(MainHub.getController().getSocketClient().getPlayer().getConnected()) {
 					//Setting correct playerindex
 					player.setIndex(MainHub.getController().getActivePlayerIndex());
 				//	MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
