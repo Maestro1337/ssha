@@ -144,8 +144,8 @@ public class ShoppingView extends BasicGameState {
 	      int connectionCheck=0;
 	      while(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) == null){
 	    	  connectionCheck++;
-	    	  if(connectionCheck >= 200000){
-	    		  break;
+	    	  if(connectionCheck >= 1000000){
+	    		  game.enterState(0);
 	    	  }
 	      }
 	      
