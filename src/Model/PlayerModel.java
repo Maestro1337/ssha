@@ -41,7 +41,8 @@ public class PlayerModel {
 		SkillCheckingTimer SCT = null;
 		int index = -1;
 		for(int j=0; j<SCTArray.size(); j++){
-			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
+			// Changed == to .equals
+			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName().equals(player.getName())){
 				index = j;
 				SCT = SCTArray.get(j);
 			}
