@@ -15,7 +15,7 @@ public class MainHub {
 	// The maximum number of players allowed
 	public static final int nbrOfPlayers = 4;
 	public static final int noActionLimit = 400;
-	public static final int syncFrames = 50;
+	public static final int syncFrames = 100;
 	
 	// Used to correct transmission errors when moving online-player
 	public static final int syncMargin = 10;
