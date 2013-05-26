@@ -21,26 +21,87 @@ import Model.Timers.SkillCheckingTimer;
 public class PlayerModel implements ActionListener {
 	
 	Player player;
-	//Player enemy;
 	Skill[] playerSkills;
 	Skill currentActiveSkill;
-	
-	//Obstacle[] obstacles;
 	
 	private long globalAttackCDStart = 0;
 	private long globalAttackCDElapsed = 0;
 	private long globalWalkCDStart = 0;
 	private long globalWalkCDElapsed = 0;
 	
+	public PlayerModel(Player player){
+		
+		this.player = player;
+		
+		playerSkills = player.getSkillList();
+		currentActiveSkill = playerSkills[0];
+	}
+	
+	// Getters
+	public Player getPlayer(){
+		return player;
+	}
+	public Skill getCurrentActiveSkill(){
+		return currentActiveSkill;
+	}
+	private SkillCheckingTimer getRelevantSCT(Skill skill){
+		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
+		SkillCheckingTimer SCT = null;
+		int index = -1;
+		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
+				index = j;
+				SCT = SCTArray.get(j);
+			}
+		}
+		if(index == -1){
+			SCT = skill.addNewSkillCheckingTimer(player);
+		}
+		
+		return SCT;
+	}
+	private SkillCheckingTimer getRelevantSCT(Obstacle obstacle, Skill skill){
+		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
+		SkillCheckingTimer SCT = null;
+		int index = -1;
+		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getObstacle() == obstacle){
+				index = j;
+				SCT = SCTArray.get(j);
+			}
+		}
+		if(index == -1){
+			SCT = skill.addNewSkillCheckingTimer(obstacle);
+		}
+		return SCT;
+	}
+	
+	// Setters
+	public void setCurrentActiveSkill(int index){
+		for(int i=0; i<playerSkills.length; i++){
+			if(playerSkills[i] != null){
+				if(i == index){
+					currentActiveSkill = playerSkills[i];
+					playerSkills[i].setChosenState(true);
+					player.setCurrentActiveSkillIndex(i);
+					//Using attack instantly if the range is 0
+					if(playerSkills[i].getRange() == 0){
+						attack((int)player.getX(), (int)player.getY());
+					}
+				}else{
+					playerSkills[i].setChosenState(false);
+				}
+			}
+		}
+	}
 
+	// Misc methods
 	public void resetGlobalAttackTimer(){
-//		player.setCanAttackState(false);
 		globalAttackCDStart = System.currentTimeMillis();
 	}
 	public long checkGlobalAttackCooldown(){
 		globalAttackCDElapsed = System.currentTimeMillis() - globalAttackCDStart;
 		if(globalAttackCDElapsed >= 1000){
-//			player.setCanAttackState(true);
 			return 0;
 			
 		}
@@ -48,7 +109,6 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void resetGlobalWalkTimer(){
-	//	player.setCanWalkState(false);
 		globalWalkCDStart = System.currentTimeMillis();
 	}
 	
@@ -60,18 +120,6 @@ public class PlayerModel implements ActionListener {
 			
 		}
 		return (100-globalWalkCDElapsed);
-	}
-
-	public PlayerModel(Player player){
-		
-		this.player = player;
-		
-		playerSkills = player.getSkillList();
-		currentActiveSkill = playerSkills[0];
-	}
-	
-	public Player getPlayer(){
-		return player;
 	}
 	
 	public void killPlayer(){
@@ -104,27 +152,6 @@ public class PlayerModel implements ActionListener {
 		player.setX(player.getStartX());
 		player.setY(player.getStartY());
 		move((int)player.getX()+1,(int)player.getY()+1);
-	}
-	
-	public Skill getCurrentActiveSkill(){
-		return currentActiveSkill;
-	}
-	public void setCurrentActiveSkill(int index){
-		for(int i=0; i<playerSkills.length; i++){
-			if(playerSkills[i] != null){
-				if(i == index){
-					currentActiveSkill = playerSkills[i];
-					playerSkills[i].setChosenState(true);
-					player.setCurrentActiveSkillIndex(i);
-					//Using attack instantly if the range is 0
-					if(playerSkills[i].getRange() == 0){
-						attack((int)player.getX(), (int)player.getY());
-					}
-				}else{
-					playerSkills[i].setChosenState(false);
-				}
-			}
-		}
 	}
 	
 	public void isRunning() throws SlickException{
@@ -273,8 +300,6 @@ public class PlayerModel implements ActionListener {
 	
 	
 	public void move(int x, int y){
-	//	mouseXPosMove = Mouse.getX();
-	//	mouseYPosMove = 720 - Mouse.getY();
 		if(checkGlobalWalkCooldown() == 0 && stillAbleToMakeAction(player)){
 			checkAndCorrectChannel();
 			if(!player.getPushState()){
@@ -284,7 +309,6 @@ public class PlayerModel implements ActionListener {
 				float xDir = x - player.getX();
 				float yDir = y - player.getY();
 				float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-				
 				
 				Double findNaN = (double)genDir;
 				if(!findNaN.isNaN() && !findNaN.isInfinite()){
@@ -314,13 +338,11 @@ public class PlayerModel implements ActionListener {
 			if(currentActiveSkill.isGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
-			
-			//WUT??
+
 			if(currentActiveSkill.isPiercing()){
 				currentActiveSkill.setEndstate(false);
 			}
-			
-			//WUT?? Again
+
 			if(currentActiveSkill.isGrapplingHook()){
 				
 			}
@@ -330,8 +352,6 @@ public class PlayerModel implements ActionListener {
 			//Setting x and y to make the center of the skill appear in the center of the mouse click
 			x -= currentActiveSkill.getCurrentWidth()/2;
 			y -= currentActiveSkill.getCurrentHeight()/2;
-			
-			
 		
 			currentActiveSkill.activateSkill();
 			currentActiveSkill.resetShot(player);
@@ -532,7 +552,6 @@ public class PlayerModel implements ActionListener {
 	public void fixSpawnCollision(Obstacle obstacle) throws SlickException{
 		int N=0,S=0,W=0,E=0;
 		if(MainHub.getController().getMapSelected().getObstacles() != null){
-		//if(obstacles != null){
 			while(isCollidingWithObstacle(obstacle, player.getX()+E, player.getY(), player.getImage().getWidth(), player.getImage().getHeight())){
 				E++;
 			}
@@ -561,12 +580,9 @@ public class PlayerModel implements ActionListener {
 	
 	int changeRate = 10;
 	public void checkUserImageChange(){
-	//	if(changeRate<=0){
-			player.changeUserImage();
-			changeRate = 20;
-	//	}else{
-			changeRate--;
-	//	}
+		player.changeUserImage();
+		changeRate = 20;
+		changeRate--;
 	}
 	
 	
@@ -597,12 +613,9 @@ public class PlayerModel implements ActionListener {
 		//Aborts channel if player is channeling
 		checkAndCorrectChannel();
 		
-		
 		float x = player.getX()+xDir*pushRange;
 		float y = player.getY()+yDir*pushRange;
 		
-		
-
 		player.setMouseXPosMove(x);
 		player.setMouseYPosMove(y);
 		
@@ -610,7 +623,6 @@ public class PlayerModel implements ActionListener {
 		yDir = y - player.getY();
 		
 		float genDir = (float)Math.sqrt(xDir*xDir+yDir*yDir);
-		
 		
 		Double findNaN = (double)genDir;
 		if(!findNaN.isNaN() && !findNaN.isInfinite()){
@@ -686,37 +698,6 @@ public class PlayerModel implements ActionListener {
 				}
 			}
 		}
-	}
-	private SkillCheckingTimer getRelevantSCT(Skill skill){
-		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
-		SkillCheckingTimer SCT = null;
-		int index = -1;
-		for(int j=0; j<SCTArray.size(); j++){
-			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
-				index = j;
-				SCT = SCTArray.get(j);
-			}
-		}
-		if(index == -1){
-			SCT = skill.addNewSkillCheckingTimer(player);
-		}
-		
-		return SCT;
-	}
-	private SkillCheckingTimer getRelevantSCT(Obstacle obstacle, Skill skill){
-		ArrayList<SkillCheckingTimer> SCTArray = skill.getSCTArray();
-		SkillCheckingTimer SCT = null;
-		int index = -1;
-		for(int j=0; j<SCTArray.size(); j++){
-			if(SCTArray.get(j) != null && SCTArray.get(j).getObstacle() == obstacle){
-				index = j;
-				SCT = SCTArray.get(j);
-			}
-		}
-		if(index == -1){
-			SCT = skill.addNewSkillCheckingTimer(obstacle);
-		}
-		return SCT;
 	}
 
 	@Override

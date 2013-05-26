@@ -63,6 +63,8 @@ public class StatusEffect {
 		ESIT = new RegularTimer(1000, delay);
 		
 	}
+	
+	//Getters
 	public boolean getChanneling(){
 		return isChannel;
 	}
@@ -72,19 +74,22 @@ public class StatusEffect {
 	public boolean hasStealth(){
 		return hasStealth;
 	}
+	
+	//Setters
 	public void setChangeModel(){
 		changeModel = true;
 	}
 	public void setChangeOfMainSkill(Image[] animation, int newDamage){
 		MSC = new MainSkillChange(animation, newDamage);
 	}
-
+	public void setResetOfStatusEffect(){
+		returnStatsToNormal();
+	}
 	
 	public void resetStatusEffect(){
 		counts = maxCounts;
 		ESIT.resetTimer();
 	}
-	
 	//Checks if statusEffect is still in use and does the effect it should.
 	public boolean checkStatusEffect(){
 		if(counts > 0){
@@ -99,9 +104,6 @@ public class StatusEffect {
 			returnStatsToNormal();
 			return false;
 		}
-	}
-	public void setResetOfStatusEffect(){
-		returnStatsToNormal();
 	}
 	
 	private void commitStatusEffect(){

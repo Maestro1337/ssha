@@ -57,6 +57,7 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		ESIT = new RegularTimer(1000, delay);
 		
 	}
+	
 	protected StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int counts, int delay){
 		this.player = player;
 		this.name = name;
@@ -71,6 +72,8 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		ESIT = new RegularTimer(1000, delay);
 		
 	}
+	
+	// Getters
 	protected boolean getChannel(){
 		return isChanneling;
 	}
@@ -125,10 +128,13 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	protected int getDelay(){
 		return delay;
 	}
+	
+	// Setters
 	protected void setArmor(double armor){
 		armEff = armor;
 	}
 	
+	//Misc Methods
 	protected void addPlayerGivenTo(String name){
 		for(int i=0; i<playersGivenTo.length; i++){
 			if(playersGivenTo[i] == null){
@@ -137,7 +143,6 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 			}
 		}
 	}
-	
 	public boolean hasBeenGivenTo(String name){
 		for(int i=0; i<playersGivenTo.length; i++){
 			if(playersGivenTo[i] == name){
@@ -146,10 +151,10 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		}
 		return false;
 	}
-	
 	public void resetCloning(){
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
 	}
+
 	@Override
 	public StatusEffect createStatusEffectTo(Player newPlayer) {
 		// TODO Auto-generated method stub
