@@ -212,8 +212,17 @@ public abstract class Skill{
 	}
 	//returns skillbarpicture depending on if it is the active skill or not, or in use
 	public Image getSkillBarImage(){ 
+		if(canToggle){
+			if(isToggledOn){
+				return skillBarImages[2];
+			}else{
+				
+			}
+			
+		}
 		if(checkCooldown() == getCoolDown()){
 			if(!isChosen){
+				
 				return skillBarImages[0];
 			}else{
 				return skillBarImages[1];

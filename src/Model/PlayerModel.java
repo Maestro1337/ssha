@@ -73,17 +73,23 @@ public class PlayerModel {
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
 				if(i == index){
+					//Handling toggle skills
 					if(playerSkills[i].getCanToggle()){
 						playerSkills[i].toggleToggle();
-						/*if(playerSkills[i].getToggleOn()){
-							System.out.println("Toggle is on");
-						//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).commitStatusEffect();
-							player.addToggleEffect(playerSkills[i].getSelfAffectingStatusEffect());
+						if(playerSkills[i].getToggleOn()){
+							StatusEffect SE = playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null);
+							SE.commitStatusEffect();
+							player.addToggleEffect(SE);
 						}else{
-							System.out.println("Toggle is off");
-							player.removeToggleEffect(playerSkills[i].getSelfAffectingStatusEffect());
-						//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).resetStatusEffect();
-						}*/
+							for(int j=0; j<player.getToggleEffect().size(); j++){
+								System.out.println(player.getToggleEffect().get(j).getName());
+								if(player.getToggleEffect().get(j).getName().equals(playerSkills[i].getSelfAffectingStatusEffect().getName())){
+									player.getToggleEffect().get(j).returnStatsToNormal();
+									player.removeToggleEffect(player.getToggleEffect().get(j));
+								}
+							}
+						}
+						
 					}
 					currentActiveSkill = playerSkills[i];
 					playerSkills[i].setChosenState(true);
@@ -340,7 +346,8 @@ public class PlayerModel {
 	public void attack(int x, int y){
 		currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 		if(currentActiveSkill != null && checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player) && 
-				!currentActiveSkill.getPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+				!currentActiveSkill.getPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()
+				&& !currentActiveSkill.getCanToggle()){
 			checkAndCorrectChannel();
 			checkAndCorrectStealth();
 			if(currentActiveSkill.getGuided()){
@@ -389,7 +396,7 @@ public class PlayerModel {
 			}
 				
 			if(currentActiveSkill.getAffectSelf()){
-				if(currentActiveSkill.getSelfAffectingStatusEffect() != null && !currentActiveSkill.getCanToggle()/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
+				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
 					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player, null));
 				}
 			}
