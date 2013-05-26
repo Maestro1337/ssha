@@ -160,6 +160,4 @@ public class OptionsView extends BasicGameState {
 			MapView = new Image ("res/Maps/MapUnavailable.png");
 		}
 	}
-	
-	
 }
