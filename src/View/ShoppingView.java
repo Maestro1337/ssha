@@ -48,8 +48,6 @@ public class ShoppingView extends BasicGameState {
 	Image buyUpgradeButton;
 	
 	private Image playerGold;
-//	private String playerGoldText;
-	private boolean buyOneTime = false;
 	private int grabbedFromChosenIndex = -1;
 	private boolean dragMouse = false;
 	private boolean allIsReady = false;
@@ -86,17 +84,12 @@ public class ShoppingView extends BasicGameState {
 	
 	Image lobbyPlayer;
 	Image lobbyPlayerReady;
-	
-//	Image [] LevelofSkills = new Image [9];
 	Image [] LevelofSkills = new Image [5];
 	Player [] LobbyPlayers;
 	
 	Image headSlotItem;
 	Image chestSlotItem;
 	Image weaponSlotItem;
-
-	//UnicodeFont uFont;
-	//Font font;
 	
 	public ShoppingView (int state){
 		
@@ -121,11 +114,6 @@ public class ShoppingView extends BasicGameState {
 		
 		lobbyPlayer = new Image ("res/miscImages/LobbyPlayer.png");
 		lobbyPlayerReady = new Image ("res/miscImages/LobbyPlayerReady.png");
-
-		/*
-		for (int i=0;i<MainHub.getController().getPlayerControllers().length;i++){
-			LobbyPlayers[i] = new Image ("res/miscImages/LobbyPlayer.png");
-		}*/
 		
 				
 		background = new Image("res/miscImages/ShoppingviewBackground.png");
@@ -134,10 +122,6 @@ public class ShoppingView extends BasicGameState {
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");
-	//	if(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) != null)
-	//		playerGoldText = "" + MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getGold();
-		
-
 		skillText = " ";
 		costText = " ";
 		skillDescBg = new Image("res/miscImages/initEmptyPic.png");
@@ -160,12 +144,8 @@ public class ShoppingView extends BasicGameState {
 	      int connectionCheck=0;
 	      while(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) == null){
 	    	  connectionCheck++;
-	    	  if(connectionCheck >= 100000){
-	    		  System.out.println(connectionCheck);
-	    	//	  container.exit();
-	    		  if(connectionCheck >= 200000){
-	    			  break;
-	    		  }
+	    	  if(connectionCheck >= 200000){
+	    		  break;
 	    	  }
 	      }
 	      
@@ -264,8 +244,6 @@ public class ShoppingView extends BasicGameState {
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
-		//g.setFont(uFont);
-		
 		g.drawImage(background, 0, 0);
 		g.drawImage(playButton, 1120, 670);
 		g.drawImage(optionsButton,980,670);
@@ -285,20 +263,12 @@ public class ShoppingView extends BasicGameState {
 			}
 		}
 		
-		
-		/*
-		if(selectedSkill != null)
-			g.drawImage(selectedSkill.getSkillBarImage(), 490, 470);
-		*/
-		
 		g.drawString(mouse, 900, 10);
-		
 		g.drawImage(classPortrait, 70, 30);
 		g.drawImage(playerGold,70,185);
 		g.drawString(""+activePlayer.getGold(), 140, 198);
 		g.drawString(activePlayer.getName() + "\nHP: "+activePlayer.getHP() + "\nArmor: " + (int)(activePlayer.getArmor()*100) 
 				+ "%\nKills: " + activePlayer.getTotalKills() , 80 + classPortrait.getWidth(), 20 + classPortrait.getHeight()/2);
-
 
 		for(int j=0; j<chosenSkills.length; j++){
 			g.drawString("" + (j+1), chosenSkillsXStart+30 + 69*j, chosenSkillsYStart-25);
@@ -306,9 +276,7 @@ public class ShoppingView extends BasicGameState {
 				g.drawImage(chosenSkills[j].getSkillBarImage(), chosenSkillsXStart + 69*j, chosenSkillsYStart);
 		}
 		
-		
 		// Draw out the itemslots
-		
 		g.drawImage(headSlotItem,365,10 );
 		g.drawImage(chestSlotItem,365,100 );
 		g.drawImage(weaponSlotItem,365,190);
@@ -329,7 +297,6 @@ public class ShoppingView extends BasicGameState {
 				}
 			}
 		}
-		
 		// Draws out players in lobby
 		for (int i=0; i<LobbyPlayers.length;i++){
 			if (LobbyPlayers[i] != null){
@@ -342,8 +309,7 @@ public class ShoppingView extends BasicGameState {
 				}
 				g.drawImage(MainHub.getController().getPlayer(i).getPortraitImageMini(),920,405+60*i);
 				g.drawString(MainHub.getController().getPlayer(i).getName(), 980, 420+60*i);
-			}
-					
+			}	
 		}
 		
 		for(int i=0; i<9; i++){
@@ -389,16 +355,8 @@ public class ShoppingView extends BasicGameState {
 		
 		xPos = Mouse.getX();
 		yPos = 720 - Mouse.getY();
-		
-		//activePlayer.setGold(5000);
-		
-		
-		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
-		
 		Input input = gc.getInput();
-		
-		buyOneTime = true;
 		
 		
 		
@@ -406,8 +364,7 @@ public class ShoppingView extends BasicGameState {
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
 			if((710<xPos && xPos<830) && (600<yPos && yPos<645)){
 				buyUpgradeButton = new Image("res/buttons/buyOver.png");
-				if(input.isMousePressed(0) && buyOneTime){
-					buyOneTime = false;
+				if(input.isMousePressed(0)){
 					if(showingSkillDescription){
 						if(activePlayer.getGold()>=selectedSkill.getCost()){					
 							buySkill(selectedSkill);
