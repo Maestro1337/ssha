@@ -353,7 +353,6 @@ public class ShoppingView extends BasicGameState {
 		for(int i = 0; i<MainHub.getController().getPlayers().length;i++){
 			
 			if(MainHub.getController().getPlayer(i) != null){
-				System.out.println(MainHub.getController().getPlayer(i).getTotalDamageDone());
 				if(MainHub.getController().getPlayer(i).getTotalDamageDone() != 0){
 					g.drawString(numberFormat.format((MainHub.getController().getPlayer(i).getPlayerTotalDamageDone()/MainHub.getController().getPlayer(i).getTotalDamageDone())*100) + "%", 1200, 120 + 40*i);
 				}else{
