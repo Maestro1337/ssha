@@ -10,11 +10,13 @@ public class SkillAbsorb extends Skill{
 	public SkillAbsorb(){
 	//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
+
 		super("Absorb", 30000, 0, 0.4, 3, 25, 0,"Absorb:\nThe wizards gains an absorbing \n shield around him. \n" +
 				"Level 1: 3 seconds invurnability\n" +
 				"Level 2: 5 seconds invurnability\n" +
 				"Level 3: 7 seconds invurnability\n" +
 				"Level 4: 10 seconds invurnability");
+
 
 		
 		Image attackImage = null;

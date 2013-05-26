@@ -12,7 +12,7 @@ public class ItemWarriorHelmet extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"The Crusaders Defence","Protects against deepthroat.\nNever gag again.","Headwear");
+		super (400,"The Crusaders Defence","Adds a small armor- and\nmovementspeed bonus.","Headwear");
 		try{
 			Image = new Image("res/items/Warriors Helmet.png");
 		} catch (SlickException e) {

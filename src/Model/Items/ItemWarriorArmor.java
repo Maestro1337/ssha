@@ -10,7 +10,7 @@ public class ItemWarriorArmor extends Item {
 	Image Image;
 	public ItemWarriorArmor(){
 		//Price, Name, Description, Slot,
-		super (400,"The Righteous' Blessing","Blesses your penis. \nWorks like viagra, but the \neffect doesn't stop.","Armor");
+		super (400,"The Righteous' Blessing","Increases the armor rating by \na handsome amount.","Armor");
 		try{
 			Image = new Image("res/items/Warrior Breastplate.png");
 		} catch (SlickException e) {
@@ -18,7 +18,7 @@ public class ItemWarriorArmor extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.2, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.5, 0));
 		super.setImage(Image);
 	}
 

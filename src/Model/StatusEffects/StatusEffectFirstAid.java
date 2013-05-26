@@ -7,10 +7,10 @@ import Model.StatusEffectShell;
 
 public class StatusEffectFirstAid extends StatusEffectShell{
 	
-	public StatusEffectFirstAid(Skill skill, int seconds) {
+	public StatusEffectFirstAid(Skill skill, int damage, int seconds) {
 		//player,skill,name,damage,moveX,moveY,moveSpeed,arm,attackSpeed,range,isStun,isChanneling,counts,delay
 		//plus one to add a count after the first hit which is instant
-		super(null, skill, "FirstAid", -10, 0, 0, 0, 0, 0, 0, 0, false, false, true, seconds+1, 0);
+		super(null, skill, "FirstAid", -damage, 0, 0, 0, 0, 0, 0, 0, false, false, true, seconds+1, 0);
 	}
 
 	@Override

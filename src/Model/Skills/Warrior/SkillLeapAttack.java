@@ -11,7 +11,7 @@ import Model.StatusEffects.StatusEffectStun;
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 10000, 200, 5, 8, 50, 50,"Leap attack \n" +
+				super("Leap attack", 10000, 200, 5, 8, 150, 50,"Leap attack \n" +
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +

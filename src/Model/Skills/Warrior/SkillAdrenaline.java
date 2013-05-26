@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectAdrenaline;
 public class SkillAdrenaline extends Skill {
 	public SkillAdrenaline(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Adrenaline", 5000, 0, 0.4, 3, 50, 0,"Adrenaline \n" +
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+				super("Adrenaline", 5000, 0, 0.4, 3, 150, 0,"Adrenaline increases \ndamage of slash attack \n" +
+						"Level 1: 150 damage\n" +
+						"Level 2: 200 damage\n" +
+						"Level 3: 300 damage\n" +
+						"Level 4: 400 damage");
 				
 				Image attackImage = null;
 				Image[] animation = new Image[5];
@@ -41,9 +41,9 @@ public class SkillAdrenaline extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 300;
+	private int lvl2 = 200;
 	private int lvl3 = 300;
-	private int lvl4 = 300;
+	private int lvl4 = 400;
 	
 	@Override
 	public void upgradeSkill() {

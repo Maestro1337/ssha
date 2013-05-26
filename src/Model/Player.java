@@ -393,6 +393,10 @@ public class Player {
 	public void incTotalKills(int incAmount){
 		totalKills=totalKills+incAmount;
 	}
+
+	public void addTotalDamageDone(int newDamage){
+		this.totalDamageDone += newDamage;
+	}
 	public void setPortraits(Image frameImage, Image image,Image miniImage){
 		portraitImage= image;
 		portraitImageMini= miniImage;

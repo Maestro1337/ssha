@@ -12,7 +12,7 @@ public class ItemHunterCap extends Item {
 			
 			
 			//Price, Name, Description, Slot,
-			super (400,"Shadow's Sanctum","The rapist's friend.\nShrouded in darkness\nby the headgear you \ncan freely molest anyone.","Headwear");
+			super (400,"Shadow's Sanctum","Adds a small armor- and\nmovementspeed bonus.","Headwear");
 			try{
 				Image = new Image("res/items/Hunters Helmet.png");
 			} catch (SlickException e) {
@@ -20,7 +20,7 @@ public class ItemHunterCap extends Item {
 				e.printStackTrace();
 			}
 			super.setPassive();
-			super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0.3, 0.1, 0));
+			super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0.3, 0.2, 0));
 			super.setImage(Image);
 		}
 }
