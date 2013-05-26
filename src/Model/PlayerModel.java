@@ -130,14 +130,14 @@ public class PlayerModel implements ActionListener {
 	public void isRunning() throws SlickException{
 		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
 		
-		if(player.isAlive() && !player.getPushState() && !player.getStunState() && player.getMovementSpeed() > 0/* && !collided*/){
+		if(player.getAliveState() && !player.getPushState() && !player.getStunState() && player.getMovementSpeed() > 0/* && !collided*/){
 			player.addX((float)(player.getXDirMove()*player.getMovementSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMovementSpeed()));
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMovementSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
 			
-		}else if(player.isAlive() && player.getPushState() && player.getMovementSpeed() > 0/* && !collided*/){
+		}else if(player.getAliveState() && player.getPushState() && player.getMovementSpeed() > 0/* && !collided*/){
 			
 			double tempSpeed = player.getPushSpeed();
 			double calculateDecision = tempSpeed*player.getMoveCounter();
@@ -383,7 +383,7 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void checkCollision(Player attackingPlayer, Skill[] playerSkills) throws SlickException{
-		if(player.isAlive()){
+		if(player.getAliveState()){
 			for(int i=0; i<playerSkills.length; i++){
 				Skill skill = playerSkills[i];
 				if(skill != null && isColliding(skill)){
@@ -660,7 +660,7 @@ public class PlayerModel implements ActionListener {
 		if(player != null)
 			if(player.getX() < 0-MainHub.noActionLimit || player.getY() < 0-MainHub.noActionLimit || 
 					player.getX() > GameEngine.screenWidth+MainHub.noActionLimit || player.getY() > GameEngine.screenHeight+MainHub.noActionLimit ||
-					!player.isAlive() || player.getStunState()){
+					!player.getAliveState() || player.getStunState()){
 				return false;
 			}else{
 				return true;

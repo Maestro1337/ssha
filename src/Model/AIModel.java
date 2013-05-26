@@ -24,7 +24,6 @@ public class AIModel implements PlayerControl{
 	
 	public AIModel(Player player){
 		enemy = player;
-		run();
 	}
 
 	@Override
@@ -40,9 +39,9 @@ public class AIModel implements PlayerControl{
 		try {
 			enemyControl.ressurectPlayer();
 			enemyControl.checkPlayerObstacleCollision(0, 0);
-		//	while(true){
-		//		AI();
-		//	}
+			while(true){
+				AI();
+			}
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
