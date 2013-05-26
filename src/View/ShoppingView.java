@@ -135,7 +135,6 @@ public class ShoppingView extends BasicGameState {
 	}
 
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-	      // TODO Auto-generated method stub
 	      super.enter(container, game);
 	     
 	      MainHub.getController().addRoundNumber(1);
@@ -523,7 +522,8 @@ public class ShoppingView extends BasicGameState {
 			}else if(xIndex >= 1){
 				boolean alreadyInChosenSkills = false;
 				for(int i=0; i<chosenSkills.length; i++){
-					if(chosenSkills[i] != null && chosenSkills[i].getName() == selectedSkill.getName())
+					// Changed from == to equals
+					if(chosenSkills[i] != null && chosenSkills[i].getName().equals(selectedSkill.getName()))
 						alreadyInChosenSkills = true;
 				}
 				if(alreadyInChosenSkills){
@@ -573,7 +573,8 @@ public class ShoppingView extends BasicGameState {
 	private void buyItem(Item item){
 		boolean alreadyOwnItem = false;
 		for (int i=0; i<ownedItemList.size();i++){
-			if(ownedItemList.get(i).getName()==item.getName()){
+			// Changed to equals
+			if(ownedItemList.get(i).getName().equals(item.getName())){
 				buyString = "Already own Item";
 				alreadyOwnItem = true;
 				break;
@@ -590,7 +591,8 @@ public class ShoppingView extends BasicGameState {
 	private void buySkill(Skill skill){
 		boolean alreadyOwnSkill = false;
 		for(int i=0; i<ownedSkillList.size(); i++){
-			if(ownedSkillList.get(i).getName() == skill.getName()){
+			// Changed to equals
+			if(ownedSkillList.get(i).getName().equals(skill.getName())){
 				buyString = "Already own skill";
 				alreadyOwnSkill = true;
 				break;
