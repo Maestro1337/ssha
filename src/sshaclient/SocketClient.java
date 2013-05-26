@@ -125,21 +125,21 @@ public class SocketClient implements Runnable {
 				
 			}
 			
-			/*
+			
 			try {
-				Thread.sleep(Constants.globalSleep);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			*/
+			
 		}
 	}
 	
 	public void findConnection() {
 		while(!tp.getConnected()) {
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
