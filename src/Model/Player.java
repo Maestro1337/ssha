@@ -74,7 +74,8 @@ public class Player {
 	private float xDirMove;
 	private float yDirMove;
 	private float genDirMove;
-	private Double findNaN;
+	// Just made it "not nothing"
+	private Double findNaN = 0.0;
 
 	private boolean isChanneling = false;
 	private boolean isStunned = false;
