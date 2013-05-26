@@ -27,6 +27,44 @@ public class Obstacle {
 		this.solid = solid;
 	}
 	
+	// Getters
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
+	public String getType(){
+		return type;
+	}
+	public boolean isSolid(){
+		return solid;
+	}
+	public int getDamage(){
+		return damage;
+	}
+	public int getHealth(){
+		return health;
+	}
+	public int getCurrentHeight(){
+		return currentHeight;
+	}
+	public int getCurrentWidth(){
+		return currentWidth;
+	}
+	public Image getCurrentImage(){
+		double divider = maxHealth/images.length;
+		int index=images.length-1;
+		while(divider*index > health){
+			index--;
+		}
+		return images[index];
+	}
+	public Image[] getAllImages(){
+		return images;
+	}
+	
+	// Setters
 	public void setImage(Image[] images){
 		if(images != null)
 			this.images = images;
@@ -38,45 +76,8 @@ public class Obstacle {
 		}
 	}
 	
-	
-	public String getType(){
-		return type;
-	}
-	public int getDamage(){
-		return damage;
-	}
-	public int getHealth(){
-		return health;
-	}
+	// Misc methods
 	public void takeDamage(int damage){
 		health -= damage;
-	}
-	public int getX(){
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
-	public Image getCurrentImage(){
-		double divider = maxHealth/images.length;
-		int index=images.length-1;
-		while(divider*index > health){
-			index--;
-		}
-	//	System.out.println(index);
-		return images[index];
-	//	return currentImage;
-	}
-	public Image[] getAllImages(){
-		return images;
-	}
-	public int getCurrentHeight(){
-		return currentHeight;
-	}
-	public int getCurrentWidth(){
-		return currentWidth;
-	}
-	public boolean isSolid(){
-		return solid;
 	}
 }
