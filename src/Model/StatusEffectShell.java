@@ -144,6 +144,7 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		return false;
 	}
 	public void resetCloning(){
+		System.out.println("RESET CLONING");
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
 	}
 

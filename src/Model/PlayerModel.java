@@ -242,7 +242,7 @@ public class PlayerModel {
 				}
 				
 				if(attackingSkill.getAttCounter()*attackingSkill.getAttSpeed() >= attackingSkill.getGenDirAtt() || collided){
-					if(attackingSkill.getAffectSelfOnHit() && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())){
+					if(attackingSkill.getAffectSelfOnHit() /*&& !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
 						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player, null));
 					}
 					if(!attackingSkill.getHasEndState()){
@@ -481,7 +481,7 @@ public class PlayerModel {
 		attackingPlayer.incRoundDamageDone((int)(attackingSkill.getDamage()*(1-player.getArmor())));
 		if(attackingSkill.getAffectSelfOnHit())
 			System.out.println(attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName()));
-		if(attackingSkill.getAffectSelfOnHit() && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())){
+		if(attackingSkill.getAffectSelfOnHit()/* && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
 			player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(attackingPlayer, player));
 		}
 	}
