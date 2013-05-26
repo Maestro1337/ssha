@@ -27,7 +27,7 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	private Thread socketFinderThread;
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
-	private MultiSocketServer[] theSockets = new MultiSocketServer[MainHub.nbrOfClients];
+	private MultiSocket[] theSockets = new MultiSocket[MainHub.nbrOfClients];
 	private Thread[] theThreads = new Thread[MainHub.nbrOfClients];
 	
 	private boolean isRunning;
@@ -36,149 +36,16 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		isRunning = false;
 		
 		mainView = MainHub.getController().getMainView();
-		mainView.setPrivIPLabel(getLocalIP());
-		mainView.setPubIPLabel(getPublicIP());
+		MainHub.getController().getSettingsView().setPrivIPLabel(getLocalIP());
+		MainHub.getController().getSettingsView().setPubIPLabel(getPublicIP());
 		
 		socketFinder = new SocketFinder(MainHub.port, this, mainView);
 		socketFinderThread = new Thread(socketFinder);
 		
-		mainView.addActionListener(this);
+		MainHub.getController().getActivityView().addActionListener(this);
+		MainHub.getController().getSettingsView().addActionListener(this);
 	}
 	
-	// Adds a socket-connection it gets from SocketFinder
-	public void addSocket(Socket connection) {
-		String[] names;
-		
-		for(int j = 0; j < MainHub.nbrOfClients; j++) {
-			if(theSockets[j] == null) {
-				names = new String[MainHub.nbrOfClients];
-				for(int k = 0; k < MainHub.nbrOfClients; k++) {
-					if(theSockets[k] != null) {
-						names[k] = theSockets[k].getPlayerName();
-					} else {
-						names[k] = "";
-					}
-				}
-				
-				theSockets[j] = new MultiSocketServer(connection, j, names);
-				theThreads[j] = new Thread(theSockets[j]);
-				theThreads[j].start();
-				
-				while(theSockets[j].getPlayerName() == null) {
-					try {
-						Thread.sleep(MainHub.globalSleep);
-					} catch (InterruptedException e) {}
-				}
-				if(theSockets[j].isNameFree()) {
-					mainView.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
-				}
-				break;
-			}
-		}
-		
-		mainView.clearClientsField();
-		for(int i = 0; i < MainHub.nbrOfClients; i++) {
-			if(theSockets[i] != null) {
-				if(theSockets[i].isNameFree()) {
-					mainView.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
-				}
-			}
-		}
-	}
-
-	@Override
-	public void run() {
-		
-		while(true) {
-			statString = "";
-			for(int i = 0; i < MainHub.nbrOfClients; i++) {
-				if(theThreads[i] != null) {
-					statString = statString + theSockets[i].getPlayerStats() + "/";
-					
-					if(theSockets[i].isDead()) {
-						if(theSockets[i].isNameFree()) {
-							mainView.addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
-						}
-						theSockets[i].closeConnection();
-						theSockets[i] = null;
-						theThreads[i] = null;
-						mainView.clearClientsField();
-						for(int j = 0; j < MainHub.nbrOfClients; j++) {
-							if(theSockets[j] != null) {
-								mainView.addClient(theSockets[j].getPlayerName() + (char)9 + theSockets[j].getPlayerID());
-							}
-						}
-					}		
-				}	
-			}
-			
-			for(int j = 0; j < MainHub.nbrOfClients; j++) {
-				if(theThreads[j] != null) {
-					theSockets[j].setPlayerStats(statString);
-				}
-			}
-			
-			try {
-				Thread.sleep(MainHub.globalSleep);
-			} catch (InterruptedException e) {}
-		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("connect")) {
-			if(!mainView.isRunning()) {
-				startServer();
-			} else {
-				stopServer();
-			}
-			mainView.changeButtonText();
-		} else if(e.getActionCommand().equals("save")) {
-			saveActivityLog();
-		} else if(e.getActionCommand().equals("clear")) {
-			if(!mainView.getActivity().equals("")) {
-				String clearLog = mainView.showDialogBox("clearactivity");
-				if(clearLog.equals("Clear log")) {
-					mainView.clearActivityField();
-				}
-			}
-		} else if(e.getActionCommand().equals("change")) {
-			String tempPort = mainView.getPortField();
-			int port = -1;
-			String whatChange;
-			
-			try {
-				port = Integer.parseInt(tempPort);
-			}
-			catch(NumberFormatException nfe) {
-				tempPort = "" + MainHub.port;
-			}
-				
-			if(port < 1024 || port > 9999 || tempPort.length() > 4) {
-				whatChange = mainView.showDialogBox("error");
-				mainView.setPortField("" + MainHub.port);
-				tempPort = "" + MainHub.port;
-			} else {
-				if(socketFinder.getCurrentPort() != port) {
-					// Have to have a check if the server is running
-					if(isRunning) {
-						whatChange = mainView.showDialogBox("change");
-						if(whatChange.equals("Restart now")) {
-							restartServer(Integer.parseInt(tempPort));
-						}
-					} else {
-						socketFinder.changePort(Integer.parseInt(tempPort));
-						mainView.addToActivityField("Port changed to " + tempPort);
-					}
-				}
-				
-			}
-			
-		} else if(e.getActionCommand().equals("default")) {
-			mainView.setPortField("" + MainHub.port);
-		}
-	}
-
 	public String getLocalIP() {
 		String tempIP = "";
 		try {
@@ -232,6 +99,145 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		return tempIP;
 	}
 	
+	// Adds a socket-connection it gets from SocketFinder
+	public void addSocket(Socket connection) {
+		String[] names;
+		
+		for(int j = 0; j < MainHub.nbrOfClients; j++) {
+			if(theSockets[j] == null) {
+				names = new String[MainHub.nbrOfClients];
+				for(int k = 0; k < MainHub.nbrOfClients; k++) {
+					if(theSockets[k] != null) {
+						names[k] = theSockets[k].getPlayerName();
+					} else {
+						names[k] = "";
+					}
+				}
+				
+				// Initiates new Thread for each connection
+				theSockets[j] = new MultiSocket(connection, j, names);
+				theThreads[j] = new Thread(theSockets[j]);
+				theThreads[j].start();
+				
+				while(theSockets[j].getPlayerName() == null) {
+					try {
+						Thread.sleep(MainHub.globalSleep);
+					} catch (InterruptedException e) {}
+				}
+				// Checks if the username is already taken
+				if(theSockets[j].isNameFree()) {
+					MainHub.getController().getActivityView().addToActivityField(theSockets[j].getPlayerName() + " is now connected");
+				}
+				break;
+			}
+		}
+		
+		MainHub.getController().getActivityView().clearClientsField();
+		for(int i = 0; i < MainHub.nbrOfClients; i++) {
+			if(theSockets[i] != null) {
+				if(theSockets[i].isNameFree()) {
+					MainHub.getController().getActivityView().addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void run() {
+		
+		while(true) {
+			// Joins all players statstrings
+			statString = "";
+			for(int i = 0; i < MainHub.nbrOfClients; i++) {
+				if(theThreads[i] != null) {
+					statString = statString + theSockets[i].getPlayerStats() + "/";
+					
+					// Check if it loses a connection and kills then kills the controller and thread
+					if(theSockets[i].isDead()) {
+						if(theSockets[i].isNameFree()) {
+							MainHub.getController().getActivityView().addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
+						}
+						theSockets[i].closeConnection();
+						theSockets[i] = null;
+						theThreads[i] = null;
+						MainHub.getController().getActivityView().clearClientsField();
+						for(int j = 0; j < MainHub.nbrOfClients; j++) {
+							if(theSockets[j] != null) {
+								MainHub.getController().getActivityView().addClient(theSockets[j].getPlayerName() + (char)9 + theSockets[j].getPlayerID());
+							}
+						}
+					}		
+				}	
+			}
+			
+			for(int j = 0; j < MainHub.nbrOfClients; j++) {
+				if(theThreads[j] != null) {
+					theSockets[j].setPlayerStats(statString);
+				}
+			}
+			
+			try {
+				Thread.sleep(MainHub.globalSleep);
+			} catch (InterruptedException e) {}
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("connect")) {
+			if(!MainHub.getController().getActivityView().isRunning()) {
+				startServer();
+			} else {
+				stopServer();
+			}
+			MainHub.getController().getActivityView().changeButtonText();
+		} else if(e.getActionCommand().equals("save")) {
+			saveActivityLog();
+		} else if(e.getActionCommand().equals("clear")) {
+			if(!MainHub.getController().getActivityView().getActivity().equals("")) {
+				String clearLog = mainView.showDialogBox("clearactivity");
+				if(clearLog.equals("Clear log")) {
+					MainHub.getController().getActivityView().clearActivityField();
+				}
+			}
+		} else if(e.getActionCommand().equals("change")) {
+			String tempPort = MainHub.getController().getSettingsView().getPortField();
+			int port = -1;
+			String whatChange;
+			
+			try {
+				port = Integer.parseInt(tempPort);
+			}
+			catch(NumberFormatException nfe) {
+				tempPort = "" + MainHub.port;
+			}
+			
+			// Checks that it's a valid port-number
+			if(port < 1024 || port > 9999 || tempPort.length() > 4) {
+				whatChange = mainView.showDialogBox("error");
+				MainHub.getController().getSettingsView().setPortField("" + MainHub.port);
+				tempPort = "" + MainHub.port;
+			} else {
+				if(socketFinder.getCurrentPort() != port) {
+					// Have to have a check if the server is running
+					if(isRunning) {
+						whatChange = mainView.showDialogBox("change");
+						if(whatChange.equals("Restart now")) {
+							restartServer(Integer.parseInt(tempPort));
+						}
+					} else {
+						socketFinder.changePort(Integer.parseInt(tempPort));
+						MainHub.getController().getActivityView().addToActivityField("Port changed to " + tempPort);
+					}
+				}
+				
+			}
+			
+		} else if(e.getActionCommand().equals("default")) {
+			MainHub.getController().getSettingsView().setPortField("" + MainHub.port);
+		}
+	}
+	
 	public void startServer() {
 		if(socketFinderThread.getState() == Thread.State.NEW) {
 			socketFinderThread.start();
@@ -259,19 +265,19 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		isRunning = false;
 		stopServer();
 		socketFinder.changePort(newPort);
-		mainView.changeButtonText();
+		MainHub.getController().getActivityView().changeButtonText();
 		try {
 			Thread.sleep(MainHub.globalSleep);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		startServer();
-		mainView.changeButtonText();
+		MainHub.getController().getActivityView().changeButtonText();
 		isRunning = true;
 	}
 	
 	public void saveActivityLog() {
-		String activityLog = mainView.getActivity();
+		String activityLog = MainHub.getController().getActivityView().getActivity();
 		
 		if(!activityLog.equals("")) {
 			Date date = new Date();

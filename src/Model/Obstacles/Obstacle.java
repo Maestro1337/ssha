@@ -62,12 +62,14 @@ public class Obstacle {
 	
 	// Setters
 	public void setImage(Image[] images){
-		if(images != null)
+		// Put second if into first if
+		if(images != null) {
 			this.images = images;
 		
-		if(images[0] != null){
-			currentHeight = images[0].getHeight();
-			currentWidth = images[0].getWidth();
+			if(images[0] != null){
+				currentHeight = images[0].getHeight();
+				currentWidth = images[0].getWidth();
+			}
 		}
 	}
 	

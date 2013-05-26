@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectStun;
 public class SkillWarstomp extends Skill {
 	public SkillWarstomp(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Warstomp", 11000, 0, 0.4, 3, 25, 150,"Warstomp \n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+		super("Warstomp", 11000, 0, 0.4, 3, 60, 150,"Warstomp \nStunns and deals AoE damage\n" +
+				"Level 1: 150 damage\n" +
+				"Level 2: 200 damage\n" +
+				"Level 3: 250 damage\n" +
+				"Level 4: 300 damage");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[1];

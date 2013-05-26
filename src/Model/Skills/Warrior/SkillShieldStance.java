@@ -10,18 +10,18 @@ public class SkillShieldStance extends Skill {
 	public SkillShieldStance(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-				super("Shield stance", 11000, 0, 0.4, 3, 60, 0,"Shieldstance \n" +
+				super("Shield stance", 11000, 0, 0.4, 3, 60, 0,"Shieldstance \nIncreases armor but decreases \nmovementspeed (20%armor)\n" +
 
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+						"Level 1: 2 seconds \n" +
+						"Level 2: 4 seconds\n" +
+						"Level 3: 6 seconds\n" +
+						"Level 4: 8 seconds");
 				
 				Image attackImage = null;
 				Image[] animation = new Image[4];
 				Image[] skillBar = new Image[3];
 				
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 5));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 2));
 				
 				try {
 					attackImage = new Image("res/animations/Shieldstance/Shieldstance4.png");
@@ -55,15 +55,15 @@ public class SkillShieldStance extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 7));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 4));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 9));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 6));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 11));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 8));
 				super.setDamage(lvl4);
 				break;
 			}

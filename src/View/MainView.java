@@ -367,7 +367,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		String winningPlayer = null;
 		for(int i=0; i<players.length; i++){
 			if(players[i] != null){
-				if(players[i] != null && players[i].getPlayer().getAliveState()){
+				if(players[i].getPlayer().getAliveState()){
 					stillAlive++;
 					winningPlayer = players[i].getPlayer().getName();
 				}

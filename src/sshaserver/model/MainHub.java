@@ -1,6 +1,8 @@
 package sshaserver.model;
 
+import sshaserver.view.ActivityView;
 import sshaserver.view.MainView;
+import sshaserver.view.SettingsView;
 
 public class MainHub {
 
@@ -13,12 +15,13 @@ public class MainHub {
 	private static MainHub myControl = null;
 	
 	private MainView mainView;
+	private SettingsView settingsView;
+	private ActivityView activityView;
 	
 	public static MainHub getController() {
 		if (myControl == null) {
 			myControl = new MainHub();
-			// prepare myController here or use setter() methods or a parameterized constructor
-	   }
+		}
 	   return myControl;
 	}
 	
@@ -26,9 +29,23 @@ public class MainHub {
 		return mainView;
 	}
 	
+	public ActivityView getActivityView() {
+		return activityView;
+	}
+	
+	public void setSettingsView(SettingsView settingsView) {
+		this.settingsView = settingsView;
+	}
+	
 	public void setMainView(MainView mainView) {
 		this.mainView = mainView;
 	}
 	
+	public void setActivityView(ActivityView activityView) {
+		this.activityView = activityView;
+	}
 	
+	public SettingsView getSettingsView() {
+		return settingsView;
+	}
 }

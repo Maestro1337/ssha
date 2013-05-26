@@ -11,13 +11,13 @@ public class StatusEffectShieldstance extends StatusEffectShell{
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, isStun, isChanneling, counts, delay
 		
-		super(null, skill, "Shieldstance", 0, 0, 0, -0.25, 0.2, 0, 0, 0, false, false, false, seconds+1, 0);
+		super(null, skill, "Shieldstance", 0, 0, 0, -0.75, 0.2, 0, 0, 0, false, false, false, seconds+1, 0);
 
 		super.setChangeModel();
 	}
 	
 	@Override
-	public StatusEffect createStatusEffectTo(Player newPlayer) {
+	public StatusEffect createStatusEffectTo(Player newPlayer, Player fromPlayer) {
 		//Finding the next free space in list to add player to
 		super.addPlayerGivenTo(newPlayer.getName());
 		

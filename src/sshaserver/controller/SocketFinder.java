@@ -3,6 +3,7 @@ package sshaserver.controller;
 import java.io.IOException;
 import java.net.*;
 
+import sshaserver.model.MainHub;
 import sshaserver.view.MainView;
 
 public class SocketFinder implements Runnable {
@@ -10,14 +11,12 @@ public class SocketFinder implements Runnable {
 	private int port;
 	
 	private ClientSupervisor CS;
-	private MainView SV;
 	private ServerSocket socket1;
 	private boolean isActive;
 	
 	public SocketFinder(int port, ClientSupervisor CS, MainView SV) {
 		this.port = port;
 		this.CS = CS;
-		this.SV = SV;
 		
 		startSearching();
 	}
@@ -33,7 +32,7 @@ public class SocketFinder implements Runnable {
 		
 		try {
 			socket1 = new ServerSocket(port);
-			SV.addToActivityField("Server started on port " + port);
+			MainHub.getController().getActivityView().addToActivityField("Server started on port " + port);
 			
 			// Listens for new connections
 			while(isActive) {
@@ -46,10 +45,9 @@ public class SocketFinder implements Runnable {
 		catch(Exception e) {
 
 		}
-		SV.addToActivityField("Server stopped");
+		MainHub.getController().getActivityView().addToActivityField("Server stopped");
 	}
 	
-	// Closes the socket and thereby stops the search
 	public void stopSearching() {
 		try {
 			socket1.close();
@@ -70,5 +68,4 @@ public class SocketFinder implements Runnable {
 	public int getCurrentPort() {
 		return port;
 	}
-
 }
