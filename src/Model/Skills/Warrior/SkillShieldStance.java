@@ -23,7 +23,7 @@ public class SkillShieldStance extends Skill {
 				
 				super.setToggled();
 
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 2));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, -0.75, 0.2));
 				
 				try {
 					attackImage = new Image("res/animations/Shieldstance/Shieldstance4.png");
@@ -57,15 +57,15 @@ public class SkillShieldStance extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 4));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, -0.75, 0.23));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 6));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, -0.75, 0.26));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 8));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, -0.75, 0.3));
 				super.setDamage(lvl4);
 				break;
 			}
