@@ -34,7 +34,8 @@ public class MainHub {
 	private int difficultySelected;
 	private int roundNumber = 0;
 	private Arena[] maps;
-	private String playerName = "OldName";
+	private String playerName = "Name";
+
 
 	//Singleton
 	public static MainHub getController() {

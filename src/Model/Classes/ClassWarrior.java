@@ -25,7 +25,7 @@ public class ClassWarrior extends Player {
 
 	public ClassWarrior(String name, String ctrlType, float x, float y, int index) {
 		//name, ctrlType, String class, x, y , HP, movespeed , armor, index
-		super(name, ctrlType, "Warrior", x, y, 1600, 0.7, 0.35, index);
+		super(name, ctrlType, "Warrior", x, y, 1600, 0.95, 0.30, index);
 		try {
 			playerImage = new Image("res/animations/characters/warrior_stand.png");
 			portraitImage = new Image("res/classImages/warrior_portrait.png");

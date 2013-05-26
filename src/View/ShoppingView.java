@@ -368,6 +368,9 @@ public class ShoppingView extends BasicGameState {
 		
 		xPos = Mouse.getX();
 		yPos = 720 - Mouse.getY();
+		
+		activePlayer.setGold(5000);
+
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		Input input = gc.getInput();
 		if(showingSkillDescription||showingItemDescription){

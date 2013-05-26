@@ -10,7 +10,7 @@ public class SkillShieldStance extends Skill {
 	public SkillShieldStance(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-				super("Shield stance", 11000, 0, 0.4, 3, 25, 0,"Shieldstance \n" +
+				super("Shield stance", 11000, 0, 0.4, 3, 60, 0,"Shieldstance \n" +
 
 						"Level 1: 15 damage\n" +
 						"Level 2: 25 damage\n" +
