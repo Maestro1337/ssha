@@ -18,15 +18,7 @@ public class RepeatingAnimationTimer {
 		this.images = images;
 	}
 	
-	
-	public void resetTimer(){
-		startTime = System.currentTimeMillis();
-		elapsedTime = 0;
-	}
-	public void resetCounterAndTimer(){
-		counter = 0;
-		resetTimer();
-	}
+	// Getters
 	public Image getCurrentAnimationImage(){
 		elapsedTime = System.currentTimeMillis() - startTime;
 		if(elapsedTime > interval){
@@ -41,5 +33,15 @@ public class RepeatingAnimationTimer {
 	}
 	public int getInterval(){
 		return interval;
+	}
+	
+	// Setters
+	public void resetTimer(){
+		startTime = System.currentTimeMillis();
+		elapsedTime = 0;
+	}
+	public void resetCounterAndTimer(){
+		counter = 0;
+		resetTimer();
 	}
 }
