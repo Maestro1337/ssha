@@ -5,7 +5,7 @@ import java.io.*;
 
 import sshaserver.model.MainHub;
 
-public class MultiSocketServer implements Runnable {
+public class MultiSocket implements Runnable {
 
 	private Socket connection;
 	private int ID;
@@ -18,17 +18,40 @@ public class MultiSocketServer implements Runnable {
 	
 	private String otherStatsString;
 	
-	public MultiSocketServer(Socket s, int i, String[] names) {
+	public MultiSocket(Socket s, int i, String[] names) {
 		this.connection = s;
 		this.ID = i;
 		this.names = names;
+	}
+	
+	public String getPlayerName() {
+		return this.playerName;
+	}
+	
+	public int getPlayerID() {
+		return this.ID;
+	}
+	
+	public synchronized String getPlayerStats() {
+		return this.statString;
+	}
+	
+	public boolean isDead() {
+		return isDead;
+	}
+
+	public boolean isNameFree() {
+		return nameIsFree;
+	}
+	
+	public synchronized void setPlayerStats(String stats) {
+		this.otherStatsString = stats + "/" + (char)13;
 	}
 	
 	@Override
 	public void run() {
 		
 		try {
-			//Create input and output readers
 			BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
@@ -46,6 +69,7 @@ public class MultiSocketServer implements Runnable {
 			character = 0;
 			process.delete(0, process.length());
 			
+			// Check if the new username is already used
 			nameIsFree = true;
 			for(int i = 0; i < names.length; i++) {
 				if(names[i].equals(playerName)) {
@@ -61,8 +85,7 @@ public class MultiSocketServer implements Runnable {
 				
 				System.out.println("Player " + playerName + " is connected.");
 			} else {
-				
-				//It still looks like the player connects and then disconnects. FIX IT!
+				// Lets the player know that their name is already taken.
 				otherStatsString = "NameTaken 0" + (char)13;
 				osw.write(otherStatsString);
 				osw.flush();
@@ -100,34 +123,10 @@ public class MultiSocketServer implements Runnable {
 		}
 	}
 	
-	public String getPlayerName() {
-		return this.playerName;
-	}
-	
-	public int getPlayerID() {
-		return this.ID;
-	}
-	
-	public synchronized String getPlayerStats() {
-		return this.statString;
-	}
-	
-	public synchronized void setPlayerStats(String stats) {
-		this.otherStatsString = stats + "/" + (char)13;
-	}
-	
 	public void closeConnection() {
 		try {
 			connection.close();
 		}
 		catch(IOException e) {}
-	}
-	
-	public boolean isDead() {
-		return isDead;
-	}
-
-	public boolean isNameFree() {
-		return nameIsFree;
 	}
 }
