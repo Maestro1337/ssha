@@ -179,10 +179,11 @@ public class MainView extends BasicGameState implements ActionListener {
 			if(playerList[i] != null){
 				Player currentPlayer = playerList[i];
 				Skill[] currentSkillset = currentPlayer.getSkillList();
-				g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
-						+ "%\nKills: " + currentPlayer.getKillsThisRound() + "\nMovement: " + currentPlayer.getMovementSpeed() 
-						+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY() + "\n DMG: "+ currentPlayer.getRoundDamageDone(),900+150*i,25);
-				
+				if(currentPlayer.getControlType().equals("ai")){
+					g.drawString(currentPlayer.getName() + "\nHP: "+currentPlayer.getHP() + "\nArmor: " + (int)(currentPlayer.getArmor()*100) 
+							+ "%\nKills: " + currentPlayer.getKillsThisRound() + "\nMovement: " + currentPlayer.getMovementSpeed() 
+							+ "\nx:" + currentPlayer.getX() + " y: " + currentPlayer.getY() + "\n DMG: "+ currentPlayer.getRoundDamageDone(),600+150*i,25);
+				}
 				
 				for(int j=0; j<currentSkillset.length; j++){
 					if(currentSkillset[j] != null){
@@ -219,8 +220,10 @@ public class MainView extends BasicGameState implements ActionListener {
 				}
 			}
 		}
-		g.drawString("Global Cooldown Attack: "+players[activePlayer].checkGlobalAttackCooldown(),20, 570);
-		g.drawString("Global Cooldown Walk: "+players[activePlayer].checkGlobalWalkCooldown(),20, 580);
+		g.drawString("Global Cooldown Attack: " + players[activePlayer].checkGlobalAttackCooldown() + 
+				"\nGlobal Cooldown Walk: " + players[activePlayer].checkGlobalWalkCooldown() + 
+				"\nHP: " + players[activePlayer].getPlayer().getHP() + 
+				"\nArmor: " + (int)(players[activePlayer].getPlayer().getArmor()*100) + "%",20, 520);
 		
 	
 		if(roundOver){
