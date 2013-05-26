@@ -11,7 +11,6 @@ public class StatusEffect {
 	
 	private Player player;
 	private Skill skill;
-	private String name;
 	
 	private int dmgEff;
 	private float moveXEff;
@@ -23,24 +22,20 @@ public class StatusEffect {
 	private int evasionEff;
 	private int counts;
 	private int maxCounts;
-	private int interval;
 	private boolean hasStun;
 	private boolean isChannel = false;
 	private boolean hasStealth = false;
 	private MainSkillChange MSC = null;
 	
 	private boolean commitedChange = false;
-	private String[] playersGivenTo;
 	
 	private RegularTimer ESIT;
-	private int delay;
 	
 	private boolean changeModel = false;
 	
 	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, double arm, int attackSpeed, int range, int evasion,boolean isStealth, boolean isStun, boolean isChanneling, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
-		this.name = name;
 		
 		dmgEff = damage;
 		moveXEff = moveX;
@@ -50,14 +45,11 @@ public class StatusEffect {
 		rangeEff = range;
 		moveSpeedEff = moveSpeed;
 		this.counts = maxCounts = counts;
-		this.interval = interval;
-		this.delay = delay;
 		hasStun = isStun;
 		this.isChannel = isChanneling;
 		evasionEff = evasion;
 		hasStealth = isStealth;
 		
-		playersGivenTo = new String[3];
 		ESIT = new RegularTimer(1000, delay);
 		
 	}
