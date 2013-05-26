@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillIncreasedMovement extends Skill {
 	public SkillIncreasedMovement(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Increased movement", 11000, 400, 0.4, 3, 20, 0,"Increased movement(passive) \n" +
+				super("Increased movement", 11000, 400, 0.4, 3, 20, 0,"Increased movement\n(passive) \n" +
 						"Level 1: 10,5%\n" +
 						"Level 2: 21% damage\n" +
 						"Level 3: 31,5% damage\n" +

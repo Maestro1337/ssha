@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectStun;
 public class SkillGrapplingHook extends Skill {
 	public SkillGrapplingHook(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Grappling hook", 1000, 500, 7, 3, 60, 150,"Grappling hook \n" +
+				super("Grappling hook", 1000, 500, 7, 3, 60, 150,"Grappling hook \nHook yourself to an \nobstacle or player dealing\ndamage and stunning them\n" +
 						"Level 1: 150 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+						"Level 2: 200 damage\n" +
+						"Level 3: 250 damage\n" +
+						"Level 4: 300 damage");
 				
 				Image[] attackImage = new Image[18];
 				Image[] animation = new Image[18];
@@ -73,8 +73,8 @@ public class SkillGrapplingHook extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 300;
-	private int lvl3 = 300;
+	private int lvl2 = 200;
+	private int lvl3 = 250;
 	private int lvl4 = 300;
 	
 	@Override
