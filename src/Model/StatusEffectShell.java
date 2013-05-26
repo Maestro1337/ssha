@@ -6,7 +6,7 @@ import Model.Items.Item;
 import Model.Skills.Skill;
 import Model.Timers.*;
 
-public abstract class StatusEffectShell {
+public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	
 	
 	private Player player;
@@ -54,6 +54,21 @@ public abstract class StatusEffectShell {
 		hasStealth = isStealth;
 		
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
+		ESIT = new RegularTimer(1000, delay);
+		
+	}
+	
+	protected StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int counts, int delay){
+		this.player = player;
+		this.name = name;
+		
+		dmgEff = damage;
+		armEff = arm;
+		moveSpeedEff = moveSpeed;
+		maxCounts = counts;
+		this.delay = delay;
+		
+		playersGivenTo = new String[3];
 		ESIT = new RegularTimer(1000, delay);
 		
 	}
@@ -119,21 +134,7 @@ public abstract class StatusEffectShell {
 		armEff = armor;
 	}
 	
-	// Misc methods
-	protected StatusEffectShell(Player player, Item item, String name,int damage, double moveSpeed, double arm, int counts, int delay){
-		this.player = player;
-		this.name = name;
-		
-		dmgEff = damage;
-		armEff = arm;
-		moveSpeedEff = moveSpeed;
-		maxCounts = counts;
-		this.delay = delay;
-		
-		playersGivenTo = new String[3];
-		ESIT = new RegularTimer(1000, delay);
-		
-	}
+	//Misc Methods
 	protected void addPlayerGivenTo(String name){
 		for(int i=0; i<playersGivenTo.length; i++){
 			if(playersGivenTo[i] == null){
@@ -153,6 +154,10 @@ public abstract class StatusEffectShell {
 	public void resetCloning(){
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
 	}
-	
-	public abstract StatusEffect createStatusEffectTo(Player newPlayer);
+
+	@Override
+	public StatusEffect createStatusEffectTo(Player newPlayer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
