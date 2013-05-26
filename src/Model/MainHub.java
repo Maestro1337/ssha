@@ -1,5 +1,9 @@
 package Model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import sshaclient.SocketClient;
 
 import Control.PlayerControl;
@@ -8,9 +12,7 @@ import Model.Arenas.*;
 public class MainHub {
 
 	private int defaultPort = 6666;
-	//public static final String hostName = "127.0.0.1";
-	private String hostName = "83.248.107.3";
-	//public static final String hostName = "10.0.1.8";
+	private String hostName = "127.0.0.1";
 	
 	// The maximum number of players allowed
 	public static final int nbrOfPlayers = 4;
@@ -32,8 +34,7 @@ public class MainHub {
 	private int difficultySelected;
 	private int roundNumber = 0;
 	private Arena[] maps;
-	private String playerName = "No";
-
+	private String playerName = "OldName";
 
 	//Singleton
 	public static MainHub getController() {
@@ -53,9 +54,23 @@ public class MainHub {
 		maps[1] = new MapSlaughterField();
 		maps[2] = new MapVolcano();
 		
+		setRelevantInformationFromFile();
+		
 		socketClient = new SocketClient(hostName, defaultPort);
 		socketThread = new Thread(socketClient);
 		socketThread.start();
+	}
+	private void setRelevantInformationFromFile(){
+		Scanner fileScanner;
+		try {
+			fileScanner = new Scanner(new File("res/changeableInfo.txt"));
+			playerName = fileScanner.nextLine();
+			hostName = fileScanner.nextLine();
+			fileScanner.close();
+			
+		} catch (FileNotFoundException e) {
+			playerName = "NameNotFound";
+		}
 	}
 	
 	public synchronized Player[] getPlayers(){
@@ -100,7 +115,6 @@ public class MainHub {
 	public int getRoundNumber(){
 		return roundNumber;
 	}
-	
 	public synchronized void addPlayer(Player player, int index){
 		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
 		players[index] = player;
