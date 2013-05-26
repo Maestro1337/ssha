@@ -527,7 +527,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	        exc.printStackTrace(System.out);
 	    }	
 	}
-	
+	//Calculating goldreward after each round.
 	public void goldreward(){
 		int numberofplayers=0;
 		int allDamageDone=0;
@@ -560,7 +560,12 @@ public class MainView extends BasicGameState implements ActionListener {
 			}	
 			else placingInRoundMultiplier = 1;
 		}
+		// So you dont divide by zero when calculating damageDonePrecentage. (if all damage comes from obstacles)
+				if(allDamageDone==0){
+					allDamageDone =1;
+				}
 		damageDonePercentage =(double)players[activePlayer].getPlayer().getRoundDamageDone()/(double)allDamageDone;
+		
 	
 		//Gives the player gold based on how well he/she did this round.
 		players [activePlayer].getPlayer().addGold((int)((damageDonePercentage*numberofplayers*10+activeplayerkills*5+20)*activeRoundMultiplier*placingInRoundMultiplier));
