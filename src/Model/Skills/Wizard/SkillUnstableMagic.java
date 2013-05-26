@@ -60,12 +60,15 @@ public class SkillUnstableMagic extends Skill {
 			switch(super.getCurrentLvl()){
 			case 2:
 				super.setCooldown(lvl2);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 16));
 				break;
 			case 3:
 				super.setCooldown(lvl3);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 12));
 				break;
 			case 4:
 				super.setCooldown(lvl4);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 8));
 				break;
 			}
 		}
