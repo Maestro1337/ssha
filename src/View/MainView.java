@@ -531,7 +531,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	public void goldreward(){
 		int numberofplayers=0;
 		int allDamageDone=0;
-		double damageDonePercentage;
+		double damageDonePercentage=0;
 		double activeRoundMultiplier=0;
 		double placingInRoundMultiplier=0;
 		int activeplayerkills = players [activePlayer].getPlayer().getKillsThisRound();
@@ -551,6 +551,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		for (int i=0;i<players.length;i++){
 			if (players [i]!= null){
 				allDamageDone += players [i].getPlayer().getRoundDamageDone();
+				System.out.println("player"+ i + " "+ players [i].getPlayer().getRoundDamageDone() );
 				numberofplayers++;
 			}
 		}for (int i=0;i<placingInRound.size();i++){
@@ -559,12 +560,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			}	
 			else placingInRoundMultiplier = 1;
 		}
-		damageDonePercentage = players[activePlayer].getPlayer().getRoundDamageDone()/allDamageDone;
-		System.out.println("damage"+damageDonePercentage);
-		System.out.println("damagenmbrplayers"+numberofplayers);
-		System.out.println("kills"+activeplayerkills);
-		System.out.println("roundmulti"+activeRoundMultiplier);
-		System.out.println("playermulti"+placingInRoundMultiplier);
+		damageDonePercentage =(double)players[activePlayer].getPlayer().getRoundDamageDone()/(double)allDamageDone;
+	
 		//Gives the player gold based on how well he/she did this round.
 		players [activePlayer].getPlayer().addGold((int)((damageDonePercentage*numberofplayers*10+activeplayerkills*5+20)*activeRoundMultiplier*placingInRoundMultiplier));
 	}

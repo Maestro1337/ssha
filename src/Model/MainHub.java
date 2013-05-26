@@ -30,7 +30,7 @@ public class MainHub {
 	private int mapSelected;
 	private int difficultySelected;
 	private Arena[] maps;
-	private String playerName = "xXx-oster";
+	private String playerName = "xXx-oster hej";
 
 
 	//Singleton
