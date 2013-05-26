@@ -9,7 +9,7 @@ import viewControl.*;
 
 public class GameEngine extends StateBasedGame {
 
-	private static final String gameName = "Super Slash Hose!";
+	private static final String gameName = "Super Slash Homies Arena";
 	private static final int menu = 0;
 	private static final int play = 1;
 	private static final int selection = 3;
