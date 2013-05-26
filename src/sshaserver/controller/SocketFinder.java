@@ -25,7 +25,6 @@ public class SocketFinder implements Runnable {
 	public void run() {
 		while(!isActive) {
 			try {
-				System.out.println("lol");
 				Thread.sleep(10);
 			} catch (InterruptedException e) {}
 		}

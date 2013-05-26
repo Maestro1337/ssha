@@ -33,8 +33,7 @@ public class SocketClient implements Runnable {
 	private BufferedInputStream bis;
 	private InputStreamReader isr;
 	
-	public SocketClient(String host, int port){//, Player tp) {
-		//this.tp = tp;
+	public SocketClient(String host, int port) {
 		
 		this.allAreReady = false;
 		
@@ -52,19 +51,7 @@ public class SocketClient implements Runnable {
 		Skill[] tempSkills;
 		
 		while(true) {
-			
-			/*
-			System.out.println("These players are/are maybe connected:");
-			System.out.println(GlobalClassSelector.getController().getPlayer(0));
-			System.out.println(GlobalClassSelector.getController().getPlayer(1));
-			System.out.println(GlobalClassSelector.getController().getPlayer(2));
-			System.out.println(GlobalClassSelector.getController().getPlayer(3));
-			*/
-			
 			if(connected) {
-				
-				//this.tp = GlobalClassSelector.getController().getPlayer(GlobalClassSelector.getController().getSocketClient().getPlayer().getPlayerListIndex());
-				
 				tempSkills = tp.getSkillList();
 				if(tp.getMode().equals("lobby")) {
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getType() + " " + tp.getTotalKills() + " " + tp.getGold() + " skills";
@@ -96,28 +83,6 @@ public class SocketClient implements Runnable {
 					} else {
 						process = process + " " + 0;
 					}
-					
-					
-					/*
-					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
-					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " " + tp.getHP() + " skills";
-					for(int j = 0; j < tempSkills.length; j++) {
-						if(tempSkills[j] != null) {
-							
-							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getAttX() + " " + tempSkills[j].getAttY() + " ";
-							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
-							process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
-							
-							//process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getMouseXPos() + " " + tempSkills[j].getMouseYPos() + " ";
-							//process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
-							//process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
-							
-						} else {
-							process = process + " noskill 0 0 0 0 false";
-						}
-					}
-					*/
-					
 				}
 				
 				process = process + (char)13;
@@ -187,17 +152,13 @@ public class SocketClient implements Runnable {
 				instr.append((char)c);
 			}
 			inData = instr.toString();
-		//	System.out.println(inData);
 			
 			if(inData.length() > 10 && inData.length() < 4999) {
 				if(inData.substring(0, inData.indexOf(32)).equals("Connected")) {
 					tp.setPlayerListIndex(Integer.parseInt(inData.substring(inData.indexOf(32) + 1, inData.length())));
-			//		MainHub.getController().removePlayer(0);
 					MainHub.getController().addPlayer(tp, tp.getPlayerListIndex());
 					MainHub.getController().setActivePlayerIndex(tp.getPlayerListIndex());
 					
-					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
-				//	MainHub.getController().resetPlayers();
 					tp.setNameTaken(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
@@ -271,9 +232,7 @@ public class SocketClient implements Runnable {
 				arrPos = Integer.parseInt(MainHub.getItem(tempStats, 1));
 				
 				playerStats[arrPos] = tempStats;
-				playerChanged[arrPos] = true;
-				
-				//(!Constants.getItem(tempStats, 3).equals(MainHub.getController().getPlayer(arrPos).getType()) || 
+				playerChanged[arrPos] = true; 
 				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
