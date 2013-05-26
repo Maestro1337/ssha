@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectImmobilize;
 public class SkillArrowFlurry extends Skill {
 	public SkillArrowFlurry(){
 		// name, cd, range, speed, aoe, cost, damageLvl1, damageLvl2, damageLvl3, damageLvl4, describe, affectSelf
-		super("Arrow flurry", 11000, 400, 100, 3, 50, 150,"Arrow flurry: \nA rain of arrows on a targetted \narea. Immobilizes enemies in  \nthe area and damages over time.\n" +
-				"Level 1: 100 damage\n" +
-				"Level 2: 200 damage\n" +
-				"Level 3: 400 damage\n" +
-				"Level 4: 800 damage");
+		super("Arrow flurry", 11000, 400, 200, 3, 50, 150,"Arrow flurry: \nA rain of arrows on a targetted \narea. Immobilizes enemies in  \nthe area and damages over time.\n" +
+				"Level 1: 300 total damage\n" +
+				"Level 2: 400 total damage\n" +
+				"Level 3: 500 total damage\n" +
+				"Level 4: 600 total damage");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[17];

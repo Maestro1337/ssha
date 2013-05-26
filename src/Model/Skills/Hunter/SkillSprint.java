@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillSprint extends Skill {
 	public SkillSprint(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Sprint", 11000, 0, 0.4, 3, 10, 0, "Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
+		super("Sprint", 11000, 0, 0.4, 3, 20, 0, "Sprint: \nIncreases movementspeed for a \nshort duration.\n" +
 				"Level 1: 3 sec\n" +
 				"Level 2: 5 sec\n" +
 				"Level 3: 7 sec\n" +

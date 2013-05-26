@@ -50,15 +50,16 @@ public class StatusEffectAdrenaline extends StatusEffectShell {
 	}
 
 	private int getDamageOfCurrentLevel(){
+		int currentDamage = super.getSkill().getDamage();
 		switch(super.getSkill().getCurrentLvl()){
 		case 1:
-			return 200;
+			return currentDamage+200;
 		case 2:
-			return 250;
+			return currentDamage+250;
 		case 3:
-			return 300;
+			return currentDamage+300;
 		case 4:
-			return 350;
+			return currentDamage+350;
 		}
 		
 		return 0;

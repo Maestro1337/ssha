@@ -9,7 +9,7 @@ public class SkillAbsorb extends Skill{
 	public SkillAbsorb(){
 	//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 
-		super("Absorb", 11000, 0, 0.4, 3, 25, 150,"Absorb (Passive):\nThe wizards gains an absorbing \n shield around him. \n" +
+		super("Absorb", 11000, 0, 0.4, 3, 60, 150,"Absorb (Passive):\nThe wizards gains an absorbing \n shield around him. \n" +
 				"Level 1: 10 % of damage done, max 100\n" +
 				"Level 2: 15 % of damage done, max 150\n" +
 				"Level 3: 20 % of damage done, max 200\n" +

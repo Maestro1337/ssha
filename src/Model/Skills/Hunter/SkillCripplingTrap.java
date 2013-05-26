@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillCripplingTrap extends Skill {
 	public SkillCripplingTrap(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Crippling shot", 20000, 0, 0.4, 5, 25, 200,"Crippling trap: \nA trap which slows the enemy.\n" +
-				"Level 1: 150 damage\n" +
-				"Level 2: 300 damage\n" +
+		super("Crippling shot", 20000, 0, 0.4, 5, 60, 200,"Crippling trap: \nA trap which slows and damages\nthe enemy.\n" +
+				"Level 1: 200 damage\n" +
+				"Level 2: 250 damage\n" +
 				"Level 3: 300 damage\n" +
-				"Level 4: 300 damage");
+				"Level 4: 350 damage");
 		
 		Image[] attackImage = new Image[1];
 		Image[] skillBar = new Image[3];

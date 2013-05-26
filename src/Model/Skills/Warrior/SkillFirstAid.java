@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectFirstAid;
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("First aid", 11000, 0, 0.4, 3, 50, 0,"First Aid \n" +
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+				super("First aid", 11000, 0, 0.4, 3, 150, 0,"First Aid Channels a \nheal while standing still\n" +
+						"Level 1: 15 health per second\n" +
+						"Level 2: 30 health per second\n" +
+						"Level 3: 50 health per second\n" +
+						"Level 4: 100 health per second");
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 15));
 				

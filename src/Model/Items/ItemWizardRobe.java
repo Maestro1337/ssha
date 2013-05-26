@@ -12,7 +12,7 @@ public class ItemWizardRobe extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"The Scholars' Robe","Dis make yo bootey \nlook biig!","Armor");
+		super (400,"The Scholars' Robe","Increases armor rating by a \nlarge amount","Armor");
 		try{
 			Image = new Image("res/items/Mages Robe.png");
 		} catch (SlickException e) {
@@ -21,7 +21,7 @@ public class ItemWizardRobe extends Item {
 		}
 		super.setPassive();
 		//Item item, int damage, double movement, double armor
-		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.2, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.4, 0));
 		super.setImage(Image);
 	}
 

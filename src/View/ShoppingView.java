@@ -390,7 +390,7 @@ public class ShoppingView extends BasicGameState {
 		xPos = Mouse.getX();
 		yPos = 720 - Mouse.getY();
 		
-		//activePlayer.setGold(5000);
+		activePlayer.setGold(5000);
 		
 		
 		

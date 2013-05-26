@@ -24,7 +24,7 @@ public class ClassWizard extends Player {
 
 	public ClassWizard(String name, String ctrlType, float x, float y, int index) {
 		//name, ctrlType, String class, x, y , HP, movespeed , armor, index
-		super(name, ctrlType, "Wizard", x, y, 1000, 0.65, 0.2, index);
+		super(name, ctrlType, "Wizard", x, y, 1000, 0.75, 0.2, index);
 		try {
 			playerImage = new Image("res/animations/characters/mage_stand.png");
 			portraitImage = new Image("res/classImages/mage_portrait.png");

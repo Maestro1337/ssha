@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectLifesteal;
 public class SkillLifestealingArrows extends Skill {
 	public SkillLifestealingArrows(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Lifestealing Arrows", 11000, 500, 1.75, 3, 25, 100,"Lifestealing arrow: \nArrows that steals the\nlifeforce of the target.\n" +
-				"Level 1: 150 damage\n" +
-				"Level 2: 300 damage\n" +
+		super("Lifestealing Arrows", 11000, 500, 1.75, 3, 60, 100,"Lifestealing arrow: \nArrows that steals the\nlifeforce of the target.\n" +
+				"Level 1: 100 damage\n" +
+				"Level 2: 200 damage\n" +
 				"Level 3: 300 damage\n" +
-				"Level 4: 300 damage");
+				"Level 4: 400 damage");
 		// TODO Lifesteal StatusAffect AffectSelf
 		
 		Image[] attackImages = new Image[6];

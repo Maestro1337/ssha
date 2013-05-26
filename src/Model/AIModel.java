@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import Control.GameEngine;
 import Control.PlayerControl;
 import Model.Obstacles.Obstacle;
-import Model.Skills.Skill;
+
 
 public class AIModel implements PlayerControl{
 	
@@ -162,7 +162,6 @@ public class AIModel implements PlayerControl{
 		}
 		
 		for(int i=0;i<enemy.getSkillList().length;i++){
-			System.out.println("Attack");
 			if (enemyControl.getCurrentActiveSkill().getName()!="Slash"){
 				enemyControl.setCurrentActiveSkill(i);
 			}

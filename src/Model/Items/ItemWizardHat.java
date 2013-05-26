@@ -12,7 +12,7 @@ public class ItemWizardHat extends Item {
 		
 		
 		//Price, Name, Description, Slot,
-		super (400,"Gandalfs skalles balle","It's Gandalfs heads penis.","Headwear");
+		super (400,"Wizard's pride","A pointy hat that increases\narmor and movementspeed.","Headwear");
 		try{
 			Image = new Image("res/items/Mages Hat.png");
 		} catch (SlickException e) {

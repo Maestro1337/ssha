@@ -24,7 +24,7 @@ public class ClassHunter extends Player {
 
 	public ClassHunter(String name, String ctrlType, float x, float y, int index) {
 		//name, ctrlType, String class, x, y , HP, movespeed , armor, index
-		super(name, ctrlType, "Hunter", x, y, 1337, 2/*0.68*/, 0.15, index);
+		super(name, ctrlType, "Hunter", x, y, 1337, 0.80, 0.25, index);
 		try {
 			playerImage = new Image("res/animations/characters/hunter_stand.png");
 			portraitImage = new Image("res/classImages/hunter_portrait.png");
