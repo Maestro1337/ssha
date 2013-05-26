@@ -6,7 +6,7 @@ import Model.Items.Item;
 import Model.Skills.Skill;
 import Model.Timers.*;
 
-public abstract class StatusEffectShell {
+public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	
 	
 	private Player player;
@@ -129,8 +129,6 @@ public abstract class StatusEffectShell {
 		armEff = armor;
 	}
 	
-	public abstract StatusEffect createStatusEffectTo(Player newPlayer);
-	
 	protected void addPlayerGivenTo(String name){
 		for(int i=0; i<playersGivenTo.length; i++){
 			if(playersGivenTo[i] == null){
@@ -151,5 +149,10 @@ public abstract class StatusEffectShell {
 	
 	public void resetCloning(){
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
+	}
+	@Override
+	public StatusEffect createStatusEffectTo(Player newPlayer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
