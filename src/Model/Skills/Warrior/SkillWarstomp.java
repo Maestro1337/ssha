@@ -4,7 +4,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skill;
-import Model.StatusEffects.StatusEffectImmobilize;
 import Model.StatusEffects.StatusEffectStun;
 
 public class SkillWarstomp extends Skill {

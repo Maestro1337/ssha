@@ -7,7 +7,6 @@ import Model.Player;
 import Model.Skill;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
-import Model.Skills.Warrior.SkillThrowingAxe;
 
 public class StatusEffectAdrenaline extends StatusEffectShell {
 

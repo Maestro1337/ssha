@@ -7,7 +7,6 @@ import Model.Skill;
 import Model.StatusEffects.StatusEffectLeap;
 import Model.StatusEffects.StatusEffectPreLeap;
 import Model.StatusEffects.StatusEffectStun;
-import Model.StatusEffects.StatusEffectTeleport;
 
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){

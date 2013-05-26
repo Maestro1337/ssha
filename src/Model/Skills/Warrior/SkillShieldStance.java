@@ -5,7 +5,6 @@ import org.newdawn.slick.SlickException;
 
 import Model.Skill;
 import Model.StatusEffects.StatusEffectShieldstance;
-import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillShieldStance extends Skill {
 	public SkillShieldStance(){

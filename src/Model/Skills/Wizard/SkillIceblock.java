@@ -4,9 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skill;
-import Model.StatusEffects.StatusEffectDodge;
 import Model.StatusEffects.StatusEffectIceBlock;
-import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillIceblock extends Skill {
 

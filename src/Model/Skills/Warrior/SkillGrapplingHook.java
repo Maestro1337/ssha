@@ -4,10 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Skill;
-import Model.StatusEffects.StatusEffectLeap;
-import Model.StatusEffects.StatusEffectPreLeap;
 import Model.StatusEffects.StatusEffectStun;
-import Model.StatusEffects.StatusEffectTeleport;
 
 public class SkillGrapplingHook extends Skill {
 	public SkillGrapplingHook(){

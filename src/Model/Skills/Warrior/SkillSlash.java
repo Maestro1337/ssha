@@ -2,7 +2,6 @@ package Model.Skills.Warrior;
 
 
 import Model.Skill;
-import Model.StatusEffect;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

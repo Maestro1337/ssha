@@ -1,7 +1,5 @@
 package Model.StatusEffects;
 
-import java.util.Random;
-
 import Model.Player;
 import Model.Skill;
 import Model.StatusEffect;

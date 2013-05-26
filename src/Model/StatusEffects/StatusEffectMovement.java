@@ -4,7 +4,6 @@ import Model.Player;
 import Model.Skill;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
-import Model.Items.Item;
 
 public class StatusEffectMovement extends StatusEffectShell{
 

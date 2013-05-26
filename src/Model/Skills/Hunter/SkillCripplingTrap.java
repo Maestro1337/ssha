@@ -5,7 +5,6 @@ import org.newdawn.slick.SlickException;
 
 import Model.Skill;
 import Model.StatusEffects.StatusEffectMovement;
-import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillCripplingTrap extends Skill {
 	public SkillCripplingTrap(){
