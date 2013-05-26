@@ -387,14 +387,8 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			for(int i = 0; i<MainHub.getController().getPlayers().length;i++){
 				if(MainHub.getController().getPlayer(i) != null){
-					//System.out.println("Total dmg done:" + MainHub.getController().getPlayer(i).getTotalDamageDone());
-					//totalDMG += MainHub.getController().getPlayer(i).getPlayerTotalDamageDone();
-					//System.out.println("getTotalDamage:" + MainHub.getController().getPlayer(i).getTotalDamageDone());
-					//System.out.println("total:" + totalDMG);
 					MainHub.getController().getPlayer(i).addPlayerTotalDamageDone(MainHub.getController().getPlayer(i).getRoundDamageDone());
-					//System.out.println("Player totaldmg:" + MainHub.getController().getPlayer(i).getPlayerTotalDamageDone());
 					totalDMG += MainHub.getController().getPlayer(i).getRoundDamageDone();
-					//System.out.println("total:" + totalDMG);
 					
 				}
 			}
