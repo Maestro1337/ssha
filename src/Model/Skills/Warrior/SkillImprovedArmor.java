@@ -3,7 +3,7 @@ package Model.Skills.Warrior;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectArmor;
 
 public class SkillImprovedArmor extends Skill {

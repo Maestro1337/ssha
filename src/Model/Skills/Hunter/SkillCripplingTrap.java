@@ -3,9 +3,8 @@ package Model.Skills.Hunter;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectMovement;
-import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillCripplingTrap extends Skill {
 	public SkillCripplingTrap(){

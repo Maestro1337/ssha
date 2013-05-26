@@ -3,11 +3,8 @@ package Model.Skills.Warrior;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectLeap;
-import Model.StatusEffects.StatusEffectPreLeap;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectStun;
-import Model.StatusEffects.StatusEffectTeleport;
 
 public class SkillGrapplingHook extends Skill {
 	public SkillGrapplingHook(){

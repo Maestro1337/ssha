@@ -3,8 +3,7 @@ package Model.Skills.Wizard;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.StatusEffect;
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.*;
 
 

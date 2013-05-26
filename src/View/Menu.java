@@ -12,9 +12,7 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.ResourceLoader;
 
 import Model.MainHub;
-import Model.Player;
 import Model.Classes.*;
-import Model.Skills.Skill;
 import Model.Skills.Hunter.*;
 import Model.Skills.Warrior.*;
 import Model.Skills.Wizard.*;
@@ -24,22 +22,17 @@ import Model.Skills.Wizard.*;
 
 
 public class Menu extends BasicGameState implements ActionListener{
-
-	private String mouse = "No input yet";
-
 	/** The wav sound effect */
 	private Audio wavEffect;
 	
 	private boolean startMusic = true;
 	
-	Image bg;
-
-	Image backgroundImage;
-	Image startGameButton;
-	Image exitButton;
-	Image titleText1;
-	Image titleText2;
-	Image midBannerImage;
+	private Image backgroundImage;
+	private Image startGameButton;
+	private Image exitButton;
+	private Image titleText1;
+	private Image titleText2;
+	private Image midBannerImage;
 	
 	public Menu (int state){
 		
@@ -82,10 +75,10 @@ public class Menu extends BasicGameState implements ActionListener{
 		g.drawImage(backgroundImage, 0, 0);
 		g.drawImage(midBannerImage, gc.getWidth()/2 - midBannerImage.getWidth()/2, 0);
 
-		/*if(startMusic){
+		if(startMusic){
 			wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
 			startMusic = false;
-		}*/
+		}
 		
 		g.drawImage(titleText1, gc.getWidth()/2 - titleText1.getWidth()/2, 150);
 		g.drawImage(titleText2, gc.getWidth()/2 - titleText2.getWidth()/2, 200);
@@ -125,41 +118,41 @@ public class Menu extends BasicGameState implements ActionListener{
 	}
 	
 	private void openGLInitializer(){
-		Player player = new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
-		player = new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
-		player = new ClassWizard(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
+		new ClassHunter(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
+		new ClassWarrior(MainHub.getController().getActivePlayerName(), "player", 120, 100, 0);
+		new ClassWizard(MainHub.getController().getActivePlayerName(), "player", 160, 300, 0);
 		
-		Skill skill = new SkillArrow();
-		skill = new SkillArrowFlurry();
-		skill = new SkillBarrelRoll();
-		skill = new SkillCripplingTrap();
-		skill = new SkillFlamingArrow();
-		skill = new SkillGuidedArrow();
-		skill = new SkillLifestealingArrows();
-		skill = new SkillPassiveDodge();
-		skill = new SkillSprint();
-		skill = new SkillStealth();
+		new SkillArrow();
+		new SkillArrowFlurry();
+		new SkillBarrelRoll();
+		new SkillCripplingTrap();
+		new SkillFlamingArrow();
+		new SkillGuidedArrow();
+		new SkillLifestealingArrows();
+		new SkillPassiveDodge();
+		new SkillSprint();
+		new SkillStealth();
 		
-		skill = new SkillAdrenaline();
-		skill = new SkillFirstAid();
-		skill = new SkillGrapplingHook();
-		skill = new SkillImprovedArmor();
-		skill = new SkillIncreasedMovement();
-		skill = new SkillLeapAttack();
-		skill = new SkillShieldStance();
-		skill = new SkillSlash();
-		skill = new SkillThrowingAxe();
-		skill = new SkillWarstomp();
+		new SkillAdrenaline();
+		new SkillFirstAid();
+		new SkillGrapplingHook();
+		new SkillImprovedArmor();
+		new SkillIncreasedMovement();
+		new SkillLeapAttack();
+		new SkillShieldStance();
+		new SkillSlash();
+		new SkillThrowingAxe();
+		new SkillWarstomp();
 		
-		skill = new SkillAbsorb();
-		skill = new SkillBlizzard();
-		skill = new SkillFireball();
-		skill = new SkillFirestorm();
-		skill = new SkillFlamewave();
-		skill = new SkillIceblock();
-		skill = new SkillIroncloak();
-		skill = new SkillTeleport();
-		skill = new SkillUnstableMagic();
-		skill = new SkillWandattack();
+		new SkillAbsorb();
+		new SkillBlizzard();
+		new SkillFireball();
+		new SkillFirestorm();
+		new SkillFlamewave();
+		new SkillIceblock();
+		new SkillIroncloak();
+		new SkillTeleport();
+		new SkillUnstableMagic();
+		new SkillWandattack();
 	}
 }

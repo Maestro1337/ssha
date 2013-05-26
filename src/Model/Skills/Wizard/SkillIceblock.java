@@ -3,10 +3,8 @@ package Model.Skills.Wizard;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectDodge;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectIceBlock;
-import Model.StatusEffects.StatusEffectImmobilize;
 
 public class SkillIceblock extends Skill {
 

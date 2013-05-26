@@ -3,8 +3,7 @@ package Model.Skills.Warrior;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectImmobilize;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectStun;
 
 public class SkillWarstomp extends Skill {

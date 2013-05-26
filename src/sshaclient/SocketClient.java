@@ -5,8 +5,8 @@ import java.io.*;
 
 import Model.MainHub;
 import Model.Player;
+import Model.Skill;
 import Model.Classes.*;
-import Model.Skills.Skill;
 
 
 public class SocketClient implements Runnable {

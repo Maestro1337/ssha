@@ -3,7 +3,7 @@ package Model.Skills.Hunter;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.*;
 
 public class SkillBarrelRoll extends Skill {

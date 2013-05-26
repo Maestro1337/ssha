@@ -3,22 +3,14 @@ package Model;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-
-
-
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
 import Control.GameEngine;
 import Model.Obstacles.*;
-import Model.Skills.*;
-import Model.StatusEffects.SpawnTeleport;
 import Model.Timers.SkillCheckingTimer;
 
-public class PlayerModel implements ActionListener {
+public class PlayerModel {
 	
 	Player player;
 	Skill[] playerSkills;
@@ -155,7 +147,7 @@ public class PlayerModel implements ActionListener {
 	}
 	
 	public void isRunning() throws SlickException{
-		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
+		checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
 		
 		if(player.getAliveState() && !player.getPushState() && !player.getStunState() && player.getMovementSpeed() > 0/* && !collided*/){
 			player.addX((float)(player.getXDirMove()*player.getMovementSpeed()));
@@ -243,6 +235,9 @@ public class PlayerModel implements ActionListener {
 					}
 					if(!attackingSkill.getHasEndState()){
 						attackingSkill.setAttackingState(false);
+						if(attackingSkill.getPiercing()){
+							attackingSkill.resetTargetsHit();
+						}
 					}else{
 						attackingSkill.activateEndState();
 					}
@@ -257,7 +252,6 @@ public class PlayerModel implements ActionListener {
 				}
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-				//TODO have to add -90 for slash.. but turn image instead..
 					animationImage.setRotation(attackingSkill.getRotation());
 				
 					if(animationImage != null)
@@ -338,9 +332,10 @@ public class PlayerModel implements ActionListener {
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
 
+			/*
 			if(currentActiveSkill.getPiercing()){
 				currentActiveSkill.setEndstate(false);
-			}
+			}*/
 
 			if(currentActiveSkill.getGrapplingHook()){
 				
@@ -423,12 +418,19 @@ public class PlayerModel implements ActionListener {
 							pushPlayer(skill.getXDirAtt(), skill.getYDirAtt(), skill.getPushDistance());
 						}
 						if(!skill.getHasEndState()){
+							//Piercing skills can not have end state
+							boolean canHitTarget = true;
 							if(!skill.getPiercing()){
-								System.out.println("BAHSSSSS");
 								skill.setAttackingState(false);
 								skill.collidedShot();
+							}else{
+								canHitTarget = false;
+								if(!skill.getTargetsHit(player.getPlayerListIndex())){
+									canHitTarget = true;
+									skill.addTargetHit(player.getPlayerListIndex());
+								}
 							}
-							if(evasion>=0){
+							if(evasion>=0 && canHitTarget){
 								player.dealDamage(skill.getDamage());
 								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
 								
@@ -444,7 +446,6 @@ public class PlayerModel implements ActionListener {
 						
 						SkillCheckingTimer SCT = getRelevantSCT(skill);
 						if(SCT != null && SCT.checkESColTimer() == skill.getESColInterval()){
-							//TODO Fix so it can hit several players and reset differently instead of one collected
 							if(evasion>=0){
 								player.dealDamage(skill.getDamage());
 								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
@@ -643,7 +644,6 @@ public class PlayerModel implements ActionListener {
 	 * @param skill which is the skill that will have a target assigned to it
 	 */
 	public void findAndSetGuidedTarget(Skill skill){
-		//TODO fix for when all players are stealthed
 		Player[] guidedPlayers = MainHub.getController().getPlayers();
 		int targetPlayer = player.getPlayerListIndex() != 0 ? 0 : 1;
 		float targetPlayerXDir = guidedPlayers[targetPlayer].getX() - player.getX();
@@ -697,10 +697,5 @@ public class PlayerModel implements ActionListener {
 				}
 			}
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 }

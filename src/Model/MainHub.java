@@ -36,6 +36,7 @@ public class MainHub {
 
 
 
+
 	//Singleton
 	public static MainHub getController() {
 	if (myControl == null) {

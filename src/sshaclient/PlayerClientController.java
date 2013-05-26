@@ -4,8 +4,7 @@ import Control.PlayerControl;
 import Model.MainHub;
 import Model.Player;
 import Model.PlayerModel;
-import Model.Obstacles.Obstacle;
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.Skills.Hunter.*;
 import Model.Skills.Warrior.*;
 import Model.Skills.Wizard.*;
@@ -29,26 +28,15 @@ public class PlayerClientController implements PlayerControl {
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		String tempStats;
 		Skill[] tempSkills = new Skill[5];
-		Skill[] realSkills;
+		//Skill[] realSkills;
 		String currentSkill;
 		int currentSkillLvl;
-		
-	//	boolean[] canActivateEndState = new boolean[5];
-	//	boolean[] canActivateSkill = new boolean[5];
-	//	for(int i=0; i<canActivateSkill.length; i++){
-	//		canActivateEndState[i] = true;
-	//		canActivateSkill[i] = true;
-	//	}
+
 		boolean canActivateAttack = true;
-		boolean canActivateMovement = true;
 		
 		while(isAlive) {
-			
-		//	System.out.println("I " + tp.getName() + " is alive!!!!! and is a " + tp.getType());
-			
 			
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
 			
@@ -171,7 +159,6 @@ public class PlayerClientController implements PlayerControl {
 				}
 				
 				tp.setSkillList(tempSkills);
-				
 			} else {
 				
 				tp.setHP(Integer.parseInt(MainHub.getItem(tempStats, 5)));
@@ -181,9 +168,7 @@ public class PlayerClientController implements PlayerControl {
 				float y = Float.parseFloat(MainHub.getItem(tempStats, 4));
 				float checkX = Math.abs(x - tp.getX());
 				float checkY = Math.abs(y - tp.getY());
-				//tp.setX(checkX);
-				//tp.setY(checkY);
-				realSkills = tp.getSkillList();
+				//realSkills = tp.getSkillList();
 				int skillIndex = tp.getCurrentActiveSkillIndex();
 				boolean isRunning = Boolean.valueOf(MainHub.getItem(tempStats, 7));
 				
@@ -198,7 +183,6 @@ public class PlayerClientController implements PlayerControl {
 					model.move((int)Double.parseDouble(MainHub.getItem(tempStats, 8)), (int)Double.parseDouble(MainHub.getItem(tempStats, 9)));
 				}
 				
-				
 				if(canActivateAttack && isAttacking){
 					model.attack((int)Double.parseDouble(MainHub.getItem(tempStats, 13)), (int)Double.parseDouble(MainHub.getItem(tempStats, 14)));
 					canActivateAttack = false;
@@ -211,58 +195,10 @@ public class PlayerClientController implements PlayerControl {
 						MainHub.getController().getMapSelected().destroyObstacle(Integer.parseInt(MainHub.getItem(tempStats, 16+i)));
 					}
 				}
-				
-				/*
-				tp.setX(Float.parseFloat(Constants.getItem(tempStats, 3)));
-				tp.setY(Float.parseFloat(Constants.getItem(tempStats, 4)));
-				tp.setRotation(Float.parseFloat(Constants.getItem(tempStats, 5)));
-				tp.setRunningState(Boolean.valueOf(Constants.getItem(tempStats, 6)));
-				tp.setStunState(Boolean.valueOf(Constants.getItem(tempStats, 7)));
-				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 8)));
-				tp.setHP(Integer.parseInt(Constants.getItem(tempStats, 9)));
-				
-				realSkills = tp.getSkillList();
-				
-				//PlayerModel model = new PlayerModel(tp, new Obstacle[0]);
-				for(int j = 0; j < realSkills.length; j++) {
-					if(realSkills[j] != null) {
-						
-						boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7));
-						
-						
-						if(canActivateSkill[j] && isAttacking){
-							realSkills[j].setMouseXPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
-							realSkills[j].setMouseYPos(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
-						}else if(!isAttacking){
-							canActivateSkill[j] = false;
-						}
-						
-						
-						realSkills[j].setAttX(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+4)));
-						realSkills[j].setAttY(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+5)));
-						realSkills[j].setRotation(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+6)));
-						realSkills[j].setAttackingState(Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+7)));
-						boolean isEndState = Boolean.valueOf(Constants.getItem(tempStats, (j+1)*8+8));
-						if(canActivateEndState[j] && isEndState){
-							realSkills[j].setEndstate(true);
-							canActivateEndState[j] = false;
-						}else if(!isEndState){
-							canActivateEndState[j] = true;
-						}
-						realSkills[j].setXDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+9)));
-						realSkills[j].setYDirAtt(Float.parseFloat(Constants.getItem(tempStats, (j+1)*8+10)));
-					}
-				}
-				*/
 			}
-			/*
 			try {
-				Thread.sleep(Constants.globalSleep);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
+				Thread.sleep(1);
+			} catch (InterruptedException e) {}
 		}
 	}
 

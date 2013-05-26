@@ -1,8 +1,5 @@
-package Model.Skills;
+package Model;
 
-import Model.Player;
-import Model.StatusEffect;
-import Model.StatusEffectShell;
 import Model.Obstacles.Obstacle;
 import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
@@ -83,7 +80,7 @@ public abstract class Skill{
 	private long CDelapsedTime = 0;
 	
 	private boolean isPiercing = false;
-	private int piercingDamage;
+	private boolean[] targetHit = new boolean[MainHub.nbrOfPlayers];
 	
 	private boolean isGuided = false;
 	private Player guidedTarget;
@@ -110,9 +107,8 @@ public abstract class Skill{
 		}else{
 			isProjectile = false;
 		}
-		
+		resetTargetsHit();
 		this.describe = describe;
-		this.affectSelf = affectSelf;
 		
 		SCTArray = new ArrayList<SkillCheckingTimer>();
 	}
@@ -159,9 +155,6 @@ public abstract class Skill{
 	}
 	public int getDamage(){
 		return damage;
-	}
-	public int getPiercingDamage(){
-		return piercingDamage;
 	}
 	public double getArmorFromTarget(){
 		return armorFromTarget;
@@ -285,6 +278,9 @@ public abstract class Skill{
 	public boolean getHasEndState(){
 		return hasEndState;
 	}
+	public boolean getTargetsHit(int index){
+		return targetHit[index];
+	}
 	
 	// Setters
 	public void setRotation(float angle){
@@ -348,6 +344,11 @@ public abstract class Skill{
 	public void resetOffensiveStatusGivenTo(){
 		if(affectOthers && repeatingOSE){
 			offensiveSE.resetCloning();
+		}
+	}
+	public void resetTargetsHit(){
+		for(int i=0; i<targetHit.length; i++){
+			targetHit[i] = false;
 		}
 	}
 	//Set new image for projectile
@@ -457,6 +458,9 @@ public abstract class Skill{
 	}
 	public void setPiercing(boolean isPiercing){
 		this.isPiercing = isPiercing;
+	}
+	public void addTargetHit(int index){
+		targetHit[index] = true;
 	}
 	public void setPassive(){
 		isPassive = true;

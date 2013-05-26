@@ -1,11 +1,9 @@
 package Model.Skills.Wizard;
 
-import java.util.Random;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillUnstableMagic extends Skill {
@@ -62,12 +60,15 @@ public class SkillUnstableMagic extends Skill {
 			switch(super.getCurrentLvl()){
 			case 2:
 				super.setCooldown(lvl2);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 16));
 				break;
 			case 3:
 				super.setCooldown(lvl3);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 12));
 				break;
 			case 4:
 				super.setCooldown(lvl4);
+				super.setSelfAffectingStatusEffectShell(new StatusEffectUnstableMagic(this, 8));
 				break;
 			}
 		}

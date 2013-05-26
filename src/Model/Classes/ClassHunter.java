@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Player;
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.Skills.Hunter.*;
 
 public class ClassHunter extends Player {

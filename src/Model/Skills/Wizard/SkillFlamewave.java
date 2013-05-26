@@ -3,7 +3,7 @@ package Model.Skills.Wizard;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectBurning;
 
 public class SkillFlamewave extends Skill{
@@ -48,15 +48,15 @@ public class SkillFlamewave extends Skill{
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectBurning(this, 50, 2));
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 50, 2), false);
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectBurning(this, 50, 3));
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 50, 3), false);
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectBurning(this, 50, 4));
+				super.setOffensiveStatusEffectShell(new StatusEffectBurning(this, 50, 4), false);
 				super.setDamage(lvl4);
 				break;
 			}

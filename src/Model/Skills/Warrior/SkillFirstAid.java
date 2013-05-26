@@ -3,9 +3,8 @@ package Model.Skills.Warrior;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectFirstAid;
-import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){

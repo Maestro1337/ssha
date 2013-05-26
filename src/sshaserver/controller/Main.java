@@ -1,17 +1,16 @@
 package sshaserver.controller;
 
-import sshaserver.view.ServerView;
+import sshaserver.model.MainHub;
+import sshaserver.view.MainView;
 
 public class Main {
 	
 	private static ClientSupervisor CS;
 	private static Thread t;
-	private static ServerView SV;
 	
 	public static void main(String[] args) {
-		
-		SV = new ServerView();
-		CS = new ClientSupervisor(SV);
+		MainHub.getController().setMainView(new MainView());
+		CS = new ClientSupervisor();
 		t = new Thread(CS);
 		t.start();
 	}

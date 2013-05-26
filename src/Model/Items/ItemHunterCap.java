@@ -3,9 +3,7 @@ package Model.Items;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.StatusEffects.StatusEffectArmor;
 import Model.StatusEffects.StatusEffectItems;
-import Model.StatusEffects.StatusEffectMovement;
 
 public class ItemHunterCap extends Item {
 

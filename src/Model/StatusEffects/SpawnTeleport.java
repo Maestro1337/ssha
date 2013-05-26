@@ -3,7 +3,6 @@ package Model.StatusEffects;
 import Model.Player;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
-import Model.Skills.Skill;
 
 public class SpawnTeleport extends StatusEffectShell{
 

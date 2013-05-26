@@ -117,16 +117,14 @@ public class AIModel implements PlayerControl{
 				}
 			}		
 		}
-		
+		// the AI moves around obstacles.
 		if (collitionCaseX&&currentObstacleCheck!= null){
-			System.out.println("ColX");
 			if (dy>=0){
 				enemyControl.move((int)enemy.getX(),(int)currentObstacleCheck.getY()-enemy.getImage().getHeight()-1);
 			}else{
 				enemyControl.move((int)enemy.getX(),(int)currentObstacleCheck.getY()+currentObstacleCheck.getCurrentHeight()+1);
 			}	
 		}else if(collitionCaseY&&currentObstacleCheck!= null){
-			System.out.println("ColY");
 			if (dx>=0){
 				enemyControl.move((int)currentObstacleCheck.getX()-enemy.getImage().getWidth()-1,(int)enemy.getY());
 			}else{
@@ -134,7 +132,6 @@ public class AIModel implements PlayerControl{
 			}
 		
 		}else{
-			System.out.println("Else");
 			while (System.currentTimeMillis()>time+delay){		
 				currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
 				// if player is attacking the AI will try to dodge.

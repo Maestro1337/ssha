@@ -3,13 +3,13 @@ package Model.Skills.Wizard;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 
 public class SkillFirestorm extends Skill{
 
 	public SkillFirestorm(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Firestorm", 9000, 350, 100, 8, 225, 15,"Firestorm:\nA dangerous explosion that \ndeals damage to an area for a \nlimited time." +
+		super("Firestorm", 9000, 350, 100, 8, 5, 15,"Firestorm:\nA dangerous explosion that \ndeals damage to an area for a \nlimited time." +
 				"\nLevel 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +

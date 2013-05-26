@@ -3,11 +3,10 @@ package Model.Skills.Warrior;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectLeap;
 import Model.StatusEffects.StatusEffectPreLeap;
 import Model.StatusEffects.StatusEffectStun;
-import Model.StatusEffects.StatusEffectTeleport;
 
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){

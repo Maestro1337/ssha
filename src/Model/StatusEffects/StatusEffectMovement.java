@@ -1,10 +1,9 @@
 package Model.StatusEffects;
 
 import Model.Player;
+import Model.Skill;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
-import Model.Items.Item;
-import Model.Skills.Skill;
 
 public class StatusEffectMovement extends StatusEffectShell{
 

@@ -1,11 +1,9 @@
 package Model.StatusEffects;
 
-import java.util.Random;
-
 import Model.Player;
+import Model.Skill;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
-import Model.Skills.Skill;
 
 public class StatusEffectShieldstance extends StatusEffectShell{
 

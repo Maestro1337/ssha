@@ -22,7 +22,6 @@ import Control.*;
 import Model.*;
 import Model.Arenas.Arena;
 import Model.Obstacles.*;
-import Model.Skills.*;
 import Model.Timers.AnimationTimer;
 
 
@@ -93,19 +92,18 @@ public class MainView extends BasicGameState implements ActionListener {
 				System.out.println(newPlayer.getName() + " " + newPlayer.getPlayerListIndex() + " " + i);
 				nbrOfCurrentPlayers++;
 				players[i] = new PlayerModel(newPlayer);
+				players[i].ressurectPlayer();
+				players[i].checkPlayerObstacleCollision(0, 0);
+				newPlayer.setReadyState(false);
+				if(i == 0){
+					newPlayer.setHasClickedStartGame(false);
+				}
 				if(newPlayer.getControlType() == "ai"){
 					MainHub.getController().addPlayerController(new AIModel(newPlayer), i);
 					MainHub.getController().addControllerThread(new Thread(MainHub.getController().getPlayerControl(i)), i);
 					MainHub.getController().getControllerThread(i).start();
 				}
 				
-			}
-		}
-		for(int i=0; i<players.length; i++){
-			PlayerModel currentController = players[i];
-			if(currentController != null){
-				currentController.ressurectPlayer();
-				currentController.checkPlayerObstacleCollision(0, 0);
 			}
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
@@ -153,7 +151,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	@Override
 	   public void enter(GameContainer container, StateBasedGame game)
 	         throws SlickException {
-	      // TODO Auto-generated method stub
 	      super.enter(container, game);
 	      initRound();
 

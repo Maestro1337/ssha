@@ -1,7 +1,6 @@
 package Model;
 
-import java.awt.List;
-import java.awt.event.ActionEvent;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -9,10 +8,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import Model.Items.Item;
-import Model.Skills.*;
 import Model.Timers.RepeatingAnimationTimer;
 
 public class Player {

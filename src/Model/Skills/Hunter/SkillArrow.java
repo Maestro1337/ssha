@@ -3,8 +3,7 @@ package Model.Skills.Hunter;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
-import Model.StatusEffects.StatusEffectStun;
+import Model.Skill;
 
 public class SkillArrow extends Skill{
 	

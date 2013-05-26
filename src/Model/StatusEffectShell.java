@@ -1,10 +1,7 @@
 package Model;
 
-import java.util.Random;
 
 import Model.Items.Item;
-import Model.Skills.Skill;
-import Model.Timers.*;
 
 public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	
@@ -22,13 +19,10 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	private double moveSpeedEff;
 	private int evasionEff;
 	private int maxCounts;
-	private int interval;
 	private boolean hasStun;
 	private boolean isChanneling;
 	private boolean hasStealth;
 	private String[] playersGivenTo;
-	
-	private RegularTimer ESIT;
 	private int delay;
 	
 	private boolean changeModel = false;
@@ -46,7 +40,6 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		rangeEff = range;
 		moveSpeedEff = moveSpeed;
 		maxCounts = counts;
-		this.interval = interval;
 		this.delay = delay;
 		hasStun = isStun;
 		this.isChanneling = isChanneling;
@@ -54,7 +47,6 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		hasStealth = isStealth;
 		
 		playersGivenTo = new String[MainHub.nbrOfPlayers];
-		ESIT = new RegularTimer(1000, delay);
 		
 	}
 	
@@ -69,7 +61,6 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 		this.delay = delay;
 		
 		playersGivenTo = new String[3];
-		ESIT = new RegularTimer(1000, delay);
 		
 	}
 	
@@ -157,7 +148,6 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 
 	@Override
 	public StatusEffect createStatusEffectTo(Player newPlayer) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
