@@ -270,7 +270,7 @@ public class ShoppingView extends BasicGameState {
 				}
 			}*/
 
-      		activePlayer.setIndex(MainHub.getController().getActivePlayerIndex());
+      		activePlayer.setPlayerListIndex(MainHub.getController().getActivePlayerIndex());
       		MainHub.getController().addPlayer(activePlayer, MainHub.getController().getActivePlayerIndex());
       		MainHub.getController().getSocketClient().changePlayer(activePlayer);
       		activePlayer.setMode("lobby");
@@ -383,7 +383,7 @@ public class ShoppingView extends BasicGameState {
 		}
 		g.drawString(buyString, 500, 675);
 		
-		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame()){
+		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0] != null && LobbyPlayers[0].getHasClickedStartGame()){
 			Image currentCount = countDownAnimation.getCurrentAnimationImage();
 			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
 			g.drawImage(currentCount,GameEngine.screenWidth/2-currentCount.getWidth()/2,GameEngine.screenHeight/2-currentCount.getHeight()/2-nextRoundBg.getHeight()/3);
@@ -449,14 +449,14 @@ public class ShoppingView extends BasicGameState {
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
 			if (!activePlayer.getReadyState()){
 				playButton = new Image("res/buttons/ReadyOver.png");
-			}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
+			}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.getHasClickedStartGame()){
 				playButton = new Image("res/buttons/GoButtonOver.png");
 			}else {
 				playButton = new Image ("res/buttons/UnreadyOver.png");
 			}
 			if(input.isMousePressed(0)){
 				//Checking state the button 
-				if(allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
+				if(allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.getHasClickedStartGame()){
 					activePlayer.setHasClickedStartGame(true);
 				}else if(activePlayer.getReadyState()){
 					activePlayer.setReadyState(false);
@@ -467,22 +467,22 @@ public class ShoppingView extends BasicGameState {
 			}			
 		}else if(!activePlayer.getReadyState()){
 			playButton = new Image("res/buttons/Ready.png");
-		}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
+		}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.getHasClickedStartGame()){
 			playButton = new Image("res/buttons/GoButton.png");
 		}else{
 			playButton = new Image ("res/buttons/Unready.png");
 		}
-		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].getHasClickedStartGame() && canResetTimer){
 			canResetTimer = false;
 			startCheckTimer.resetTimer();
 			countDownAnimation.resetCounterAndTimer();
 		}
-		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && !allIsReady){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].getHasClickedStartGame() && !allIsReady){
 			activePlayer.setHasClickedStartGame(false);
 			canResetTimer = true;
 			startCheckTimer.stopTimer();
 		}
-		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].getHasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
 			pressedReadyOrGo(sbg);
 		}
 		

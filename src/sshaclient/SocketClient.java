@@ -78,14 +78,14 @@ public class SocketClient implements Runnable {
 						}
 					}
 					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + MainHub.getController().getMapIndex() + " " + tp.getReadyState();
-					process = process + " " + tp.hasClickedStartGame();
+					process = process + " " + tp.getHasClickedStartGame();
 				} else {
 					
 					int skillIndex = tp.getCurrentActiveSkillIndex();
 					
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " ";
-					process = process + tp.getHP() + " " + tp.canWalk() + " " + tp.isRunning() + " " + tp.getMouseXPosMove() + " " + tp.getMouseYPosMove() + " ";
-					process = process + tp.canAttack() + " " + skillIndex + " " + tp.getSkillList()[skillIndex].isAttacking() + " ";
+					process = process + tp.getHP() + " " + tp.getCanWalkState() + " " + tp.getRunningState() + " " + tp.getMouseXPosMove() + " " + tp.getMouseYPosMove() + " ";
+					process = process + tp.getCanAttackState() + " " + skillIndex + " " + tp.getSkillList()[skillIndex].isAttacking() + " ";
 					process = process + tp.getSkillList()[skillIndex].getMouseXPos() + " " + tp.getSkillList()[skillIndex].getMouseYPos();
 					
 					int[] tempObs = MainHub.getController().getMapSelected().getDestroyedObstacles();
@@ -198,10 +198,10 @@ public class SocketClient implements Runnable {
 					
 					System.out.println(tp.getName() + "'s ID is: " + tp.getPlayerListIndex());
 				//	MainHub.getController().resetPlayers();
-					tp.takeName(false);
+					tp.setNameTaken(false);
 				} else if(inData.substring(0, inData.indexOf(32)).equals("NameTaken")) { 
 					System.out.println("Name is already taken");
-					tp.takeName(true);
+					tp.setNameTaken(true);
 					//connected = false;
 					closeConnection();
 				}else {

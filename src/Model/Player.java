@@ -119,6 +119,12 @@ public class Player {
 	public int getPlayerListIndex(){
 		return playerListIndex;
 	}
+	public String getControlType() {
+		return ctrlType;
+	}
+	public boolean getNameTaken() {
+		return nameTaken;
+	}
 	public Image getImage(){
 		return userImage;
 	}
@@ -128,20 +134,17 @@ public class Player {
 	public float getY(){
 		return imgY;
 	}
+	public float getRotation(){
+		return rotation;
+	}
+	public boolean getRunningState(){
+		return isRunning;
+	}
 	public float getStartX(){
 		return startingPosX;
 	}
 	public float getStartY(){
 		return startingPosY;
-	}
-	public float getMouseXPosMove(){
-		return mouseXPosMove;
-	}
-	public float getMouseYPosMove(){
-		return mouseYPosMove;
-	}
-	public double getMovementSpeed(){
-		return moveSpeed;
 	}
 	public int getMoveCounter(){
 		return moveCounter;
@@ -154,6 +157,20 @@ public class Player {
 	}
 	public float getGenDirMove(){
 		return genDirMove;
+	}
+	public float getMouseXPosMove(){
+		return mouseXPosMove;
+	}
+	public float getMouseYPosMove(){
+		return mouseYPosMove;
+	}
+	public double getMovementSpeed(){
+		return moveSpeed;
+	}
+	public boolean getCanWalkState(){
+		boolean tempWalk = canWalk;
+		canWalk = false;
+		return tempWalk;
 	}
 	public double getFindNaN(){
 		return findNaN;
@@ -169,9 +186,6 @@ public class Player {
 	}
 	public int getGold(){
 		return gold;
-	}
-	public float getRotation(){
-		return rotation;
 	}
 	public String getName(){
 		return name;
@@ -221,6 +235,12 @@ public class Player {
 	public ArrayList<Skill> getOwnedSkills(){
 		return ownedSkills;
 	}
+	public int getCurrentActiveSkillIndex(){
+		return currentActiveSkillIndex;
+	}
+	public ArrayList<StatusEffect> getStatusEffects(){
+		return statusEffectList;
+	}
 	public boolean getStunState(){
 		return isStunned;
 	}
@@ -230,43 +250,47 @@ public class Player {
 	public double getPushSpeed(){
 		return pushSpeed;
 	}
-	public String getMode() {
-		return mode;
-	}
 	public boolean getChannel(){
 		return isChanneling;
 	}
 	public boolean getStealthState(){
 		return isStealthed;
 	}
-	public boolean getReadyState() {
-		return isReady;
+	public boolean getCanAttackState(){
+		return canAttack;
+	}
+	public boolean getAliveState(){
+		return isAlive;
+	}
+	public String getMode() {
+		return mode;
 	}
 	public boolean getConnected() {
 		return this.connected;
 	}
+	public boolean getReadyState() {
+		return isReady;
+	}
+	public boolean getHasClickedStartGame(){
+		return hasClickedStartGame;
+	}
 	
 	// Setters
-	public void setIndex(int index){
-		playerListIndex = index;
-	}
-	
-	public boolean isAlive(){
-		return isAlive;
-	}
-	public void setAliveState(boolean state){
-		isAlive = state;
-	}
-	
 	public void setPlayerListIndex(int index){
 		this.playerListIndex = index;
 	}
-	
-	public void addX(float x){
-		imgX += x;
+	public void setControlType(String ctrlType) {
+		this.ctrlType = ctrlType;
 	}
-	public void addY(float y){
-		imgY += y;
+	public void setNameTaken(boolean nameTaken) {
+		this.nameTaken = nameTaken;
+	}
+	public void setImages(Image image, Image first, Image second){
+		userImage = noStepImage = image;
+		Image[] tempImages = new Image[2];
+		tempImages[0] = first;
+		tempImages[1] = second;
+		regularModelAnimation = new RepeatingAnimationTimer(500, tempImages);
 	}
 	public void setX(float x){
 		imgX = x;
@@ -274,43 +298,25 @@ public class Player {
 	public void setY(float y){
 		imgY = y;
 	}
-	public void setCanAttackState(boolean state){
-		canAttack = state;
+	public void addX(float x){
+		imgX += x;
 	}
-	public boolean canAttack(){
-		return canAttack;
+	public void addY(float y){
+		imgY += y;
 	}
-	public int getCurrentActiveSkillIndex(){
-		return currentActiveSkillIndex;
+	public void setRunningState(boolean state){
+		isRunning = state;
 	}
-	public void setCurrentActiveSkillIndex(int index){
-		currentActiveSkillIndex = index;
-	}
-	public void setCanWalkState(boolean state){
-		canWalk = state;
-	}
-	public boolean canWalk(){
-		boolean tempWalk = canWalk;
-		canWalk = false;
-		return tempWalk;
-	}
-	
-	public void setMouseXPosMove(float x){
-		mouseXPosMove = x;
-	}
-	public void setMouseYPosMove(float y){
-		mouseYPosMove = y;
-	}
-	
-	
-	public void incMoveCounter(){
-		moveCounter++;
+	public void setRotation(float angle){
+		userImage.setRotation(angle);
+		rotation = angle;
 	}
 	public void resetMoveCounter(){
 		moveCounter = 0;
 	}
-	
-	
+	public void incMoveCounter(){
+		moveCounter++;
+	}
 	public void setXDirMove(float dir){
 		xDirMove = dir;
 	}
@@ -320,26 +326,20 @@ public class Player {
 	public void setGenDirMove(float dir){
 		genDirMove = dir;
 	}
-	
-	
-	
-	//Getters for the attacks
-	public boolean isRunning(){
-		return isRunning;
+	public void setMouseXPosMove(float x){
+		mouseXPosMove = x;
 	}
-	public void setRunningState(boolean state){
-		isRunning = state;
+	public void setMouseYPosMove(float y){
+		mouseYPosMove = y;
 	}
-	
-	public void setRotation(float angle){
-		userImage.setRotation(angle);
-		rotation = angle;
+	public void setMovementSpeed(double speed) {
+		this.moveSpeed = speed;
 	}
-	
-	//Getters and setters for stats
-	
-	public void setGold(int gold){
-		this.gold=gold;
+	public void addMovementSpeed(double speed){
+		this.moveSpeed += speed;
+	}
+	public void setCanWalkState(boolean state){
+		canWalk = state;
 	}
 	public void setHP(int HP) {
 		this.HP = HP;
@@ -350,133 +350,59 @@ public class Player {
 			HP = maxHP;
 		}
 	}
-	public void setMaxHP(int maxHP) {
-		this.maxHP = maxHP;
-	}
-	public void dealDamage(int damage){
-		//Remove some damage given depending on armor
-		damage *= (1-armor);
-		if(damage >= 0){
-			HP -= damage;
-			if(damage != 0){
-				playSound("res/sounds/takingDamage.wav");
-			}
-		}
-	//	System.out.println("DAMAGE DEALT!");
-	}
 	public void resetHP(){
 		HP = maxHP;
 		isAlive = true;
-	//	System.out.println("HEALTH RESTORED");
 	}
-	
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+	public void setGold(int gold){
+		this.gold=gold;
+	}
+	public void addGold(int gold) {
+		this.gold += gold;
+	}
 	public void setArmor(double armor){
 		this.armor = armor;
 	}
-	
+	public void addArmor(double armor){
+		this.armor += armor;
+	}
 	public void setEvasion(int evasion){
 		this.evasion = evasion;
 	}
 	public void addEvasion(int evasion){
 		this.evasion += evasion;
 	}
-	public void addArmor(double armor){
-		this.armor += armor;
-	}
-	public void addMovementSpeed(double speed){
-		this.moveSpeed += speed;
-	}
-	public void setMovementSpeed(double speed) {
-		this.moveSpeed = speed;
-	}
-	
-	public void incTotalKills(int incAmount){
-		totalKills=totalKills+incAmount;
-	}
-	public void setTotalKills(int kills) {
-		totalKills = kills;
-	}
-	
 	public void setKillsThisRound(int kills){
 		killsThisRound=kills;
 	}
 	public void incKillsThisRound(){
 		killsThisRound++;
 	}
-	
 	public void setRoundDamageDone(int damage){
 		roundDamageDone=damage;
 	}
 	public void incRoundDamageDone(int damageAmount){
 		roundDamageDone=roundDamageDone+damageAmount;
 	}
-	
 	public void incTotalDamageDone(int damageAmount){
 		totalDamageDone=totalDamageDone+damageAmount;
 	}
-	
 	public void incDeaths(){
 		deaths++;
 	}
-
-	public void addGold(int gold) {
-		this.gold += gold;
+	public void setTotalKills(int kills) {
+		totalKills = kills;
 	}
-	
+	public void incTotalKills(int incAmount){
+		totalKills=totalKills+incAmount;
+	}
 	public void setPortraits(Image frameImage, Image image,Image miniImage){
 		portraitImage= image;
 		portraitImageMini= miniImage;
 		framedImage = frameImage;
-	}
-	public void setImages(Image image, Image first, Image second){
-		userImage = noStepImage = image;
-		Image[] tempImages = new Image[2];
-		tempImages[0] = first;
-		tempImages[1] = second;
-		regularModelAnimation = new RepeatingAnimationTimer(500, tempImages);
-	}
-	
-	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
-		changedModelAnimation = new RepeatingAnimationTimer(1000, walkingImages);
-		noStepChangedModelAnimation = new RepeatingAnimationTimer(1000, standingImages);
-	}
-	
-	public void changeUserImage(){
-		if(isRunning && !isStunned  && moveSpeed > 0){
-			if(changeModel){
-				userImage = changedModelAnimation.getCurrentAnimationImage();
-			}else{
-				userImage = regularModelAnimation.getCurrentAnimationImage();
-			}
-		} else {
-			if(changeModel){
-				userImage = noStepChangedModelAnimation.getCurrentAnimationImage();
-			}else{
-				userImage = noStepImage;
-			}
-		}
-		setRotation(rotation);
-	}
-
-	public void setSkillList(Skill[] chosenSkills) {
-		if(chosenSkills != null){
-			skillList[0] = chosenSkills[0];
-			skillList[1] = chosenSkills[1];
-			skillList[2] = chosenSkills[2];
-			skillList[3] = chosenSkills[3];
-			skillList[4] = chosenSkills[4];
-		}
-	}
-	public void setSkill(Skill skill, int index){
-		if(index <= 4 && index >= 0){
-			skillList[index] = skill;
-		}	
-	}
-	public void setPassiveSkillList(ArrayList<Skill> passiveSkills) {
-		this.passiveSkills = passiveSkills;
-	}
-	public void addSkillAsOwned(Skill skill){
-		ownedSkills.add(skill);
 	}
 	public void addItemOwned(Item item){
 		ownedItems.add(item);
@@ -496,6 +422,9 @@ public class Player {
 		evasion -= SE.getEvasionEff();
 		moveSpeed -= SE.getMoveSpeedEff();
 	}
+	public void setPassiveSkillList(ArrayList<Skill> passiveSkills) {
+		this.passiveSkills = passiveSkills;
+	}
 	public void addPassiveSkill(Skill skill){
 		passiveSkills.add(skill);
 		StatusEffectShell SE = skill.getSelfAffectingStatusEffect();
@@ -511,32 +440,29 @@ public class Player {
 		evasion -= SE.getEvasionEff();
 		moveSpeed -= SE.getMoveSpeedEff();
 	}
-	public void activatePassiveEffects(){
-		evasion = baseEvasion;
-		armor = baseArmor;
-		moveSpeed = baseMoveSpeed;
-		/*for(int i=0; i<passiveSkills.size(); i++){
-			StatusEffectShell SE = passiveSkills.get(i).getSelfAffectingStatusEffect();
-			armor *= SE.getArmEff();
-			evasion += SE.getEvasionEff();
-			moveSpeed += SE.getMoveSpeedEff();
+	public void setSkillList(Skill[] chosenSkills) {
+		if(chosenSkills != null){
+			skillList[0] = chosenSkills[0];
+			skillList[1] = chosenSkills[1];
+			skillList[2] = chosenSkills[2];
+			skillList[3] = chosenSkills[3];
+			skillList[4] = chosenSkills[4];
 		}
-		for(int i=0; i<passiveItems.size(); i++){
-			StatusEffectShell SE = passiveItems.get(i).getSelfAffectingStatusEffect();
-			armor *= SE.getArmEff();
-			evasion += SE.getEvasionEff();
-			moveSpeed += SE.getMoveSpeedEff();
-		}*/
 	}
-	public ArrayList<StatusEffect> getStatusEffects(){
-		return statusEffectList;
+	public void setSkill(Skill skill, int index){
+		if(index <= 4 && index >= 0){
+			skillList[index] = skill;
+		}	
+	}
+	public void addSkillAsOwned(Skill skill){
+		ownedSkills.add(skill);
+	}
+	public void setCurrentActiveSkillIndex(int index){
+		currentActiveSkillIndex = index;
 	}
 	public void addStatusEffect(StatusEffect SE){
 		
 		statusEffectList.add(SE);
-	}
-	public void setChangedModelState(boolean state){
-		changeModel = state;
 	}
 	public void removeStatusEffect(StatusEffect SE){
 		
@@ -555,40 +481,63 @@ public class Player {
 	public void setPushState(boolean state){
 		isPushed = state;
 	}
-	
-	
-	public void setMode(String mode) {
-		this.mode = mode;
-	}
 	public void setChannel(boolean channelState){
 		this.isChanneling = channelState;
 	}
 	public void setStealthState(boolean state){
 		isStealthed = state;
 	}
-	public void setReadyState(boolean ready) {
-		isReady = ready;
+	public void setCanAttackState(boolean state){
+		canAttack = state;
 	}
-	public boolean hasClickedStartGame(){
-		return hasClickedStartGame;
+	public void setAliveState(boolean state){
+		isAlive = state;
 	}
-	public void setHasClickedStartGame(boolean hasClicked){
-		hasClickedStartGame = hasClicked;
-	}
-	public String getControlType() {
-		return ctrlType;
-	}
-	public void setControlType(String ctrlType) {
-		this.ctrlType = ctrlType;
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 	public void setConnected(boolean connected) {
 		this.connected = connected;
 	}
-	public boolean nameTaken() {
-		return nameTaken;
+	public void setReadyState(boolean ready) {
+		isReady = ready;
 	}
-	public void takeName(boolean nameTaken) {
-		this.nameTaken = nameTaken;
+	public void setHasClickedStartGame(boolean hasClicked){
+		hasClickedStartGame = hasClicked;
+	}
+	public void setChangedModelState(boolean state){
+		changeModel = state;
+	}
+	
+	// Misc methods
+	public void dealDamage(int damage){
+		damage *= (1-armor);
+		if(damage >= 0){
+			HP -= damage;
+			if(damage != 0){
+				playSound("res/sounds/takingDamage.wav");
+			}
+		}
+	}
+	public void setChangedModelImages(Image[] walkingImages, Image[] standingImages){
+		changedModelAnimation = new RepeatingAnimationTimer(1000, walkingImages);
+		noStepChangedModelAnimation = new RepeatingAnimationTimer(1000, standingImages);
+	}
+	public void changeUserImage(){
+		if(isRunning && !isStunned  && moveSpeed > 0){
+			if(changeModel){
+				userImage = changedModelAnimation.getCurrentAnimationImage();
+			}else{
+				userImage = regularModelAnimation.getCurrentAnimationImage();
+			}
+		} else {
+			if(changeModel){
+				userImage = noStepChangedModelAnimation.getCurrentAnimationImage();
+			}else{
+				userImage = noStepImage;
+			}
+		}
+		setRotation(rotation);
 	}
 	//Handling the soundfiles
 	public static synchronized void playSound(String filename) {

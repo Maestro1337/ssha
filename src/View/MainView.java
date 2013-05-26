@@ -257,7 +257,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				for(int j=0; j<players.length; j++){
 					PlayerModel checkController;
 					//Check to see it is another player
-					if(j != i && currentController.getPlayer().isAlive()){
+					if(j != i && currentController.getPlayer().getAliveState()){
 						checkController = players[j];
 						if(checkController != null){
 							currentController.checkCollision(checkController.getPlayer(), checkController.getPlayer().getSkillList());
@@ -266,7 +266,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				}
 			
 				//Check if player is running to update positioning
-				if(currentController.getPlayer().isRunning()){
+				if(currentController.getPlayer().getRunningState()){
 					currentController.isRunning();
 				}
 				
@@ -314,7 +314,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		
 		 for (int i =0;i<players.length;i++){
-			 if ( players[i] != null && !players [i].getPlayer().isAlive()&& !placingInRound.contains(players[i].getPlayer())){
+			 if ( players[i] != null && !players [i].getPlayer().getAliveState()&& !placingInRound.contains(players[i].getPlayer())){
 				 placingInRound.add(players [i].getPlayer());
 			 }		
 		 }
@@ -361,7 +361,7 @@ public class MainView extends BasicGameState implements ActionListener {
 		String winningPlayer = null;
 		for(int i=0; i<players.length; i++){
 			if(players[i] != null){
-				if(players[i] != null && players[i].getPlayer().isAlive()){
+				if(players[i] != null && players[i].getPlayer().getAliveState()){
 					stillAlive++;
 					winningPlayer = players[i].getPlayer().getName();
 				}

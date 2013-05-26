@@ -173,7 +173,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 				// Enter Multiplayer state if and only if SocketClient successfully connecter to the server.
 				if(MainHub.getController().getSocketClient().getPlayer().getConnected()) {
 					//Setting correct playerindex
-					player.setIndex(MainHub.getController().getActivePlayerIndex());
+					player.setPlayerListIndex(MainHub.getController().getActivePlayerIndex());
 				//	MainHub.getController().addPlayer(player, MainHub.getController().getActivePlayerIndex());
 					//MainHub.getController().getSocketClient().changePlayer(player);	
 					sbg.enterState(4);
