@@ -51,8 +51,9 @@ public class Player {
 	private int evasion=0;
 	private int totalKills=0;
 	private int killsThisRound=0;
-	private int totalDamageDone=0;
-	private int roundDamageDone=0;
+	private double totalDamageDone=0;
+	private double totalPlayerDamageDone=0;
+	private double roundDamageDone=0;
 	private int deaths = 0;
 	private int gold=500;
 	private Skill[] skillList = new Skill[5];
@@ -193,11 +194,14 @@ public class Player {
 	public int getKillsThisRound(){
 		return killsThisRound;
 	}
-	public int getRoundDamageDone(){
+	public double getRoundDamageDone(){
 		return roundDamageDone;
 	}
-	public int getTotalDamageDone(){
+	public double getTotalDamageDone(){
 		return totalDamageDone;
+	}
+	public double getPlayerTotalDamageDone(){
+		return totalPlayerDamageDone;
 	}
 	public int getDeaths(){
 		return deaths;
@@ -394,8 +398,11 @@ public class Player {
 		totalKills=totalKills+incAmount;
 	}
 
-	public void addTotalDamageDone(int newDamage){
-		this.totalDamageDone += newDamage;
+	public void addPlayerTotalDamageDone(double playerTotalDamage){
+		this.totalPlayerDamageDone += playerTotalDamage;
+	}
+	public void setTotalDamageDone(double totalDMG){
+		this.totalDamageDone = totalDMG;
 	}
 	public void setPortraits(Image frameImage, Image image,Image miniImage){
 		portraitImage= image;

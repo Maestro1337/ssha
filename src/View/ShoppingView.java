@@ -1,5 +1,6 @@
 package View;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
@@ -90,6 +91,8 @@ public class ShoppingView extends BasicGameState {
 	Image headSlotItem;
 	Image chestSlotItem;
 	Image weaponSlotItem;
+	
+	DecimalFormat numberFormat = new DecimalFormat("#.##");
 	
 	public ShoppingView (int state){
 		
@@ -353,7 +356,10 @@ public class ShoppingView extends BasicGameState {
 			if(MainHub.getController().getPlayer(i) != null){
 				System.out.println(MainHub.getController().getPlayer(i).getTotalDamageDone());
 				if(MainHub.getController().getPlayer(i).getTotalDamageDone() != 0){
-					g.drawString( "" + ((double)MainHub.getController().getPlayer(i).getRoundDamageDone()/(double)MainHub.getController().getPlayer(i).getTotalDamageDone())*100, 1200, 120 + 40*i);
+					System.out.println("Player:" + MainHub.getController().getPlayer(i).getPlayerTotalDamageDone());
+					System.out.println("Total:" + MainHub.getController().getPlayer(i).getTotalDamageDone());
+					System.out.println("The complete: " + (MainHub.getController().getPlayer(i).getPlayerTotalDamageDone()/MainHub.getController().getPlayer(i).getTotalDamageDone()));
+					g.drawString(numberFormat.format((MainHub.getController().getPlayer(i).getPlayerTotalDamageDone()/MainHub.getController().getPlayer(i).getTotalDamageDone())*100) + "%", 1200, 120 + 40*i);
 				}else{
 					g.drawString( "" + MainHub.getController().getPlayer(i).getRoundDamageDone()/1, 1200, 120 + 40*i);
 				}
