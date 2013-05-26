@@ -18,7 +18,7 @@ public class ItemWarriorArmor extends Item {
 			e.printStackTrace();
 		}
 		super.setPassive();
-		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.5, 0));
+		super.setSelfAffectingStatusEffectShell(new StatusEffectItems(this, 0, 0, 0.45, 0));
 		super.setImage(Image);
 	}
 

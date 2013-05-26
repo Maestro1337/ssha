@@ -10,7 +10,7 @@ public class SkillGrapplingHook extends Skill {
 	public SkillGrapplingHook(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 				super("Grappling hook", 1000, 500, 7, 3, 60, 150,"Grappling hook \n" +
-						"Level 1: 15 damage\n" +
+						"Level 1: 150 damage\n" +
 						"Level 2: 25 damage\n" +
 						"Level 3: 35 damage\n" +
 						"Level 4: 45 damage");

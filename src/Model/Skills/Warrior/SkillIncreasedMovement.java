@@ -9,17 +9,17 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillIncreasedMovement extends Skill {
 	public SkillIncreasedMovement(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Increased movement", 11000, 400, 0.4, 3, 20, 0,"Increased movement \n" +
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+				super("Increased movement", 11000, 400, 0.4, 3, 20, 0,"Increased movement(passive) \n" +
+						"Level 1: 10,5%\n" +
+						"Level 2: 21% damage\n" +
+						"Level 3: 31,5% damage\n" +
+						"Level 4: 42% damage");
 				
 				Image attackImage = null;
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
 				super.setPassive();
-				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.5, 0, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.1, 0, 0));
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");
@@ -55,15 +55,15 @@ public class SkillIncreasedMovement extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.5, 0, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.2, 0, 0));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 1, 0, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.3, 0, 0));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 1.5, 0, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectMovement(this, 0.4, 0, 0));
 				super.setDamage(lvl4);
 				break;
 			}

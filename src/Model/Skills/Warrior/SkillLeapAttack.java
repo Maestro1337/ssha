@@ -11,11 +11,11 @@ import Model.StatusEffects.StatusEffectStun;
 public class SkillLeapAttack extends Skill {
 	public SkillLeapAttack(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("Leap attack", 10000, 200, 5, 8, 150, 50,"Leap attack \n" +
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+				super("Leap attack", 10000, 200, 5, 8, 150, 150,"Leap attack \nJump to a location to \ndeal AoE damage\n" +
+						"Level 1: 150 damage\n" +
+						"Level 2: 200 damage\n" +
+						"Level 3: 250 damage\n" +
+						"Level 4: 300 damage");
 
 				Image[] attackImages = new Image[4];
 				Image[] animation = new Image[8];
@@ -53,9 +53,9 @@ public class SkillLeapAttack extends Skill {
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 100;
-	private int lvl3 = 150;
-	private int lvl4 = 200;
+	private int lvl2 = 200;
+	private int lvl3 = 250;
+	private int lvl4 = 300;
 	
 	@Override
 	public void upgradeSkill() {
