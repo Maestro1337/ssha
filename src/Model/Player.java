@@ -62,6 +62,7 @@ public class Player {
 	private ArrayList<Item> passiveItems = new ArrayList<Item>();
 	private ArrayList<Skill> passiveSkills = new ArrayList<Skill>();
 	private ArrayList<StatusEffect> statusEffectList = new ArrayList<StatusEffect>();
+	private ArrayList<StatusEffect> toggleEffects = new ArrayList<StatusEffect>();
 	
 	//Movement variables
 	private float mouseXPosMove;
@@ -235,6 +236,9 @@ public class Player {
 	}
 	public ArrayList<StatusEffect> getStatusEffects(){
 		return statusEffectList;
+	}
+	public ArrayList<StatusEffect> getToggleEffect(){
+		return toggleEffects;
 	}
 	public boolean getStunState(){
 		return isStunned;
@@ -466,6 +470,12 @@ public class Player {
 	public void removeStatusEffect(StatusEffect SE){
 		
 		statusEffectList.remove(SE);
+	}
+	public void addToggleEffect(StatusEffect SE){
+		toggleEffects.add(SE);
+	}
+	public void removeToggleEffect(StatusEffect SE){
+		toggleEffects.remove(SE);
 	}
 	public void resetStatusEffects(){
 		for(int j=0; j<statusEffectList.size(); j++){

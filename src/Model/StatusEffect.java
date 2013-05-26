@@ -75,6 +75,7 @@ public class StatusEffect {
 		MSC = new MainSkillChange(animation, newDamage);
 	}
 	public void setResetOfStatusEffect(){
+		commitedChange = true;
 		returnStatsToNormal();
 	}
 	
@@ -99,6 +100,7 @@ public class StatusEffect {
 	}
 	
 	public void commitStatusEffect(){
+		System.out.println("COMMITED");
 		if(dmgEff>0){
 			player.dealDamage(dmgEff);
 		}
@@ -152,6 +154,7 @@ public class StatusEffect {
 	} 
 	
 	public void returnStatsToNormal(){
+		System.out.println("UnCOMMITED");
 		if(commitedChange){
 			if(armEff!=0){
 				player.addArmor(-armEff);

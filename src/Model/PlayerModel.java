@@ -41,8 +41,7 @@ public class PlayerModel {
 		SkillCheckingTimer SCT = null;
 		int index = -1;
 		for(int j=0; j<SCTArray.size(); j++){
-			// Changed == to .equals
-			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName().equals(player.getName())){
+			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName() == player.getName()){
 				index = j;
 				SCT = SCTArray.get(j);
 			}
@@ -76,15 +75,15 @@ public class PlayerModel {
 				if(i == index){
 					if(playerSkills[i].getCanToggle()){
 						playerSkills[i].toggleToggle();
-						System.out.println(playerSkills[i].getToggleOn());
-						if(playerSkills[i].getToggleOn()){
+						/*if(playerSkills[i].getToggleOn()){
 							System.out.println("Toggle is on");
-						//	if(playerSkills[i].getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName()))
-							//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).commitStatusEffect();
+						//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).commitStatusEffect();
+							player.addToggleEffect(playerSkills[i].getSelfAffectingStatusEffect());
 						}else{
 							System.out.println("Toggle is off");
-						//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).returnStatsToNormal();
-						}
+							player.removeToggleEffect(playerSkills[i].getSelfAffectingStatusEffect());
+						//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).resetStatusEffect();
+						}*/
 					}
 					currentActiveSkill = playerSkills[i];
 					playerSkills[i].setChosenState(true);

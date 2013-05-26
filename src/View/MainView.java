@@ -53,6 +53,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	private int nbrOfCurrentPlayers;
 	private Obstacle[] obstacles = new Obstacle[100];
 
+	private boolean settingCurrentActiveSkill = false;
 	
 	public MainView(int state) {
 		
@@ -293,29 +294,34 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
-			if(activeSkillList[0] != null && !activeSkillList[0].getPassive()){
+			if(activeSkillList[0] != null && !activeSkillList[0].getPassive() && !settingCurrentActiveSkill){
 				currentActiveController.setCurrentActiveSkill(0);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_2)){
-			if(activeSkillList[1] != null && !activeSkillList[1].getPassive()){
+			if(activeSkillList[1] != null && !activeSkillList[1].getPassive() && !settingCurrentActiveSkill){
 				currentActiveController.setCurrentActiveSkill(1);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_3)){
-			if(activeSkillList[2] != null && !activeSkillList[2].getPassive()){
+			if(activeSkillList[2] != null && !activeSkillList[2].getPassive() && !settingCurrentActiveSkill){
 				currentActiveController.setCurrentActiveSkill(2);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
-			if(activeSkillList[3] != null && !activeSkillList[3].getPassive()){
+			if(activeSkillList[3] != null && !activeSkillList[3].getPassive() && !settingCurrentActiveSkill){
 				currentActiveController.setCurrentActiveSkill(3);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_5)){
-			if(activeSkillList[4] != null && !activeSkillList[4].getPassive()){
+			if(activeSkillList[4] != null && !activeSkillList[4].getPassive() && !settingCurrentActiveSkill){
 				currentActiveController.setCurrentActiveSkill(4);
+				settingCurrentActiveSkill = true;
 			}
+		}
+		if(!input.isKeyDown(Input.KEY_1) && !input.isKeyDown(Input.KEY_2) && !input.isKeyDown(Input.KEY_3) 
+				&& !input.isKeyDown(Input.KEY_4) && !input.isKeyDown(Input.KEY_5)){
+			settingCurrentActiveSkill = false;
 		}
 		
 		 for (int i =0;i<players.length;i++){

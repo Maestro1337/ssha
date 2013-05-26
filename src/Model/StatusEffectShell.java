@@ -137,7 +137,7 @@ public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	public boolean hasBeenGivenTo(String name){
 		for(int i=0; i<playersGivenTo.length; i++){
 			// Changed == to .equals
-			if(playersGivenTo[i].equals(name)){
+			if(playersGivenTo[i] != null && playersGivenTo[i].equals(name)){
 				return true;
 			}
 		}
