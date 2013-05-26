@@ -1,8 +1,5 @@
 package View;
 
-//import java.awt.Image;
-import java.awt.Font;
-import java.awt.font.*;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
@@ -14,56 +11,16 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.UnicodeFont;
 
-
-
-
-
+import Control.GameEngine;
 import Model.MainHub;
 import Model.Player;
-import Model.PlayerModel;
-import Model.Items.Item;
-import Model.Items.ItemHunterArmor;
-import Model.Items.ItemHunterBow;
-import Model.Items.ItemHunterCap;
-import Model.Items.ItemWarriorArmor;
-import Model.Items.ItemWarriorHelmet;
-import Model.Items.ItemWarriorSword;
-import Model.Items.ItemWizardHat;
-import Model.Items.ItemWizardRobe;
-import Model.Items.ItemWizardStaff;
+import Model.Items.*;
 import Model.Skills.Skill;
-import Model.Skills.Hunter.SkillArrow;
-import Model.Skills.Hunter.SkillArrowFlurry;
-import Model.Skills.Hunter.SkillBarrelRoll;
-import Model.Skills.Hunter.SkillCripplingTrap;
-import Model.Skills.Hunter.SkillFlamingArrow;
-import Model.Skills.Hunter.SkillGuidedArrow;
-import Model.Skills.Hunter.SkillLifestealingArrows;
-import Model.Skills.Hunter.SkillPassiveDodge;
-import Model.Skills.Hunter.SkillSprint;
-import Model.Skills.Hunter.SkillStealth;
-import Model.Skills.Warrior.SkillAdrenaline;
-import Model.Skills.Warrior.SkillFirstAid;
-import Model.Skills.Warrior.SkillGrapplingHook;
-import Model.Skills.Warrior.SkillImprovedArmor;
-import Model.Skills.Warrior.SkillIncreasedMovement;
-import Model.Skills.Warrior.SkillLeapAttack;
-import Model.Skills.Warrior.SkillShieldStance;
-import Model.Skills.Warrior.SkillSlash;
-import Model.Skills.Warrior.SkillThrowingAxe;
-import Model.Skills.Warrior.SkillWarstomp;
-import Model.Skills.Wizard.SkillAbsorb;
-import Model.Skills.Wizard.SkillBlizzard;
-import Model.Skills.Wizard.SkillFireball;
-import Model.Skills.Wizard.SkillFirestorm;
-import Model.Skills.Wizard.SkillFlamewave;
-import Model.Skills.Wizard.SkillIceblock;
-import Model.Skills.Wizard.SkillIroncloak;
-import Model.Skills.Wizard.SkillTeleport;
-import Model.Skills.Wizard.SkillUnstableMagic;
-import Model.Skills.Wizard.SkillWandattack;
+import Model.Skills.Hunter.*;
+import Model.Skills.Warrior.*;
+import Model.Skills.Wizard.*;
+import Model.Timers.AnimationTimer;
 import Model.Timers.RegularTimer;
 
 
@@ -91,19 +48,20 @@ public class ShoppingView extends BasicGameState {
 	Image buyUpgradeButton;
 	
 	private Image playerGold;
-	private String playerGoldText;
+//	private String playerGoldText;
 	private boolean buyOneTime = false;
 	private int grabbedFromChosenIndex = -1;
 	private boolean dragMouse = false;
 	private boolean allIsReady = false;
 	private RegularTimer startCheckTimer = new RegularTimer(5000, 0);
 	private boolean canResetTimer = true;
+	private AnimationTimer countDownAnimation = null;
+	private Image nextRoundBg;
 	
 	private int chosenSkillsXStart = 17;
 	private int chosenSkillsYStart = 280;
 	
 	private String mouse = "No input yet";
-	private String startTimer = "";
 	Image menuTab;
 	
 	Skill[] chosenSkills = new Skill[5];
@@ -129,7 +87,8 @@ public class ShoppingView extends BasicGameState {
 	Image lobbyPlayer;
 	Image lobbyPlayerReady;
 	
-	Image [] LevelofSkills = new Image [9];
+//	Image [] LevelofSkills = new Image [9];
+	Image [] LevelofSkills = new Image [5];
 	Player [] LobbyPlayers;
 	
 	Image headSlotItem;
@@ -149,18 +108,12 @@ public class ShoppingView extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)throws SlickException {
-		//font = new Font("Calibri", Font.PLAIN, 20);
-		//uFont = new UnicodeFont(font, font.getSize(), font.isBold(), font.isItalic());
 		
-		LevelofSkills [0] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [1] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [2] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [3] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [4] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [5] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [6] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [7] = new Image ("res/skillIcons/Level 0.png");
-		LevelofSkills [8] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills[0] = new Image ("res/skillIcons/Level 0.png");
+		LevelofSkills[1] = new Image ("res/skillIcons/Level 1.png");
+		LevelofSkills[2] = new Image ("res/skillIcons/Level 2.png");
+		LevelofSkills[3] = new Image ("res/skillIcons/Level 3.png");
+		LevelofSkills[4] = new Image ("res/skillIcons/Level 4.png");
 		
 		headSlotItem = new Image ("res/Items/Headwear Empty.png");
 		chestSlotItem = new Image ("res/Items/Armor Empty.png");
@@ -181,8 +134,8 @@ public class ShoppingView extends BasicGameState {
 
 
 		playerGold = new Image("res/miscImages/PlayerGold.png");
-		if(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) != null)
-			playerGoldText = "" + MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getGold();
+	//	if(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) != null)
+	//		playerGoldText = "" + MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getGold();
 		
 
 		skillText = " ";
@@ -204,12 +157,16 @@ public class ShoppingView extends BasicGameState {
 	      //Waiting for the connection to give the correct playerIndex
 	      int connectionCheck=0;
 	      while(MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex()) == null){
-	    	  System.out.println(connectionCheck);
 	    	  connectionCheck++;
 	    	  if(connectionCheck >= 100000){
-	    		  container.exit();
+	    		  System.out.println(connectionCheck);
+	    	//	  container.exit();
+	    		  if(connectionCheck >= 200000){
+	    			  break;
+	    		  }
 	    	  }
 	      }
+	      
 	      activePlayer = MainHub.getController().getPlayer(MainHub.getController().getActivePlayerIndex());
 	      activePlayer.setReady(false);
 	      activePlayer.setHasClickedStartGame(false);
@@ -218,8 +175,20 @@ public class ShoppingView extends BasicGameState {
 	      ownedItemList = activePlayer.getOwnedItems();
 	      classPortrait = activePlayer.getPortraitImage();
 	      LobbyPlayers = MainHub.getController().getPlayers();
+	      for(int i=0;i<LobbyPlayers.length; i++){
+	    	  if(LobbyPlayers[i]!=null)
+	    		  System.out.println(i);
+	      }
 	      
 	      canResetTimer = true;
+	      Image[] countDownImages = new Image[5];
+	      countDownImages[0] = new Image ("res/miscImages/5.png");
+	      countDownImages[1] = new Image ("res/miscImages/4.png");
+	      countDownImages[2] = new Image ("res/miscImages/3.png");
+	      countDownImages[3] = new Image ("res/miscImages/2.png");
+	      countDownImages[4] = new Image ("res/miscImages/1.png");
+	      countDownAnimation = new AnimationTimer(5000, countDownImages);
+	      nextRoundBg = new Image("res/miscImages/skillDescBg.png");
 	      
 	      
 	      switch(MainHub.getController().getPlayers()[MainHub.getController().getActivePlayerIndex()].getType()){
@@ -281,7 +250,25 @@ public class ShoppingView extends BasicGameState {
 				allItems[2] = new ItemWarriorSword();
 				break;
 	      	}
-	      
+	/*      for(int i=0;i<9;i++){
+				Skill skill = findOwnedSkill(allSkills[i].getName());
+				if (skill != null){
+					switch (allSkills[i].getCurrentLvl()){	
+						case 1:
+							LevelofSkills [i] = new Image ("res/skillIcons/Level 1.png");
+							break;
+						case 2:
+							LevelofSkills [i] = new Image ("res/skillIcons/Level 2.png");
+							break;
+						case 3:
+							LevelofSkills [i] = new Image ("res/skillIcons/Level 3.png");
+							break;
+						case 4:
+							LevelofSkills [i] = new Image ("res/skillIcons/Level 4.png");
+							break;
+					}
+				}
+			}*/
 
       		activePlayer.setIndex(MainHub.getController().getActivePlayerIndex());
       		MainHub.getController().addPlayer(activePlayer, MainHub.getController().getActivePlayerIndex());
@@ -373,37 +360,34 @@ public class ShoppingView extends BasicGameState {
 			}
 					
 		}
-	
 		
-		
-		
-		//Offensive skills	
-		g.drawImage((findOwnedSkill(allSkills[0].getName())) != null ? allSkills[0].getRegularSkillBarImage() : allSkills[0].getDisabledSkillBarImage(), 60, 440);
-		g.drawImage(LevelofSkills[0],114,494);
-		g.drawImage((findOwnedSkill(allSkills[3].getName())) != null ? allSkills[3].getRegularSkillBarImage() : allSkills[3].getDisabledSkillBarImage(), 60, 515);
-		g.drawImage(LevelofSkills[3],114,569);
-		g.drawImage((findOwnedSkill(allSkills[6].getName())) != null ? allSkills[6].getRegularSkillBarImage() : allSkills[6].getDisabledSkillBarImage(), 60, 590);
-		g.drawImage(LevelofSkills[6],114,644);
+		for(int i=0; i<9; i++){
+			int row=0;
+			if(i>=3){
+				row++;
+				if(i>=6){
+					row++;
+				}
+			}
+			int col=0;
+			if(i%3 == 1){
+				col=140;
+			}else if(i%3 == 2){
+				col=275;
+			}
+			Skill currentSkill = findOwnedSkill(allSkills[i].getName());
 			
-		//Defensive skills
-		g.drawImage((findOwnedSkill(allSkills[1].getName())) != null ? allSkills[1].getRegularSkillBarImage() : allSkills[1].getDisabledSkillBarImage(), 200, 440);
-		g.drawImage(LevelofSkills[1],254,494);
-		g.drawImage((findOwnedSkill(allSkills[4].getName())) != null ? allSkills[4].getRegularSkillBarImage() : allSkills[4].getDisabledSkillBarImage(), 200, 515);
-		g.drawImage(LevelofSkills[4],254,569);
-		g.drawImage((findOwnedSkill(allSkills[7].getName())) != null ? allSkills[7].getRegularSkillBarImage() : allSkills[7].getDisabledSkillBarImage(), 200, 590);
-		g.drawImage(LevelofSkills[7],254,644);
+			g.drawImage(currentSkill != null ? allSkills[i].getRegularSkillBarImage() : allSkills[i].getDisabledSkillBarImage(), 60+col, 440+75*row);
+			g.drawImage(currentSkill != null ? LevelofSkills[currentSkill.getCurrentLvl()] : LevelofSkills[0],114+col,494+75*row);
 			
-		//Mobility skills
-		g.drawImage((findOwnedSkill(allSkills[2].getName())) != null ? allSkills[2].getRegularSkillBarImage() : allSkills[2].getDisabledSkillBarImage(), 335, 440);
-		g.drawImage(LevelofSkills[2],389,494);
-		g.drawImage((findOwnedSkill(allSkills[5].getName())) != null ? allSkills[5].getRegularSkillBarImage() : allSkills[5].getDisabledSkillBarImage(), 335, 515);
-		g.drawImage(LevelofSkills[5],389,569);
-		g.drawImage((findOwnedSkill(allSkills[8].getName())) != null ? allSkills[8].getRegularSkillBarImage() : allSkills[8].getDisabledSkillBarImage(), 335, 590);
-		g.drawImage(LevelofSkills[8],389,644);
-		
+		}
 		g.drawString(buyString, 500, 675);
 		
-		g.drawString(startTimer, 1000, 620);
+		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame()){
+			Image currentCount = countDownAnimation.getCurrentAnimationImage();
+			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
+			g.drawImage(currentCount,GameEngine.screenWidth/2-currentCount.getWidth()/2,GameEngine.screenHeight/2-currentCount.getHeight()/2-nextRoundBg.getHeight()/3);
+		}
 		
 		if(dragMouse){
 			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
@@ -423,25 +407,7 @@ public class ShoppingView extends BasicGameState {
 		
 		//activePlayer.setGold(5000);
 		
-		for(int i=0;i<9;i++){
-			if (findOwnedSkill(allSkills[i].getName()) != null){
-				switch (allSkills[i].getCurrentLvl()){	
-					case 1:
-						LevelofSkills [i] = new Image ("res/skillIcons/Level 1.png");
-						break;
-					case 2:
-						LevelofSkills [i] = new Image ("res/skillIcons/Level 2.png");
-						break;
-					case 3:
-						LevelofSkills [i] = new Image ("res/skillIcons/Level 3.png");
-						break;
-					case 4:
-						LevelofSkills [i] = new Image ("res/skillIcons/Level 4.png");
-						break;
-				}
-			
-			}
-		}
+		
 		
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		
@@ -472,55 +438,51 @@ public class ShoppingView extends BasicGameState {
 				buyUpgradeButton = new Image("res/buttons/buy.png");
 			}
 		}
+		
+		allIsReady = true;
+		for(int i=0; i<LobbyPlayers.length; i++){
+			if(LobbyPlayers[i] != null && !LobbyPlayers[i].isReady()){
+				allIsReady = false;
+			}
+		}
 
 		if((1120<xPos && xPos<1240) && (670<yPos && yPos<715)){
 			if (!activePlayer.isReady()){
 				playButton = new Image("res/buttons/ReadyOver.png");
-			}else if (activePlayer == LobbyPlayers[0]){
+			}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
 				playButton = new Image("res/buttons/GoButtonOver.png");
 			}else {
 				playButton = new Image ("res/buttons/UnreadyOver.png");
 			}
-			if(input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
-				//Checking if all players are ready when player with index 0 presses GO
-				allIsReady = true;
-				for(int i=0; i<LobbyPlayers.length; i++){
-					if(LobbyPlayers[i] != null && !LobbyPlayers[i].isReady()){
-						allIsReady = false;
-					}
-				}
-				if( activePlayer.isReady() && activePlayer != LobbyPlayers[0]){
-					playButton = new Image ("res/buttons/Ready.png");
+			if(input.isMousePressed(0)){
+				//Checking state the button 
+				if(allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
+					activePlayer.setHasClickedStartGame(true);
+				}else if(activePlayer.isReady()){
 					activePlayer.setReady(false);
-				}else if(activePlayer == LobbyPlayers[0]){
-					playButton = new Image ("res/buttons/Unready.png");
-					if (allIsReady && activePlayer == LobbyPlayers[0]){
-						playButton = new Image("res/buttons/GoButton.png");	
-						if(activePlayer.isReady()){
-							activePlayer.setHasClickedStartGame(true);
-						}
-					}	
-					activePlayer.setReady(true);
 				}else{
-					playButton = new Image ("res/buttons/Unready.png");
 					activePlayer.setReady(true);
 				}
 								
 			}			
 		}else if(!activePlayer.isReady()){
 			playButton = new Image("res/buttons/Ready.png");
-		}else if (activePlayer == LobbyPlayers[0]){
+		}else if (allIsReady && activePlayer == LobbyPlayers[0] && !activePlayer.hasClickedStartGame()){
 			playButton = new Image("res/buttons/GoButton.png");
 		}else{
 			playButton = new Image ("res/buttons/Unready.png");
 		}
-	//	System.out.println(startCheckTimer.checkTimer());
-		startTimer = "Game starting in: " + startCheckTimer.checkTimer()/1000;
-		if(LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && canResetTimer){
 			canResetTimer = false;
 			startCheckTimer.resetTimer();
+			countDownAnimation.resetCounterAndTimer();
 		}
-		if(LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && !allIsReady){
+			activePlayer.setHasClickedStartGame(false);
+			canResetTimer = true;
+			startCheckTimer.stopTimer();
+		}
+		if(LobbyPlayers[0] != null && LobbyPlayers[0].hasClickedStartGame() && startCheckTimer.checkTimer() == startCheckTimer.getInterval()){
 			pressedReadyOrGo(sbg);
 		}
 		

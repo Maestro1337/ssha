@@ -27,10 +27,6 @@ public class SkillFlamewave extends Skill{
 			attackImages[0] = new Image("res/animations/Flamewave/Flamewave1.png");
 			attackImages[1] = new Image("res/animations/Flamewave/Flamewave2.png");
 			
-			animation[0] = new Image("res/animations/Flamewave/Flamewave1.png");
-			animation[1] = new Image("res/animations/Flamewave/Flamewave2.png");
-			
-			
 			skillBar[0] = new Image("res/skillIcons/flamewave.png");
 			skillBar[1] = new Image("res/skillIcons/flamewave_active.png");
 			skillBar[2] = new Image("res/skillIcons/flamewave_disabled.png");
@@ -39,7 +35,6 @@ public class SkillFlamewave extends Skill{
 			e.printStackTrace();
 		}
 		super.setImage(attackImages,200);
-		super.setEndState(animation, 200, 400);
 		super.setSkillBarImages(skillBar);
 	}
 
