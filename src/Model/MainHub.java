@@ -8,6 +8,7 @@ import Model.Arenas.*;
 
 public class MainHub {
 
+	// The maximum number of players allowed
 	public static final int nbrOfPlayers = 4;
 	public static final int noActionLimit = 400;
 	public static final int syncFrames = 50;
