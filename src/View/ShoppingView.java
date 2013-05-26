@@ -357,9 +357,6 @@ public class ShoppingView extends BasicGameState {
 		yPos = 720 - Mouse.getY();
 		mouse = "Mouse position: (" + xPos + "," + yPos + ")";
 		Input input = gc.getInput();
-		
-		
-		
 		if(showingSkillDescription||showingItemDescription){
 			skillDescBg = new Image("res/miscImages/skillDescBg.png");
 			if((710<xPos && xPos<830) && (600<yPos && yPos<645)){
@@ -374,7 +371,6 @@ public class ShoppingView extends BasicGameState {
 							buyItem(selectedItem);
 						}
 					}
-					
 				}
 			}else{
 				buyUpgradeButton = new Image("res/buttons/buy.png");
@@ -434,7 +430,6 @@ public class ShoppingView extends BasicGameState {
 				optionsButton = new Image("res/buttons/Options.png");
 				sbg.enterState(5);
 			}
-			
 		}else{
 			optionsButton = new Image("res/buttons/Options.png");
 		}
@@ -448,13 +443,10 @@ public class ShoppingView extends BasicGameState {
 			int yItemIndex = -1;
 			int totalIndex = -1;
 			
+			//Implementation like this to add more columns for items if we add more
 			if(475<=xPos && xPos<=555){
 				xItemIndex = 1;
-			}/*else if(565<=xPos && xPos<=645){
-				xItemIndex = 2;
-			}else if(655<=xPos && xPos<=735){
-				xItemIndex = 3;
-			}If we want to add more Items */
+			}
 				
 			if(yPos >= 80 && yPos <= 160){
 				yItemIndex = 0;
@@ -498,8 +490,6 @@ public class ShoppingView extends BasicGameState {
 						setSelectedSkill(allSkills[totalIndex]);
 						dragMouse=false;
 					}
-					
-				
 			}else if((chosenIndex = getChosenSkillIndex()) > 0){
 				if(chosenSkills[chosenIndex] != null){
 					setSelectedSkill(chosenSkills[chosenIndex]);
@@ -507,10 +497,6 @@ public class ShoppingView extends BasicGameState {
 					grabbedFromChosenIndex = chosenIndex;
 				}
 			}
-			
-			
-			
-			
 		}
 
 		//Checking if mouse is released
@@ -546,7 +532,6 @@ public class ShoppingView extends BasicGameState {
 		}
 	}
 	
-
 	/**
 	 * Returns the index in chosen skills that the mouse is above
 	 * @return the index of chosen skills and -1 if mouse is not over
@@ -614,8 +599,6 @@ public class ShoppingView extends BasicGameState {
 				}else{
 					ownedSkill.upgradeSkill();
 				}
-				
-				
 			}else{
 				buyString = "Skill already max level!";
 			}
@@ -631,7 +614,6 @@ public class ShoppingView extends BasicGameState {
 				return ownedSkillList.get(i);
 			}
 		}
-		
 		return null;
 	}
 	
