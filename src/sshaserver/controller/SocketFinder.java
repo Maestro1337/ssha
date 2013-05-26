@@ -2,24 +2,22 @@ package sshaserver.controller;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.HashMap;
 
-import sshaserver.view.ServerView;
+import sshaserver.view.MainView;
 
 public class SocketFinder implements Runnable {
 
 	private int port;
 	
 	private ClientSupervisor CS;
-	private ServerView SV;
+	private MainView SV;
 	private ServerSocket socket1;
 	private boolean isActive;
 	
-	public SocketFinder(int port, ClientSupervisor CS, ServerView SV) {
+	public SocketFinder(int port, ClientSupervisor CS, MainView SV) {
 		this.port = port;
 		this.CS = CS;
 		this.SV = SV;
-		
 		
 		startSearching();
 	}
@@ -56,7 +54,6 @@ public class SocketFinder implements Runnable {
 		try {
 			socket1.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		isActive = false;
