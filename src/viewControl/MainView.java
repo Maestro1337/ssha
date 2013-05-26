@@ -85,7 +85,6 @@ public class MainView extends BasicGameState implements ActionListener {
 			for(int i=0; i<obsGenerator.nextInt(50); i++){
 				obstacles[i] = new ObstaclePillar(obsGenerator.nextInt(GameEngine.screenWidth), obsGenerator.nextInt(GameEngine.screenHeight-1) + 1);
 			}
-
 		}
 		playerList = MainHub.getController().getPlayers();
 		activePlayer = MainHub.getController().getActivePlayerIndex();
@@ -93,7 +92,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		for(int i=0; i<MainHub.getController().getPlayers().length; i++){
 			Player newPlayer = MainHub.getController().getPlayer(i);
 			if(newPlayer != null){
-				System.out.println(newPlayer.getName() + " " + newPlayer.getPlayerListIndex() + " " + i);
 				nbrOfCurrentPlayers++;
 				players[i] = new PlayerModel(newPlayer);
 				players[i].ressurectPlayer();
@@ -107,7 +105,6 @@ public class MainView extends BasicGameState implements ActionListener {
 					MainHub.getController().addControllerThread(new Thread(MainHub.getController().getPlayerControl(i)), i);
 					MainHub.getController().getControllerThread(i).start();
 				}
-				
 			}
 		}
 		nextRoundButton = new Image("res/buttons/Ready.png");
@@ -135,10 +132,7 @@ public class MainView extends BasicGameState implements ActionListener {
 			if(MainHub.getController().getPlayers()[lol] != null) {
 				if(MainHub.getController().getPlayers()[lol].getControlType().equals("server")) {
 					MainHub.getController().getPlayerControllers()[lol].changePlayer(MainHub.getController().getPlayers()[lol]);
-					System.out.println("Player " + lol + " is now changed.");
 				}
-				
-			
 			}
 		}
 		
@@ -245,14 +239,6 @@ public class MainView extends BasicGameState implements ActionListener {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
-		
-		
-		
-		
-		
-		//System.out.println("Can Attack: " + currentActiveController.getPlayer().canAttack());
-		//System.out.println("Can Walk: " + currentActiveController.getPlayer().canWalk());
-		
 		//Update current mouse position
 		int xPos = Mouse.getX();
 		int yPos = GameEngine.screenHeight - Mouse.getY();
@@ -294,12 +280,6 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 		
-		/*for(int j=0; j<aiModels.length; j++){
-			if(aiModels[j] != null){
-				aiModels[j].AI();
-			}
-		}*/
-		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
 			if(activeSkillList[0] != null && !activeSkillList[0].getPassive() && !settingCurrentActiveSkill){
@@ -338,8 +318,6 @@ public class MainView extends BasicGameState implements ActionListener {
 			 }		
 		 }
 		
-		
-		
 		//If left mousebutton is clicked, move the player
 		if(input.isMouseButtonDown(1)){
 			currentActiveController.move(Mouse.getX(), GameEngine.screenHeight - Mouse.getY());
@@ -369,7 +347,6 @@ public class MainView extends BasicGameState implements ActionListener {
 			}
 		}
 	}
-
 	
 	private boolean roundOverCheck(){
 		//Checks if round should be ended
@@ -471,7 +448,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		for (int i=0;i<players.length;i++){
 			if (players [i]!= null){
 				allDamageDone += players [i].getPlayer().getRoundDamageDone();
-				System.out.println("player"+ i + " "+ players [i].getPlayer().getRoundDamageDone() );
 				numberofplayers++;
 			}
 		}for (int i=0;i<placingInRound.size();i++){
