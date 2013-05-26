@@ -235,6 +235,9 @@ public class PlayerModel {
 					}
 					if(!attackingSkill.getHasEndState()){
 						attackingSkill.setAttackingState(false);
+						if(attackingSkill.getPiercing()){
+							attackingSkill.resetTargetsHit();
+						}
 					}else{
 						attackingSkill.activateEndState();
 					}
@@ -329,9 +332,10 @@ public class PlayerModel {
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
 
+			/*
 			if(currentActiveSkill.getPiercing()){
 				currentActiveSkill.setEndstate(false);
-			}
+			}*/
 
 			if(currentActiveSkill.getGrapplingHook()){
 				
@@ -414,12 +418,19 @@ public class PlayerModel {
 							pushPlayer(skill.getXDirAtt(), skill.getYDirAtt(), skill.getPushDistance());
 						}
 						if(!skill.getHasEndState()){
+							//Piercing skills can not have end state
+							boolean canHitTarget = true;
 							if(!skill.getPiercing()){
-								System.out.println("BAHSSSSS");
 								skill.setAttackingState(false);
 								skill.collidedShot();
+							}else{
+								canHitTarget = false;
+								if(!skill.getTargetsHit(player.getPlayerListIndex())){
+									canHitTarget = true;
+									skill.addTargetHit(player.getPlayerListIndex());
+								}
 							}
-							if(evasion>=0){
+							if(evasion>=0 && canHitTarget){
 								player.dealDamage(skill.getDamage());
 								attackingPlayer.incRoundDamageDone((int)(skill.getDamage()*(1-player.getArmor())));
 								

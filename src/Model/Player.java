@@ -54,7 +54,7 @@ public class Player {
 	private int totalDamageDone=0;
 	private int roundDamageDone=0;
 	private int deaths = 0;
-	private int gold=50000;
+	private int gold=500;
 	private Skill[] skillList = new Skill[5];
 	private ArrayList<Skill> ownedSkills = new ArrayList<Skill>();
 	private ArrayList<Item> ownedItems = new ArrayList<Item>();
