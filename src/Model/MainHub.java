@@ -1,6 +1,5 @@
 package Model;
 
-import sshaclient.Constants;
 import sshaclient.SocketClient;
 
 import Control.PlayerControl;
@@ -8,6 +7,11 @@ import Model.Arenas.*;
 
 public class MainHub {
 
+	private int defaultPort = 6666;
+	//public static final String hostName = "127.0.0.1";
+	private String hostName = "83.248.107.3";
+	//public static final String hostName = "10.0.1.8";
+	
 	// The maximum number of players allowed
 	public static final int nbrOfPlayers = 4;
 	public static final int noActionLimit = 400;
@@ -47,7 +51,7 @@ public class MainHub {
 		maps[0] = new MapHazardCross();
 		maps[1] = new MapSlaughterField();
 		
-		socketClient = new SocketClient(Constants.hostName, Constants.defaultPort);
+		socketClient = new SocketClient(hostName, defaultPort);
 		socketThread = new Thread(socketClient);
 		socketThread.start();
 	}
