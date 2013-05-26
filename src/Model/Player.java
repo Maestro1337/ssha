@@ -527,10 +527,13 @@ public class Player {
 	
 	// Misc methods
 	public void dealDamage(int damage){
-		damage *= (1-armor);
-		if(damage >= 0){
-			HP -= damage;
-			if(damage != 0){
+		int newDamage = (int)(damage*(1-armor));
+		if(newDamage == 0 && damage != 0){
+			newDamage = 1;
+		}
+		if(newDamage >= 0){
+			HP -= newDamage;
+			if(newDamage != 0){
 				playSound("res/sounds/takingDamage.wav");
 			}
 		}
