@@ -15,19 +15,12 @@ import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;
-import Model.Skills.Skill;
-import Model.Skills.Hunter.*;
-import Model.Skills.Warrior.*;
-import Model.Skills.Wizard.*;
 
 public class ClassSelectionView extends BasicGameState implements ActionListener{
 
 	private String mouse = "No input yet";
 	
-	private boolean isMultiplayer;
-	
 	Player player = null;
-//	private String classType = null;
 
 	Image backgroundImage;
 	Image backButton;
