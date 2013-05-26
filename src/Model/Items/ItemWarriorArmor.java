@@ -3,7 +3,6 @@ package Model.Items;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.StatusEffects.StatusEffectArmor;
 import Model.StatusEffects.StatusEffectItems;
 
 public class ItemWarriorArmor extends Item {

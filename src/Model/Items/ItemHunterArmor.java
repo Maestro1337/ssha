@@ -2,10 +2,6 @@ package Model.Items;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
-import Model.Player;
-import Model.StatusEffect;
-import Model.StatusEffects.StatusEffectArmor;
 import Model.StatusEffects.StatusEffectItems;
 
 public class ItemHunterArmor extends Item {
