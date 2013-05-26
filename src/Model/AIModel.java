@@ -92,6 +92,7 @@ public class AIModel implements PlayerControl{
 	int dodgedirX;
 	int dodgedirY;
 	
+	
 	public void AI() throws SlickException{
 		if(targetPlayer == null){
 			updateTarget();
@@ -102,32 +103,73 @@ public class AIModel implements PlayerControl{
 		double dy = enemy.getY()-targetPlayer.getY();
 		double distance = Math.sqrt((dx*dx)+(dy*dy));
 		Skill currentSkillCheck;
-	
-		while (System.currentTimeMillis()>time+delay){		
-			currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
-			// if player is attacking the AI will try to dodge.
-			if(currentSkillCheck.isAttacking()&&currentSkillCheck.getRange()>distance){
-				if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-					
-				}
-				else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-					enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
-				}
-					
-			}
-					
+		boolean collitionCaseX = false;
+		boolean collitionCaseY = false;
+		
+
+		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
+			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
+			if (currentObstacleCheck!=null&&currentObstacleCheck.isSolid()){
 				
-			else if (distance>=30){
-				enemyControl.move((int)targetPlayer.getX(),(int) targetPlayer.getY());
-			}else if (dx<0){
-				enemyControl.move(generator.nextInt((int)targetPlayer.getX()), generator.nextInt(GameEngine.screenHeight-1) + 1);
-			}
-			else{
-				enemyControl.move(generator.nextInt(GameEngine.screenWidth-(int)targetPlayer.getX())+(int)targetPlayer.getX(), generator.nextInt(GameEngine.screenHeight-1) + 1);
-			}
-			time=System.currentTimeMillis();
+				if(isCollidingWithObstacle(currentObstacleCheck, enemy.getX()+1, enemy.getY(), enemy.getImage().getWidth(), enemy.getImage().getHeight())||
+						isCollidingWithObstacle(currentObstacleCheck, enemy.getX()-1, enemy.getY(), enemy.getImage().getWidth(), enemy.getImage().getHeight())){
+					collitionCaseX= true;
+					break;
+						
+				}else if(isCollidingWithObstacle(currentObstacleCheck, enemy.getX(), enemy.getY()+1, enemy.getImage().getWidth(), enemy.getImage().getHeight())||
+						isCollidingWithObstacle(currentObstacleCheck, enemy.getX(), enemy.getY()-1, enemy.getImage().getWidth(), enemy.getImage().getHeight())){
+					collitionCaseY= true;
+					break;
+						
+				}
+			}		
 		}
-				
+		
+		if (collitionCaseX){
+			System.out.println("ColX");
+			if (dy>=0){
+				enemyControl.move((int)enemy.getX(),(int)enemy.getY()-(1+enemy.getImage().getHeight()));
+			}else{
+				enemyControl.move((int)enemy.getX(),(int)enemy.getY()+1);
+			}	
+		}if(collitionCaseY){
+			System.out.println("ColY");
+			if (dx>=0){
+				enemyControl.move((int)enemy.getX()-(1+enemy.getImage().getWidth()),(int)enemy.getY());
+			}else{
+				enemyControl.move((int)enemy.getX()+1,(int)enemy.getY());
+			}
+		
+		}else{
+			System.out.println("Else");
+			while (System.currentTimeMillis()>time+delay){		
+				currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
+				// if player is attacking the AI will try to dodge.
+				if(currentSkillCheck.isAttacking()&&currentSkillCheck.getRange()>distance){
+					if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+						
+					}
+					else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
+						enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
+					}
+						
+				}
+						
+					
+				else if (distance>=30){
+					enemyControl.move((int)targetPlayer.getX(),(int) targetPlayer.getY());
+				}else if (dx<0){
+					enemyControl.move(generator.nextInt((int)targetPlayer.getX()), generator.nextInt(GameEngine.screenHeight-1) + 1);
+				}
+				else{
+					enemyControl.move(generator.nextInt(GameEngine.screenWidth-(int)targetPlayer.getX())+(int)targetPlayer.getX(), generator.nextInt(GameEngine.screenHeight-1) + 1);
+				}
+				time=System.currentTimeMillis();
+			}
+					
+			
+		}
+		
 		for(int i=0;i<enemy.getSkillList().length;i++){
 			enemyControl.setCurrentActiveSkill(i);
 			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
@@ -137,7 +179,38 @@ public class AIModel implements PlayerControl{
 		}
 	}
 	
-	
+	public boolean isCollidingWithObstacle(Obstacle obstacle, float x, float y, int width, int height) throws SlickException{
+		System.out.println("Checking");
+		if(obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x){
+			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 
+					|| obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+				return true;
+			}
+		}else if(obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y){
+			if(obstacle.getX() >= x && obstacle.getX() <= x+width 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= x && obstacle.getX()+obstacle.getCurrentWidth() <= x+width 
+					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+				return true;
+			}
+		}else if(obstacle.getX() <= x+width  && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
+					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 
+					|| obstacle.getY() <= y && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+				return true;
+			}
+		}else if(obstacle.getY() <= y+height  && obstacle.getY()+obstacle.getCurrentHeight() >= y+height ){
+			if(obstacle.getX() >= x && obstacle.getX() <= x+width 
+					|| obstacle.getX()+obstacle.getCurrentWidth() >= x && obstacle.getX()+obstacle.getCurrentWidth() <= x+width 
+					|| obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x+width ){
+				return true;
+			}
+		}else if(x <= obstacle.getX() && x+width >= obstacle.getX()+obstacle.getCurrentWidth()
+				&& y <= obstacle.getY() && y+width >= obstacle.getY()+obstacle.getCurrentHeight()){
+			return true;
+		}
+		return false;
+	}
 	private void updateTarget(){
 	/*	int targetPlayerIndex = enemy.getPlayerListIndex() != 0 ? 0 : 1;
 		float targetPlayerXDir = playerList[targetPlayerIndex].getX() - enemy.getX();
