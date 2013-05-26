@@ -58,7 +58,7 @@ public class Menu extends BasicGameState implements ActionListener{
 		startGameButton = new Image("res/buttons/startgame.png");
 		exitButton = new Image("res/buttons/exit.png");
 		titleText1 = new Image("res/miscImages/SSH.png");
-		titleText2 = new Image("res/miscImages/arena.png");
+		titleText2 = new Image("res/miscImages/arena.png");	
 		
 		try {
 			wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/bg-music.wav"));

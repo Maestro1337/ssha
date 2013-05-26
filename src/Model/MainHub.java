@@ -1,5 +1,9 @@
 package Model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import sshaclient.SocketClient;
 
 import Control.PlayerControl;
@@ -51,6 +55,18 @@ public class MainHub {
 		maps = new Arena[2];
 		maps[0] = new MapHazardCross();
 		maps[1] = new MapSlaughterField();
+		
+		
+		Scanner fileScanner;
+		try {
+			fileScanner = new Scanner(new File(".\res\test.txt"));
+			playerName = fileScanner.nextLine();
+			fileScanner.close();
+			
+		} catch (FileNotFoundException e) {
+			playerName = "NameNotFound";
+		}
+		System.out.println(playerName);
 		
 		socketClient = new SocketClient(hostName, defaultPort);
 		socketThread = new Thread(socketClient);
