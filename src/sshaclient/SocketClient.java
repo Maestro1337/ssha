@@ -43,8 +43,8 @@ public class SocketClient implements Runnable {
 		this.host = host;
 		this.port = port;
 		
-		playerStats = new String[Constants.nbrOfPlayer];
-		playerChanged = new boolean[Constants.nbrOfPlayer];
+		playerStats = new String[MainHub.nbrOfPlayers];
+		playerChanged = new boolean[MainHub.nbrOfPlayers];
 		
 		instr = new StringBuffer();
 	}
@@ -333,7 +333,7 @@ public class SocketClient implements Runnable {
 	}
 	
 	public String[] getPlayerNames() {
-		String[] names = new String[Constants.nbrOfPlayer];
+		String[] names = new String[MainHub.nbrOfPlayers];
 		
 		for(int i = 0; i < MainHub.getController().getPlayers().length; i++) {
 			names[i] = "";
