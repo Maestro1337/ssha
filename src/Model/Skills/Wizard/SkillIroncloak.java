@@ -10,11 +10,11 @@ public class SkillIroncloak extends Skill {
 
 	public SkillIroncloak() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Iron cloak", 11000, 400, 0.4, 3, 20, 150,"Iron cloak: \n" +
-				"\nLevel 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+		super("Iron cloak", 11000, 400, 0.4, 3, 20, 150,"Iron cloak: (Passive) \nIncreases armor" +
+				"\nLevel 1: 25%\n" +
+				"Level 2: 50%\n" +
+				"Level 3: 75%\n" +
+				"Level 4: 100%");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[7];
