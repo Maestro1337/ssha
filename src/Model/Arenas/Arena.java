@@ -11,7 +11,7 @@ public class Arena {
 
 	private int width;
 	private int height;
-	private String terrain;
+	private String terrain = "";
 	private Obstacle[] obstacles;
 	private ArrayList<Integer> destroyedObstacles = new ArrayList<Integer>();
 	

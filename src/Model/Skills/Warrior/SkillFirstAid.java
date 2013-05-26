@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectFirstAid;
 public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-				super("First aid", 11000, 0, 0.4, 3, 150, 0,"First Aid: \nChannels a \nheal while standing still\n" +
+				super("First aid", 11000, 0, 0.4, 3, 150, 0,"First Aid: \nChannels a heal while\nstanding still\n" +
 						"Level 1: 20 health/sec\n" +
 						"Level 2: 30 health/sec\n" +
 						"Level 3: 40 health/sec\n" +

@@ -297,11 +297,12 @@ public abstract class Skill{
 		rotation = angle;
 	}
 	public void setEndStateImage(Image image){
-		if(image != null)
+		if(image != null) {
 			endStateImage = image;
 		
-		endStateImgHeight = image.getHeight();
-		endStateImgWidth = image.getWidth();
+			endStateImgHeight = image.getHeight();
+			endStateImgWidth = image.getWidth();
+		}
 	}
 	public void setCooldown(int cooldown){
 		this.cooldown = cooldown;

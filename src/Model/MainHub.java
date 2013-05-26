@@ -38,7 +38,7 @@ public class MainHub {
 
 
 	//Singleton
-	public static MainHub getController() {
+	public synchronized static MainHub getController() {
 	if (myControl == null) {
 	   myControl = new MainHub();
 	   // prepare myController here or use setter() methods or a parameterized constructor

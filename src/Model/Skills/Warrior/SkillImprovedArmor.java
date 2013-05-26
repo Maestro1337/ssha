@@ -9,17 +9,17 @@ import Model.StatusEffects.StatusEffectArmor;
 public class SkillImprovedArmor extends Skill {
 	public SkillImprovedArmor(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, String description
-				super("Improved armor", 11000, 400, 0.4, 3, 20, 0,"Improved Armor \n" +
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+				super("Improved armor", 11000, 400, 0.4, 3, 20, 0,"Improved Armor(passive) \nincreases armor by\n" +
+						"Level 1: 20%\n" +
+						"Level 2: 34% \n" +
+						"Level 3: 48% \n" +
+						"Level 4: 60% ");
 				
 				Image attackImage = null;
 				Image[] animation = new Image[7];
 				Image[] skillBar = new Image[3];
 				super.setPassive();
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.1, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.2, 0));
 				
 				try {
 					attackImage = new Image("res/animations/explode/explode1.png");
@@ -55,15 +55,15 @@ public class SkillImprovedArmor extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.2, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.34, 0));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.3, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.48, 0));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.4, 0));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectArmor(this, 0.6, 0));
 				super.setDamage(lvl4);
 				break;
 			}
