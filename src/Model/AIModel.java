@@ -72,22 +72,7 @@ public class AIModel implements PlayerControl{
 	}
 
 	
-	public boolean willCollide(){
-		float collitionx;
-		float collitiony;
-		boolean value=false;
-		Skill targetPlayerSkill;
-		for (int i=1;i<targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()].getRange();i++){
-			targetPlayerSkill = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
-			collitionx=targetPlayer.getX()+(i*targetPlayerSkill.getAttX());
-			collitiony=targetPlayer.getY()+(i*targetPlayerSkill.getAttY());	
-			if(collitionx>enemy.getX()&&collitionx<enemy.getX()+enemy.getImage().getWidth()&&collitiony>enemy.getY()&&collitiony<enemy.getY()+enemy.getImage().getHeight()){
-				value = true;
-			 break;
-			}
-		}
-		return value;
-	}
+	
 	public boolean aiTimer (long delay){
 		return true;
 	}
@@ -119,13 +104,13 @@ public class AIModel implements PlayerControl{
 			if (currentObstacleCheck!=null&&currentObstacleCheck.isSolid()){
 
 				
-				if(isCollidingWithObstacle(currentObstacleCheck, enemy.getX()+1, enemy.getY(), enemy.getImage().getWidth(), enemy.getImage().getHeight())||
-						isCollidingWithObstacle(currentObstacleCheck, enemy.getX()-1, enemy.getY(), enemy.getImage().getWidth(), enemy.getImage().getHeight())){
+				if(enemyControl.isCollidingWithObstacle(currentObstacleCheck, enemy.getX()+1, enemy.getY(), enemy.getImage().getWidth(), enemy.getImage().getHeight())||
+						enemyControl.isCollidingWithObstacle(currentObstacleCheck, enemy.getX()-1, enemy.getY(), enemy.getImage().getWidth(), enemy.getImage().getHeight())){
 					collitionCaseX= true;
 					break;
 						
-				}else if(isCollidingWithObstacle(currentObstacleCheck, enemy.getX(), enemy.getY()+1, enemy.getImage().getWidth(), enemy.getImage().getHeight())||
-						isCollidingWithObstacle(currentObstacleCheck, enemy.getX(), enemy.getY()-1, enemy.getImage().getWidth(), enemy.getImage().getHeight())){
+				}else if(enemyControl.isCollidingWithObstacle(currentObstacleCheck, enemy.getX(), enemy.getY()+1, enemy.getImage().getWidth(), enemy.getImage().getHeight())||
+						enemyControl.isCollidingWithObstacle(currentObstacleCheck, enemy.getX(), enemy.getY()-1, enemy.getImage().getWidth(), enemy.getImage().getHeight())){
 					collitionCaseY= true;
 					break;
 						
@@ -140,7 +125,7 @@ public class AIModel implements PlayerControl{
 			}else{
 				enemyControl.move((int)enemy.getX(),(int)currentObstacleCheck.getY()+currentObstacleCheck.getCurrentHeight()+1);
 			}	
-		}if(collitionCaseY&&currentObstacleCheck!= null){
+		}else if(collitionCaseY&&currentObstacleCheck!= null){
 			System.out.println("ColY");
 			if (dx>=0){
 				enemyControl.move((int)currentObstacleCheck.getX()-enemy.getImage().getWidth()-1,(int)enemy.getY());
@@ -154,11 +139,12 @@ public class AIModel implements PlayerControl{
 				currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
 				// if player is attacking the AI will try to dodge.
 				if(currentSkillCheck.getAttackingState()&&currentSkillCheck.getRange()>distance){
-					if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-						
+					
+					if (!willCollide((int)(enemy.getX()+dy/2),(int)(enemy.getY()-dx)/2)){
+						enemyControl.move((int)(enemy.getX()+dy/2),(int)(enemy.getY()-dx)/2);
 					}
-					else if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
-						enemyControl.move((int)(enemy.getX()+dy),(int)(enemy.getY()-dx));
+					else if (willCollide((int)(enemy.getX()-dy/2),(int)(enemy.getY()+dx))){
+						enemyControl.move((int)(enemy.getX()-dy/2),(int)(enemy.getY()+dx));
 					}
 						
 				}
@@ -251,5 +237,19 @@ public class AIModel implements PlayerControl{
 			targetPlayer = null;
 		}*/
 		targetPlayer = playerList[0];
+	}
+	public boolean willCollide(int gotoX,int gotoY) throws SlickException{
+		float collitionVektorX = gotoX-enemy.getX();
+		float collitionVektorY = gotoY-enemy.getY();
+		//Checks 8 points between enemyPosition and where he wants to go for collitions
+		for (int i=0;i<10;i++){
+			for(int j=0; j<MainHub.getController().getMapSelected().getObstacles().length; j++){
+				Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[j];
+				if(currentObstacleCheck != null && isCollidingWithObstacle(currentObstacleCheck, enemy.getX()+collitionVektorX*i/10, enemy.getY()+collitionVektorY*i/10, enemy.getImage().getWidth(), enemy.getImage().getHeight())){
+				return true;
+				}
+			}
+		}
+		return false;
 	}
 }
