@@ -10,7 +10,7 @@ public class StatusEffect {
 	
 	private Player player;
 	private Skill skill;
-	
+	private String name;
 	private int dmgEff;
 	private float moveXEff;
 	private float moveYEff;
@@ -35,7 +35,7 @@ public class StatusEffect {
 	public StatusEffect(Player player, Skill skill, String name,int damage, float moveX, float moveY, double moveSpeed, double arm, int attackSpeed, int range, int evasion,boolean isStealth, boolean isStun, boolean isChanneling, int counts, int delay){
 		this.player = player;
 		this.skill = skill;
-		
+		this.name = name;
 		dmgEff = damage;
 		moveXEff = moveX;
 		moveYEff = moveY;
@@ -62,6 +62,9 @@ public class StatusEffect {
 	}
 	public boolean hasStealth(){
 		return hasStealth;
+	}
+	public String getName(){
+		return name;
 	}
 	
 	//Setters
@@ -95,7 +98,7 @@ public class StatusEffect {
 		}
 	}
 	
-	private void commitStatusEffect(){
+	public void commitStatusEffect(){
 		if(dmgEff>0){
 			player.dealDamage(dmgEff);
 		}
@@ -148,8 +151,7 @@ public class StatusEffect {
 		commitedChange = true;
 	} 
 	
-	private void returnStatsToNormal(){
-		System.out.println("Return status effect");
+	public void returnStatsToNormal(){
 		if(commitedChange){
 			if(armEff!=0){
 				player.addArmor(-armEff);

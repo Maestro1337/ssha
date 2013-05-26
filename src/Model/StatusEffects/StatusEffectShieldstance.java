@@ -11,7 +11,7 @@ public class StatusEffectShieldstance extends StatusEffectShell{
 		
 		//player, skill, name, damage, moveX, moveY, speed, arm, attackSpeed, range, isStun, isChanneling, counts, delay
 		
-		super(null, skill, "Shieldstance", 0, 0, 0, -0.25, 0.2, 0, 0, 0, false, false, false, seconds+1, 0);
+		super(null, skill, "Shieldstance", 0, 0, 0, -0.25, 0.2, 0, 0, 0, false, false, false, seconds+10000, 0);
 
 		super.setChangeModel();
 	}

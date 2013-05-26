@@ -22,6 +22,7 @@ public class SkillShieldStance extends Skill {
 				Image[] skillBar = new Image[3];
 				
 				super.setSelfAffectingStatusEffectShell(new StatusEffectShieldstance(this, 5));
+				super.setToggled();
 				
 				try {
 					attackImage = new Image("res/animations/Shieldstance/Shieldstance4.png");

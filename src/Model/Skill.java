@@ -90,6 +90,9 @@ public abstract class Skill{
 	private boolean isPassive = false;
 	private boolean affectSelfOnHit = false;
 	
+	private boolean canToggle = false;
+	private boolean isToggledOn = false;
+	
 	public Skill(String name, int cd, int range, double speed, int aoe, int cost, int damage, String describe){
 		this.name = name;
 		this.smallName = name.toLowerCase().replaceAll("\\s", "");
@@ -281,6 +284,12 @@ public abstract class Skill{
 	public boolean getTargetsHit(int index){
 		return targetHit[index];
 	}
+	public boolean getToggleState(){
+		return canToggle;
+	}
+	public boolean getToggleOn(){
+		return isToggledOn;
+	}
 	
 	// Setters
 	public void setRotation(float angle){
@@ -468,6 +477,13 @@ public abstract class Skill{
 	public void setGuided(){
 		isGuided = true;
 	}
+	public void setToggled(){
+		canToggle = true;
+	}
+	public void toggleToggle(){
+		isToggledOn = !isToggledOn;
+	}
+	
 	public void setGrapplingHook(){
 		isGrapplingHook = true;
 	}

@@ -73,6 +73,17 @@ public class PlayerModel {
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
 				if(i == index){
+					if(playerSkills[i].getToggleState()){
+						playerSkills[i].toggleToggle();
+						System.out.println("Toggle is on");
+						if(playerSkills[i].getToggleOn()){
+							System.out.println(playerSkills[i].getToggleOn());
+							playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).commitStatusEffect();
+						}else{
+							System.out.println("Toggle is off");
+							playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).returnStatsToNormal();
+						}
+					}
 					currentActiveSkill = playerSkills[i];
 					playerSkills[i].setChosenState(true);
 					player.setCurrentActiveSkillIndex(i);
