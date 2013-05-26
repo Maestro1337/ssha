@@ -48,30 +48,17 @@ public class MainHub {
 		socketThread.start();
 	}
 	
-	public synchronized void addPlayer(Player player, int index){
-		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
-		players[index] = player;
-	}
-	public synchronized void removePlayer(int index) {
-		players[index] = null;
-	}
-	public synchronized void resetPlayers(){
-		players = new Player[nbrOfPlayers];
-	}
 	public synchronized Player[] getPlayers(){
 		return players;
 	}
 	public synchronized Player getPlayer(int index) {
 		return players[index];
 	}
-	public synchronized void addPlayerController(PlayerControl pc, int index) {
-		playerControllers[index] = pc;
+	public String getActivePlayerName(){
+		return playerName;
 	}
-	public synchronized void removePlayerController(int index) {
-		playerControllers[index] = null;
-	}
-	public synchronized void resetPlayerControllers() {
-		playerControllers = new PlayerControl[nbrOfPlayers];
+	public int getActivePlayerIndex(){
+		return activePlayer;
 	}
 	public synchronized PlayerControl[] getPlayerControllers() {
 		return playerControllers;
@@ -79,39 +66,11 @@ public class MainHub {
 	public synchronized PlayerControl getPlayerControl(int index) {
 		return playerControllers[index];
 	}
-	public synchronized void addControllerThread(Thread thread, int index) {
-		controllerThreads[index] = thread;
-	}
-	public synchronized void removeControllerThread(int index) {
-		controllerThreads[index] = null;
-	}
-	public synchronized void resetControllerThreads() {
-		controllerThreads = new Thread[nbrOfPlayers];
-	}
 	public synchronized Thread[] getControllerThreads() {
 		return controllerThreads;
 	}
 	public synchronized Thread getControllerThread( int index) {
 		return controllerThreads[index];
-	}
-	
-	public String getActivePlayerName(){
-		return playerName;
-	}
-	public void setActivePlayerName(String name){
-		playerName = name;
-	}
-	public int getActivePlayerIndex(){
-		return activePlayer;
-	}
-	public void setActivePlayerIndex(int index){
-		activePlayer = index;
-	}
-	public boolean isMulti(){
-		return isMultiplayer;
-	}
-	public void setSingleOrMulti(boolean singleOrMulti){
-		isMultiplayer = singleOrMulti;
 	}
 	public SocketClient getSocketClient() {
 		return socketClient;
@@ -122,13 +81,54 @@ public class MainHub {
 	public int getMapIndex(){
 		return mapSelected;
 	}
-	public void setMapIndex(int mapIndex){
-		mapSelected = mapIndex;
-	}
 	public int getDiffcultySelected(){
 		return difficultySelected;
 	}
+	public boolean getMulti(){
+		return isMultiplayer;
+	}
+	
+	public synchronized void addPlayer(Player player, int index){
+		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
+		players[index] = player;
+	}
+	public void setActivePlayerName(String name){
+		playerName = name;
+	}
+	public void setActivePlayerIndex(int index){
+		activePlayer = index;
+	}
+	public synchronized void removePlayer(int index) {
+		players[index] = null;
+	}
+	public synchronized void resetPlayers(){
+		players = new Player[nbrOfPlayers];
+	}
+	public synchronized void addPlayerController(PlayerControl pc, int index) {
+		playerControllers[index] = pc;
+	}
+	public synchronized void removePlayerController(int index) {
+		playerControllers[index] = null;
+	}
+	public synchronized void resetPlayerControllers() {
+		playerControllers = new PlayerControl[nbrOfPlayers];
+	}
+	public synchronized void addControllerThread(Thread thread, int index) {
+		controllerThreads[index] = thread;
+	}
+	public synchronized void removeControllerThread(int index) {
+		controllerThreads[index] = null;
+	}
+	public synchronized void resetControllerThreads() {
+		controllerThreads = new Thread[nbrOfPlayers];
+	}
+	public void setMapIndex(int mapIndex){
+		mapSelected = mapIndex;
+	}
 	public void setDifficultySelected(int dif){
 		difficultySelected= dif;
+	}
+	public void setMulti(boolean multi){
+		isMultiplayer = multi;
 	}
 }
