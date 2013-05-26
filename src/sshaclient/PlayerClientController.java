@@ -189,7 +189,7 @@ public class PlayerClientController implements PlayerControl {
 				
 				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
 				
-				if(checkX > Constants.syncMargin || checkY > Constants.syncMargin) {
+				if(checkX > MainHub.syncMargin || checkY > MainHub.syncMargin) {
 					tp.setX(x);
 					tp.setY(y);
 				}
@@ -255,13 +255,14 @@ public class PlayerClientController implements PlayerControl {
 				}
 				*/
 			}
-			
+			/*
 			try {
 				Thread.sleep(Constants.globalSleep);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			*/
 		}
 	}
 

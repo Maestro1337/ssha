@@ -13,6 +13,9 @@ public class MainHub {
 	public static final int noActionLimit = 400;
 	public static final int syncFrames = 50;
 	
+	// Used to correct transmission errors when moving online-player
+	public static final int syncMargin = 10;
+	
 	private boolean isMultiplayer = false;
 	private static MainHub myControl = null;
 	private Player[] players = new Player[nbrOfPlayers];
