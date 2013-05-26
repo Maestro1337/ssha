@@ -2,20 +2,16 @@ package sshaserver.controller;
 
 import java.net.*;
 import java.io.*;
-import java.util.*;
+
+import sshaserver.model.MainHub;
 
 public class MultiSocketServer implements Runnable {
 
 	private Socket connection;
-	//private String TimeStamp;
-	private String returnCode;
 	private int ID;
 	private String[] names;
 	
-	private boolean isClosing;
 	public String playerName;
-	private int playerX;
-	private int playerY;
 	private String statString;
 	private boolean isDead = false;
 	private boolean nameIsFree;
@@ -56,11 +52,7 @@ public class MultiSocketServer implements Runnable {
 					nameIsFree = false;
 				}
 			}
-			
-			// Don't know how to fix this yet...
-			// Maybe works now
-			// nameIsFree = true;
-			
+
 			if(nameIsFree) {
 				// Just let the Client know it's connected and send their ID.
 				otherStatsString = "Connected " + this.ID + (char)13;
@@ -74,7 +66,6 @@ public class MultiSocketServer implements Runnable {
 				otherStatsString = "NameTaken 0" + (char)13;
 				osw.write(otherStatsString);
 				osw.flush();
-				//isDead = true;
 			}
 			
 			
@@ -83,27 +74,19 @@ public class MultiSocketServer implements Runnable {
 				while( (character = isr.read()) != 13 && character >= 0) {
 					process.append((char)character);
 				}
+				
 				//Convert StringBuffer to String
 				this.statString = "" + process.toString();
 				System.out.println(statString);
-				
-				//Generate the code to return to the Client
-				//returnCode = process.toString() + (char)13;
-				//returnCode = "Test" + (char)13;
 				
 				//Clear the StringBuffer
 				character = 0;
 				process.delete(0,process.length());
 			
 				try {
-					Thread.sleep(Constants.globalSleep);
+					Thread.sleep(MainHub.globalSleep);
 				}
 				catch(Exception e) {}
-			
-			
-				//TimeStamp = new java.util.Date().toString();
-				//returnCode = "MultipleSocketServer repsonded at "+ TimeStamp + (char) 13;
-				//returnCode = "test" + (char)13;
 				
 				//Send information to the Client
 				osw.write(otherStatsString);
@@ -112,7 +95,7 @@ public class MultiSocketServer implements Runnable {
 			}
 		}
 		catch(Exception e) {
-			//System.out.println(e);
+			System.out.println(e);
 			isDead = true;
 		}
 	}
@@ -125,7 +108,7 @@ public class MultiSocketServer implements Runnable {
 		return this.ID;
 	}
 	
-	public String getPlayerStats() {
+	public synchronized String getPlayerStats() {
 		return this.statString;
 	}
 	

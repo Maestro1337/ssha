@@ -11,47 +11,48 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 
-import sshaserver.view.ServerView;
+import sshaserver.model.MainHub;
+import sshaserver.view.MainView;
 
 public class ClientSupervisor implements Runnable, ActionListener {
 
 	private String statString;
-	private ServerView SV;
-	private SocketFinder SF;
-	private Thread sft;
+	private MainView mainView;
+	private SocketFinder socketFinder;
+	private Thread socketFinderThread;
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
-	private MultiSocketServer[] theSockets = new MultiSocketServer[Constants.nbrOfClients];
-	private Thread[] theThreads = new Thread[Constants.nbrOfClients];
-	
-	//private String[] clientsStats = new String[constants.nbrOfClients];
+	private MultiSocketServer[] theSockets = new MultiSocketServer[MainHub.nbrOfClients];
+	private Thread[] theThreads = new Thread[MainHub.nbrOfClients];
 	
 	private boolean isRunning;
 	
-	public ClientSupervisor(ServerView SV) {
-		this.SV = SV;
-		
+	public ClientSupervisor() {
 		isRunning = false;
 		
-		SV.setPrivIPLabel(getLocalIP());
-		SV.setPubIPLabel(getPublicIP());
+		mainView = MainHub.getController().getMainView();
+		mainView.setPrivIPLabel(getLocalIP());
+		mainView.setPubIPLabel(getPublicIP());
 		
-		SF = new SocketFinder(Constants.port, this, SV);
-		sft = new Thread(SF);
+		socketFinder = new SocketFinder(MainHub.port, this, mainView);
+		socketFinderThread = new Thread(socketFinder);
 		
-		SV.addActionListener(this);
+		mainView.addActionListener(this);
 	}
 	
 	// Adds a socket-connection it gets from SocketFinder
-	public synchronized void addSocket(Socket connection) {
+	public void addSocket(Socket connection) {
 		String[] names;
 		
-		for(int j = 0; j < Constants.nbrOfClients; j++) {
+		for(int j = 0; j < MainHub.nbrOfClients; j++) {
 			if(theSockets[j] == null) {
-				names = new String[Constants.nbrOfClients];
-				for(int k = 0; k < Constants.nbrOfClients; k++) {
+				names = new String[MainHub.nbrOfClients];
+				for(int k = 0; k < MainHub.nbrOfClients; k++) {
 					if(theSockets[k] != null) {
 						names[k] = theSockets[k].getPlayerName();
 					} else {
@@ -65,24 +66,21 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				
 				while(theSockets[j].getPlayerName() == null) {
 					try {
-						Thread.sleep(Constants.globalSleep);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+						Thread.sleep(MainHub.globalSleep);
+					} catch (InterruptedException e) {}
 				}
 				if(theSockets[j].isNameFree()) {
-					SV.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
+					mainView.addToActivityField(theSockets[j].getPlayerName() + " is now connected");
 				}
 				break;
 			}
 		}
 		
-		SV.clearClientsField();
-		for(int i = 0; i < Constants.nbrOfClients; i++) {
+		mainView.clearClientsField();
+		for(int i = 0; i < MainHub.nbrOfClients; i++) {
 			if(theSockets[i] != null) {
 				if(theSockets[i].isNameFree()) {
-					SV.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
+					mainView.addClient(theSockets[i].getPlayerName() + (char)9 + theSockets[i].getPlayerID());
 				}
 			}
 		}
@@ -93,73 +91,59 @@ public class ClientSupervisor implements Runnable, ActionListener {
 		
 		while(true) {
 			statString = "";
-			
-			for(int i = 0; i < Constants.nbrOfClients; i++) {
-				/*
-				System.out.println(theSockets[0]);
-				if(theSockets[0] != null) {
-					System.out.println("The socket is dead:" + theSockets[0].isDead());
-				}
-				*/
+			for(int i = 0; i < MainHub.nbrOfClients; i++) {
 				if(theThreads[i] != null) {
 					statString = statString + theSockets[i].getPlayerStats() + "/";
 					
 					if(theSockets[i].isDead()) {
 						if(theSockets[i].isNameFree()) {
-							SV.addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
+							mainView.addToActivityField(theSockets[i].getPlayerName() + " has disconnected");
 						}
 						theSockets[i].closeConnection();
 						theSockets[i] = null;
 						theThreads[i] = null;
-						SV.clearClientsField();
-						for(int j = 0; j < Constants.nbrOfClients; j++) {
+						mainView.clearClientsField();
+						for(int j = 0; j < MainHub.nbrOfClients; j++) {
 							if(theSockets[j] != null) {
-								SV.addClient(theSockets[j].getPlayerName() + (char)9 + theSockets[j].getPlayerID());
+								mainView.addClient(theSockets[j].getPlayerName() + (char)9 + theSockets[j].getPlayerID());
 							}
 						}
 					}		
 				}	
 			}
 			
-			for(int j = 0; j < Constants.nbrOfClients; j++) {
+			for(int j = 0; j < MainHub.nbrOfClients; j++) {
 				if(theThreads[j] != null) {
 					theSockets[j].setPlayerStats(statString);
 				}
 			}
 			
 			try {
-				Thread.sleep(Constants.globalSleep);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				Thread.sleep(MainHub.globalSleep);
+			} catch (InterruptedException e) {}
 		}
-	}
-	
-	public synchronized void setAllStats(String stats) {
-		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("connect")) {
-			if(!SV.isRunning()) {
+			if(!mainView.isRunning()) {
 				startServer();
 			} else {
 				stopServer();
 			}
-			SV.changeButtonText();
+			mainView.changeButtonText();
 		} else if(e.getActionCommand().equals("save")) {
 			saveActivityLog();
 		} else if(e.getActionCommand().equals("clear")) {
-			if(!SV.getActivity().equals("")) {
-				String clearLog = SV.showDialogBox("clearactivity");
+			if(!mainView.getActivity().equals("")) {
+				String clearLog = mainView.showDialogBox("clearactivity");
 				if(clearLog.equals("Clear log")) {
-					SV.clearActivityField();
+					mainView.clearActivityField();
 				}
 			}
 		} else if(e.getActionCommand().equals("change")) {
-			String tempPort = SV.getPortField();
+			String tempPort = mainView.getPortField();
 			int port = -1;
 			String whatChange;
 			
@@ -167,41 +151,41 @@ public class ClientSupervisor implements Runnable, ActionListener {
 				port = Integer.parseInt(tempPort);
 			}
 			catch(NumberFormatException nfe) {
-				tempPort = "" + Constants.port;
+				tempPort = "" + MainHub.port;
 			}
 				
 			if(port < 1024 || port > 9999 || tempPort.length() > 4) {
-				whatChange = SV.showDialogBox("error");
-				SV.setPortField("" + Constants.port);
-				tempPort = "" + Constants.port;
+				whatChange = mainView.showDialogBox("error");
+				mainView.setPortField("" + MainHub.port);
+				tempPort = "" + MainHub.port;
 			} else {
-				if(SF.getCurrentPort() != port) {
+				if(socketFinder.getCurrentPort() != port) {
 					// Have to have a check if the server is running
 					if(isRunning) {
-						whatChange = SV.showDialogBox("change");
+						whatChange = mainView.showDialogBox("change");
 						if(whatChange.equals("Restart now")) {
 							restartServer(Integer.parseInt(tempPort));
 						}
 					} else {
-						SF.changePort(Integer.parseInt(tempPort));
-						SV.addToActivityField("Port changed to " + tempPort);
+						socketFinder.changePort(Integer.parseInt(tempPort));
+						mainView.addToActivityField("Port changed to " + tempPort);
 					}
 				}
 				
 			}
 			
 		} else if(e.getActionCommand().equals("default")) {
-			SV.setPortField("" + Constants.port);
+			mainView.setPortField("" + MainHub.port);
 		}
 	}
-	
+
 	public String getLocalIP() {
 		String tempIP = "";
 		try {
-			Enumeration e = NetworkInterface.getNetworkInterfaces();
+			Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
 			while(e.hasMoreElements()) {
 				NetworkInterface ni = (NetworkInterface) e.nextElement();
-				Enumeration e2 = ni.getInetAddresses();
+				Enumeration<InetAddress> e2 = ni.getInetAddresses();
 				while(e2.hasMoreElements()) {
 					InetAddress ip = (InetAddress) e2.nextElement();
 					// Netgear-routers (and others)
@@ -249,20 +233,20 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	}
 	
 	public void startServer() {
-		if(sft.getState() == Thread.State.NEW) {
-			sft.start();
+		if(socketFinderThread.getState() == Thread.State.NEW) {
+			socketFinderThread.start();
 		} else {
-			SF.startSearching();
-			sft = null;
-			sft = new Thread(SF);
-			sft.start();
+			socketFinder.startSearching();
+			socketFinderThread = null;
+			socketFinderThread = new Thread(socketFinder);
+			socketFinderThread.start();
 		}
 		isRunning = true;
 	}
 	
 	public void stopServer() {
-		SF.stopSearching();
-		for(int i = 0; i < Constants.nbrOfClients; i++) {
+		socketFinder.stopSearching();
+		for(int i = 0; i < MainHub.nbrOfClients; i++) {
 			if(theSockets[i] != null) {
 				theSockets[i].closeConnection();
 			}
@@ -274,27 +258,26 @@ public class ClientSupervisor implements Runnable, ActionListener {
 	public void restartServer(int newPort) {
 		isRunning = false;
 		stopServer();
-		SF.changePort(newPort);
-		SV.changeButtonText();
+		socketFinder.changePort(newPort);
+		mainView.changeButtonText();
 		try {
-			Thread.sleep(Constants.globalSleep);
+			Thread.sleep(MainHub.globalSleep);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		startServer();
-		SV.changeButtonText();
+		mainView.changeButtonText();
 		isRunning = true;
 	}
 	
 	public void saveActivityLog() {
-		String activityLog = SV.getActivity();
+		String activityLog = mainView.getActivity();
 		
 		if(!activityLog.equals("")) {
 			Date date = new Date();
-			String logFile = Constants.macSavepath + "/" + Constants.dateFormat.format(date).replaceAll("/", "").replaceAll(":", "") + ".txt";
-			if(Constants.osName.contains("macosx")) {
-				new File(Constants.macSavepath).mkdirs();
+			String logFile = MainHub.macSavepath + "/" + dateFormat.format(date).replaceAll("/", "").replaceAll(":", "") + ".txt";
+			if(MainHub.osName.contains("macosx")) {
+				new File(MainHub.macSavepath).mkdirs();
 				try {
 					FileWriter fstream = new FileWriter(logFile);
 					BufferedWriter out = new BufferedWriter(fstream);
@@ -302,15 +285,13 @@ public class ClientSupervisor implements Runnable, ActionListener {
 					out.close();
 				}
 				catch(Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-			} else if(Constants.osName.contains("windows")) {
-				
 			}
+			
 		} else {
-			SV.showDialogBox("emptyactivity");
+			mainView.showDialogBox("emptyactivity");
 		}
 		
 	}
