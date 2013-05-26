@@ -54,6 +54,7 @@ public class MainView extends BasicGameState implements ActionListener {
 	private Obstacle[] obstacles = new Obstacle[100];
 
 	private boolean settingCurrentActiveSkill = false;
+	private double totalDMG;
 	
 	public MainView(int state) {
 		
@@ -392,8 +393,14 @@ public class MainView extends BasicGameState implements ActionListener {
 			
 			for(int i = 0; i<MainHub.getController().getPlayers().length;i++){
 				if(MainHub.getController().getPlayer(i) != null){
-					MainHub.getController().getPlayer(i).addTotalDamageDone(MainHub.getController().getPlayer(i).getRoundDamageDone());
+					MainHub.getController().getPlayer(i).addPlayerTotalDamageDone(MainHub.getController().getPlayer(i).getRoundDamageDone());
+					totalDMG += MainHub.getController().getPlayer(i).getRoundDamageDone();
+					
 				}
+			}
+			for(int i = 0; i<MainHub.getController().getPlayers().length;i++){
+				if(MainHub.getController().getPlayer(i) != null)
+					MainHub.getController().getPlayer(i).setTotalDamageDone(totalDMG);
 			}
 			roundOver = true;
 			endRoundText = winningPlayer + " " + "wins!";

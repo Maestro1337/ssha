@@ -264,10 +264,13 @@ public class PlayerModel {
 				}
 				if(attackingSkill.getAnimationTimer() != null){
 					Image animationImage = attackingSkill.getAnimationTimer().getCurrentAnimationImage();
-					animationImage.setRotation(attackingSkill.getRotation());
+					//Moved this down to the if below
+					//animationImage.setRotation(attackingSkill.getRotation());
 				
-					if(animationImage != null)
+					if(animationImage != null) {
+						animationImage.setRotation(attackingSkill.getRotation());
 						attackingSkill.setEndStateImage(animationImage);
+					}
 				}
 			}
 		}
