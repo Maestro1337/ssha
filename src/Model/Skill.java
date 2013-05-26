@@ -7,6 +7,8 @@ import Model.Timers.SkillCheckingTimer;
 
 import java.util.ArrayList;
 
+import main.MainHub;
+
 import org.newdawn.slick.Image;
 
 public abstract class Skill{

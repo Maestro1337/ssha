@@ -2,10 +2,11 @@ package Model;
 
 import java.util.Random;
 
+import main.GameEngine;
+import main.MainHub;
+
 import org.newdawn.slick.SlickException;
 
-import Control.GameEngine;
-import Control.PlayerControl;
 import Model.Obstacles.Obstacle;
 
 

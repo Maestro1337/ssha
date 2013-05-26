@@ -1,10 +1,11 @@
-package Control;
+package main;
 
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-import View.*;
+import viewControl.*;
+
 
 public class GameEngine extends StateBasedGame {
 

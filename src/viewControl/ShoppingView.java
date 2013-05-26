@@ -1,7 +1,10 @@
-package View;
+package viewControl;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import main.GameEngine;
+import main.MainHub;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -13,8 +16,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import Control.GameEngine;
-import Model.MainHub;
 import Model.Player;
 import Model.Skill;
 import Model.Items.*;

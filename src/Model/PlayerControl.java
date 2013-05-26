@@ -1,6 +1,5 @@
-package Control;
+package Model;
 
-import Model.Player;
 
 /**
  * Interface used by the different controllers; User, AI and Server

@@ -1,4 +1,4 @@
-package Model;
+package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 import sshaclient.SocketClient;
 
-import Control.PlayerControl;
+import Model.Player;
+import Model.PlayerControl;
 import Model.Arenas.*;
 
 public class MainHub {

@@ -1,8 +1,10 @@
-package View;
+package viewControl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
+import main.MainHub;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -11,7 +13,6 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Model.MainHub;
 import Model.Classes.*;
 import Model.Skills.Hunter.*;
 import Model.Skills.Warrior.*;

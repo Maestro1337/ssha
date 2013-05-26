@@ -1,7 +1,9 @@
-package View;
+package viewControl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import main.MainHub;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -11,7 +13,6 @@ import org.newdawn.slick.state.*;
 
 
 
-import Model.MainHub;
 import Model.Player;
 import Model.Classes.*;
 import Model.Obstacles.Obstacle;

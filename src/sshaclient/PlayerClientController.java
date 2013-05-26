@@ -1,8 +1,8 @@
 package sshaclient;
 
-import Control.PlayerControl;
-import Model.MainHub;
+import main.MainHub;
 import Model.Player;
+import Model.PlayerControl;
 import Model.PlayerModel;
 import Model.Skill;
 import Model.Skills.Hunter.*;

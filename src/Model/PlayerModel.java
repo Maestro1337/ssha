@@ -1,12 +1,14 @@
 package Model;
 
+import main.GameEngine;
+import main.MainHub;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import Control.GameEngine;
 import Model.Obstacles.*;
 import Model.Timers.SkillCheckingTimer;
 

@@ -1,6 +1,7 @@
 package Model;
 
 
+import main.MainHub;
 import Model.Items.Item;
 
 public /*abstract */class StatusEffectShell implements IStatusEffectShell{

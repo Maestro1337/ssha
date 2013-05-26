@@ -1,9 +1,10 @@
 package Model.StatusEffects;
 
+import main.MainHub;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.MainHub;
 import Model.Player;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
