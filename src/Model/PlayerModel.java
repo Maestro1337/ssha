@@ -200,10 +200,10 @@ public class PlayerModel implements ActionListener {
 		if(attackingSkill != null){
 			boolean collided = checkSkillObstacleCollision(attackingSkill, (float)(attackingSkill.getXDirAtt()*attackingSkill.getAttSpeed()), (float)(attackingSkill.getYDirAtt()*attackingSkill.getAttSpeed()));
 			
-			if(!attackingSkill.isEndState() && attackingSkill.isProjectile()){
+			if(!attackingSkill.getEndState() && attackingSkill.isProjectile()){
 				
 				//Calculates the new direction if the skill is guided
-				if(attackingSkill.isGuided()){
+				if(attackingSkill.getGuided()){
 					if(attackingSkill.getGuidedTarget() != null){
 						if(attackingSkill.getGuidedTarget().getStealthState() || !stillAbleToMakeAction(attackingSkill.getGuidedTarget())){
 							attackingSkill.setGuidedTarget(null);
@@ -241,16 +241,16 @@ public class PlayerModel implements ActionListener {
 					if(attackingSkill.getAffectSelfOnHit()/* && !attackingSkill.getSelfAffectingOnHitStatusEffect().hasBeenGivenTo(player.getName())*/){
 						player.addStatusEffect(attackingSkill.getSelfAffectingOnHitStatusEffect().createStatusEffectTo(player));
 					}
-					if(!attackingSkill.hasEndState()){
+					if(!attackingSkill.getHasEndState()){
 						attackingSkill.setAttackingState(false);
 					}else{
 						attackingSkill.activateEndState();
 					}
 				}
 				
-			}else if(!attackingSkill.isEndState() && !attackingSkill.isProjectile()){
+			}else if(!attackingSkill.getEndState() && !attackingSkill.isProjectile()){
 				attackingSkill.activateEndState();			
-			}else if(attackingSkill.isEndState()){
+			}else if(attackingSkill.getEndState()){
 				if(!player.getChannel() && attackingSkill.getSelfAffectingStatusEffect() != null 
 						&& attackingSkill.getSelfAffectingStatusEffect().getChannel()){
 					attackingSkill.setAttackingState(false);
@@ -332,18 +332,18 @@ public class PlayerModel implements ActionListener {
 	public void attack(int x, int y){
 		currentActiveSkill = player.getSkillList()[player.getCurrentActiveSkillIndex()];
 		if(currentActiveSkill != null && checkGlobalAttackCooldown() == 0 && stillAbleToMakeAction(player) && 
-				!currentActiveSkill.isPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
+				!currentActiveSkill.getPassive() && currentActiveSkill.checkCooldown() == currentActiveSkill.getCoolDown()){
 			checkAndCorrectChannel();
 			checkAndCorrectStealth();
-			if(currentActiveSkill.isGuided()){
+			if(currentActiveSkill.getGuided()){
 				findAndSetGuidedTarget(currentActiveSkill);
 			}
 
-			if(currentActiveSkill.isPiercing()){
+			if(currentActiveSkill.getPiercing()){
 				currentActiveSkill.setEndstate(false);
 			}
 
-			if(currentActiveSkill.isGrapplingHook()){
+			if(currentActiveSkill.getGrapplingHook()){
 				
 			}
 			//Rotating to where the middle of the mouse click is
@@ -419,12 +419,12 @@ public class PlayerModel implements ActionListener {
 						player.addStatusEffect(skill.getOffensiveStatusEffect().createStatusEffectTo(player));
 					}
 					
-					if(!skill.isEndState()){
-						if(evasion>=0 && !skill.isPiercing()){
+					if(!skill.getEndState()){
+						if(evasion>=0 && !skill.getPiercing()){
 							pushPlayer(skill.getXDirAtt(), skill.getYDirAtt(), skill.getPushDistance());
 						}
-						if(!skill.hasEndState()){
-							if(!skill.isPiercing()){
+						if(!skill.getHasEndState()){
+							if(!skill.getPiercing()){
 								System.out.println("BAHSSSSS");
 								skill.setAttackingState(false);
 								skill.collidedShot();
@@ -492,7 +492,7 @@ public class PlayerModel implements ActionListener {
 		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
 			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
 			if(currentObstacleCheck != null && currentObstacleCheck.isSolid() && isCollidingWithObstacle(currentObstacleCheck, skill.getAttX()+x, skill.getAttY()+y, skill.getCurrentWidth(), skill.getCurrentHeight())){
-				if(!skill.isEndState()){
+				if(!skill.getEndState()){
 					currentObstacleCheck.takeDamage(skill.getDamage());
 				}else{
 					SkillCheckingTimer SCT = getRelevantSCT(currentObstacleCheck, skill);

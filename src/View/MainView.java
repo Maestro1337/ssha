@@ -59,6 +59,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	}
 	
+	//Returns the state of the game
+	public int getID(){
+		return 1;
+	}
+	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		map = new TiledMap("res/tileset/grassBackground.tmx");
@@ -180,9 +185,9 @@ public class MainView extends BasicGameState implements ActionListener {
 				
 				for(int j=0; j<currentSkillset.length; j++){
 					if(currentSkillset[j] != null){
-						if(currentSkillset[j].isAttacking() && !currentSkillset[j].isEndState()){
+						if(currentSkillset[j].getAttackingState() && !currentSkillset[j].getEndState()){
 							g.drawImage(currentSkillset[j].getAttImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
-						}else if(currentSkillset[j].isEndState()){
+						}else if(currentSkillset[j].getEndState()){
 							g.drawImage(currentSkillset[j].getEndStateImage(), currentSkillset[j].getAttX(),currentSkillset[j].getAttY());
 						}
 					}
@@ -275,7 +280,7 @@ public class MainView extends BasicGameState implements ActionListener {
 				Skill[] currentSkillList = currentController.getPlayer().getSkillList();
 				for(int j=0; j<currentSkillList.length; j++){
 					//Check if players skills are in use to update positioning
-					if(currentSkillList[j] != null && currentSkillList[j].isAttacking()){
+					if(currentSkillList[j] != null && currentSkillList[j].getAttackingState()){
 						currentController.isAttacking(currentSkillList[j]);
 					}
 				}
@@ -290,27 +295,27 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_1)){
-			if(activeSkillList[0] != null && !activeSkillList[0].isPassive()){
+			if(activeSkillList[0] != null && !activeSkillList[0].getPassive()){
 				currentActiveController.setCurrentActiveSkill(0);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_2)){
-			if(activeSkillList[1] != null && !activeSkillList[1].isPassive()){
+			if(activeSkillList[1] != null && !activeSkillList[1].getPassive()){
 				currentActiveController.setCurrentActiveSkill(1);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_3)){
-			if(activeSkillList[2] != null && !activeSkillList[2].isPassive()){
+			if(activeSkillList[2] != null && !activeSkillList[2].getPassive()){
 				currentActiveController.setCurrentActiveSkill(2);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_4)){
-			if(activeSkillList[3] != null && !activeSkillList[3].isPassive()){
+			if(activeSkillList[3] != null && !activeSkillList[3].getPassive()){
 				currentActiveController.setCurrentActiveSkill(3);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_5)){
-			if(activeSkillList[4] != null && !activeSkillList[4].isPassive()){
+			if(activeSkillList[4] != null && !activeSkillList[4].getPassive()){
 				currentActiveController.setCurrentActiveSkill(4);
 			}
 		}
@@ -386,12 +391,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		return false;
 	}
-		
-	//Returns the state of the game
-	public int getID(){
-		return 1;
-	}
-	
 	
 	//Test for sounds
 	@Override

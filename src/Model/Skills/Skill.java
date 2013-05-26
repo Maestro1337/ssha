@@ -111,106 +111,16 @@ public abstract class Skill{
 			isProjectile = false;
 		}
 		
-		
 		this.describe = describe;
 		this.affectSelf = affectSelf;
 		
-		//Backup image if it doesn't get one set by the extended skillClass
-		/*try {
-			attackImage = new Image("res/miscImages/awesomeGreenSquare.png");
-			
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		currentHeight = imgHeight = attackImage.getHeight();
-		currentWidth = imgWidth = attackImage.getWidth();
-		*/
 		SCTArray = new ArrayList<SkillCheckingTimer>();
-		
 	}
 	
-	public abstract void upgradeSkill();
-	
-	//Set new image for projectile
-	public void setImage(Image image){
-		if(image != null){
-			attackImage = image;
-		
-			currentHeight = imgHeight = image.getHeight();
-			currentWidth = imgWidth = image.getWidth();
-		}
-	}
-	
-	//Set new animation for projectile
-	public void setImage(Image[] images, int duration){
-		if(images[0] != null){
-			attackImage = images[0];
-		
-			currentHeight = imgHeight = images[0].getHeight();
-			currentWidth = imgWidth = images[0].getWidth();
-			
-			projectileAnimation = new RepeatingAnimationTimer(duration, images);
-		}
-	}
-	//public void setAnimationImages(Image[] images){
-	//	animation = new AnimationTimer(200, images, this);
-	//}
-	public void setEndStateImage(Image image){
-		if(image != null)
-			endStateImage = image;
-		
-		endStateImgHeight = image.getHeight();
-		endStateImgWidth = image.getWidth();
-	}
+	// Getters
 	public float getRotation(){
 		return rotation;
 	}
-	public void setRotation(float angle){
-		attackImage.setRotation(angle);
-		rotation = angle;
-	}
-	
-	//Setting end state by getting the images, the duration and interval on when damage can be dealt again to players during endstate
-	public void setEndState(Image[] images, int duration, int interval){
-		if(images[0] != null){
-			endStateImage = images[0];
-		
-			endStateImgHeight = images[0].getHeight();
-			endStateImgWidth = images[0].getWidth();
-			
-			hasEndState = true;
-			endStateDuration = duration;
-			ESColInterval = interval;
-			
-			animation = new EndStateAnimationTimer(duration, images, this);
-		}
-	}
-	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingOSE){
-		affectOthers = true;
-		this.repeatingOSE = repeatingOSE;
-		offensiveSE = SE;
-	}
-	public void resetOffensiveStatusGivenTo(){
-		if(affectOthers && repeatingOSE){
-			offensiveSE.resetCloning();
-		}
-	}
-	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
-		affectSelf = true;
-		selfAffectingSE = SE;
-	}
-	public void setSelfAffectingOnHitStatusEffectShell(StatusEffectShell SE){
-		affectSelfOnHit = true;
-		selfAffectingOnHitSE = SE;
-	}
-	public double getArmorFromTarget(){
-		return armorFromTarget;
-	}
-	public void setPassive(){
-		isPassive = true;
-	}
-
 	public int getCurrentHeight(){
 		return currentHeight;
 	}
@@ -250,17 +160,156 @@ public abstract class Skill{
 	public int getDamage(){
 		return damage;
 	}
-	public void setDamage(int damage){
-		this.damage = damage;
+	public int getPiercingDamage(){
+		return piercingDamage;
+	}
+	public double getArmorFromTarget(){
+		return armorFromTarget;
 	}
 	public int getCurrentLvl(){
 		return lvlOfSkill;
 	}
-	public void incCurrentLvl(){
-		lvlOfSkill++;
+	public String getDescription(){
+		return describe;
+	}
+	public boolean getAffectSelf(){
+		return affectSelf;
+	}
+	public StatusEffectShell getSelfAffectingStatusEffect(){
+		return selfAffectingSE;
+	}
+	public StatusEffectShell getSelfAffectingOnHitStatusEffect(){
+		return selfAffectingOnHitSE;
+	}
+	public boolean getAffectOthers(){
+		return affectOthers;
+	}
+	public Image getAttImage(){
+		return attackImage;
+	}
+	public float getAttX(){
+		return attImgX;
+	}
+	public float getAttY(){
+		return attImgY;
+	}
+	public float getMouseXPos(){
+		return mouseXPos;
+	}
+	public float getMouseYPos(){
+		return mouseYPos;
+	}
+	public double getAttSpeed(){
+		return attSpeed;
+	}
+	public int getAttCounter(){
+		return attCounter;
+	}
+	public float getXDirAtt(){
+		return xDirAtt;
+	}
+	public float getYDirAtt(){
+		return yDirAtt;
+	}
+	public float getGenDirAtt(){
+		return genDirAtt;
+	}
+	//returns skillbarpicture depending on if it is the active skill or not, or in use
+	public Image getSkillBarImage(){ 
+		if(checkCooldown() == getCoolDown()){
+			if(!isChosen){
+				return skillBarImages[0];
+			}else{
+				return skillBarImages[1];
+			}
+		}else{
+			return skillBarImages[2];
+		}
+	}
+	public Image getRegularSkillBarImage(){
+		return skillBarImages[0];
+	}
+	public Image getDisabledSkillBarImage(){
+		return skillBarImages[2];
+	}
+	public float getAttackRange(){
+		return attackRange;
+	}	
+	public boolean getAttackingState(){
+		return isAttacking;
+	}	
+	//returns true if player has this skill as current active skill
+	public boolean getChosenState(){
+		return isChosen;
+	}	
+	public int getEndStateDuration(){
+		return endStateDuration;
+	}
+	public boolean getEndState(){
+		return isEndState;
+	}
+	public ArrayList<SkillCheckingTimer> getSCTArray(){
+		return SCTArray;
+	}
+	public int getESColInterval(){
+		return ESColInterval;
+	}
+	public RepeatingAnimationTimer getProjectileAnimationTimer(){
+		return projectileAnimation;
+	}
+	public EndStateAnimationTimer getAnimationTimer(){
+		return animation;
+	}
+	public Player getGuidedTarget(){
+		return guidedTarget;
+	}
+	public boolean getAffectSelfOnHit(){
+		return affectSelfOnHit;
+	}
+	//Methods for StatusEffect Control
+	public StatusEffectShell getOffensiveStatusEffect(){
+		return offensiveSE;
+	}
+	public boolean getPiercing(){
+		return isPiercing;
+	}
+	public boolean getPassive(){
+		return isPassive;
+	}
+	public boolean getGuided(){
+		return isGuided;
+	}
+	public boolean getGrapplingHook(){
+		return isGrapplingHook;
+	}
+	public boolean getHasEndState(){
+		return hasEndState;
 	}
 	
-	//TODO Make a lot better
+	// Setters
+	public void setRotation(float angle){
+		attackImage.setRotation(angle);
+		rotation = angle;
+	}
+	public void setEndStateImage(Image image){
+		if(image != null)
+			endStateImage = image;
+		
+		endStateImgHeight = image.getHeight();
+		endStateImgWidth = image.getWidth();
+	}
+	public void setCooldown(int cooldown){
+		this.cooldown = cooldown;
+	}
+	public void resetCooldown(){
+		CDstartTime = System.currentTimeMillis() - cooldown;
+	}
+	public void addAttackRange(int range){
+		attackRange += range;
+	}
+	public void setDamage(int damage){
+		this.damage = damage;
+	}
 	public void setCurrentLvl(int lvl) {
 		lvlOfSkill = lvl;
 		switch(lvl) {
@@ -280,31 +329,61 @@ public abstract class Skill{
 			break;
 		}
 	}
-	public String getDescription(){
-		return describe;
+	public void incCurrentLvl(){
+		lvlOfSkill++;
 	}
-	public boolean getAffectSelf(){
-		return affectSelf;
+	public void setSelfAffectingStatusEffectShell(StatusEffectShell SE){
+		affectSelf = true;
+		selfAffectingSE = SE;
 	}
-	public boolean getAffectOthers(){
-		return affectOthers;
+	public void setSelfAffectingOnHitStatusEffectShell(StatusEffectShell SE){
+		affectSelfOnHit = true;
+		selfAffectingOnHitSE = SE;
 	}
-	
-	public Image getAttImage(){
-		return attackImage;
+	public void setOffensiveStatusEffectShell(StatusEffectShell SE, boolean repeatingOSE){
+		affectOthers = true;
+		this.repeatingOSE = repeatingOSE;
+		offensiveSE = SE;
 	}
-	public float getAttX(){
-		return attImgX;
+	public void resetOffensiveStatusGivenTo(){
+		if(affectOthers && repeatingOSE){
+			offensiveSE.resetCloning();
+		}
 	}
-	public float getAttY(){
-		return attImgY;
+	//Set new image for projectile
+	public void setImage(Image image){
+		if(image != null){
+			attackImage = image;
+		
+			currentHeight = imgHeight = image.getHeight();
+			currentWidth = imgWidth = image.getWidth();
+		}
 	}
-	
-	public void addAttX(float x){
-		attImgX += x;
+	//Set new animation for projectile
+	public void setImage(Image[] images, int duration){
+		if(images[0] != null){
+			attackImage = images[0];
+		
+			currentHeight = imgHeight = images[0].getHeight();
+			currentWidth = imgWidth = images[0].getWidth();
+			
+			projectileAnimation = new RepeatingAnimationTimer(duration, images);
+		}
 	}
-	public void addAttY(float y){
-		attImgY += y;
+	//Setting end state by getting the images, the duration and interval on when damage can be dealt again to players during endstate
+	public void setEndState(Image[] images, int duration, int interval){
+		if(images[0] != null){
+			endStateImage = images[0];
+		
+			endStateImgHeight = images[0].getHeight();
+			endStateImgWidth = images[0].getWidth();
+			
+			hasEndState = true;
+			endStateDuration = duration;
+			ESColInterval = interval;
+			
+			animation = new EndStateAnimationTimer(duration, images, this);
+		}
 	}
 	public void setAttX(float x){
 		attImgX = x;
@@ -312,62 +391,23 @@ public abstract class Skill{
 	public void setAttY(float y){
 		attImgY = y;
 	}
-	
-	public void resetShot(Player player){
-		attImgX = player.getX()+player.getImage().getWidth()/2-currentWidth/2;
-		attImgY = player.getY()+player.getImage().getHeight()/2-currentHeight/2;
+	public void addAttX(float x){
+		attImgX += x;
 	}
-	public void resetCooldown(){
-		CDstartTime = System.currentTimeMillis() - cooldown;
+	public void addAttY(float y){
+		attImgY += y;
 	}
-	public void setCooldown(int cooldown){
-		this.cooldown = cooldown;
-	}
-	
-	public void setNonProjectileShot(){
-		animation.resetCounterAndTimer();
-		addAttX((float)(getXDirAtt()*getGenDirAtt())/*-endStateImgWidth/2*/);
-		addAttY((float)(getYDirAtt()*getGenDirAtt())/*-endStateImgHeight/2*/);
-		isEndState = true;
-	}
-	
-	public void collidedShot(){
-		attImgX = -1000;
-		attImgY = -1000;
-	}
-	
 	public void setMouseXPos(float x){
 		mouseXPos = x;
 	}
 	public void setMouseYPos(float y){
 		mouseYPos = y;
 	}
-	public float getMouseXPos(){
-		return mouseXPos;
-	}
-	public float getMouseYPos(){
-		return mouseYPos;
-	}
-	public double getAttSpeed(){
-		return attSpeed;
-	}
-	public int getAttCounter(){
-		return attCounter;
-	}
 	public void incAttCounter(){
 		attCounter++;
 	}
 	public void resetAttCounter(){
 		attCounter = 0;
-	}
-	public float getXDirAtt(){
-		return xDirAtt;
-	}
-	public float getYDirAtt(){
-		return yDirAtt;
-	}
-	public float getGenDirAtt(){
-		return genDirAtt;
 	}
 	public void setXDirAtt(float dir){
 		xDirAtt = dir;
@@ -378,52 +418,9 @@ public abstract class Skill{
 	public void setGenDirAtt(float dir){
 		genDirAtt = dir;
 	}
-	
-	public float getAttackRange(){
-		return attackRange;
-	}
-	public void addAttackRange(int range){
-		attackRange += range;
-	}
-	
-	
-	public boolean isAttacking(){
-		if(isAttacking){
-			
-		}
-		return isAttacking;
-	}
-	
-	//returns true if player has this skill as current active skill
-	public boolean isChosen(){
-		return isChosen;
-	}
-	public void setChosenState(boolean state){
-		isChosen = state;
-	}
 	public void setSkillBarImages(Image[] images){
 		skillBarImages = images;
 	}
-	//returns skillbarpicture depending on if it is the active skill or not, or in use
-	public Image getSkillBarImage(){ 
-		if(checkCooldown() == getCoolDown()){
-			if(!isChosen){
-				return skillBarImages[0];
-			}else{
-				return skillBarImages[1];
-			}
-		}else{
-			return skillBarImages[2];
-		}
-	}
-	
-	public Image getRegularSkillBarImage(){
-		return skillBarImages[0];
-	}
-	public Image getDisabledSkillBarImage(){
-		return skillBarImages[2];
-	}
-	
 	public void setAttackingState(boolean state){
 		isAttacking = state;
 		if(state == false){
@@ -433,12 +430,63 @@ public abstract class Skill{
 			}
 		}
 	}
+	public void setChosenState(boolean state){
+		isChosen = state;
+	}
+	public void setEndstate(boolean state) {
+		this.isEndState = state;
+		if(state) {
+			animation.resetCounterAndTimer();
+		}
+	}
+	public SkillCheckingTimer addNewSkillCheckingTimer(Player player){
+		SkillCheckingTimer timer = new SkillCheckingTimer(getESColInterval(), player.getName(), this);
+		SCTArray.add(timer);
+		return timer;
+	}
+	public SkillCheckingTimer addNewSkillCheckingTimer(Obstacle obstacle){
+		SkillCheckingTimer timer = new SkillCheckingTimer(getESColInterval(), obstacle, this);
+		SCTArray.add(timer);
+		return timer;
+	}
+	public void removeSkillCheckingTimer(SkillCheckingTimer timer){
+		SCTArray.remove(timer);
+	}
+	public void setGuidedTarget(Player player){
+		guidedTarget = player;
+	}
+	public void setPiercing(boolean isPiercing){
+		this.isPiercing = isPiercing;
+	}
+	public void setPassive(){
+		isPassive = true;
+	}
+	public void setGuided(){
+		isGuided = true;
+	}
+	public void setGrapplingHook(){
+		isGrapplingHook = true;
+	}
 	
+	// Misc methods
+	public void resetShot(Player player){
+		attImgX = player.getX()+player.getImage().getWidth()/2-currentWidth/2;
+		attImgY = player.getY()+player.getImage().getHeight()/2-currentHeight/2;
+	}
+	public void setNonProjectileShot(){
+		animation.resetCounterAndTimer();
+		addAttX((float)(getXDirAtt()*getGenDirAtt())/*-endStateImgWidth/2*/);
+		addAttY((float)(getYDirAtt()*getGenDirAtt())/*-endStateImgHeight/2*/);
+		isEndState = true;
+	}
+	public void collidedShot(){
+		attImgX = -1000;
+		attImgY = -1000;
+	}
 	public void activateSkill(){
     	CDstartTime = System.currentTimeMillis();
     	CDelapsedTime = 0;
     }
-    
     public long checkCooldown(){
     	//TODO make own class for this and remake to make it easier to understand
     	CDelapsedTime = System.currentTimeMillis() - CDstartTime;
@@ -447,11 +495,7 @@ public abstract class Skill{
     	}
     	return (cooldown - CDelapsedTime)/1000;
     }
-	public boolean hasEndState(){
-		return hasEndState;
-	}
 	public void activateEndState(){
-
 		endStateStartTime = System.currentTimeMillis();
 		endStateElapsedTime = 0;
 		
@@ -478,9 +522,6 @@ public abstract class Skill{
 		}
 		return (endStateDuration - endStateElapsedTime);
 	}
-	public int getEndStateDuration(){
-		return endStateDuration;
-	}
 	public void finishEndState(){
 		currentHeight = imgHeight;
 		currentWidth = imgWidth;
@@ -490,90 +531,8 @@ public abstract class Skill{
 		if(offensiveSE != null)
 			offensiveSE.resetCloning();
 	}
-	public boolean isEndState(){
-		return isEndState;
-	}
-	public void setEndstate(boolean state) {
-		this.isEndState = state;
-		if(state) {
-			animation.resetCounterAndTimer();
-		}
-	}
-	public int getESColInterval(){
-		return ESColInterval;
-	}
-	public SkillCheckingTimer addNewSkillCheckingTimer(Player player){
-		SkillCheckingTimer timer = new SkillCheckingTimer(getESColInterval(), player.getName(), this);
-		SCTArray.add(timer);
-		return timer;
-	}
-	public SkillCheckingTimer addNewSkillCheckingTimer(Obstacle obstacle){
-		SkillCheckingTimer timer = new SkillCheckingTimer(getESColInterval(), obstacle, this);
-		SCTArray.add(timer);
-		return timer;
-	}
-	public ArrayList<SkillCheckingTimer> getSCTArray(){
-		return SCTArray;
-	}
-	public void removeSkillCheckingTimer(SkillCheckingTimer timer){
-		SCTArray.remove(timer);
-	}
-
-	
-	public RepeatingAnimationTimer getProjectileAnimationTimer(){
-		return projectileAnimation;
-	}
-	public EndStateAnimationTimer getAnimationTimer(){
-		return animation;
-	}
-	
-	public boolean isPiercing(){
-		return isPiercing;
-	}
-	public void setPiercing(boolean isPiercing){
-		this.isPiercing = isPiercing;
-	}
-	public int getPiercingDamage(){
-		return piercingDamage;
-	}
 	public boolean isProjectile(){
 		return isProjectile;
 	}
-	
-	public boolean isGuided(){
-		return isGuided;
-	}
-	public boolean isGrapplingHook(){
-		return isGrapplingHook;
-	}
-	public void setGrapplingHook(){
-		isGrapplingHook = true;
-	}
-	public void setGuided(){
-		isGuided = true;
-	}
-	public void setGuidedTarget(Player player){
-		guidedTarget = player;
-	}
-	public Player getGuidedTarget(){
-		return guidedTarget;
-	}
-	public boolean isPassive(){
-		return isPassive;
-	}
-	public boolean getAffectSelfOnHit(){
-		return affectSelfOnHit;
-	}
-	
-	//Methods for StatusEffect Control
-	public StatusEffectShell getOffensiveStatusEffect(){
-		return offensiveSE;
-	}
-	public StatusEffectShell getSelfAffectingStatusEffect(){
-		return selfAffectingSE;
-	}
-	public StatusEffectShell getSelfAffectingOnHitStatusEffect(){
-		return selfAffectingOnHitSE;
-	}
-	
+	public abstract void upgradeSkill();
 }

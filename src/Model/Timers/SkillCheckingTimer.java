@@ -30,7 +30,18 @@ public class SkillCheckingTimer {
 		resetESColTimer();
 	}
 	
+	// Getters
+	public String getPlayerName(){
+		return playerName;
+	}
+	public Obstacle getObstacle(){
+		return obstacle;
+	}
+	public int getESColInterval(){
+		return ESColInterval;
+	}
 	
+	// Setters
 	public void resetESColTimer(){
 		ESColStartTime = System.currentTimeMillis();
 		ESColElapsedTime = 0;
@@ -41,14 +52,5 @@ public class SkillCheckingTimer {
 			ESColElapsedTime = ESColInterval;
 		}
 		return ESColElapsedTime;
-	}
-	public String getPlayerName(){
-		return playerName;
-	}
-	public Obstacle getObstacle(){
-		return obstacle;
-	}
-	public int getESColInterval(){
-		return ESColInterval;
 	}
 }

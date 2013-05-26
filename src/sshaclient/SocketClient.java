@@ -85,7 +85,7 @@ public class SocketClient implements Runnable {
 					
 					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " ";
 					process = process + tp.getHP() + " " + tp.getCanWalkState() + " " + tp.getRunningState() + " " + tp.getMouseXPosMove() + " " + tp.getMouseYPosMove() + " ";
-					process = process + tp.getCanAttackState() + " " + skillIndex + " " + tp.getSkillList()[skillIndex].isAttacking() + " ";
+					process = process + tp.getCanAttackState() + " " + skillIndex + " " + tp.getSkillList()[skillIndex].getAttackingState() + " ";
 					process = process + tp.getSkillList()[skillIndex].getMouseXPos() + " " + tp.getSkillList()[skillIndex].getMouseYPos();
 					
 					int[] tempObs = MainHub.getController().getMapSelected().getDestroyedObstacles();
