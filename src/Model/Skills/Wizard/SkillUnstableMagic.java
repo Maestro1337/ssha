@@ -5,7 +5,7 @@ import java.util.Random;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 import Model.StatusEffects.StatusEffectUnstableMagic;
 
 public class SkillUnstableMagic extends Skill {

@@ -2,7 +2,6 @@ package Model;
 
 
 import Model.Items.Item;
-import Model.Skills.Skill;
 
 public /*abstract */class StatusEffectShell implements IStatusEffectShell{
 	

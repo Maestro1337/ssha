@@ -10,7 +10,6 @@ import javax.sound.sampled.Clip;
 import org.newdawn.slick.Image;
 
 import Model.Items.Item;
-import Model.Skills.*;
 import Model.Timers.RepeatingAnimationTimer;
 
 public class Player {

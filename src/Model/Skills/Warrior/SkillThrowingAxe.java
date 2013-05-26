@@ -3,7 +3,7 @@ package Model.Skills.Warrior;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import Model.Skills.Skill;
+import Model.Skill;
 
 public class SkillThrowingAxe extends Skill {
 	public SkillThrowingAxe(){

@@ -1,8 +1,5 @@
-package Model.Skills;
+package Model;
 
-import Model.Player;
-import Model.StatusEffect;
-import Model.StatusEffectShell;
 import Model.Obstacles.Obstacle;
 import Model.Timers.EndStateAnimationTimer;
 import Model.Timers.RepeatingAnimationTimer;
@@ -112,7 +109,6 @@ public abstract class Skill{
 		}
 		
 		this.describe = describe;
-		this.affectSelf = affectSelf;
 		
 		SCTArray = new ArrayList<SkillCheckingTimer>();
 	}

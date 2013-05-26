@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 import Control.GameEngine;
 import Control.PlayerControl;
 import Model.Obstacles.Obstacle;
-import Model.Skills.Skill;
 
 public class AIModel implements PlayerControl{
 	

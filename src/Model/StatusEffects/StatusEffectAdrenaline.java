@@ -4,9 +4,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import Model.Player;
+import Model.Skill;
 import Model.StatusEffect;
 import Model.StatusEffectShell;
-import Model.Skills.Skill;
 import Model.Skills.Warrior.SkillThrowingAxe;
 
 public class StatusEffectAdrenaline extends StatusEffectShell {

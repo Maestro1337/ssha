@@ -13,8 +13,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import Model.MainHub;
 import Model.Player;
+import Model.Skill;
 import Model.Classes.*;
-import Model.Skills.Skill;
 import Model.Skills.Hunter.*;
 import Model.Skills.Warrior.*;
 import Model.Skills.Wizard.*;

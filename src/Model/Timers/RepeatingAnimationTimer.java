@@ -3,7 +3,7 @@ package Model.Timers;
 import org.newdawn.slick.Image;
 
 import Model.Player;
-import Model.Skills.Skill;
+import Model.Skill;
 
 public class RepeatingAnimationTimer {
 	

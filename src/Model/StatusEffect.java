@@ -2,7 +2,6 @@ package Model;
 
 import org.newdawn.slick.Image;
 
-import Model.Skills.Skill;
 import Model.StatusEffects.MainSkillChange;
 import Model.Timers.*;
 

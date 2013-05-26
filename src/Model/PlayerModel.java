@@ -8,7 +8,6 @@ import java.util.Random;
 
 import Control.GameEngine;
 import Model.Obstacles.*;
-import Model.Skills.*;
 import Model.Timers.SkillCheckingTimer;
 
 public class PlayerModel {
