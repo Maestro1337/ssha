@@ -9,7 +9,7 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillBlizzard extends Skill {
 	public SkillBlizzard(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Blizzard", 11000, 400, 100.4, 3, 60, 150,"Blizzard:\nA A blizzard that slows \nand deals damage over time\n" +
+		super("Blizzard", 11000, 400, 100.4, 3, 60, 150,"Blizzard:\nA blizzard that slows \nand deals damage over time\n" +
 				"Level 1: 15 damage\n" +
 				"Level 2: 25 damage\n" +
 				"Level 3: 35 damage\n" +

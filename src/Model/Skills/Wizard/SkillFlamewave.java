@@ -10,11 +10,11 @@ public class SkillFlamewave extends Skill{
 
 	public SkillFlamewave() {
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Flamewave", 11000, 400, 1.7, 3, 150, 300,"Flame wave:\nA majestic shot of flames that \ntakes the form of a phoenix \nwhile scorching your enemies.\n" +
-				"\nLevel 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+		super("Flamewave", 11000, 400, 1.7, 3, 150, 300,"Flame wave:\nA wave of fire that deals\nmassive damage\n" +
+				"Level 1: 350 damage\n" +
+				"Level 2: 500 damage\n" +
+				"Level 3: 650 damage\n" +
+				"Level 4: 800 damage");
 		
 		Image[] attackImages = new Image[2];
 		Image[] skillBar = new Image[3];
