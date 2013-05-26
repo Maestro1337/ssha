@@ -28,7 +28,7 @@ public class TestController implements Runnable, KeyListener, ActionListener {
 		String action = e.getActionCommand();
 		
 		if(action.equals("connect")) {
-			tp.setConnected(!tp.isConnected());
+			tp.setConnected(!tp.getConnected());
 			if(tv.getConnectedBtnText().equals("Connect")) {
 				//tv.setConnectedBtnText("Disconnect");
 				

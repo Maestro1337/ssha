@@ -115,33 +115,13 @@ public class Player {
 		passiveSkills = new ArrayList<Skill>();
 	}
 	
-	public void setIndex(int index){
-		playerListIndex = index;
-	}
-
-	public String getType(){
-		return classType;
-	}
-	
-	public boolean isAlive(){
-		return isAlive;
-	}
-	public void setAliveState(boolean state){
-		isAlive = state;
-	}
+	// Getters
 	public int getPlayerListIndex(){
 		return playerListIndex;
 	}
-	public void setPlayerListIndex(int index){
-		this.playerListIndex = index;
-	}
-	
-	//Getters for the movements
-	
 	public Image getImage(){
 		return userImage;
 	}
-
 	public float getX(){
 		return imgX;
 	}
@@ -153,6 +133,133 @@ public class Player {
 	}
 	public float getStartY(){
 		return startingPosY;
+	}
+	public float getMouseXPosMove(){
+		return mouseXPosMove;
+	}
+	public float getMouseYPosMove(){
+		return mouseYPosMove;
+	}
+	public double getMovementSpeed(){
+		return moveSpeed;
+	}
+	public int getMoveCounter(){
+		return moveCounter;
+	}
+	public float getXDirMove(){
+		return xDirMove;
+	}
+	public float getYDirMove(){
+		return yDirMove;
+	}
+	public float getGenDirMove(){
+		return genDirMove;
+	}
+	public double getFindNaN(){
+		return findNaN;
+	}
+	public String getType(){
+		return classType;
+	}
+	public int getHP(){
+		return HP;
+	}
+	public int getMaxHP(){
+		return maxHP;
+	}
+	public int getGold(){
+		return gold;
+	}
+	public float getRotation(){
+		return rotation;
+	}
+	public String getName(){
+		return name;
+	}
+	public double getArmor(){
+		return armor;
+	}
+	public int getEvasion(){
+		return evasion;
+	}
+	public int getKillsThisRound(){
+		return killsThisRound;
+	}
+	public int getRoundDamageDone(){
+		return roundDamageDone;
+	}
+	public int getTotalDamageDone(){
+		return totalDamageDone;
+	}
+	public int getDeaths(){
+		return deaths;
+	}
+	public int getTotalKills(){
+		return totalKills;
+	}
+	public Image getFramedImage(){
+		return framedImage;
+	}
+	public Image getPortraitImage(){
+		return portraitImage;
+	}
+	public Image getPortraitImageMini(){
+		return portraitImageMini;
+	}
+	public ArrayList<Item> getOwnedItems(){
+		return ownedItems;
+	}
+	public ArrayList<Item> getPassiveItems(){
+		return passiveItems;
+	}
+	public ArrayList<Skill> getPassiveSkills(){
+		return passiveSkills;
+	}
+	public Skill[] getSkillList(){
+		return skillList;
+	}
+	public ArrayList<Skill> getOwnedSkills(){
+		return ownedSkills;
+	}
+	public boolean getStunState(){
+		return isStunned;
+	}
+	public boolean getPushState(){
+		return isPushed;
+	}
+	public double getPushSpeed(){
+		return pushSpeed;
+	}
+	public String getMode() {
+		return mode;
+	}
+	public boolean getChannel(){
+		return isChanneling;
+	}
+	public boolean getStealthState(){
+		return isStealthed;
+	}
+	public boolean getReadyState() {
+		return isReady;
+	}
+	public boolean getConnected() {
+		return this.connected;
+	}
+	
+	// Setters
+	public void setIndex(int index){
+		playerListIndex = index;
+	}
+	
+	public boolean isAlive(){
+		return isAlive;
+	}
+	public void setAliveState(boolean state){
+		isAlive = state;
+	}
+	
+	public void setPlayerListIndex(int index){
+		this.playerListIndex = index;
 	}
 	
 	public void addX(float x){
@@ -195,18 +302,7 @@ public class Player {
 		mouseYPosMove = y;
 	}
 	
-	public float getMouseXPosMove(){
-		return mouseXPosMove;
-	}
-	public float getMouseYPosMove(){
-		return mouseYPosMove;
-	}
-	public double getMovementSpeed(){
-		return moveSpeed;
-	}
-	public int getMoveCounter(){
-		return moveCounter;
-	}
+	
 	public void incMoveCounter(){
 		moveCounter++;
 	}
@@ -214,15 +310,7 @@ public class Player {
 		moveCounter = 0;
 	}
 	
-	public float getXDirMove(){
-		return xDirMove;
-	}
-	public float getYDirMove(){
-		return yDirMove;
-	}
-	public float getGenDirMove(){
-		return genDirMove;
-	}
+	
 	public void setXDirMove(float dir){
 		xDirMove = dir;
 	}
@@ -234,18 +322,13 @@ public class Player {
 	}
 	
 	
-	public double getFindNaN(){
-		return findNaN;
-	}
+	
 	//Getters for the attacks
 	public boolean isRunning(){
 		return isRunning;
 	}
 	public void setRunningState(boolean state){
 		isRunning = state;
-	}
-	public float getRotation(){
-		return rotation;
 	}
 	
 	public void setRotation(float angle){
@@ -254,15 +337,7 @@ public class Player {
 	}
 	
 	//Getters and setters for stats
-	public int getHP(){
-		return HP;
-	}
-	public int getMaxHP(){
-		return maxHP;
-	}
-	public int getGold(){
-		return gold;
-	}
+	
 	public void setGold(int gold){
 		this.gold=gold;
 	}
@@ -294,18 +369,11 @@ public class Player {
 		isAlive = true;
 	//	System.out.println("HEALTH RESTORED");
 	}
-	public String getName(){
-		return name;
-	}
-	public double getArmor(){
-		return armor;
-	}
+	
 	public void setArmor(double armor){
 		this.armor = armor;
 	}
-	public int getEvasion(){
-		return evasion;
-	}
+	
 	public void setEvasion(int evasion){
 		this.evasion = evasion;
 	}
@@ -321,42 +389,32 @@ public class Player {
 	public void setMovementSpeed(double speed) {
 		this.moveSpeed = speed;
 	}
-	public int getTotalKills(){
-		return totalKills;
-	}
+	
 	public void incTotalKills(int incAmount){
 		totalKills=totalKills+incAmount;
 	}
 	public void setTotalKills(int kills) {
 		totalKills = kills;
 	}
-	public int getKillsThisRound(){
-		return killsThisRound;
-	}
+	
 	public void setKillsThisRound(int kills){
 		killsThisRound=kills;
 	}
 	public void incKillsThisRound(){
 		killsThisRound++;
 	}
-	public int getRoundDamageDone(){
-		return roundDamageDone;
-	}
+	
 	public void setRoundDamageDone(int damage){
 		roundDamageDone=damage;
 	}
 	public void incRoundDamageDone(int damageAmount){
 		roundDamageDone=roundDamageDone+damageAmount;
 	}
-	public int getTotalDamageDone(){
-		return totalDamageDone;
-	}
+	
 	public void incTotalDamageDone(int damageAmount){
 		totalDamageDone=totalDamageDone+damageAmount;
 	}
-	public int getDeaths(){
-		return deaths;
-	}
+	
 	public void incDeaths(){
 		deaths++;
 	}
@@ -365,16 +423,6 @@ public class Player {
 		this.gold += gold;
 	}
 	
-	//Getters and setters for portraits
-	public Image getFramedImage(){
-		return framedImage;
-	}
-	public Image getPortraitImage(){
-		return portraitImage;
-	}
-	public Image getPortraitImageMini(){
-		return portraitImageMini;
-	}
 	public void setPortraits(Image frameImage, Image image,Image miniImage){
 		portraitImage= image;
 		portraitImageMini= miniImage;
@@ -427,24 +475,11 @@ public class Player {
 	public void setPassiveSkillList(ArrayList<Skill> passiveSkills) {
 		this.passiveSkills = passiveSkills;
 	}
-	
-	public Skill[] getSkillList(){
-		return skillList;
-	}
-	public ArrayList<Skill> getOwnedSkills(){
-		return ownedSkills;
-	}
 	public void addSkillAsOwned(Skill skill){
 		ownedSkills.add(skill);
 	}
-	public ArrayList<Item> getOwnedItems(){
-		return ownedItems;
-	}
 	public void addItemOwned(Item item){
 		ownedItems.add(item);
-	}
-	public ArrayList<Item> getPassiveItems(){
-		return passiveItems;
 	}
 	public void addPassiveItem(Item item){
 		passiveItems.add(item);
@@ -460,9 +495,6 @@ public class Player {
 		armor -= SE.getArmEff();
 		evasion -= SE.getEvasionEff();
 		moveSpeed -= SE.getMoveSpeedEff();
-	}
-	public ArrayList<Skill> getPassiveSkills(){
-		return passiveSkills;
 	}
 	public void addPassiveSkill(Skill skill){
 		passiveSkills.add(skill);
@@ -517,45 +549,24 @@ public class Player {
 		changeModel = false;
 		statusEffectList = new ArrayList<StatusEffect>();
 	}
-	public boolean isStunned(){
-		return isStunned;
-	}
 	public void setStunState(boolean state){
 		isStunned = state;
-	}
-	public boolean isPushed(){
-		return isPushed;
 	}
 	public void setPushState(boolean state){
 		isPushed = state;
 	}
-	public double getPushSpeed(){
-		return pushSpeed;
-	}
 	
-	public String getMode() {
-		return mode;
-	}
 	
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-	public boolean getChannel(){
-		return isChanneling;
-	}
 	public void setChannel(boolean channelState){
 		this.isChanneling = channelState;
-	}
-	public boolean isStealthed(){
-		return isStealthed;
 	}
 	public void setStealthState(boolean state){
 		isStealthed = state;
 	}
-	public boolean isReady() {
-		return isReady;
-	}
-	public void setReady(boolean ready) {
+	public void setReadyState(boolean ready) {
 		isReady = ready;
 	}
 	public boolean hasClickedStartGame(){
@@ -569,9 +580,6 @@ public class Player {
 	}
 	public void setControlType(String ctrlType) {
 		this.ctrlType = ctrlType;
-	}
-	public boolean isConnected() {
-		return this.connected;
 	}
 	public void setConnected(boolean connected) {
 		this.connected = connected;

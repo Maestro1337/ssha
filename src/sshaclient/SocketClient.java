@@ -77,7 +77,7 @@ public class SocketClient implements Runnable {
 							process = process + " noskill 0";
 						}
 					}
-					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + MainHub.getController().getMapIndex() + " " + tp.isReady();
+					process = process + " " + tp.getX() + " " + tp.getY() + " " + tp.getArmor() + " " + tp.getEvasion() + " " + tp.getMovementSpeed() + " " + MainHub.getController().getMapIndex() + " " + tp.getReadyState();
 					process = process + " " + tp.hasClickedStartGame();
 				} else {
 					
@@ -138,7 +138,7 @@ public class SocketClient implements Runnable {
 	}
 	
 	public void findConnection() {
-		while(!tp.isConnected()) {
+		while(!tp.getConnected()) {
 			try {
 				Thread.sleep(Constants.globalSleep);
 			} catch (InterruptedException e) {
@@ -315,7 +315,7 @@ public class SocketClient implements Runnable {
 		boolean tempReady = true;
 		for(int i = 0; i < MainHub.getController().getPlayers().length; i++) {
 			if(MainHub.getController().getPlayer(i) != null) {
-				if(!MainHub.getController().getPlayer(i).isReady()) {
+				if(!MainHub.getController().getPlayer(i).getReadyState()) {
 					tempReady = false;
 				}
 			}

@@ -130,14 +130,14 @@ public class PlayerModel implements ActionListener {
 	public void isRunning() throws SlickException{
 		boolean collided = checkPlayerObstacleCollision((float)(player.getXDirMove()*player.getMovementSpeed()), (float)(player.getYDirMove()*player.getMovementSpeed()));
 		
-		if(player.isAlive() && !player.isPushed() && !player.isStunned() && player.getMovementSpeed() > 0/* && !collided*/){
+		if(player.isAlive() && !player.getPushState() && !player.getStunState() && player.getMovementSpeed() > 0/* && !collided*/){
 			player.addX((float)(player.getXDirMove()*player.getMovementSpeed()));
 			player.addY((float)(player.getYDirMove()*player.getMovementSpeed()));
 			player.incMoveCounter();
 			if(player.getMoveCounter()*player.getMovementSpeed() >= player.getGenDirMove())
 				player.setRunningState(false);
 			
-		}else if(player.isAlive() && player.isPushed() && player.getMovementSpeed() > 0/* && !collided*/){
+		}else if(player.isAlive() && player.getPushState() && player.getMovementSpeed() > 0/* && !collided*/){
 			
 			double tempSpeed = player.getPushSpeed();
 			double calculateDecision = tempSpeed*player.getMoveCounter();
@@ -178,7 +178,7 @@ public class PlayerModel implements ActionListener {
 				//Calculates the new direction if the skill is guided
 				if(attackingSkill.isGuided()){
 					if(attackingSkill.getGuidedTarget() != null){
-						if(attackingSkill.getGuidedTarget().isStealthed() || !stillAbleToMakeAction(attackingSkill.getGuidedTarget())){
+						if(attackingSkill.getGuidedTarget().getStealthState() || !stillAbleToMakeAction(attackingSkill.getGuidedTarget())){
 							attackingSkill.setGuidedTarget(null);
 						}
 						
@@ -277,7 +277,7 @@ public class PlayerModel implements ActionListener {
 	//	mouseYPosMove = 720 - Mouse.getY();
 		if(checkGlobalWalkCooldown() == 0 && stillAbleToMakeAction(player)){
 			checkAndCorrectChannel();
-			if(!player.isPushed()){
+			if(!player.getPushState()){
 				
 				rotate(x, y);
 				
@@ -374,7 +374,7 @@ public class PlayerModel implements ActionListener {
 	}
 
 	public void rotate(int x, int y){
-		if(!player.isStunned()){
+		if(!player.getStunState()){
 			player.setMouseXPosMove(x);
 			player.setMouseYPosMove(y);
 			double rotation = Math.toDegrees(Math.atan2((player.getMouseYPosMove()-player.getY()),(player.getMouseXPosMove()-player.getX())));
@@ -645,7 +645,7 @@ public class PlayerModel implements ActionListener {
 				float compYDir = guidedPlayers[i].getY() - player.getY();
 				float compGenDir = (float)Math.sqrt(compXDir*compXDir+compYDir*compYDir);
 				
-				if(compGenDir<targetPlayerGenDir && !guidedPlayers[i].isStealthed()){
+				if(compGenDir<targetPlayerGenDir && !guidedPlayers[i].getStealthState()){
 					targetPlayer = i;
 					targetPlayerXDir = compXDir;
 					targetPlayerYDir = compYDir;
@@ -660,7 +660,7 @@ public class PlayerModel implements ActionListener {
 		if(player != null)
 			if(player.getX() < 0-MainHub.noActionLimit || player.getY() < 0-MainHub.noActionLimit || 
 					player.getX() > GameEngine.screenWidth+MainHub.noActionLimit || player.getY() > GameEngine.screenHeight+MainHub.noActionLimit ||
-					!player.isAlive() || player.isStunned()){
+					!player.isAlive() || player.getStunState()){
 				return false;
 			}else{
 				return true;
@@ -678,7 +678,7 @@ public class PlayerModel implements ActionListener {
 		}
 	}
 	private void checkAndCorrectStealth(){
-		if(player.isStealthed()){
+		if(player.getStealthState()){
 			for(int i=0; i<player.getStatusEffects().size();i++){
 				if(player.getStatusEffects().get(i).hasStealth()){
 					player.getStatusEffects().get(i).setResetOfStatusEffect();

@@ -272,7 +272,7 @@ public class MainView extends BasicGameState implements ActionListener {
 						}
 					}
 				}
-				if(!currentPlayer.isStealthed() || currentPlayer.getPlayerListIndex() == MainHub.getController().getActivePlayerIndex()){
+				if(!currentPlayer.getStealthState() || currentPlayer.getPlayerListIndex() == MainHub.getController().getActivePlayerIndex()){
 					g.drawImage(currentPlayer.getImage(), currentPlayer.getX(),currentPlayer.getY());
 				}
 			}
