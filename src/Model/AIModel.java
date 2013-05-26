@@ -91,7 +91,7 @@ public class AIModel implements PlayerControl{
 	long time = 0;
 	int dodgedirX;
 	int dodgedirY;
-	
+	Obstacle currentObstacleCheck;
 	
 	public void AI() throws SlickException{
 		if(targetPlayer == null){
@@ -106,9 +106,10 @@ public class AIModel implements PlayerControl{
 		boolean collitionCaseX = false;
 		boolean collitionCaseY = false;
 		
+		
 
 		for(int i=0; i<MainHub.getController().getMapSelected().getObstacles().length; i++){
-			Obstacle currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
+			currentObstacleCheck = MainHub.getController().getMapSelected().getObstacles()[i];
 			if (currentObstacleCheck!=null&&currentObstacleCheck.isSolid()){
 
 				
@@ -126,19 +127,19 @@ public class AIModel implements PlayerControl{
 			}		
 		}
 		
-		if (collitionCaseX){
+		if (collitionCaseX&&currentObstacleCheck!= null){
 			System.out.println("ColX");
 			if (dy>=0){
-				enemyControl.move((int)enemy.getX(),(int)enemy.getY()-(1+enemy.getImage().getHeight()));
+				enemyControl.move((int)enemy.getX(),(int)currentObstacleCheck.getY()-enemy.getImage().getHeight()-1);
 			}else{
-				enemyControl.move((int)enemy.getX(),(int)enemy.getY()+1);
+				enemyControl.move((int)enemy.getX(),(int)currentObstacleCheck.getY()+currentObstacleCheck.getCurrentHeight()+1);
 			}	
-		}if(collitionCaseY){
+		}if(collitionCaseY&&currentObstacleCheck!= null){
 			System.out.println("ColY");
 			if (dx>=0){
-				enemyControl.move((int)enemy.getX()-(1+enemy.getImage().getWidth()),(int)enemy.getY());
+				enemyControl.move((int)currentObstacleCheck.getX()-enemy.getImage().getWidth()-1,(int)enemy.getY());
 			}else{
-				enemyControl.move((int)enemy.getX()+1,(int)enemy.getY());
+				enemyControl.move((int)currentObstacleCheck.getX()+currentObstacleCheck.getCurrentWidth()+1,(int)enemy.getY());
 			}
 		
 		}else{
@@ -172,10 +173,16 @@ public class AIModel implements PlayerControl{
 		}
 		
 		for(int i=0;i<enemy.getSkillList().length;i++){
-			enemyControl.setCurrentActiveSkill(i);
-			if(enemyControl.getCurrentActiveSkill().getRange()>distance &&
+			System.out.println("Attack");
+			if (enemyControl.getCurrentActiveSkill().getName()!="Slash"){
+				enemyControl.setCurrentActiveSkill(i);
+			}
+			if(enemyControl.getCurrentActiveSkill().getRange()>distance && enemyControl.getCurrentActiveSkill().getRange()>0 &&
 							enemyControl.getCurrentActiveSkill().checkCooldown()==enemyControl.getCurrentActiveSkill().getCoolDown()){
 				enemyControl.attack((int)targetPlayer.getX(), (int)targetPlayer.getY());
+			}else if (distance<80){ // fix for using slashskill
+				enemyControl.attack((int)targetPlayer.getX(), (int)targetPlayer.getY());
+				enemyControl.setCurrentActiveSkill(0);
 			}
 		}
 	}
