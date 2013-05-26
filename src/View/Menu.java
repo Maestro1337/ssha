@@ -45,6 +45,19 @@ public class Menu extends BasicGameState implements ActionListener{
 		
 	}
 	
+	// Getters
+	public int getID(){
+		return 0;
+	}
+	
+	public int getWidth(Image image){
+		return image.getWidth();
+	}
+	
+	public int getHeight(Image image){
+		return image.getHeight();
+	}
+	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		backgroundImage = new Image("res/miscImages/bg-gates.png");
@@ -104,18 +117,6 @@ public class Menu extends BasicGameState implements ActionListener{
 			startGameButton = new Image("res/buttons/startgame.png");
 			exitButton = new Image("res/buttons/exit.png");
 		}
-	}
-	
-	public int getID(){
-		return 0;
-	}
-	
-	public int getWidth(Image image){
-		return image.getWidth();
-	}
-	
-	public int getHeight(Image image){
-		return image.getHeight();
 	}
 
 	@Override

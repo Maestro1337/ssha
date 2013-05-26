@@ -59,6 +59,11 @@ public class MainView extends BasicGameState implements ActionListener {
 		
 	}
 	
+	//Returns the state of the game
+	public int getID(){
+		return 1;
+	}
+	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
 		map = new TiledMap("res/tileset/grassBackground.tmx");
@@ -386,12 +391,6 @@ public class MainView extends BasicGameState implements ActionListener {
 		}
 		return false;
 	}
-		
-	//Returns the state of the game
-	public int getID(){
-		return 1;
-	}
-	
 	
 	//Test for sounds
 	@Override
