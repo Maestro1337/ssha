@@ -17,7 +17,6 @@ public class SkillFlamewave extends Skill{
 				"Level 4: 45 damage");
 		
 		Image[] attackImages = new Image[2];
-		Image[] animation = new Image[2];
 		Image[] skillBar = new Image[3];
 
 		super.setPiercing(true);

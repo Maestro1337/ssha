@@ -23,8 +23,9 @@ public class MainHub {
 	private int activePlayer = 0;
 	private int mapSelected;
 	private int difficultySelected;
+	private int roundNumber = 0;
 	private Arena[] maps;
-	private String playerName = "vVv-ito";
+	private String playerName = "M-m-m-onsterMaestro!";
 
 
 	//Singleton
@@ -88,6 +89,9 @@ public class MainHub {
 	public boolean getMulti(){
 		return isMultiplayer;
 	}
+	public int getRoundNumber(){
+		return roundNumber;
+	}
 	
 	public synchronized void addPlayer(Player player, int index){
 		System.out.println("Added player: " + player.getName() + " and he is a " + player.getType() + " with ID: " + index);
@@ -104,6 +108,9 @@ public class MainHub {
 	}
 	public synchronized void resetPlayers(){
 		players = new Player[nbrOfPlayers];
+	}
+	public void addRoundNumber(int roundNumber){
+		this.roundNumber += roundNumber;
 	}
 	public synchronized void addPlayerController(PlayerControl pc, int index) {
 		playerControllers[index] = pc;
@@ -131,5 +138,8 @@ public class MainHub {
 	}
 	public void setMulti(boolean multi){
 		isMultiplayer = multi;
+	}
+	public void setRoundNumber(int roundNumber){
+		this.roundNumber = roundNumber;
 	}
 }
