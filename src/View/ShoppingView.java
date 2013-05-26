@@ -548,7 +548,7 @@ public class ShoppingView extends BasicGameState {
 				Skill newChosenSkill = findOwnedSkill(allSkills[totalIndex].getName());
 				if(newChosenSkill != null){
 					setSelectedSkill(newChosenSkill);
-					if (!allSkills[totalIndex].isPassive()){
+					if (!allSkills[totalIndex].getPassive()){
 						dragMouse=true;	
 						grabbedFromChosenIndex = -1;
 					}
@@ -657,7 +657,7 @@ public class ShoppingView extends BasicGameState {
 			buyString = "Succesfully bought a skill for " + skill.getCost() + "!";
 			activePlayer.addGold(-skill.getCost());
 			activePlayer.addSkillAsOwned(skill);
-			if(skill.isPassive()){
+			if(skill.getPassive()){
 				activePlayer.addPassiveSkill(skill);
 			}
 		}else{
@@ -665,7 +665,7 @@ public class ShoppingView extends BasicGameState {
 			if(ownedSkill.getCurrentLvl() < 4){
 				buyString = "Succesfully upgraded a skill for " + skill.getCost() + "!";
 				activePlayer.addGold(-skill.getCost());
-				if(skill.isPassive()){
+				if(skill.getPassive()){
 					activePlayer.removePassiveSkill(ownedSkill);
 					ownedSkill.upgradeSkill();
 					activePlayer.addPassiveSkill(ownedSkill);

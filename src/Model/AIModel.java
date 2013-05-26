@@ -105,7 +105,7 @@ public class AIModel implements PlayerControl{
 		while (System.currentTimeMillis()>time+delay){
 			currentSkillCheck = targetPlayer.getSkillList()[targetPlayer.getCurrentActiveSkillIndex()];
 			// if player is attacking the AI will try to dodge.
-			if(currentSkillCheck.isAttacking()&&currentSkillCheck.getRange()>distance){
+			if(currentSkillCheck.getAttackingState()&&currentSkillCheck.getRange()>distance){
 				if (enemyControl.checkPlayerObstacleCollision( (int)(enemy.getX()+dy)/2,(int)(enemy.getY()-dx)/2)){
 					
 				}
