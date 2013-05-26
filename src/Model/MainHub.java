@@ -32,7 +32,7 @@ public class MainHub {
 	private int difficultySelected;
 	private int roundNumber = 0;
 	private Arena[] maps;
-	private String playerName = "M-m-m-onsterMaestro!";
+	private String playerName = "V-v-v-iagra";
 
 
 	//Singleton
