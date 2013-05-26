@@ -1,7 +1,6 @@
 package Model.Timers;
 
 import Model.Obstacles.Obstacle;
-import Model.Skills.*;
 import Model.*;
 
 public class SkillCheckingTimer {
@@ -9,7 +8,6 @@ public class SkillCheckingTimer {
 	private int ESColInterval;
 	private long ESColStartTime = 0;
 	private long ESColElapsedTime = 0;
-	private Skill skill;
 	private String playerName = null;
 	private Obstacle obstacle = null;
 	
@@ -17,14 +15,12 @@ public class SkillCheckingTimer {
 	public SkillCheckingTimer(int interval, String playerName, Skill skill){
 		ESColInterval = interval;
 		this.playerName = playerName;
-		this.skill = skill;
 		
 		resetESColTimer();
 	}
 	
 	public SkillCheckingTimer(int interval, Obstacle obstacle, Skill skill){
 		ESColInterval = interval;
-		this.skill = skill;
 		this.obstacle = obstacle;
 		
 		resetESColTimer();

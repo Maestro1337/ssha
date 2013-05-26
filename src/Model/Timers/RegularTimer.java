@@ -1,8 +1,5 @@
 package Model.Timers;
 
-import Model.Skills.*;
-import Model.*;
-
 public class RegularTimer {
 
 	private int interval = 1000;
