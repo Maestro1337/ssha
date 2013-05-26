@@ -33,8 +33,7 @@ public class SocketClient implements Runnable {
 	private BufferedInputStream bis;
 	private InputStreamReader isr;
 	
-	public SocketClient(String host, int port){//, Player tp) {
-		//this.tp = tp;
+	public SocketClient(String host, int port) {
 		
 		this.allAreReady = false;
 		
@@ -84,28 +83,6 @@ public class SocketClient implements Runnable {
 					} else {
 						process = process + " " + 0;
 					}
-					
-					
-					/*
-					process = tp.getName() + " " + tp.getPlayerListIndex() + " " + tp.getMode() + " " + tp.getX() + " " + tp.getY() + " " + tp.getRotation() + " ";
-					process = process + tp.isRunning() + " " + tp.isStunned() + " " + tp.getMoveSpeed() + " " + tp.getHP() + " skills";
-					for(int j = 0; j < tempSkills.length; j++) {
-						if(tempSkills[j] != null) {
-							
-							process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getAttX() + " " + tempSkills[j].getAttY() + " ";
-							process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
-							process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
-							
-							//process = process + " " + tempSkills[j].getSmallName() + " " + tempSkills[j].getMouseXPos() + " " + tempSkills[j].getMouseYPos() + " ";
-							//process = process + tempSkills[j].getRotation() + " " + tempSkills[j].isAttacking() + " " + tempSkills[j].isEndState() + " ";
-							//process = process + tempSkills[j].getXDirAtt() + " " + tempSkills[j].getYDirAtt();
-							
-						} else {
-							process = process + " noskill 0 0 0 0 false";
-						}
-					}
-					*/
-					
 				}
 				
 				process = process + (char)13;
@@ -255,9 +232,7 @@ public class SocketClient implements Runnable {
 				arrPos = Integer.parseInt(MainHub.getItem(tempStats, 1));
 				
 				playerStats[arrPos] = tempStats;
-				playerChanged[arrPos] = true;
-				
-				//(!Constants.getItem(tempStats, 3).equals(MainHub.getController().getPlayer(arrPos).getType()) || 
+				playerChanged[arrPos] = true; 
 				
 				// Check if the slot is empty and it's not your own name
 				// If it's a new Player then a new Player with Controller and Thread is created.
