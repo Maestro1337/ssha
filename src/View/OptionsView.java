@@ -53,8 +53,8 @@ public class OptionsView extends BasicGameState {
 		MainHub.getController().setMapIndex(0);
 		
 		Map1= new Image ("res/Maps/Map_HazardCross2.png");
-		Map2= new Image ("res/Maps/Map_SlaughterField.png");
-		Map3= new Image ("res/Maps/Map_Volcano1.png");
+		Map2= new Image ("res/Maps/Map_SlaughterField2_unavailable.png");
+		Map3= new Image ("res/Maps/Map_Volcano2_unavailable.png");
 	}
 
 	public void enter(GameContainer container, StateBasedGame game){
@@ -135,29 +135,29 @@ public class OptionsView extends BasicGameState {
 		//Map checks
 		if((57<xPos && xPos<643) && (92<yPos && yPos<159)&& input.isMousePressed(0)){			
 			Map1 = new Image("res/Maps/Map_HazardCross2.png");
-			Map2 = new Image("res/Maps/Map_SlaughterField.png");
-			Map3 = new Image("res/Maps/Map_Volcano1.png");
+			Map2 = new Image("res/Maps/Map_SlaughterField2_unavailable.png");
+			Map3 = new Image("res/Maps/Map_Volcano2_unavailable.png");
 			MainHub.getController().setMapIndex(0);	
 		}	
 		if((57<xPos && xPos<643) && (161<yPos && yPos<228) && input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
-			Map2 = new Image("res/Maps/Map_SlaughterField2.png");
-			Map3 = new Image("res/Maps/Map_Volcano1.png");
+			Map2 = new Image("res/Maps/Map_SlaughterField2_unavailable.png");
+			Map3 = new Image("res/Maps/Map_Volcano2_unavailable.png");
 			MainHub.getController().setMapIndex(1);
 		}
 		if((57<xPos && xPos<643) && (230<yPos && yPos<297)&& input.isMousePressed(0)){
 			Map1 = new Image("res/Maps/Map_HazardCross.png");
-			Map2 = new Image("res/Maps/Map_SlaughterField.png");
-			Map3 = new Image("res/Maps/Map_Volcano2.png");
-			MainHub.getController().setMapIndex(0);
+			Map2 = new Image("res/Maps/Map_SlaughterField2_unavailable.png");
+			Map3 = new Image("res/Maps/Map_Volcano2_unavailable.png");
+			MainHub.getController().setMapIndex(2);
 		}	
 		if(MainHub.getController().getMapSelected().getName()== "Hazard Cross"){
 			MapView = new Image ("res/Maps/MapHazardCross.png");
 		}else if(MainHub.getController().getMapSelected().getName()== "Slaughter Field"){
 	//		MapView = new Image ("res/Maps/MapSlaughterField.png");
-			MapView = new Image ("res/Maps/MapHazardCross.png");
-		//}else if(){
-			//MapView = new Image ("res/Maps/MapHazardCross.png");
+			MapView = new Image ("res/Maps/MapUnavailable.png");
+		}else if(MainHub.getController().getMapSelected().getName()== "Volcano"){
+			MapView = new Image ("res/Maps/MapUnavailable.png");
 		}
 	}
 	
