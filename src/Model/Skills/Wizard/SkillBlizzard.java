@@ -9,11 +9,11 @@ import Model.StatusEffects.StatusEffectMovement;
 public class SkillBlizzard extends Skill {
 	public SkillBlizzard(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
-		super("Blizzard", 11000, 400, 100.4, 3, 60, 150,"Blizzard:\nA blizzard that slows \nand deals damage over time\n" +
-				"Level 1: 15 damage\n" +
-				"Level 2: 25 damage\n" +
-				"Level 3: 35 damage\n" +
-				"Level 4: 45 damage");
+		super("Blizzard", 11000, 400, 100.4, 3, 60, 80,"Blizzard:\nA blizzard that slows \nand deals damage over time\n" +
+				"Level 1: 160 max dmg - 70% slow\n" +
+				"Level 2: 200 max dmg - 70% slow\n" +
+				"Level 3: 240 max dmg - 80% slow\n" +
+				"Level 4: 320 max dmg - 90% slow");
 		
 		Image attackImage = null;
 		Image[] animation = new Image[20];
@@ -55,13 +55,13 @@ public class SkillBlizzard extends Skill {
 			e.printStackTrace();
 		}
 		super.setImage(attackImage);
-		super.setEndState(animation, 2000, 1010);
+		super.setEndState(animation, 2000, 1000);
 		super.setSkillBarImages(skillBar);
 	}
 
-	private int lvl2 = 200;
-	private int lvl3 = 250;
-	private int lvl4 = 300;
+	private int lvl2 = 100;
+	private int lvl3 = 120;
+	private int lvl4 = 160;
 	
 	@Override
 	public void upgradeSkill() {

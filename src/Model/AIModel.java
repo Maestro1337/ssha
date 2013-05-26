@@ -177,7 +177,6 @@ public class AIModel implements PlayerControl{
 	}
 	
 	public boolean isCollidingWithObstacle(Obstacle obstacle, float x, float y, int width, int height) throws SlickException{
-		System.out.println("Checking");
 		if(obstacle.getX() <= x && obstacle.getX()+obstacle.getCurrentWidth() >= x){
 			if(obstacle.getY() >= y && obstacle.getY() <= y+height 
 					|| obstacle.getY()+obstacle.getCurrentHeight() >= y && obstacle.getY()+obstacle.getCurrentHeight() <= y+height 

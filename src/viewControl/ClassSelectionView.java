@@ -140,7 +140,7 @@ public class ClassSelectionView extends BasicGameState implements ActionListener
 			if(player != null && input.isMousePressed(0)){ // 0 = leftclick, 1 = rightclick
 				MainHub.getController().setMulti(false);
 				
-				Player aiPlayer = new ClassWarrior("Enemy", "ai", 600, 600, 1);
+				Player aiPlayer = new ClassWarrior("Enemy Warrior", "ai", 600, 200, 1);
 				MainHub.getController().addPlayer(aiPlayer, 1);
 				aiPlayer.setReadyState(true);
 				
