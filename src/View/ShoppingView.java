@@ -334,11 +334,6 @@ public class ShoppingView extends BasicGameState {
 		}
 		g.drawString(buyString, 500, 675);
 		
-		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0] != null && LobbyPlayers[0].getHasClickedStartGame()){
-			Image currentCount = countDownAnimation.getCurrentAnimationImage();
-			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
-			g.drawImage(currentCount,GameEngine.screenWidth/2-currentCount.getWidth()/2,GameEngine.screenHeight/2-currentCount.getHeight()/2-nextRoundBg.getHeight()/3);
-		}
 		
 		if(dragMouse){
 			g.drawImage(selectedSkill.getSkillBarImage(), xPos, yPos);
@@ -346,6 +341,24 @@ public class ShoppingView extends BasicGameState {
 		//Draw out the items
 		for (int i=0;i<allItems.length;i++){
 			g.drawImage(allItems[i].getImage(),475,80+145*i);
+		}
+
+		if(countDownAnimation.getCurrentAnimationImage() != null && LobbyPlayers[0] != null && LobbyPlayers[0].getHasClickedStartGame()){
+			Image currentCount = countDownAnimation.getCurrentAnimationImage();
+			g.drawImage(nextRoundBg, GameEngine.screenWidth/2 - nextRoundBg.getWidth()/2, 200);
+			g.drawImage(currentCount,GameEngine.screenWidth/2-currentCount.getWidth()/2,GameEngine.screenHeight/2-currentCount.getHeight()/2-nextRoundBg.getHeight()/3);
+		}
+		for(int i = 0; i<MainHub.getController().getPlayers().length;i++){
+			
+			if(MainHub.getController().getPlayer(i) != null){
+				System.out.println(MainHub.getController().getPlayer(i).getTotalDamageDone());
+				if(MainHub.getController().getPlayer(i).getTotalDamageDone() != 0){
+					g.drawString( "" + ((double)MainHub.getController().getPlayer(i).getRoundDamageDone()/(double)MainHub.getController().getPlayer(i).getTotalDamageDone())*100, 1200, 120 + 40*i);
+				}else{
+					g.drawString( "" + MainHub.getController().getPlayer(i).getRoundDamageDone()/1, 1200, 120 + 40*i);
+				}
+				
+			}
 		}
 	}
 

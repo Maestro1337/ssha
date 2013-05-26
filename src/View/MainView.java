@@ -383,6 +383,12 @@ public class MainView extends BasicGameState implements ActionListener {
 				victoryAnimation.resetCounterAndTimer();
 				firstTimeRoundOver = false;
 			}
+			
+			for(int i = 0; i<MainHub.getController().getPlayers().length;i++){
+				if(MainHub.getController().getPlayer(i) != null){
+					MainHub.getController().getPlayer(i).addTotalDamageDone(MainHub.getController().getPlayer(i).getRoundDamageDone());
+				}
+			}
 			roundOver = true;
 			endRoundText = winningPlayer + " " + "wins!";
 			return true;
