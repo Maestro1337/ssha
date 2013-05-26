@@ -10,12 +10,12 @@ public class SkillFirstAid extends Skill {
 	public SkillFirstAid(){
 		//String name, int cd, int range, double speed, int aoe, int cost, int damage, StatusEffect SE
 				super("First aid", 11000, 0, 0.4, 3, 50, 0,"First Aid \n" +
-						"Level 1: 15 damage\n" +
-						"Level 2: 25 damage\n" +
-						"Level 3: 35 damage\n" +
-						"Level 4: 45 damage");
+						"Level 1: 20 health/sec\n" +
+						"Level 2: 30 health/sec\n" +
+						"Level 3: 40 health/sec\n" +
+						"Level 4: 50 health/sec");
 				
-				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 15));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 20, 3));
 				
 				Image attackImage = null;
 				Image[] animation = new Image[19];
@@ -52,13 +52,13 @@ public class SkillFirstAid extends Skill {
 					e.printStackTrace();
 				}
 				super.setImage(attackImage);
-				super.setEndState(animation, 2000, 2000);
+				super.setEndState(animation, 3000, 3000);
 				super.setSkillBarImages(skillBar);
 			}
 
-	private int lvl2 = 0;
-	private int lvl3 = 0;
-	private int lvl4 = 0;
+	private int lvl2 = 30;
+	private int lvl3 = 40;
+	private int lvl4 = 50;
 	
 	@Override
 	public void upgradeSkill() {
@@ -67,15 +67,15 @@ public class SkillFirstAid extends Skill {
 			
 			switch(super.getCurrentLvl()){
 			case 2:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 30));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, lvl2, 3));
 				super.setDamage(lvl2);
 				break;
 			case 3:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 50));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, lvl3, 3));
 				super.setDamage(lvl3);
 				break;
 			case 4:
-				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, 100));
+				super.setSelfAffectingStatusEffectShell(new StatusEffectFirstAid(this, lvl4, 3));
 				super.setDamage(lvl4);
 				break;
 			}
