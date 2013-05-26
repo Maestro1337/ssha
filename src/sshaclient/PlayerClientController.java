@@ -53,23 +53,23 @@ public class PlayerClientController implements PlayerControl {
 			tempStats = sc.getPlayerStats(tp.getPlayerListIndex());
 			
 			// Set Player stats in lobby with info from Server
-			if(Constants.getItem(tempStats, 2).equals("lobby")) {
-				tp.setTotalKills(Integer.parseInt(Constants.getItem(tempStats, 4)));
-				tp.setGold(Integer.parseInt(Constants.getItem(tempStats, 5)));
-				tp.setArmor(Double.parseDouble(Constants.getItem(tempStats, 19)));
-				tp.setEvasion(Integer.parseInt(Constants.getItem(tempStats, 20)));
-				tp.setMovementSpeed(Double.parseDouble(Constants.getItem(tempStats, 21)));
+			if(MainHub.getItem(tempStats, 2).equals("lobby")) {
+				tp.setTotalKills(Integer.parseInt(MainHub.getItem(tempStats, 4)));
+				tp.setGold(Integer.parseInt(MainHub.getItem(tempStats, 5)));
+				tp.setArmor(Double.parseDouble(MainHub.getItem(tempStats, 19)));
+				tp.setEvasion(Integer.parseInt(MainHub.getItem(tempStats, 20)));
+				tp.setMovementSpeed(Double.parseDouble(MainHub.getItem(tempStats, 21)));
 				
-				tp.setReadyState(Boolean.parseBoolean(Constants.getItem(tempStats, 23)));
-				tp.setHasClickedStartGame(Boolean.parseBoolean(Constants.getItem(tempStats, 24)));
+				tp.setReadyState(Boolean.parseBoolean(MainHub.getItem(tempStats, 23)));
+				tp.setHasClickedStartGame(Boolean.parseBoolean(MainHub.getItem(tempStats, 24)));
 				
 				if(tp.getPlayerListIndex() != 0) {
-					MainHub.getController().setMapIndex(Integer.parseInt(Constants.getItem(tempStats, 22)));
+					MainHub.getController().setMapIndex(Integer.parseInt(MainHub.getItem(tempStats, 22)));
 				}
 				
 				for(int i = 0; i < tempSkills.length; i++) {
-					currentSkill = Constants.getItem(tempStats, (2*(i+1)+5));
-					currentSkillLvl = Integer.parseInt(Constants.getItem(tempStats, (2*(i+1)+6)));
+					currentSkill = MainHub.getItem(tempStats, (2*(i+1)+5));
+					currentSkillLvl = Integer.parseInt(MainHub.getItem(tempStats, (2*(i+1)+6)));
 					switch(currentSkill) {
 					case "arrowflurry":
 						tempSkills[i] = new SkillArrowFlurry();
@@ -174,20 +174,20 @@ public class PlayerClientController implements PlayerControl {
 				
 			} else {
 				
-				tp.setHP(Integer.parseInt(Constants.getItem(tempStats, 5)));
-				tp.setCurrentActiveSkillIndex(Integer.parseInt(Constants.getItem(tempStats, 11)));
+				tp.setHP(Integer.parseInt(MainHub.getItem(tempStats, 5)));
+				tp.setCurrentActiveSkillIndex(Integer.parseInt(MainHub.getItem(tempStats, 11)));
 				
-				float x = Float.parseFloat(Constants.getItem(tempStats, 3));
-				float y = Float.parseFloat(Constants.getItem(tempStats, 4));
+				float x = Float.parseFloat(MainHub.getItem(tempStats, 3));
+				float y = Float.parseFloat(MainHub.getItem(tempStats, 4));
 				float checkX = Math.abs(x - tp.getX());
 				float checkY = Math.abs(y - tp.getY());
 				//tp.setX(checkX);
 				//tp.setY(checkY);
 				realSkills = tp.getSkillList();
 				int skillIndex = tp.getCurrentActiveSkillIndex();
-				boolean isRunning = Boolean.valueOf(Constants.getItem(tempStats, 7));
+				boolean isRunning = Boolean.valueOf(MainHub.getItem(tempStats, 7));
 				
-				boolean isAttacking = Boolean.valueOf(Constants.getItem(tempStats, 12));
+				boolean isAttacking = Boolean.valueOf(MainHub.getItem(tempStats, 12));
 				
 				if(checkX > MainHub.syncMargin || checkY > MainHub.syncMargin) {
 					tp.setX(x);
@@ -195,20 +195,20 @@ public class PlayerClientController implements PlayerControl {
 				}
 				
 				if(isRunning) {
-					model.move((int)Double.parseDouble(Constants.getItem(tempStats, 8)), (int)Double.parseDouble(Constants.getItem(tempStats, 9)));
+					model.move((int)Double.parseDouble(MainHub.getItem(tempStats, 8)), (int)Double.parseDouble(MainHub.getItem(tempStats, 9)));
 				}
 				
 				
 				if(canActivateAttack && isAttacking){
-					model.attack((int)Double.parseDouble(Constants.getItem(tempStats, 13)), (int)Double.parseDouble(Constants.getItem(tempStats, 14)));
+					model.attack((int)Double.parseDouble(MainHub.getItem(tempStats, 13)), (int)Double.parseDouble(MainHub.getItem(tempStats, 14)));
 					canActivateAttack = false;
 				}else if(!isAttacking || tp.getSkillList()[skillIndex].getAttackingState()){
 					canActivateAttack = true;
 				}
 				
-				if(Integer.parseInt(Constants.getItem(tempStats, 15)) != 0) {
-					for(int i = 0; i < Integer.parseInt(Constants.getItem(tempStats, 15)); i++) {
-						MainHub.getController().getMapSelected().destroyObstacle(Integer.parseInt(Constants.getItem(tempStats, 16+i)));
+				if(Integer.parseInt(MainHub.getItem(tempStats, 15)) != 0) {
+					for(int i = 0; i < Integer.parseInt(MainHub.getItem(tempStats, 15)); i++) {
+						MainHub.getController().getMapSelected().destroyObstacle(Integer.parseInt(MainHub.getItem(tempStats, 16+i)));
 					}
 				}
 				

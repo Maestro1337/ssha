@@ -135,4 +135,15 @@ public class MainHub {
 	public void setMulti(boolean multi){
 		isMultiplayer = multi;
 	}
+	
+	public static String getItem(String str, int pos) {
+		
+		String[] splitString = str.split(" ");
+		
+		if(pos < splitString.length) {
+			return splitString[pos];
+		} else {
+			return "nada";
+		}
+	}
 }

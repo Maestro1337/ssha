@@ -9,9 +9,6 @@ import Model.Classes.*;
 import Model.Skills.Skill;
 
 
-
-
-
 public class SocketClient implements Runnable {
 	
 	private String[] playerStats;
@@ -270,7 +267,7 @@ public class SocketClient implements Runnable {
 			tempStats = data.substring(0, data.indexOf(47));
 			
 			if(!tempStats.equals("null") && !tempStats.equals("")) {
-				arrPos = Integer.parseInt(Constants.getItem(tempStats, 1));
+				arrPos = Integer.parseInt(MainHub.getItem(tempStats, 1));
 				
 				playerStats[arrPos] = tempStats;
 				playerChanged[arrPos] = true;
@@ -283,12 +280,12 @@ public class SocketClient implements Runnable {
 					// Add method for checking class, string after id maybe? Instead of just adding "TestClass"
 					
 					//Create new player from the playerclass
-					if(Constants.getItem(tempStats, 3).equals("Hunter")) {
-						MainHub.getController().addPlayer(new ClassHunter(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), arrPos), arrPos);
-					} else if(Constants.getItem(tempStats, 3).equals("Warrior")) {
-						MainHub.getController().addPlayer(new ClassWarrior(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), arrPos), arrPos);
-					} else if(Constants.getItem(tempStats, 3).equals("Wizard")) {
-						MainHub.getController().addPlayer(new ClassWizard(Constants.getItem(tempStats, 0), "server", Float.parseFloat(Constants.getItem(tempStats, 17)), Float.parseFloat(Constants.getItem(tempStats, 18)), arrPos), arrPos);
+					if(MainHub.getItem(tempStats, 3).equals("Hunter")) {
+						MainHub.getController().addPlayer(new ClassHunter(MainHub.getItem(tempStats, 0), "server", Float.parseFloat(MainHub.getItem(tempStats, 17)), Float.parseFloat(MainHub.getItem(tempStats, 18)), arrPos), arrPos);
+					} else if(MainHub.getItem(tempStats, 3).equals("Warrior")) {
+						MainHub.getController().addPlayer(new ClassWarrior(MainHub.getItem(tempStats, 0), "server", Float.parseFloat(MainHub.getItem(tempStats, 17)), Float.parseFloat(MainHub.getItem(tempStats, 18)), arrPos), arrPos);
+					} else if(MainHub.getItem(tempStats, 3).equals("Wizard")) {
+						MainHub.getController().addPlayer(new ClassWizard(MainHub.getItem(tempStats, 0), "server", Float.parseFloat(MainHub.getItem(tempStats, 17)), Float.parseFloat(MainHub.getItem(tempStats, 18)), arrPos), arrPos);
 					}
 					
 					MainHub.getController().getPlayer(arrPos).setPlayerListIndex(arrPos);

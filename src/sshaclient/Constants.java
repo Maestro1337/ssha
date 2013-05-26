@@ -11,6 +11,7 @@ public class Constants {
 	
 	//public static final int syncMargin = 10;
 	
+	/*
 	public static String getItem(String str, int pos) {
 		
 		String[] splitString = str.split(" ");
@@ -21,4 +22,5 @@ public class Constants {
 			return "nada";
 		}
 	}
+	*/
 }
