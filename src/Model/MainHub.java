@@ -36,7 +36,7 @@ public class MainHub {
 	private int difficultySelected;
 	private int roundNumber = 0;
 	private Arena[] maps;
-	private String playerName = "No";
+	private String playerName = "OldName";
 
 
 	//Singleton
@@ -60,7 +60,7 @@ public class MainHub {
 		
 		Scanner fileScanner;
 		try {
-			fileScanner = new Scanner(new File(".\res\test.txt"));
+			fileScanner = new Scanner(new File("res/name.txt"));
 			playerName = fileScanner.nextLine();
 			fileScanner.close();
 			
