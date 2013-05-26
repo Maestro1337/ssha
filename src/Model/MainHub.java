@@ -15,7 +15,7 @@ public class MainHub {
 	// The maximum number of players allowed
 	public static final int nbrOfPlayers = 4;
 	public static final int noActionLimit = 400;
-	public static final int syncFrames = 100;
+	public static final int syncFrames = 50;
 	
 	// Used to correct transmission errors when moving online-player
 	public static final int syncMargin = 10;
@@ -32,7 +32,7 @@ public class MainHub {
 	private int difficultySelected;
 	private int roundNumber = 0;
 	private Arena[] maps;
-	private String playerName = "V-v-v-iagra";
+	private String playerName = "No";
 
 
 	//Singleton
