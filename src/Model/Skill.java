@@ -284,7 +284,7 @@ public abstract class Skill{
 	public boolean getTargetsHit(int index){
 		return targetHit[index];
 	}
-	public boolean getToggleState(){
+	public boolean getCanToggle(){
 		return canToggle;
 	}
 	public boolean getToggleOn(){

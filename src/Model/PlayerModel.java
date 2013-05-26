@@ -73,15 +73,16 @@ public class PlayerModel {
 		for(int i=0; i<playerSkills.length; i++){
 			if(playerSkills[i] != null){
 				if(i == index){
-					if(playerSkills[i].getToggleState()){
+					if(playerSkills[i].getCanToggle()){
 						playerSkills[i].toggleToggle();
-						System.out.println("Toggle is on");
+						System.out.println(playerSkills[i].getToggleOn());
 						if(playerSkills[i].getToggleOn()){
-							System.out.println(playerSkills[i].getToggleOn());
-							playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).commitStatusEffect();
+							System.out.println("Toggle is on");
+						//	if(playerSkills[i].getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName()))
+							//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).commitStatusEffect();
 						}else{
 							System.out.println("Toggle is off");
-							playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).returnStatsToNormal();
+						//	playerSkills[i].getSelfAffectingStatusEffect().createStatusEffectTo(player, null).returnStatsToNormal();
 						}
 					}
 					currentActiveSkill = playerSkills[i];
@@ -385,7 +386,7 @@ public class PlayerModel {
 			}
 				
 			if(currentActiveSkill.getAffectSelf()){
-				if(currentActiveSkill.getSelfAffectingStatusEffect() != null/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
+				if(currentActiveSkill.getSelfAffectingStatusEffect() != null && !currentActiveSkill.getCanToggle()/* && !currentActiveSkill.getSelfAffectingStatusEffect().hasBeenGivenTo(player.getName())*/){
 					player.addStatusEffect(currentActiveSkill.getSelfAffectingStatusEffect().createStatusEffectTo(player, null));
 				}
 			}
