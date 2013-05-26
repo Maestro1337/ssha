@@ -8,7 +8,7 @@ public class SkillCheckingTimer {
 	private int ESColInterval;
 	private long ESColStartTime = 0;
 	private long ESColElapsedTime = 0;
-	private String playerName = null;
+	private String playerName = "empty";
 	private Obstacle obstacle = null;
 	
 	

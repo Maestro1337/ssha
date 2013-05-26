@@ -43,6 +43,11 @@ public class PlayerModel {
 		SkillCheckingTimer SCT = null;
 		int index = -1;
 		for(int j=0; j<SCTArray.size(); j++){
+			if(SCTArray.get(j) != null){
+				System.out.println(SCTArray.get(j).getPlayerName());
+			}else{
+				System.out.println("SUX");
+			}
 			if(SCTArray.get(j) != null && SCTArray.get(j).getPlayerName().equals(player.getName())){
 				index = j;
 				SCT = SCTArray.get(j);
