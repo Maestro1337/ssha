@@ -2,18 +2,14 @@ package Model.Obstacles;
 
 import org.newdawn.slick.Image;
 
-import Model.StatusEffect;
-
 public class Obstacle {
 	private String type;
 	private int damage;
 	private int maxHealth;
 	private int health;
-	private StatusEffect status;
 	private int x;
 	private int y;
 	private Image[] images;
-	private Image currentImage;
 	private int currentHeight;
 	private int currentWidth;
 	private boolean solid;
@@ -70,7 +66,6 @@ public class Obstacle {
 			this.images = images;
 		
 		if(images[0] != null){
-			currentImage = images[0];
 			currentHeight = images[0].getHeight();
 			currentWidth = images[0].getWidth();
 		}
