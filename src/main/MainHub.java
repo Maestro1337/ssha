@@ -167,11 +167,14 @@ public class MainHub {
 	}
 	
 	public static String getItem(String str, int pos) {
-		
-		String[] splitString = str.split(" ");
-		
-		if(pos < splitString.length) {
-			return splitString[pos];
+		if(str != null) {
+			String[] splitString = str.split(" ");
+			
+			if(pos < splitString.length) {
+				return splitString[pos];
+			} else {
+				return "nada";
+			}
 		} else {
 			return "nada";
 		}
